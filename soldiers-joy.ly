@@ -100,6 +100,96 @@ harmonies = \chordmode {
    d4 d4 d4 d4
 }
 
+pianotop = \relative c''
+{
+  \key d \major
+  \partial 8*2 r4
+
+  \repeat volta 2 {
+    \textSpannerUp
+    \override TextSpanner #'edge-text = #'("8va " . "")
+    r4\startTextSpan d fis d
+    r4\stopTextSpan d fis d
+    r4 d fis d
+
+    r4 a cis a
+    r4 d fis d
+    r4 d fis d
+    r4 d cis a
+  }
+  
+  \alternative {
+      {
+    r4 d fis d
+      }
+
+      {
+    r4 d fis d
+      }
+  }
+  \break
+
+% Part 2
+  \repeat volta 2 {
+    r4 d fis d
+    r4 g b g
+    r4 d fis d
+    r4 a cis a
+    r4 d fis d
+    r4 g b g
+    r4 g cis a
+  }
+  
+  \alternative {
+      {
+    r4 d, fis d
+      }
+
+      {
+    r4 d4 <d fis a>4
+      }
+  }
+}
+
+pianobot = \relative c,
+{
+  \key d \major
+  \partial 8*2  r4
+
+  \repeat volta 2 {
+   \textSpannerDown
+   \override TextSpanner #'edge-text = #'("8va " . "")
+   d2\startTextSpan d' d,\stopTextSpan d' d, d'
+   a, a' d, d' d, d' d, a'
+  }
+  
+  \alternative {
+      {
+	d,2 d'
+      }
+
+      {
+	d,2 d'
+      }
+  }
+  \break
+
+% Part 2
+  \repeat volta 2 {
+    d,2 d' g, g' d, d' a, a' d, d' g, g' g, a'
+  }
+  
+  \alternative {
+      {
+	d,,2 d'
+      }
+
+      {
+	d,2.
+      }
+  }
+}
+
 \score {
    <<
       \context ChordNames {
@@ -107,6 +197,10 @@ harmonies = \chordmode {
          \harmonies
       }
    \context Staff = one \melody
+   \new PianoStaff <<
+     \new Staff { \time 4/4 \pianotop }
+     \new Staff { \clef bass \pianobot }
+   >>
    >>
    
    \midi { \tempo 4=120 }
