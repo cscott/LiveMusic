@@ -20,6 +20,7 @@
 
 melody = \relative c'
 {
+  \set Staff.instrument = "Melody "
   \key d \major
   \partial 8*2 fis8( g8 )
 
@@ -100,16 +101,15 @@ harmonies = \chordmode {
    d4 d4 d4 d4
 }
 
-pianotop = \relative c''
+pianotop = \relative c'''
 {
   \key d \major
   \partial 8*2 r4
+  #(set-octavation 1)
 
   \repeat volta 2 {
-    \textSpannerUp
-    \override TextSpanner #'edge-text = #'("8va " . "")
-    r4\startTextSpan d fis d
-    r4\stopTextSpan d fis d
+    r4 d fis d
+    r4 d fis d
     r4 d fis d
 
     r4 a cis a
@@ -151,15 +151,14 @@ pianotop = \relative c''
   }
 }
 
-pianobot = \relative c,
+pianobot = \relative c,,
 {
   \key d \major
   \partial 8*2  r4
+  #(set-octavation -1)
 
   \repeat volta 2 {
-   \textSpannerDown
-   \override TextSpanner #'edge-text = #'("8va " . "")
-   d2\startTextSpan d' d,\stopTextSpan d' d, d'
+   d2 d' d, d' d, d'
    a, a' d, d' d, d' d, a'
   }
   
