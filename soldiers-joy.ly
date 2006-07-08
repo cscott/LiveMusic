@@ -4,18 +4,64 @@
   piece = "Traditional"
   mutopiatitle = "Soldier's Joy"
   mutopiacomposer = "Traditional"
-  mutopiainstrument = "Violin, Guitar"
+  mutopiainstrument = "Violin, Guitar, Banjo, Piano"
   source = "Transcribed by ear (no copyright)"
   style = "Folk"
   copyright = "Public Domain"
   maintainer = "Taj Morton"
   maintainerEmail = "taj@wildgardenseed.com"
   maintainerWeb = "http://www.wildgardenseed.com"
-  lastupdated = "2004/Dec/19"
-  meter = 120
+  lastupdated = "2006/Jul/8"
+  meter = 125
   
   footer = "Mutopia-2004/12/19-510"
   tagline = "\\raisebox{10mm}{\\parbox{188mm}{\\quad\\small\\noindent " + \footer + " \\hspace{\\stretch{1}} This music is part of the Mutopia project: \\hspace{\\stretch{1}} \\texttt{http://www.MutopiaProject.org/}\\\\ \\makebox[188mm][c]{It has been typeset and placed in the public domain by " + \maintainer + ".} \\makebox[188mm][c]{Unrestricted modification and redistribution is permitted and encouraged---copy this music and share it!}}}"
+}
+#(set-default-paper-size "letter")
+
+banjo = \relative c'
+{
+  \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "aDADE)" } }
+  \partial 8*2 a8\3( b\3)
+
+  \repeat volta 2 {
+    d8 a fis( d) d( fis) fis a'\5
+    a,8\3( b\3) b a'\5 d,4\2 a8\3( b\3)
+    d8 a fis( d) d( fis) fis a'\5
+    e,4 a8 a'\5 e,4 a8( b)
+    d8 a fis( d) d( fis) fis a'\5
+    a,8\3( b\3) b a'\5 d,4\2 fis\1
+    g8( e) e d cis( a) b( cis)
+  }
+  \alternative {
+        {
+    d4 fis8 a\5 d,4 a8\3( b\3)
+        }
+        {
+    d4 fis8 a\5 d,4 fis8( a\5)
+        }
+  }
+  \break
+
+% Part 2
+
+  \repeat volta 2 {
+    fis8 d g a\5 a\1 fis\2 a\1 a\5
+    e8 d fis a\5 g4 g8 a\5
+    fis8 d g a\5 a\1( e) fis a\5
+    e8 d cis( a) a( cis) e a\5
+    fis8 d g a\5 a\1( e) fis a\5
+    e8 d fis a\5 <g d b>4 fis
+    g8( e) e d cis( a) b( cis)
+  }
+  \alternative {
+        {
+    d4 fis8 a\5 d,4 a8\3( b\3)
+        }
+        {
+    d4 fis8 a\5 d,4
+        }
+  }
 }
 
 melody = \relative c'
@@ -79,7 +125,8 @@ melody = \relative c'
 }
 
 harmonies = \chordmode {
-   r4
+   \partial 8*2 r4
+   \repeat volta 2 {
    d4 d4 d4 d4
    d4 d4 d4 d4
    d4 d4 d4 d4
@@ -87,24 +134,45 @@ harmonies = \chordmode {
    d4 d4 d4 d4
    d4 d4 d4 d4
    d4 d4 a4 a4
+  }
+  
+  \alternative {
+      {
    d4 d4 d4 d4
-   d4 d4 d4 d4
+      }
 
+      {
+   d4 d4 d4 d4
+      }
+  }
+  \break
+
+% Part 2
+  \repeat volta 2 {
    d4 d4 d4 d4
    g4 g4 g4 g4
    d4 d4 d4 d4
    a4 a4 a4 a4
    d4 d4 d4 d4
    g4 g4 g4 g4
-   g4 g4 a4 a4
+   d4 d4 a4 a4
+  }
+  
+  \alternative {
+      {
    d4 d4 d4 d4
+      }
+
+      {
    d4 d4 d4 d4
+      }
+  }
 }
 
 pianotop = \relative c'''
 {
   \key d \major
-  \partial 8*2 r4
+  \partial 8*2 r4\p
   #(set-octavation 1)
 
   \repeat volta 2 {
@@ -137,7 +205,7 @@ pianotop = \relative c'''
     r4 a cis a
     r4 d fis d
     r4 g b g
-    r4 g cis a
+    r4 fis cis' a
   }
   
   \alternative {
@@ -175,12 +243,12 @@ pianobot = \relative c,,
 
 % Part 2
   \repeat volta 2 {
-    d,2 d' g, g' d, d' a, a' d, d' g, g' g, a'
+    d,2 d' g, g' d, d' a, a' d, d' g, g' d, a'
   }
   
   \alternative {
       {
-	d,,2 d'
+	d,2 d'
       }
 
       {
@@ -196,14 +264,35 @@ pianobot = \relative c,,
          \harmonies
       }
    \context Staff = one \melody
-   \new PianoStaff <<
-     \new Staff { \time 4/4 \pianotop }
-     \new Staff { \clef bass \pianobot }
+   \context TabStaff <<
+     \set TabStaff.stringTunings = #'(4 2 -3 -10 9)
+% G tuning: 2 -1 -5 -10 7
+% Double-C: 2 0 -5 -12 7
+% capo'd:   4 2 -3 -10 9  (aDADE)
+% D tuning: 2 -3 -6 -10 7
+     \banjo
+   >>
+   \context PianoStaff <<
+      #(set-accidental-style 'piano-cautionary)
+      \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
+     \context Staff = upper << \time 4/4 \pianotop >>
+     \context Staff = lower << \clef bass \pianobot >>
    >>
    >>
-   
-   \midi { \tempo 4=120 }
-   
+
    \layout{ }
 }
 
+\score {
+  \unfoldRepeats
+  \context PianoStaff <<
+    \context Staff=upper << \pianotop >>
+    \context Staff=lower << \pianobot >>
+%   \context Staff=chords << \harmonies >>
+    \context Staff=melody << \melody >>
+    \context Staff=banjo << \banjo >>
+  >>
+  \midi {
+    \tempo 4=125
+  }
+}
