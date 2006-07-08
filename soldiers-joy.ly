@@ -12,7 +12,7 @@
   maintainerEmail = "taj@wildgardenseed.com"
   maintainerWeb = "http://www.wildgardenseed.com"
   lastupdated = "2006/Jul/8"
-  meter = 125
+  meter = 126
   
   footer = "Mutopia-2004/12/19-510"
   tagline = "\\raisebox{10mm}{\\parbox{188mm}{\\quad\\small\\noindent " + \footer + " \\hspace{\\stretch{1}} This music is part of the Mutopia project: \\hspace{\\stretch{1}} \\texttt{http://www.MutopiaProject.org/}\\\\ \\makebox[188mm][c]{It has been typeset and placed in the public domain by " + \maintainer + ".} \\makebox[188mm][c]{Unrestricted modification and redistribution is permitted and encouraged---copy this music and share it!}}}"
@@ -22,6 +22,7 @@
 banjo = \relative c'
 {
   \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "aDADE)" } }
+  \set Staff.midiInstrument = "banjo"
   \partial 8*2 a8\3( b\3)
 
   \repeat volta 2 {
@@ -67,6 +68,7 @@ banjo = \relative c'
 melody = \relative c'
 {
   \set Staff.instrument = "Melody "
+  \set Staff.midiInstrument = "fiddle"
   \key d \major
   \partial 8*2 fis8( g8 )
 
@@ -125,6 +127,7 @@ melody = \relative c'
 }
 
 harmonies = \chordmode {
+   \set Staff.midiInstrument = "pizzicato strings"
    \partial 8*2 r4
    \repeat volta 2 {
    d4 d4 d4 d4
@@ -164,7 +167,7 @@ harmonies = \chordmode {
       }
 
       {
-   d4 d4 d4 d4
+   d4 d4 d4
       }
   }
 }
@@ -172,7 +175,7 @@ harmonies = \chordmode {
 pianotop = \relative c'''
 {
   \key d \major
-  \partial 8*2 r4\p
+  \partial 8*2 r4
   #(set-octavation 1)
 
   \repeat volta 2 {
@@ -221,6 +224,7 @@ pianotop = \relative c'''
 
 pianobot = \relative c,,
 {
+  \set Staff.midiInstrument = "acoustic bass"
   \key d \major
   \partial 8*2  r4
   #(set-octavation -1)
@@ -286,13 +290,13 @@ pianobot = \relative c,,
 \score {
   \unfoldRepeats
   \context PianoStaff <<
-    \context Staff=upper << \pianotop >>
-    \context Staff=lower << \pianobot >>
-%   \context Staff=chords << \harmonies >>
-    \context Staff=melody << \melody >>
-    \context Staff=banjo << \banjo >>
+    \context Staff=upper << r4\pianotop >>
+    \context Staff=lower << r4\f\pianobot >>
+    \context Staff=chords <<r4\p\harmonies >>
+    \context Staff=melody << r4\melody >>
+    \context Staff=banjo << r4\banjo >>
   >>
   \midi {
-    \tempo 4=125
+    \tempo 4=126
   }
 }
