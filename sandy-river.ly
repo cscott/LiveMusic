@@ -130,7 +130,6 @@ pianotop = \relative c'''
 
 pianobot = \relative c,,
 {
-  \set Staff.midiInstrument = "acoustic bass"
   \key g \major
   #(set-octavation -1)
 
@@ -140,8 +139,8 @@ pianobot = \relative c,,
    g,2 g' g, g' g, g'
   }
   \alternative {
-   { d2 g }
-   { d2 g }
+   { c,2 g' }
+   { c,2 g' }
   }
   \break
 
@@ -157,6 +156,40 @@ pianobot = \relative c,,
   }
 }
 
+bass = \transpose c c,,
+{
+  \set Staff.instrument = "Bass "
+  \set Staff.midiInstrument = "acoustic bass"
+%  \key g \major
+
+  \repeat volta 2 {
+    g4 d'\3 g g'\2
+    g4 d'\3 g g'\2
+    g4 d'\3 g g'\2
+    d'4\3 a'\2 d'\3 d''
+
+    g4 d'\3 g g'\2
+    g4 d'\3 g g'\2
+    g4 d'\3 g g'\2
+   }
+   \alternative {
+    { c'4\3 d'\3 g2 }
+    { c'4\3 d'\3 g2 }
+   }
+   \break
+
+% % Part 2
+%   \repeat volta 2 {
+%    g,2 g' g, g' g, g'
+%    d,2 e'
+%    g,2 g' g, g' g, g'
+%   }
+%   \alternative {
+%    { d2 g }
+%    { d2 g }
+%   }
+}
+
 \score {
    <<
       \context ChordNames {
@@ -164,14 +197,18 @@ pianobot = \relative c,,
          \harmonies
       }
    \context Staff = one \banjo %\melody
-   \context TabStaff <<
+   \context TabStaff=one <<
      \set TabStaff.stringTunings = #'(2 -1 -5 -10 7)
-% G tuning: 2 -1 -5 -10 7 (gDGBD)
+% G tuning: 2 -1 -5 -10 7 (gDGBD)  banjo-open-g-tuning
 % Old G:    4 2 -5 -10 7 (gDGDE)
 % Double-C: 2 0 -5 -12 7
 % capo'd:   4 2 -3 -10 9  (aDADE)
-% D tuning: 2 -3 -6 -10 7
+% D tuning: 2 -3 -6 -10 9 banjo-open-d-tuning
      \banjo
+   >>
+   \new TabStaff <<
+     \set TabStaff.stringTunings = #bass-tuning
+     \bass
    >>
    \context PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
@@ -188,10 +225,11 @@ pianobot = \relative c,,
   \unfoldRepeats
   \context PianoStaff <<
     \context Staff=upper << r4\pianotop >>
-    \context Staff=lower << r4\f\pianobot >>
-    \context Staff=chords <<r4\p\harmonies >>
+%    \context Staff=lower << r4\f\pianobot >>
+%    \context Staff=chords <<r4\p\harmonies >>
 %    \context Staff=melody << r4\melody >>
     \context Staff=banjo << r4\banjo >>
+    \context Staff=bass << r4\bass >>
   >>
   \midi {
     \tempo 4=129
