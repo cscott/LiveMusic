@@ -68,8 +68,8 @@ harmonies = \chordmode {
    g4 g g g
   }
   \alternative {
-   { d4 d g g }
-   { d4 d g g }
+   { d4/+c d g g }
+   { d4/+c d g g }
   }
   \break
 
@@ -85,8 +85,8 @@ harmonies = \chordmode {
   g4 g g g
   }
   \alternative {
-   { d4 d g g }
-   { d4 d g2 }
+   { d4/+c d g g }
+   { d4/+c d g2 }
   }
 }
 
@@ -163,14 +163,14 @@ bass = \transpose c c,,
 %  \key g \major
 
   \repeat volta 2 {
-    g4 d'\3 g g'\2
-    g4 d'\3 g g'\2
-    g4 d'\3 g g'\2
-    d'4\3 a'\2 d'\3 d''
+    g4 g'\2 g d'\3
+    g4 g'\2 g d'\3
+    g4 g'\2 g d'\3
+    d'4\3 d'' d'\3 a'\2
 
-    g4 d'\3 g g'\2
-    g4 d'\3 g g'\2
-    g4 d'\3 g g'\2
+    g4 g'\2 g d'\3
+    g4 g'\2 g d'\3
+    g4 g'\2 g d'\3
    }
    \alternative {
     { c'4\3 d'\3 g2 }
@@ -178,16 +178,21 @@ bass = \transpose c c,,
    }
    \break
 
-% % Part 2
-%   \repeat volta 2 {
-%    g,2 g' g, g' g, g'
-%    d,2 e'
-%    g,2 g' g, g' g, g'
-%   }
-%   \alternative {
-%    { d2 g }
-%    { d2 g }
-%   }
+ % Part 2
+   \repeat volta 2 {
+    g4 g'\2 g d'\3
+    g4 g'\2 g d'\3
+    g4 g'\2 g d'\3
+    d'4\3 d'' e b
+
+    g4 g'\2 g d'\3
+    g4 g'\2 g d'\3
+    g4 g'\2 g d'\3
+   }
+   \alternative {
+    { c'4\3 d'\3 g2 }
+    { c'4\3 d'\3 g2 }
+   }
 }
 
 \score {
@@ -225,8 +230,8 @@ bass = \transpose c c,,
   \unfoldRepeats
   \context PianoStaff <<
     \context Staff=upper << r4\pianotop >>
-%    \context Staff=lower << r4\f\pianobot >>
-%    \context Staff=chords <<r4\p\harmonies >>
+    \context Staff=lower << r4\f\pianobot >>
+    \context Staff=chords <<r4\p\harmonies >>
 %    \context Staff=melody << r4\melody >>
     \context Staff=banjo << r4\banjo >>
     \context Staff=bass << r4\bass >>
