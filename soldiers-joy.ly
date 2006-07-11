@@ -65,7 +65,7 @@ banjo = \relative c'
   }
 }
 
-melody = \relative c'
+melody = \relative c''
 {
   \set Staff.instrument = "Melody "
   \set Staff.midiInstrument = "fiddle"
@@ -96,7 +96,7 @@ melody = \relative c'
         }
 
         {
-          d'4 << d4 fis >> << d fis >> d8( e8 )
+          d'4 << d4 fis >> << d fis >> d,8( e8 )
         }
     }
   \break
@@ -126,9 +126,58 @@ melody = \relative c'
   }
 }
 
+alternate = \relative c'' % based on the banjo part
+{
+  \set Staff.instrument = "Alt. Melody"
+  \set Staff.midiInstrument = "fiddle"
+  \key d \major
+  \partial 8*2 a8\3( b\3)
+
+  \repeat volta 2 {
+    d8 a fis( d) d( fis) fis a
+    a4 fis' d a8( b)
+    d8 a fis( d) d( fis) fis a
+    e4 a e a8( b)
+    d8 a fis( d) d( fis) fis a
+    a4 fis' d fis
+    g8( e) e d cis( a) b( cis)
+  }
+  \alternative {
+        {
+    d4 fis8 a d,4 a8( b)
+        }
+        {
+    d4 fis8 a d,4 fis8( a)
+        }
+  }
+  \break
+
+% Part 2
+
+  \repeat volta 2 {
+    d,4 e fis a,8 b
+    a8 g fis a d4 g8 b
+    d,4 e d fis,8 a
+    cis8 b a e cis4 e8( a)
+    d4 e fis a,8 b
+    a8 g fis a d4 a8 g
+    fis8 d fis g
+               cis( a) b( cis)
+  }
+  \alternative {
+        {
+    d4 fis8 a\5 d,4 a8\3( b\3)
+        }
+        {
+    d4 fis8 a\5 d,4
+        }
+  }
+}
+
 harmonies = \chordmode {
    \set Staff.midiInstrument = "pizzicato strings"
-   \partial 8*2 r4
+   \set Score.markFormatter = #format-mark-box-letters
+   \partial 8*2 r4 \mark\default
    \repeat volta 2 {
    d4 d4 d4 d4
    d4 d4 d4 d4
@@ -148,7 +197,7 @@ harmonies = \chordmode {
    d4 d4 d4 d4
       }
   }
-  \break
+  \break\mark\default % fix this!
 
 % Part 2
   \repeat volta 2 {
@@ -268,6 +317,7 @@ pianobot = \relative c,,
          \harmonies
       }
    \context Staff = one \melody
+   \new Staff << \alternate >>
    \context TabStaff <<
      \set TabStaff.stringTunings = #'(4 2 -3 -10 9)
 % G tuning: 2 -1 -5 -10 7
@@ -294,9 +344,10 @@ pianobot = \relative c,,
     \context Staff=lower << r4\f\pianobot >>
     \context Staff=chords <<r4\p\harmonies >>
     \context Staff=melody << r4\melody >>
+    \context Staff=alternate << r4\alternate >>
     \context Staff=banjo << r4\banjo >>
   >>
   \midi {
-    \tempo 4=126
+    \tempo 2=110
   }
 }
