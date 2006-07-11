@@ -14,10 +14,12 @@
   lastupdated = "2006/Jul/8"
   meter = 126
   
-  footer = "Mutopia-2004/12/19-510"
-  tagline = "\\raisebox{10mm}{\\parbox{188mm}{\\quad\\small\\noindent " + \footer + " \\hspace{\\stretch{1}} This music is part of the Mutopia project: \\hspace{\\stretch{1}} \\texttt{http://www.MutopiaProject.org/}\\\\ \\makebox[188mm][c]{It has been typeset and placed in the public domain by " + \maintainer + ".} \\makebox[188mm][c]{Unrestricted modification and redistribution is permitted and encouraged---copy this music and share it!}}}"
+%  footer = "Mutopia-2004/12/19-510"
+%  tagline = "\\raisebox{10mm}{\\parbox{188mm}{\\quad\\small\\noindent " + \footer + " \\hspace{\\stretch{1}} This music is part of the Mutopia project: \\hspace{\\stretch{1}} \\texttt{http://www.MutopiaProject.org/}\\\\ \\makebox[188mm][c]{It has been typeset and placed in the public domain by " + \maintainer + ".} \\makebox[188mm][c]{Unrestricted modification and redistribution is permitted and encouraged---copy this music and share it!}}}"
 }
 #(set-default-paper-size "letter")
+#(set-global-staff-size 18)
+
 
 banjo = \relative c'
 {
@@ -174,7 +176,9 @@ alternate = \relative c'' % based on the banjo part
 harmonies = \chordmode {
    \set Staff.midiInstrument = "pizzicato strings"
    \set Score.markFormatter = #format-mark-box-letters
-   \partial 8*2 r4 \mark\default
+\once\override Score.RehearsalMark #'extra-offset = #'(1 . 2)
+\mark\default
+   \partial 8*2 r4
    \repeat volta 2 {
    d4 d4 d4 d4
    d4 d4 d4 d4
@@ -194,7 +198,9 @@ harmonies = \chordmode {
    d4 d4 d4 d4
       }
   }
-  \break\mark\default % fix this!
+  \break
+\once\override Score.RehearsalMark #'extra-offset = #'(-4 . 2)
+\mark\default % fix this!
 
 % Part 2
   \repeat volta 2 {
@@ -351,14 +357,14 @@ bass =  \relative c,
       }
    \new Staff << \melody >>
    \new Staff << \alternate >>
-%   \new TabStaff <<
-%     \set TabStaff.stringTunings = #'(4 2 -3 -10 9)
-%% G tuning: 2 -1 -5 -10 7
-%% Double-C: 2 0 -5 -12 7
-%% capo'd:   4 2 -3 -10 9  (aDADE)
-%% D tuning: 2 -3 -6 -10 7
-%     \banjo
-%   >>
+   \new TabStaff <<
+     \set TabStaff.stringTunings = #'(4 2 -3 -10 9)
+% G tuning: 2 -1 -5 -10 7
+% Double-C: 2 0 -5 -12 7
+% capo'd:   4 2 -3 -10 9  (aDADE)
+% D tuning: 2 -3 -6 -10 7
+     \banjo
+   >>
    \new TabStaff <<
      \set TabStaff.stringTunings = #bass-tuning
      \bass
