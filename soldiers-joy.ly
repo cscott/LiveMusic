@@ -279,24 +279,25 @@ pianobot = \relative c,,
   #(set-octavation -1)
 
   \repeat volta 2 {
-   d2 d' d, d' d, d'
-   a, a' d, d' d, d' d, a'
+   d2 a' d, a' d, g
+   a e d a' d, a' d, a'
   }
   
   \alternative {
       {
-	d,2 d'
+	d,2 a'
       }
 
       {
-	d,2 d'
+	d,2 a'
       }
   }
   \break
 
 % Part 2
   \repeat volta 2 {
-    d,2 d' g, g' d, d' a, a' d, d' g, g' d, a'
+     d,2 fis g b, d g a e
+     d2 fis g b d a
   }
   
   \alternative {
