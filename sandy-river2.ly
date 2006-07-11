@@ -13,12 +13,11 @@
   maintainerEmail = "cananian@alumni.princeton.edu"
   maintainerWeb = "http://cscott.net"
   lastupdated = "2006/Jul/8"
-  meter = 129
+  meter = 240
 }
 #(set-default-paper-size "letter")
 
 banjo = \relative c {
-  \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "gDGBD)" } }
   \set Staff.midiInstrument = "banjo"
   
   % [SEQUENCE_TRACK_NAME] Clawhammer Banjo
@@ -230,7 +229,9 @@ pianobot = \relative c,,
          \set chordChanges = ##t
          \harmonies
     }
+    \new Staff << \banjo >>
     \new TabStaff <<
+      \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "gDGBD)" } }
       \set TabStaff.stringTunings = #banjo-open-g-tuning
 %     \tempo 2 = 120 
       \time 4/4 
