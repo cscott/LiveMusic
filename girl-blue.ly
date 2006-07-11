@@ -3,7 +3,7 @@
   title = "The Girl With The Blue Dress On"
   piece = "Traditional"
   style = "Folk"
-  copyright = "Public Domain"
+%  copyright = "Public Domain"
   maintainer = "C. Scott Ananian"
   maintainerEmail = "cananian@alumni.princeton.edu"
   maintainerWeb = "http://cscott.net"
@@ -51,7 +51,9 @@ melody = \relative c'' {
 harmonies = \chordmode {
   \set Staff.midiInstrument = "pizzicato strings"
   \set Score.markFormatter = #format-mark-box-letters
-  \partial 8 r8 |
+  \partial 8 
+  r8 |
+  \mark\default
   \repeat volta 2 {
     g4 d:7
     g4 g
@@ -68,6 +70,7 @@ harmonies = \chordmode {
   }
   
 % Part 2
+  \mark\default
   \repeat volta 2 {
     g4 g
     a4:m a:m
