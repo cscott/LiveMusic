@@ -42,7 +42,6 @@ banjo = \relative c'
     d4 fis8 a\5 d,4 fis8( a\5)
         }
   }
-  \break
 
 % Part 2
 
@@ -60,7 +59,7 @@ banjo = \relative c'
     d4 fis8 a\5 d,4 a8\3( b\3)
         }
         {
-    d4 fis8 a\5 d,4
+    d4 fis8 a\5 d,4 \bar "|."
         }
   }
 }
@@ -99,7 +98,6 @@ melody = \relative c''
           d'4 << d4 fis >> << d fis >> d,8( e8 )
         }
     }
-  \break
 
 % Part 2
 
@@ -150,7 +148,6 @@ alternate = \relative c'' % based on the banjo part
     d4 fis8 a d,4 fis8( a)
         }
   }
-  \break
 
 % Part 2
 
@@ -169,7 +166,7 @@ alternate = \relative c'' % based on the banjo part
     d4 fis8 a\5 d,4 a8\3( b\3)
         }
         {
-    d4 fis8 a\5 d,4
+    d4 fis8 a\5 d,4 \bar "|."
         }
   }
 }
@@ -205,6 +202,7 @@ harmonies = \chordmode {
    g4 g4 g4 g4
    d4 d4 d4 d4
    a4 a4 a4 a4
+\break
    d4 d4 d4 d4
    g4 g4 g4 g4
    d4 d4 a4 a4
@@ -216,7 +214,7 @@ harmonies = \chordmode {
       }
 
       {
-   d4 d4 d4
+   d4 d4 d4 \bar "|."
       }
   }
 }
@@ -247,7 +245,6 @@ pianotop = \relative c'''
     r4 d fis d
       }
   }
-  \break
 
 % Part 2
   \repeat volta 2 {
@@ -266,17 +263,16 @@ pianotop = \relative c'''
       }
 
       {
-    r4 d4 <d fis a>4
+    r4 d4 <d fis a>4 \bar "|."
       }
   }
 }
 
-pianobot = \relative c,,
+pianobot = \relative c,%,
 {
-  \set Staff.midiInstrument = "acoustic bass"
   \key d \major
   \partial 8*2  r4
-  #(set-octavation -1)
+%  #(set-octavation -1)
 
   \repeat volta 2 {
    d2 a' d, a' d, g
@@ -292,7 +288,6 @@ pianobot = \relative c,,
 	d,2 a'
       }
   }
-  \break
 
 % Part 2
   \repeat volta 2 {
@@ -306,7 +301,44 @@ pianobot = \relative c,,
       }
 
       {
-	d,2.
+	d,2. \bar "|."
+      }
+  }
+}
+
+bass =  \relative c,
+{
+  \set Staff.instrument = "Bass "
+  \set Staff.midiInstrument = "acoustic bass"
+  \partial 8*2  r4
+  \repeat volta 2 {
+   d2\3 a'\2 d,\3 a'\2 d,\3 g\2
+   a\2 e\3 d\3 a'\2 d,\3 a'\2 d,\3 a'\2
+  }
+  
+  \alternative {
+      {
+	d,2\3 a'\2
+      }
+
+      {
+	d,2\3 a'\2
+      }
+  }
+
+% Part 2
+  \repeat volta 2 {
+     d,2\3 a g b d\3 a\4 a\4 e
+     d'2\3 a g b d\3 a
+  }
+  
+  \alternative {
+      {
+	d2\3 d'
+      }
+
+      {
+	d,2.\3 \bar "|."
       }
   }
 }
@@ -317,17 +349,21 @@ pianobot = \relative c,,
          \set chordChanges = ##t
          \harmonies
       }
-   \context Staff = one \melody
+   \new Staff << \melody >>
    \new Staff << \alternate >>
-   \context TabStaff <<
-     \set TabStaff.stringTunings = #'(4 2 -3 -10 9)
-% G tuning: 2 -1 -5 -10 7
-% Double-C: 2 0 -5 -12 7
-% capo'd:   4 2 -3 -10 9  (aDADE)
-% D tuning: 2 -3 -6 -10 7
-     \banjo
+%   \new TabStaff <<
+%     \set TabStaff.stringTunings = #'(4 2 -3 -10 9)
+%% G tuning: 2 -1 -5 -10 7
+%% Double-C: 2 0 -5 -12 7
+%% capo'd:   4 2 -3 -10 9  (aDADE)
+%% D tuning: 2 -3 -6 -10 7
+%     \banjo
+%   >>
+   \new TabStaff <<
+     \set TabStaff.stringTunings = #bass-tuning
+     \bass
    >>
-   \context PianoStaff <<
+   \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
       \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
      \context Staff = upper << \time 4/4 \pianotop >>
@@ -347,6 +383,7 @@ pianobot = \relative c,,
     \context Staff=melody << r4\melody >>
     \context Staff=alternate << r4\alternate >>
     \context Staff=banjo << r4\banjo >>
+    \context Staff=bass << r4\bass >>
   >>
   \midi {
     \tempo 2=110
