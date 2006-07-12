@@ -41,7 +41,6 @@ banjo = \relative c {
   g,( a) a f'\5 g,( f) f f'\5 |
   d4 c g8( f) f f'\5 |
   d, d' d f\5 d, d' d f\5 |
-  r1 |
   }
 }
 
@@ -70,7 +69,6 @@ harmonies = \chordmode {
    g4 g g g
    a4:m a:m a:m a:m
    g4 g g g
-   r1
   }
 }
 
@@ -102,7 +100,6 @@ bass = \transpose c c,,
     g4 g'\2 g d'\3
     a4 a'\2 a a'\3
     g4 g'\2 g d'\3
-    r1
    }
 }
 
