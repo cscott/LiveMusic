@@ -27,7 +27,17 @@
 %   3:56 fire
 
 melodyfigure = \relative c'' {
-  R1*32
+  \override NoteHead #'style = #'cross
+  a4 a a a | a a a a | a a a a | a r4 r2 | % XXX FIXME
+  a4 a a a | a a a a | a a a a | a a a r4 | % XXX FIXME
+  a4 a a a | a a a a | a a a r4 | r1 | % XXX FIXME
+  a4 a a a | a a a a | a a a r4 | r1 | % XXX FIXME
+  \revert NoteHead #'style 
+% chorus
+  a4 a8 a8 a4 a8 b~ | b b4. a4 r4 | R1*2 |
+  g4 g8 g8 ~ g8 g8 g8 g | a4 a g r4 | R1*2 |
+  a8 a a a a4 a4 | b8 b b4 a4 r4 | R1*2 |
+  g8 g g g g4 g | a4 a g r4 | R1 | % skip last measure (pickup)
 }
 melody = \relative c'' {
   \key f \major % transpose to d later?
@@ -50,17 +60,39 @@ melody = \relative c'' {
   a4 a a4. a8 | a8 a4. a4 a | a1 ~ | a1 |
 
 % FIGURE
+  \key d \major % really?
   \repeat volta 2 { \mark\default
     \melodyfigure
+  }
+  \alternative {
+    { r1 }
+    { \override NoteHead #'style = #'cross
+      r4 a8 a r8 a4 a8
+      \revert NoteHead #'style
+    }
   }
 
 % MIDDLE BREAK
   \mark\default
-  R1*32
+  \override NoteHead #'style = #'cross
+  a4 a a a | a8 a4 a8 ~ a a a4 | a8 a4 a8 ~ a4 a | a r4 r4 a |
+  a4 a a a | a a a8 a a a | a4 a a a | a r4 r2 |
+  a4 a8 a ~ a a4 a8 ~ | a4 a4 r4 r8 a8 ~ | a8 a4 a4 a4 a8 ~ | a4 r4 r2 |
+  a4 ~ a8 a8 ~ a4 a | a ~ a8 a ~ a4 \revert NoteHead #'style c | c c r2 |
+
+% chorus
+  a4 a8 a8 a4 a8 b~ | b b4. a4 r4 | R1*2 |
+  g4 g g g8 g | a4 a g r4 | R1*2 |
+  a8 a a a a4 a4 | b8 b b4 a4 r4 | R1*2 |
+  g8 g g g g4 g | a4 a g r4 | R1*2 |
 
 % FIGURE
   \repeat volta 2 { \mark\default
     \melodyfigure
+  }
+  \alternative {
+    { r1 }
+    { r1 }
   }
 
 % CLOSER
@@ -89,28 +121,28 @@ opener = \lyricmode { % 32 measures
 }
 
 figure = \lyricmode { % 32 measures
-  Heads you promenade halfway around the ring you go
-  2 "&" 4 do a right "&" left thru "&" turn the girl you go
-  Square thru 4 hands around, move around that floor
-  Dosado and then you do an eight chain four
-  Fire on the mountain, run boy run
-  Swing the corner promenade her son
-  Chicken in the break pan pickin' out dough
-  Granny will your dog bite, no child no
+  Heads you prom -- en -- ade half -- way a -- round the ring you go
+  "2" "&" "4" do a right "&" left thru "&" turn the girl you go
+  Square thru "4" hands a -- round, move a -- round that floor
+  Do -- sa -- do and then you do an eight chain four
+  Fire on the moun -- tain, run, __ boys, run.
+  Swing the cor -- ner, prom -- en -- ade her, son.
+  Chick -- en in the bread -- pan, pick -- in' out dough.
+  Gran -- ny, does your dog bite? No, child, no.
 }
 
 middle = \lyricmode { % 32 measures
   Circle left
-  When the devil finished Johnny said
-  Well, you're pretty good old son
-  But sit down in that chair right there
-  And let me show you how it's done
-  Walk around your corner, see saw round your own
-  Left allemande and weave that ring
-  Fire on the mountain, run boy run % 4 measures
-  Dosado, promenade her son
-  Chicken in the bread pan pickin' out dough
-  Granny will your dog bite, no child no
+  When the dev -- il fin -- ished, John -- ny said, __
+  "\"Well," you're pret -- ty good, __ old son,
+  but sit down in that chair right there
+  and let me show you how it's "done.\""
+  Walk a -- round your cor -- ner, see saw round your own
+  Left al -- le -- mande and weave that ring
+  Fire on the moun -- tain, run, __ boys, run.
+  Do -- sa -- do, prom -- en -- ade her, son.
+  Chick -- en in the bread -- pan, pick -- in' out dough.
+  Gran -- ny, does your dog bite? No, child, no.
 }
 
 closer = \lyricmode { % 32 measures
@@ -139,6 +171,6 @@ tagg = \lyricmode { % 16 measures
     \context Voice = melody {
       \melody
     }
-    \lyricsto melody \new Lyrics \opener
+    \lyricsto melody \new Lyrics { \opener \figure \middle \figure \closer \tagg }
   >>
 }
