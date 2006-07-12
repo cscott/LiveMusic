@@ -15,7 +15,7 @@
 melody = \relative c'' {
   \set Staff.midiInstrument = "fiddle"
   \key c \major
-  \partial 8 e16. f32 |
+  \partial 8 e16 f |
   \repeat volta 2 {
     g8 e16 f a g e8 |
     c8 g e4 |
@@ -27,8 +27,8 @@ melody = \relative c'' {
     f16 e f b d c b d |
   }
   \alternative {
-    { c8 e c e16. f32 }
-    { c8 e c e,16. g32 }
+    { c8 e c e16 f }
+    { c8 e c e,16 g }
   }
   \break
 % part 2
@@ -43,7 +43,7 @@ melody = \relative c'' {
     f16 e f b d c b d |
   }
   \alternative {
-    { c8 e c e,16. g32 }
+    { c8 e c e,16 g }
     { c8 e c \bar "|." }
   }
 }
