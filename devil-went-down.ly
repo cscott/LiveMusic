@@ -26,6 +26,11 @@
 % middle break (3:24)
 %   3:56 fire
 
+% KEY CHANGES from d minor to d major between "fire on the mountain" and
+% "granny does your dog bite" (also for "but if you lose the devil gets
+% your soul") but we're going to keep the key signature as d minor to
+% reduce the reader's confusion.
+
 melodyfigure = \relative c'' {
   \override NoteHead #'style = #'cross
   a4 a a a | a a a a | a a a a | a r4 r2 | % XXX FIXME
@@ -41,6 +46,7 @@ melodyfigure = \relative c'' {
 }
 melody = \relative c'' {
   \key d \minor
+  \set Score.markFormatter = #format-mark-box-letters
   
   R1 | % first measure: 4 drum beats
   R1*7 | % intro
@@ -57,9 +63,7 @@ melody = \relative c'' {
   a8 a4. a4 a8 a ~ | a8 a4. a4 g | g g g8 e4 g8 ~ | g2 r2 |
   g4 g g f | g g8 g ~ g4 g | a4 a8 a4. d,4 | d2 r4 r8 a'8 |
   a4 a a a | a a a g | g8 g4. g4 f | g2 r4 r8 g8 |
-  \key d \major
   a4 a a4. a8 | a8 a4. a4 a | a1 ~ | a1 |
-  \key d \minor
 
 % FIGURE
   \repeat volta 2 { \mark\default
@@ -185,15 +189,12 @@ fiddle = \relative c'' {
   a1 ~ | a4 ~ a8 g f g a f |
   a1 ~ | a2 ~ a8 cis8 ~ cis4 |
   d4( bes2.) ~ | bes4 g2. |
-  \key d \major
   a8-> e e e a-> e e e | a-> e cis e a-> e cis e |
   a8-> e e e e e e e | e e e e e e e e |
 % figure
   \repeat unfold 2 {
     \repeat volta 2 {
-      \key d \minor
       R1*16 |
-      \key d \major
       R1*2 | d'8 cis d e  fis b a fis | d fis e d  b cis d4
       R1*2 | c8 b c b  c d e f | g e g a  g e c4 |
       R1*2 | d8 b' b a  fis d b cis | d a fis d  b cis d4 |
@@ -202,9 +203,7 @@ fiddle = \relative c'' {
       { c'4 ~ c8 d8 ~ d4 c4 ~ | c8 c ~ c4 a,2 | }
       { c'4 ~ c8 d8 ~ d4 c4 ~ | c8 c ~ c4 a,2 | }
     }
-    \key d \minor
     R1*15 |
-    \key d \major
     R1*2 | d'8 cis d e  fis b a fis | d fis e d  b cis d4
     R1*2 | c8 b c b  c d e f | g e g a  g e c4 |
     R1*2 | d8 b' b a  fis d b cis | d a fis d  b cis d4 |
@@ -258,10 +257,18 @@ harmonies = \chordmode {
       \harmonies
     }
     \context Voice = melody {
+      \set Staff.instrument = "Voice"
       \melody
     }
     \lyricsto melody \new Lyrics { \opener \figure \middle \figure \closer \tagg }
-    \context Staff = fiddle { \fiddle }
+    \context Staff = fiddle {
+      \set Staff.instrument = "Fiddle"
+      \fiddle
+    }
+    \context Staff = clarinet {
+      \set Staff.instrument = "Clarinet"
+      \transpose bes c' << \fiddle >>
+    }
   >>
   \layout { }
 }
