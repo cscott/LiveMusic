@@ -37,10 +37,10 @@ melodyfigure = \relative c'' {
   a4 a8 a8 a4 a8 b~ | b b4. a4 r4 | R1*2 |
   g4 g8 g8 ~ g8 g8 g8 g | a4 a g r4 | R1*2 |
   a8 a a a a4 a4 | b8 b b4 a4 r4 | R1*2 |
-  g8 g g g g4 g | a4 a g r4 | R1 | % skip last measure (pickup)
+  g8 g g g g4 g | a4 a g r4 | % skip last two measures (pickup)
 }
 melody = \relative c'' {
-  \key f \major % transpose to d later?
+  \key d \minor
   
   R1 | % first measure: 4 drum beats
   R1*7 | % intro
@@ -55,19 +55,20 @@ melody = \relative c'' {
 
 % chorus
   a8 a4. a4 a8 a ~ | a8 a4. a4 g | g g g8 e4 g8 ~ | g2 r2 |
-  g4 g g f | g g8 g ~ g4 g | a8 a4. g4 d | d2 r4 r8 a'8 |
+  g4 g g f | g g8 g ~ g4 g | a4 a8 a4. d,4 | d2 r4 r8 a'8 |
   a4 a a a | a a a g | g8 g4. g4 f | g2 r4 r8 g8 |
+  \key d \major
   a4 a a4. a8 | a8 a4. a4 a | a1 ~ | a1 |
+  \key d \minor
 
 % FIGURE
-  \key d \major % really?
   \repeat volta 2 { \mark\default
     \melodyfigure
   }
   \alternative {
-    { r1 }
+    { r1 r1 }
     { \override NoteHead #'style = #'cross
-      r4 a8 a r8 a4 a8
+      r1 r4 a8 a r8 a4 a8
       \revert NoteHead #'style
     }
   }
@@ -91,8 +92,8 @@ melody = \relative c'' {
     \melodyfigure
   }
   \alternative {
-    { r1 }
-    { r1 }
+    { r1 r1 }
+    { r1 r1 }
   }
 
 % CLOSER
@@ -168,7 +169,7 @@ tagg = \lyricmode { % 16 measures
 
 fiddle = \relative c'' {
   \set Staff.midiInstrument = "fiddle"
-  \key f \major
+  \key d \minor
 % drum intro
   r1 |
 % fiddle intro
@@ -184,10 +185,31 @@ fiddle = \relative c'' {
   a1 ~ | a4 ~ a8 g f g a f |
   a1 ~ | a2 ~ a8 cis8 ~ cis4 |
   d4( bes2.) ~ | bes4 g2. |
+  \key d \major
   a8-> e e e a-> e e e | a-> e cis e a-> e cis e |
   a8-> e e e e e e e | e e e e e e e e |
 % figure
-  R1*16 |
+  \repeat unfold 2 {
+    \repeat volta 2 {
+      \key d \minor
+      R1*16 |
+      \key d \major
+      R1*2 | d'8 cis d e  fis b a fis | d fis e d  b cis d4
+      R1*2 | c8 b c b  c d e f | g e g a  g e c4 |
+      R1*2 | d8 b' b a  fis d b cis | d a fis d  b cis d4 |
+      R1*2 |
+    }\alternative {
+      { c'4 ~ c8 d8 ~ d4 c4 ~ | c8 c ~ c4 a,2 | }
+      { c'4 ~ c8 d8 ~ d4 c4 ~ | c8 c ~ c4 a,2 | }
+    }
+    \key d \minor
+    R1*15 |
+    \key d \major
+    R1*2 | d'8 cis d e  fis b a fis | d fis e d  b cis d4
+    R1*2 | c8 b c b  c d e f | g e g a  g e c4 |
+    R1*2 | d8 b' b a  fis d b cis | d a fis d  b cis d4 |
+    R1*2 | c'4 ~ c8 d8 ~ d4 c4 ~ | c8 c ~ c4 a,2 |
+  }
 }
 
 harmonies = \chordmode {
@@ -221,10 +243,10 @@ harmonies = \chordmode {
    d | d | d | d |
    c | c | c | c |
    d | d | d | d |
-   c | c | c |
+   c | c |
    }
    \alternative {
-     { c1 } { c1 }
+     { c1 c } { c1 c }
    }
 % break  
 }
@@ -242,5 +264,21 @@ harmonies = \chordmode {
     \context Staff = fiddle { \fiddle }
   >>
   \layout { }
-  \midi { \tempo 4=125 }
+}
+
+\score {
+% \unfoldRepeats
+  \context PianoStaff <<
+%    \context Staff=upper << r4\pianotop >>
+%    \context Staff=lower << r4\f\pianobot >>
+    \context Staff=chords <<r4\p\harmonies >>
+    \context Staff=melody << r4\melody >>
+    \context Staff=fiddle << r4\fiddle >>
+%    \context Staff=alternate << r4\alternate >>
+%    \context Staff=banjo << r4\banjo >>
+%    \context Staff=bass << r4\bass >>
+  >>
+  \midi {
+    \tempo 4=125
+  }
 }
