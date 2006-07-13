@@ -97,16 +97,32 @@ melody = \relative c'' {
   }
   \alternative {
     { r1 r1 }
-    { r1 r1 }
+    { \override NoteHead #'style = #'cross
+      r1 r2 a8 a a r8
+      \revert NoteHead #'style
+    }
   }
 
 % CLOSER
   \mark\default
-  R1*32
+  \override NoteHead #'style = #'cross
+  a8 a a4 a8 a a4 | a8 a4 a8 ~ a4 a8 a | a8 a a a a4 a8 a ~ | a4 r4 r8 a8 a4 |
+  a4 a a a | a8 a a a ~ a4 a8 a | a4 a a8 a4 a8 ~ | a4 r4 r2 |
+  a4 a8 a ~ a a4 a8 ~ | a4 a4 r4 r8 a8 ~ | a8 a4 a4 a4 a8 ~ | a4 r4 r2 |
+  a4 ~ a8 a8 ~ a4 a | a4 ~ a8 a8 ~ a4 \revert NoteHead #'style cis8(a) | cis8(a) cis(a) r2 |
+  % chorus
+  a4 a8 a8 a4 a8 b~ | b b4. a4 r4 | R1*2 |
+  g4 g g g8 g | a4 a g r4 | R1*2 |
+  a8 a a a a4 a4 | b8 b b4 a4 r4 | R1*2 |
+  g8 g g g g4 g | a4 a g r4 | R1*2 |
 
 % TAG
   \mark\default
-  R1*16
+  \override NoteHead #'style = #'cross
+  a4 a a a | a a a a | R1*2 | %% FIX ME
+  a4 a a a | a a a a | a a r2 | r1 | %% FIX ME
+  a4 a a a | a r4 r2 | R1*2 | %% FIXME
+  R1*4
 }
 
 
@@ -151,11 +167,11 @@ middle = \lyricmode { % 32 measures
 }
 
 closer = \lyricmode { % 32 measures
-  Circle left
+  Cir -- cle left
   John -- ny said, "\"Dev" -- il, just come on back __
-  if you ev -- er wanna try a -- gain. __
+  if you ev -- er want to try a -- gain. __
   'Cause I told you once, you son -- of -- a -- gun, __
-  I'm the best that's ever "been.\"" __
+  I'm the best that's ev -- er "been.\"" __
   Walk a -- round your cor -- ner, see saw round your own.
   Left al -- le -- mande and weave that ring
   Fire on the moun -- tain, run, __ boys, run.
@@ -169,6 +185,7 @@ tagg = \lyricmode { % 16 measures
   Wave to the pret -- ty girl a -- cross from you. | % 4 measures
   Whoa, you did it good!  | % 4 measures
   r1*4 | % 4 measures
+  \bar "|."
 }
 
 fiddle = \relative c'' {
@@ -220,9 +237,9 @@ harmonies = \chordmode {
    g a | d4:m a4. c4. |
 % opener
    \set chordChanges = ##f
-   d1*4:m |
-   d1*4:m |
-   d1*4:m |
+   d1*3:m | r2. d4:m | % up strum followed by down strum
+   d1*3:m | r2. d4:m |
+   d1*3:m | r2. d4:m |
    d1*3:m |
    d1:m |
    \set chordChanges = ##t
@@ -258,17 +275,20 @@ harmonies = \chordmode {
     }
     \context Voice = melody {
       \set Staff.instrument = "Voice"
+      \set Staff.instr = "Voc"
       \melody
     }
     \lyricsto melody \new Lyrics { \opener \figure \middle \figure \closer \tagg }
     \context Staff = fiddle {
       \set Staff.instrument = "Fiddle"
+      \set Staff.instr = "Fid"
       \fiddle
     }
-    \context Staff = clarinet {
-      \set Staff.instrument = "Clarinet"
-      \transpose bes c' << \fiddle >>
-    }
+%    \context Staff = clarinet {
+%      \set Staff.instrument = "Clarinet"
+%      \set Staff.instr = "Cla"
+%      \transpose bes c' << \fiddle >>
+%    }
   >>
   \layout { }
 }
