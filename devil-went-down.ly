@@ -51,7 +51,7 @@ melody = \relative c'' {
   a8 a a4 a4 a8 a ~ | a4 a a a | a8 a a a a4 a8 a ~ | a4 r4 a8 a a a |
   a4 r4 r8 a8 a a | a4 a8 a ~ a a a a | a a a a ~ a a a4 | r1 |
   a4 a8 a ~ a a4 a8 ~ | a4 a4 r4 r8 a8 ~ | a8 a4 a4 a4 a8 ~ | a4 r4 r2 |
-  a4 a a a | a a a \revert NoteHead #'style c | c c r4 r8 c8 |
+  a4 a a a | a a a \revert NoteHead #'style cis8(a) | cis8(a) cis(a) r4 a4 |
 
 % chorus
   a8 a4. a4 a8 a ~ | a8 a4. a4 g | g g g8 e4 g8 ~ | g2 r2 |
@@ -123,7 +123,7 @@ opener = \lyricmode { % 32 measures
 figure = \lyricmode { % 32 measures
   Heads you prom -- en -- ade half -- way a -- round the ring you go
   "2" "&" "4" do a right "&" left thru "&" turn the girl you go
-  Square thru "4" hands a -- round, move a -- round that floor
+  Square thru "4" hands a -- round, move a -- round that floor.
   Do -- sa -- do and then you do an eight chain four
   Fire on the moun -- tain, run, __ boys, run.
   Swing the cor -- ner, prom -- en -- ade her, son.
@@ -137,7 +137,7 @@ middle = \lyricmode { % 32 measures
   "\"Well," you're pret -- ty good, __ old son,
   but sit down in that chair right there
   and let me show you how it's "done.\""
-  Walk a -- round your cor -- ner, see saw round your own
+  Walk a -- round your cor -- ner, see saw round your own.
   Left al -- le -- mande and weave that ring
   Fire on the moun -- tain, run, __ boys, run.
   Do -- sa -- do, prom -- en -- ade her, son.
@@ -147,23 +147,45 @@ middle = \lyricmode { % 32 measures
 
 closer = \lyricmode { % 32 measures
   Circle left
-  Johnny said, Devil just come on back
-  If you ever wanna try again
-  'Cause I've told you once, you son-of-a-gun
-  I'm the best that's ever been
-  Walk around your corner, see saw round your own
-  Left allemande and weave that ring
-  Fire on the mountain, run boy run
-  Dosado, promenade her son
-  Chicken in the bread pan pickin' out dough
-  Granny will your dog bite, no child no | % 8 measures
+  John -- ny said, "\"Dev" -- il, just come on back __
+  if you ev -- er wanna try a -- gain. __
+  'Cause I told you once, you son -- of -- a -- gun, __
+  I'm the best that's ever "been.\"" __
+  Walk a -- round your cor -- ner, see saw round your own.
+  Left al -- le -- mande and weave that ring
+  Fire on the moun -- tain, run, __ boys, run.
+  Do -- sa -- do, prom -- en -- ade her, son.
+  Chick -- en in the bread -- pan, pick -- in' out dough.
+  Gran -- ny, does your dog bite? No, child, no.
 }
 
 tagg = \lyricmode { % 16 measures
-  Bow to your partner, corners too | % 4 measures
-  Wave to the pretty girl across from you | % 4 measures
-  Whoa, you did it good  | % 4 measures
+  Bow to your part -- ner, cor -- ners too. | % 4 measures
+  Wave to the pret -- ty girl a -- cross from you. | % 4 measures
+  Whoa, you did it good!  | % 4 measures
   r1*4 | % 4 measures
+}
+
+fiddle = \relative c'' {
+  \key f \major
+% drum intro
+  r1 |
+% fiddle intro
+  d8 cis d e f e f g | a g f g a g f a |
+  g8 e g a g e c d | e dis e f e c a4 |
+  d8 e d a c d c a | bes c bes g a bes a4 ~ |
+  a1 ~ | a1 |
+% opener
+  R1*15 |
+  d1 ~ | d4 a'2 f4 |
+  g1 ~ | g4 e2 c4 |
+  d1 ~ | d4 bes2 g4 |
+  a1 ~ | a4 ~ a8 g f g a f |
+  a1 ~ | a2 ~ a8 cis8 ~ cis4 |
+  d4( bes2.) ~ | bes4 g2. |
+  a8 e e e a e e e | a e cis e a e cis e |
+  a8 e e e e e e e | e e e e e e e e |
+% figure
 }
 
 \score {
@@ -172,5 +194,6 @@ tagg = \lyricmode { % 16 measures
       \melody
     }
     \lyricsto melody \new Lyrics { \opener \figure \middle \figure \closer \tagg }
+    \context Staff = fiddle { \fiddle }
   >>
 }
