@@ -56,7 +56,7 @@ melody = \relative c'' {
 % chorus
   a8 a4. a4 a8 a ~ | a8 a4. a4 g | g g g8 e4 g8 ~ | g2 r2 |
   g4 g g f | g g8 g ~ g4 g | a8 a4. g4 d | d2 r4 r8 a'8 |
-  a4 a a a | a a g g | g8 g4. g4 f | a2 r4 r8 g8 |
+  a4 a a a | a a a g | g8 g4. g4 f | g2 r4 r8 g8 |
   a4 a a4. a8 | a8 a4. a4 a | a1 ~ | a1 |
 
 % FIGURE
@@ -78,7 +78,7 @@ melody = \relative c'' {
   a4 a a a | a8 a4 a8 ~ a a a4 | a8 a4 a8 ~ a4 a | a r4 r4 a |
   a4 a a a | a a a8 a a a | a4 a a a | a r4 r2 |
   a4 a8 a ~ a a4 a8 ~ | a4 a4 r4 r8 a8 ~ | a8 a4 a4 a4 a8 ~ | a4 r4 r2 |
-  a4 ~ a8 a8 ~ a4 a | a ~ a8 a ~ a4 \revert NoteHead #'style c | c c r2 |
+  a4 ~ a8 a8 ~ a4 a | a ~ a8 a ~ a4 \revert NoteHead #'style cis8(a) | cis8(a) cis(a) r2 |
 
 % chorus
   a4 a8 a8 a4 a8 b~ | b b4. a4 r4 | R1*2 |
@@ -167,6 +167,7 @@ tagg = \lyricmode { % 16 measures
 }
 
 fiddle = \relative c'' {
+  \set Staff.midiInstrument = "fiddle"
   \key f \major
 % drum intro
   r1 |
@@ -183,17 +184,63 @@ fiddle = \relative c'' {
   a1 ~ | a4 ~ a8 g f g a f |
   a1 ~ | a2 ~ a8 cis8 ~ cis4 |
   d4( bes2.) ~ | bes4 g2. |
-  a8 e e e a e e e | a e cis e a e cis e |
-  a8 e e e e e e e | e e e e e e e e |
+  a8-> e e e a-> e e e | a-> e cis e a-> e cis e |
+  a8-> e e e e e e e | e e e e e e e e |
 % figure
+  R1*16 |
+}
+
+harmonies = \chordmode {
+   \set Staff.midiInstrument = "pizzicato strings"
+   r1 |
+% intro
+   d1*2:m | c1*2 |
+   d2:m c | bes a:m |
+   g a | d4:m a4. c4. |
+% opener
+   \set chordChanges = ##f
+   d1*4:m |
+   d1*4:m |
+   d1*4:m |
+   d1*3:m |
+   d1:m |
+   \set chordChanges = ##t
+   d:m |
+   c1 | c |
+   g1:m | g:m |
+   d1:m | d:m | d:m | d:m |
+   g1:m | g2:m gis:dim7 |
+   a2 a | a a | a a | a a |
+% figure
+   \repeat volta 2 {
+   d1:m | d:m | c | c |
+   d1:m | d:m | c | c |
+   d1:m | d:m | c | c |
+   a | a | a | a |
+
+   d | d | d | d |
+   c | c | c | c |
+   d | d | d | d |
+   c | c | c |
+   }
+   \alternative {
+     { c1 } { c1 }
+   }
+% break  
 }
 
 \score {
   <<
+    \context ChordNames {
+      \set chordChanges = ##t
+      \harmonies
+    }
     \context Voice = melody {
       \melody
     }
     \lyricsto melody \new Lyrics { \opener \figure \middle \figure \closer \tagg }
     \context Staff = fiddle { \fiddle }
   >>
+  \layout { }
+  \midi { \tempo 4=125 }
 }
