@@ -1,12 +1,12 @@
 \version "2.6.3"
 \header {
   title = "The Devil Went Down To Georgia"
-  meter = 132
+  meter = 125
 }
 #(set-default-paper-size "letter")
 
-% 105 measures = 204 seconds = 1.943 s/measure (measure=4 beats) = 123 bpm
-% 7:41=461 seconds = 9 + (32 * 7) + 8 = 241 measures = 125.5 bpm
+% 105 measures = 204 seconds = 1.943 s/measure = 123 bpm
+% 241 measures = 7:41=461 seconds = 9 + (32 * 7) + 8 = 125.5 bpm
 
 % drums (4 equal beats) 0-2.2s   1 measure
 % intro (2.2-17.5)               8 measures
@@ -30,6 +30,12 @@
 % "granny does your dog bite" (also for "but if you lose the devil gets
 % your soul") but we're going to keep the key signature as d minor to
 % reduce the reader's confusion.
+
+claps = \relative c'' {
+  \override NoteHead #'style = #'cross
+  a4 a a a |
+  R1*7
+}
 
 melodyfigure = \relative c'' {
   \override NoteHead #'style = #'cross
@@ -122,7 +128,8 @@ melody = \relative c'' {
   a4 a a a | a a a a | R1*2 | %% FIX ME
   a4 a a a | a a a a | a a r2 | r1 | %% FIX ME
   a4 a a a | a r4 r2 | R1*2 | %% FIXME
-  R1*4
+  R1*4 |
+  \bar "|."
 }
 
 
@@ -184,8 +191,7 @@ tagg = \lyricmode { % 16 measures
   Bow to your part -- ner, cor -- ners too. | % 4 measures
   Wave to the pret -- ty girl a -- cross from you. | % 4 measures
   Whoa, you did it good!  | % 4 measures
-  r1*4 | % 4 measures
-  \bar "|."
+  % plus 4 measures 'outro' at the end
 }
 
 fiddle = \relative c'' {
@@ -233,8 +239,8 @@ harmonies = \chordmode {
    r1 |
 % intro
    d1*2:m | c1*2 |
-   d2:m c | bes a:m |
-   g a | d4:m a4. c4. |
+   d2:m c | bes, a,:m |
+   g, a, | d4:m a,4. c4. |
 % opener
    \set chordChanges = ##f
    d1*3:m | r2. d4:m | % up strum followed by down strum
@@ -248,7 +254,7 @@ harmonies = \chordmode {
    g1:m | g:m |
    d1:m | d:m | d:m | d:m |
    g1:m | g2:m gis:dim7 |
-   a2 a | a a | a a | a a |
+   a1 | a | a | a |
 % figure
    \repeat volta 2 {
    d1:m | d:m | c | c |
@@ -278,19 +284,30 @@ harmonies = \chordmode {
       \set Staff.instr = "Voc"
       \melody
     }
-    \lyricsto melody \new Lyrics { \opener \figure \middle \figure \closer \tagg }
+    \lyricsto melody \new Lyrics {
+      \opener \figure \middle \figure \closer \tagg
+    }
     \context Staff = fiddle {
       \set Staff.instrument = "Fiddle"
       \set Staff.instr = "Fid"
       \fiddle
     }
-%    \context Staff = clarinet {
-%      \set Staff.instrument = "Clarinet"
-%      \set Staff.instr = "Cla"
-%      \transpose bes c' << \fiddle >>
-%    }
+    \context Staff = clarinet {
+      \set Staff.instrument = "Clarinet"
+      \set Staff.instr = "Cla"
+      \transpose bes c' << \fiddle >>
+    }
+    \context Staff = claps {
+      \set Staff.instrument = "Drums"
+      \claps
+    }
+    \override Score.RemoveEmptyVerticalGroup #'remove-first = ##t
   >>
-  \layout { }
+  \layout {
+    \context {
+      \RemoveEmptyStaffContext
+    }
+  }
 }
 
 \score {
@@ -306,6 +323,6 @@ harmonies = \chordmode {
 %    \context Staff=bass << r4\bass >>
   >>
   \midi {
-    \tempo 4=125
+    \tempo 2=125
   }
 }
