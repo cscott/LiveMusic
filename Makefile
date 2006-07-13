@@ -1,4 +1,5 @@
-SONGS=soldiers-joy sandy-river2 last-chance girl-blue saturday-night
+SONGS=soldiers-joy sandy-river2 last-chance girl-blue saturday-night \
+	devil-went-down
 all: $(foreach f,$(SONGS),$(f).mp3)
 
 %.midi %.ps %.pdf: %.ly
