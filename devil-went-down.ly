@@ -40,7 +40,7 @@ claps = \relative c'' {
 melodyfigure = \relative c'' {
   \override NoteHead #'style = #'cross
   a4 a a a | a a a a | a a a a | a r4 r2 | % XXX FIXME
-  a4 a a a | a a a a | a a a a | a a a r4 | % XXX FIXME
+  a4 a a a8 a | a a a4 a a | a a a a | a r4 r2 | % XXX FIXME
   a4 a a a | a a a a | a a a r4 | r1 | % XXX FIXME
   a4 a a a | a a a a | a a a r4 | r1 | % XXX FIXME
   \revert NoteHead #'style 
@@ -57,13 +57,14 @@ melody = \relative c'' {
   R1 | % first measure: 4 drum beats
   R1*7 | % intro
   \override NoteHead #'style = #'cross
-  r2 a8 a r8 a | % pickup measure
+  r4 a4 a r8 a | % pickup measure
 % OPENER
   \bar "||" \mark\default
-  a8 a a4 a4 a8 a ~ | a4 a a a | a8 a a a a4 a8 a ~ | a4 r4 a8 a a a |
-  a4 r4 r8 a8 a a | a4 a8 a ~ a a a a | a a a a ~ a a a4 | r1 |
-  a4 a8 a ~ a a4 a8 ~ | a4 a4 r4 r8 a8 ~ | a8 a4 a4 a4 a8 ~ | a4 r4 r2 |
-  a4 a a a | a a a \revert NoteHead #'style cis8(a) | cis8(a) cis(a) r4 a4 |
+  a8 a a4 a4 a8 a ~ | a4 a a a | a8 a a a a4 a8 a ~ | a4 r4 r4 a4 |
+  a8 a8 a8 a4 a8 a a | a4 a8 a ~ a a a a | a a a a ~ a a a4 | r1 |
+  a4 a8 a ~ a4 a4 | a4 a4 r2 | r8 a4 ~ a8 a4 a8 a8 ~ | a4 r4 r2 |
+  a4 a8 a8 a4 a | a4 a4 a4 a | 
+  \revert NoteHead #'style cis4(a) cis(a) | cis(a) a2 |
 
 % chorus
   a8 a4. a4 a8 a ~ | a8 a4. a4 g | g g g8 e4 g8 ~ | g2 r2 |
@@ -137,10 +138,10 @@ opener = \lyricmode { % 32 measures
   Circle left.
   The | dev -- il went down to Geor -- gia.
   He was | look -- in' for a soul to steal. __ %4
-  He was in a | bind 'cause he was way be -- hind, __
+  He was | in a bind 'cause he was way be -- hind, __
   and he was will -- in' to make __ a deal. | %4
-  Walk a -- round your cor -- ner, see saw round your own. | %4
-  Left al -- le -- mande and then you weave that ring %4
+  Walk a -- round your cor -- ner, see saw your own. | %4
+  Al -- le -- mande left that cor -- ner girl and weave that ring. %4
 % chorus
   Well, | John -- ny, ros -- in up __ your bow and play your fid -- dle hard, __
   Do -- sa -- do go once a -- round now prom -- en -- ade your pard'. %4
@@ -205,7 +206,7 @@ fiddle = \relative c'' {
   d8 e d a c d c a | bes c bes g a bes a4 ~ |
   a1 ~ | a1 |
 % opener
-  R1*15 |
+  R1*16 |
   d1 ~ | d4 a'2 f4 |
   g1 ~ | g4 e2 c4 |
   d1 ~ | d4 bes2 g4 |
@@ -213,7 +214,7 @@ fiddle = \relative c'' {
   a1 ~ | a2 ~ a8 cis8 ~ cis4 |
   d4( bes2.) ~ | bes4 g2. |
   a8-> e e e a-> e e e | a-> e cis e a-> e cis e |
-  a8-> e e e e e e e | e e e e e e e e |
+  a8-> e e e e e e e | e-> e4 e8 e4 e8 e |
 % figure
   \repeat unfold 2 {
     \repeat volta 2 {
@@ -246,15 +247,15 @@ harmonies = \chordmode {
    d1*3:m | r2. d4:m | % up strum followed by down strum
    d1*3:m | r2. d4:m |
    d1*3:m | r2. d4:m |
-   d1*3:m |
+   d1*4:m |
    d1:m |
    \set chordChanges = ##t
    d:m |
    c1 | c |
    g1:m | g:m |
    d1:m | d:m | d:m | d:m |
-   g1:m | g2:m gis:dim7 |
-   a1 | a | a | a |
+   g,1:m | g,2:m gis,:dim7 |
+   a,1 | a, | a, | a, |
 % figure
    \repeat volta 2 {
    d1:m | d:m | c | c |
@@ -311,7 +312,7 @@ harmonies = \chordmode {
 }
 
 \score {
-% \unfoldRepeats
+  \unfoldRepeats
   \context PianoStaff <<
 %    \context Staff=upper << r4\pianotop >>
 %    \context Staff=lower << r4\f\pianobot >>
@@ -323,6 +324,6 @@ harmonies = \chordmode {
 %    \context Staff=bass << r4\bass >>
   >>
   \midi {
-    \tempo 2=125
+    \tempo 4=125
   }
 }
