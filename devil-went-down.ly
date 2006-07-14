@@ -38,12 +38,10 @@ claps = \relative c'' {
 }
 
 melodyfigure = \relative c'' {
-  \override NoteHead #'style = #'cross
-  a4 a a a | a a a a | a a a a | a r4 r2 | % XXX FIXME
-  a4 a a a8 a | a a a4 a a | a a a a | a r4 r2 | % XXX FIXME
-  a4 a a a | a a a a | a a a r4 | r1 | % XXX FIXME
-  a4 a a a | a a a a | a a a r4 | r1 | % XXX FIXME
-  \revert NoteHead #'style 
+  a4 ~ a8 a a4 a | bes4 a a ~ a8 a8 | g4 ~ g8 g g4 e | g4 r4 r4 g4 |
+  a4 a a a8 a | a a a4 a a | g4 ~ g8 c,8 c4 c | c r4 r2 |
+  a'4 ~ a8 a ~ a4 a | a4 a8 a~a r8 r4 | g4 ~ g8 e g4 e | g4 r4 r2 |
+  a4 a a a | a a a a | a2 a | a r2 |
 % chorus
   a4 a8 a8 a4 a8 b~ | b b4. a4 r4 | R1*2 |
   g4 g8 g8 ~ g8 g8 g8 g | a4 a g r4 | R1*2 |
@@ -89,8 +87,9 @@ melody = \relative c'' {
   \override NoteHead #'style = #'cross
   a4 a a a | a8 a4 a8 ~ a a a4 | a8 a4 a8 ~ a4 a | a r4 r4 a |
   a4 a a a | a a a8 a a a | a4 a a a | a r4 r2 |
-  a4 a8 a ~ a a4 a8 ~ | a4 a4 r4 r8 a8 ~ | a8 a4 a4 a4 a8 ~ | a4 r4 r2 |
-  a4 ~ a8 a8 ~ a4 a | a ~ a8 a ~ a4 \revert NoteHead #'style cis8(a) | cis8(a) cis(a) r2 |
+  a4 a8 a ~ a4 a4 | a4 a4 r2 | r8 a4 ~ a8 a4 a8 a8 ~ | a4 r4 r2 |
+  a4 a8 a8 a4 a | a4 a4 a4 a | 
+  \revert NoteHead #'style cis4(a) cis(a) | cis(a) r2 |
 
 % chorus
   a4 a8 a8 a4 a8 b~ | b b4. a4 r4 | R1*2 |
@@ -115,8 +114,9 @@ melody = \relative c'' {
   \override NoteHead #'style = #'cross
   a8 a a4 a8 a a4 | a8 a4 a8 ~ a4 a8 a | a8 a a a a4 a8 a ~ | a4 r4 r8 a8 a4 |
   a4 a a a | a8 a a a ~ a4 a8 a | a4 a a8 a4 a8 ~ | a4 r4 r2 |
-  a4 a8 a ~ a a4 a8 ~ | a4 a4 r4 r8 a8 ~ | a8 a4 a4 a4 a8 ~ | a4 r4 r2 |
-  a4 ~ a8 a8 ~ a4 a | a4 ~ a8 a8 ~ a4 \revert NoteHead #'style cis8(a) | cis8(a) cis(a) r2 |
+  a4 a8 a ~ a4 a4 | a4 a4 r2 | r8 a4 ~ a8 a4 a8 a8 ~ | a4 r4 r2 |
+  a4 a8 a8 a4 a | a4 a4 a4 a | 
+  \revert NoteHead #'style cis4(a) cis(a) | cis(a) r2 |
   % chorus
   a4 a8 a8 a4 a8 b~ | b b4. a4 r4 | R1*2 |
   g4 g g g8 g | a4 a g r4 | R1*2 |
@@ -126,10 +126,9 @@ melody = \relative c'' {
 % TAG
   \mark\default
   \override NoteHead #'style = #'cross
-  a4 a a a | a a a a | R1*2 | %% FIX ME
-  a4 a a a | a a a a | a a r2 | r1 | %% FIX ME
-  a4 a a a | a r4 r2 | R1*2 | %% FIXME
-  R1*4 |
+  a4 a8 a a4 a | a a a r4 |
+  a4 a8 a a a a a | a4 a a r4 |
+  a1 ~ | a4 ~ a8 a a a ~ a4 | a4 r4 r2 | R1*2 |
   \bar "|."
 }
 
@@ -138,7 +137,7 @@ opener = \lyricmode { % 32 measures
   Circle left.
   The | dev -- il went down to Geor -- gia.
   He was | look -- in' for a soul to steal. __ %4
-  He was | in a bind 'cause he was way be -- hind, __
+  He | was in a bind 'cause he was way be -- hind, __
   and he was will -- in' to make __ a deal. | %4
   Walk a -- round your cor -- ner, see saw your own. | %4
   Al -- le -- mande left that cor -- ner girl and weave that ring. %4
@@ -150,10 +149,10 @@ opener = \lyricmode { % 32 measures
 }
 
 figure = \lyricmode { % 32 measures
-  Heads you prom -- en -- ade half -- way a -- round the ring you go
-  "2" "&" "4" do a right "&" left thru "&" turn the girl you go
+  Heads you prom -- en -- ade half -- way a -- round the ring you go.
+  Now, "2" "&" "4" do a right "&" left thru "&" turn the girl you go.
   Square thru "4" hands a -- round, move a -- round that floor.
-  Do -- sa -- do and then you do an eight chain four
+  Do -- sa -- do and then you do an eight chain four.
   Fire on the moun -- tain, run, __ boys, run.
   Swing the cor -- ner, prom -- en -- ade her, son.
   Chick -- en in the bread -- pan, pick -- in' out dough.
@@ -166,8 +165,8 @@ middle = \lyricmode { % 32 measures
   "\"Well," you're pret -- ty good, __ old son,
   but sit down in that chair right there
   and let me show you how it's "done.\""
-  Walk a -- round your cor -- ner, see saw round your own.
-  Left al -- le -- mande and weave that ring
+  Walk a -- round your cor -- ner, see saw your own. | %4
+  Al -- le -- mande left that cor -- ner girl and weave that ring. %4
   Fire on the moun -- tain, run, __ boys, run.
   Do -- sa -- do, prom -- en -- ade her, son.
   Chick -- en in the bread -- pan, pick -- in' out dough.
@@ -180,19 +179,18 @@ closer = \lyricmode { % 32 measures
   if you ev -- er want to try a -- gain. __
   'Cause I told you once, you son -- of -- a -- gun, __
   I'm the best that's ev -- er "been.\"" __
-  Walk a -- round your cor -- ner, see saw round your own.
-  Left al -- le -- mande and weave that ring
+  Walk a -- round your cor -- ner, see saw your own. | %4
+  Al -- le -- mande left that cor -- ner girl and weave that ring. %4
   Fire on the moun -- tain, run, __ boys, run.
   Do -- sa -- do, prom -- en -- ade her, son.
   Chick -- en in the bread -- pan, pick -- in' out dough.
   Gran -- ny, does your dog bite? No, child, no.
 }
 
-tagg = \lyricmode { % 16 measures
-  Bow to your part -- ner, cor -- ners too. | % 4 measures
-  Wave to the pret -- ty girl a -- cross from you. | % 4 measures
+tagg = \lyricmode { % 8 measures
+  Bow to your part -- ner, cor -- ners too. | % 2 measures
+  Wave to the pret -- ty girl a -- cross from you. | % 2 measures
   Whoa, you did it good!  | % 4 measures
-  % plus 4 measures 'outro' at the end
 }
 
 fiddle = \relative c'' {
@@ -215,8 +213,8 @@ fiddle = \relative c'' {
   d4( bes2.) ~ | bes4 g2. |
   a8-> e e e a-> e e e | a-> e cis e a-> e cis e |
   a8-> e e e e e e e | e-> e4 e8 e4 e8 e |
-% figure
   \repeat unfold 2 {
+% figure
     \repeat volta 2 {
       R1*16 |
       R1*2 | d'8 cis d e  fis b a fis | d fis e d  b cis d4
@@ -227,7 +225,8 @@ fiddle = \relative c'' {
       { c'4 ~ c8 d8 ~ d4 c4 ~ | c8 c ~ c4 a,2 | }
       { c'4 ~ c8 d8 ~ d4 c4 ~ | c8 c ~ c4 a,2 | }
     }
-    R1*15 |
+% break/closer
+    R1*16 |
     R1*2 | d'8 cis d e  fis b a fis | d fis e d  b cis d4
     R1*2 | c8 b c b  c d e f | g e g a  g e c4 |
     R1*2 | d8 b' b a  fis d b cis | d a fis d  b cis d4 |
@@ -256,22 +255,39 @@ harmonies = \chordmode {
    d1:m | d:m | d:m | d:m |
    g,1:m | g,2:m gis,:dim7 |
    a,1 | a, | a, | a, |
+  \repeat unfold 2 {
 % figure
-   \repeat volta 2 {
-   d1:m | d:m | c | c |
-   d1:m | d:m | c | c |
-   d1:m | d:m | c | c |
-   a | a | a | a |
-
-   d | d | d | d |
-   c | c | c | c |
-   d | d | d | d |
-   c | c |
-   }
-   \alternative {
-     { c1 c } { c1 c }
-   }
-% break  
+    \repeat volta 2 {
+      d1:m | d:m | c | c |
+      d1:m | d:m | c | c |
+      d1:m | d:m | c | c |
+      a | a | a | a |
+      
+      d | d | d | d |
+      c | c | c | c |
+      d | d | d | d |
+      c | c |
+    }
+    \alternative {
+      { c1 c } { c1 c }
+    }
+% break/closer
+    \set chordChanges = ##f
+    d1*3:m | r2. d4:m | % up strum followed by down strum
+    d1*3:m | r2. d4:m |
+    d1*3:m | r2. d4:m |
+    d1*4:m |
+    \set chordChanges = ##t
+    d1 | d | d | d |
+    c | c | c | c |
+    d | d | d | d |
+    c | c | c | c |
+  }
+% outro
+   d1*2:m | c1*2 |
+   d2:m c | bes, a,:m |
+   g, a, | d4:m a,4. c4. |
+   d1:m
 }
 
 \score {
