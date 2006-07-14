@@ -124,11 +124,10 @@ melody = \relative c'' {
   g8 g g g g4 g | a4 a g r4 | R1*2 |
 
 % TAG
-  \mark\default
   \override NoteHead #'style = #'cross
-  a4 a8 a a4 a | a a a r4 |
-  a4 a8 a a a a a | a4 a a r4 |
-  a1 ~ | a4 ~ a8 a a a ~ a4 | a4 r4 r2 | R1*2 |
+  d'4 d8 d c4 c | bes bes a r4 |
+  d4 g,8 g g g g g | g4 g g r4 |
+  a1 ~ | a4 d d8 d ~ d4 | d4 r4 r2 | R1*2 |
   \bar "|."
 }
 
@@ -232,6 +231,11 @@ fiddle = \relative c'' {
     R1*2 | d8 b' b a  fis d b cis | d a fis d  b cis d4 |
     R1*2 | c'4 ~ c8 d8 ~ d4 c4 ~ | c8 c ~ c4 a,2 |
   }
+% outro
+  d'8 e d a  c d c a | bes c bes g  a bes a f |
+  R1*2 |
+  d8 e d a c d c a | bes c bes g a bes a4 |
+  g,1 | r4. a'4. c4 ~ | c8 d4. r2 | 
 }
 
 harmonies = \chordmode {
@@ -286,8 +290,8 @@ harmonies = \chordmode {
 % outro
    d1*2:m | c1*2 |
    d2:m c | bes, a,:m |
-   g, a, | d4:m a,4. c4. |
-   d1:m
+   g, a, | d4.:m a,4. c4 |
+   r8 d4.:m r2 |
 }
 
 \score {
