@@ -233,9 +233,9 @@ fiddle = \relative c'' {
   }
 % outro
   d'8 e d a  c d c a | bes c bes g  a bes a f |
-  R1*2 |
-  d8 e d a c d c a | bes c bes g a bes a4 |
-  g,1 | r4. a'4. c4 ~ | c8 d4. r2 | 
+  r4 g4 r8 e4 d8 | g4 r8 e4 d8 e8. d16 |
+  d'8 e d a c d c a | bes c bes g a bes a4 |
+  r4 a,2 r4 | r4. a4. c4 | d4. r8 r2 | 
 }
 
 harmonies = \chordmode {
@@ -291,7 +291,7 @@ harmonies = \chordmode {
    d1*2:m | c1*2 |
    d2:m c | bes, a,:m |
    g, a, | d4.:m a,4. c4 |
-   r8 d4.:m r2 |
+   d4.:m r8 r2 |
 }
 
 \score {
