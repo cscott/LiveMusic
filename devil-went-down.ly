@@ -4,6 +4,7 @@
   meter = 125
 }
 #(set-default-paper-size "letter")
+#(set-global-staff-size 14)
 
 % 105 measures = 204 seconds = 1.943 s/measure = 123 bpm
 % 241 measures = 7:41=461 seconds = 9 + (32 * 7) + 8 = 125.5 bpm
@@ -294,6 +295,53 @@ harmonies = \chordmode {
    d4.:m r8 r2 |
 }
 
+bass = \relative c,
+{
+  \set Staff.instrument = "Bass "
+  \set Staff.midiInstrument = "acoustic bass"
+% drum intro
+  r1 |
+% intro
+  \octave d,
+  d2\3 a\4 | d2\3 a\4 | c2 g | c2 g |
+  d'2\3 c | bes a | g a | d4 a4. c4. |
+% opener
+  \octave d,
+  d1~ | d1~ | d1 | r2. d4 |
+  d1~ | d1~ | d1 | r2. d4 |
+  d1~ | d1~ | d1 | r2. d4 |
+  d1~ | d1~ | d1 | a4 b c cis |
+  d2\3 a\4 | d2\3 a\4 |
+  c2 g | c2 g |
+  g'2 d | g d |
+  d a | d d | d2 a | d2 a |
+  g'2 d | g d |
+  a'1 | a,1 | a2 g | f e |
+  \repeat unfold 2 {
+% figure
+    \repeat volta 2 {
+      R1*16 | % XXX FIXME
+      R1*14 | % XXX FIXME
+    }
+    \alternative {
+      { R1*2 } { R1*2 }
+    }
+% break/closer
+  \octave d,
+  d1~ | d1~ | d1 | r2. d4 |
+  d1~ | d1~ | d1 | r2. d4 |
+  d1~ | d1~ | d1 | r2. d4 |
+  d1~ | d1~ | d1 | a4 b c cis |
+  R1*16 | %% XXX FIXME
+  }
+%outro
+  \octave d,
+  d2\3 a\4 | d2\3 a\4 | c2 g | c2 g |
+  d'2\3 c | bes a |
+  g a | d4. a4. c4 |
+  d4. r8 r2 |
+}
+
 \score {
   <<
     \context ChordNames {
@@ -318,6 +366,10 @@ harmonies = \chordmode {
       \set Staff.instr = "Cla"
       \transpose bes c' << \fiddle >>
     }
+    \new TabStaff <<
+      \set TabStaff.stringTunings = #bass-tuning
+      \bass
+    >>
     \context Staff = claps {
       \set Staff.instrument = "Drums"
       \claps
@@ -341,9 +393,9 @@ harmonies = \chordmode {
     \context Staff=fiddle << r4\fiddle >>
 %    \context Staff=alternate << r4\alternate >>
 %    \context Staff=banjo << r4\banjo >>
-%    \context Staff=bass << r4\bass >>
+    \context Staff=bass << r4\bass >>
   >>
   \midi {
-    \tempo 4=125
+    \tempo 2=125
   }
 }
