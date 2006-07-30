@@ -303,43 +303,58 @@ bass = \relative c,
   r1 |
 % intro
   \octave d,
-  d2\3 a\4 | d2\3 a\4 | c2 g | c2 g |
-  d'2\3 c | bes a | g a | d4 a4. c4. |
+  d2\3 a\4 | d2\3 d4\3 cis | c2 g | c2 g4 c |
+  d2\3 c | bes a | g a | d4\3 a4. c4. |
 % opener
+  \repeat unfold 3 {
   \octave d,
-  d1~ | d1~ | d1 | r2. d4 |
-  d1~ | d1~ | d1 | r2. d4 |
-  d1~ | d1~ | d1 | r2. d4 |
-  d1~ | d1~ | d1 | a4 b c cis |
-  d2\3 a\4 | d2\3 a\4 |
-  c2 g | c2 g |
-  g'2 d | g d |
-  d a | d d | d2 a | d2 a |
-  g'2 d | g d |
-  a'1 | a,1 | a2 g | f e |
+  d2\3 a\4 | d4\3 a2\4 c4 | d2\3 a\4 | d4\3 f2\3 e4\3 |
+  }
+  d2\3 a\4 | d4\3 a2\4 c4 | d2\3 a\4 | bes4 b c cis |
+  \octave d,
+  d2\3 a\4 | d2\3 a4\4 d\3 |
+  c2 g | c2 c |
+  g'2 d | g g |
+  d a | d a4 d | d2 a | d2 d |
+  g2 d | g gis |
+  a2\3 g4\3 f\3 | e\3 d\3 c\3 bes\3 | a2 g | f e |
   \repeat unfold 2 {
 % figure
     \repeat volta 2 {
-      R1*16 | % XXX FIXME
-      R1*14 | % XXX FIXME
+      \octave d,,
+      \repeat unfold 2 { d'2\3 a\4 | d2\3 a4\4 d\3 | c2 g | c2 c4 cis | }
+      \octave d,
+      d2\3 a\4 | d2\3 a4\4 d\3 | c2 g | c2 c2 |
+      a'2 e | a e | a g | f e |
+
+      \octave d,
+      d2\3 a\4 | d2\3 a\4 | d2\3 a\4 | d2\3 d4\3 cis |
+      c2 g | c2 g | c2 g | c2 c4 cis |
+      d2\3 a\4 | d2\3 a\4 | d2\3 a\4 | d2\3 d4\3 cis |
+      c2 g | c2 g |
     }
     \alternative {
-      { R1*2 } { R1*2 }
+      { c2 g | c4 a b c | } { c2 g | c4 a b c | }
     }
 % break/closer
-  \octave d,
-  d1~ | d1~ | d1 | r2. d4 |
-  d1~ | d1~ | d1 | r2. d4 |
-  d1~ | d1~ | d1 | r2. d4 |
-  d1~ | d1~ | d1 | a4 b c cis |
-  R1*16 | %% XXX FIXME
+    \repeat unfold 3 {
+      \octave d,
+      d2\3 a\4 | d4\3 a2\4 c4 | d2\3 a\4 | d4\3 f2\3 e4\3 |
+    }
+    d2\3 a\4 | d4\3 a2\4 c4 | d2\3 a\4 | bes4 b c cis |
+    
+    \octave d,
+    d2\3 a\4 | d2\3 a\4 | d2\3 a\4 | d2\3 d4\3 cis |
+    c2 g | c2 g | c2 g | c2 c4 cis |
+    d2\3 a\4 | d2\3 a\4 | d2\3 a\4 | d2\3 d4\3 cis |
+    c2 g | c2 g | c2 g | c4 a b c |
   }
 %outro
   \octave d,
-  d2\3 a\4 | d2\3 a\4 | c2 g | c2 g |
-  d'2\3 c | bes a |
-  g a | d4. a4. c4 |
-  d4. r8 r2 |
+  d2\3 a\4 | d2\3 d\3 | c2 g | c2 g4 c |
+  d2\3 c | bes a |
+  g a | d4.\3 a4. c4 |
+  d4.\3 r8 r2 |
 }
 
 \score {
