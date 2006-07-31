@@ -237,6 +237,6 @@ bass = \transpose c c,,
     \context Staff=bass << r4\bass >>
   >>
   \midi {
-    \tempo 4=129
+    \tempo 2=129
   }
 }
