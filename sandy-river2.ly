@@ -18,8 +18,6 @@
 #(set-global-staff-size 16)
 
 melody = \relative c''' {
-  \set Staff.instrument = "Melody"
-  \set Staff.instr = "Mel."
   \set Staff.midiInstrument = "fiddle"
   \key g \major
   \repeat volta 2 {
@@ -27,8 +25,8 @@ melody = \relative c''' {
     g4 g8 g d4 g | fis8 e fis g a2 |
     g4 g8 g d4 g | b8 a b4 a8 g a4 |
   } \alternative {
+    { g4 g8 g d4 e | d8 b a4 g b8 d | }
     { g4 g8 g d4 e | d8 b a4 g2 | }
-    { g'4 g8 g d4 e | d8 b a4 g2 | }
   }
   \repeat volta 2 {
     d8 e g a b4 b8 b | a4 g e' d |
@@ -40,6 +38,27 @@ melody = \relative c''' {
   }
 }
 
+alternate = \relative c'' {
+  \set Staff.midiInstrument = "fiddle"
+  \key g \major
+  \repeat volta 2 {
+    d4 d8 d b4 d | g8 fis g4 fis8 e fis4 |
+    d4 d8 d b4 d | d8 cis d e fis2 |
+    d4 d8 d b4 d | g8 fis g4 fis8 e fis4 |
+  } \alternative {
+    { d4 d8 d b4 b | a8 g fis4 d g8 b | }
+    { d4 d8 d b4 b | a8 g fis4 d2 | }
+  }
+  \repeat volta 2 {
+    % first two notes in each of the next 3 lines was b4
+    d8 e d8 e g4 d8 g | fis4 d a' b |
+    d,8 e d8 e g4 d8 g | fis4 d g2 | % last note here was b
+    d8 e d8 e g4 d8 g | fis4 d a' b |
+  } \alternative {
+    { d4 b8 d b4 c | a8 g fis4 d2 | }
+    { d'4 b8 d b4 c | a8 g fis4 d2 | }
+  }
+}
 
 banjo = \relative c {
   \set Staff.midiInstrument = "banjo"
@@ -253,11 +272,25 @@ pianobot = \relative c,,
          \set chordChanges = ##t
          \harmonies
     }
-    \new Staff << \melody >>
+    \new Staff <<
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \melody 
+    >>
+    \new Staff <<
+      \set Staff.instrument = "Alt. Melody"
+      \set Staff.instr = "Alt."
+      \alternate
+    >>
     \context Staff = celloA {
       \set Staff.instrument = "Cello 1"
       \set Staff.instr = "Cel1"
       \transpose c c,, << \clef bass \melody >> % 2 octaves down
+    }
+    \context Staff = celloB {
+      \set Staff.instrument = "Cello 2"
+      \set Staff.instr = "Cel2"
+      \transpose c c,, << \clef bass \alternate >> % 2 octaves down
     }
     \new TabStaff <<
       \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "gDGBD)" } }
@@ -285,6 +318,7 @@ pianobot = \relative c,,
   \unfoldRepeats
   \context PianoStaff <<
     \context Staff=melody << r4 \melody >>
+    \context Staff=alternate << r4 \alternate >>
     \context Staff=banjo << r4 \pp\banjo >>
     \context Staff=bass << r4 \bass >>
 %    \context Staff=chords << r4\p \harmonies >>
