@@ -381,6 +381,16 @@ bass = \relative c,
       \set Staff.instr = "Cla"
       \transpose bes c' << \fiddle >>
     }
+    \context Staff = celloA {
+      \set Staff.instrument = "Cello 1"
+      \set Staff.instr = "Cel1"
+      \transpose c c, << \clef bass \fiddle >> % 1 octave down
+    }
+    \context Staff = celloB {
+      \set Staff.instrument = "Cello 2"
+      \set Staff.instr = "Cel2"
+      \transpose c c' << \clef bass \bass >> % 1 octave up
+    }
     \new TabStaff <<
       \set TabStaff.stringTunings = #bass-tuning
       \bass
