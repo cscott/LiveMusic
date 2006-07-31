@@ -11,6 +11,7 @@
   meter = 129
 }
 #(set-default-paper-size "letter")
+#(set-global-staff-size 20)
 
 melody = \relative c'' {
   \set Staff.midiInstrument = "fiddle"
@@ -133,14 +134,24 @@ harmonies = \chordmode {
       \harmonies
     }
     \new Staff <<
-      \set Staff.instrument = "Flute"
-      \set Staff.instr = "Flu."
+      \set Staff.instrument = "Flute 1"
+      \set Staff.instr = "Flu.1"
       \melody
     >>
     \new Staff <<
-      \set Staff.instrument = "Clarinet"
-      \set Staff.instr = "Cla."
+      \set Staff.instrument = "Flute 2"
+      \set Staff.instr = "Flu.2"
+      \alternate
+    >>
+    \new Staff <<
+      \set Staff.instrument = "Clarinet 1"
+      \set Staff.instr = "Cla.1"
       \transpose bes c' << \melody >>
+    >>
+    \new Staff <<
+      \set Staff.instrument = "Clarinet 2"
+      \set Staff.instr = "Cla.2"
+      \transpose bes c' << \alternate >>
     >>
     \new Staff <<
       \set Staff.instrument = "Cello 1"
