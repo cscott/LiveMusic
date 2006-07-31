@@ -18,12 +18,13 @@
 %  tagline = "\\raisebox{10mm}{\\parbox{188mm}{\\quad\\small\\noindent " + \footer + " \\hspace{\\stretch{1}} This music is part of the Mutopia project: \\hspace{\\stretch{1}} \\texttt{http://www.MutopiaProject.org/}\\\\ \\makebox[188mm][c]{It has been typeset and placed in the public domain by " + \maintainer + ".} \\makebox[188mm][c]{Unrestricted modification and redistribution is permitted and encouraged---copy this music and share it!}}}"
 }
 #(set-default-paper-size "letter")
-#(set-global-staff-size 18)
+#(set-global-staff-size 16)
 
 
 banjo = \relative c'
 {
   \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "aDADE)" } }
+  \set Staff.instr = "Banj."
   \set Staff.midiInstrument = "banjo"
   \partial 8*2 a8\3( b\3)
 
@@ -68,7 +69,6 @@ banjo = \relative c'
 
 melody = \relative c''
 {
-  \set Staff.instrument = "Melody "
   \set Staff.midiInstrument = "fiddle"
   \key d \major
   \partial 8*2 fis8( g8 )
@@ -128,7 +128,6 @@ melody = \relative c''
 
 alternate = \relative c'' % based on the banjo part
 {
-  \set Staff.instrument = "Alt. Melody"
   \set Staff.midiInstrument = "fiddle"
   \key d \major
   \partial 8*2 a8\3( b\3)
@@ -315,6 +314,7 @@ pianobot = \relative c,%,
 bass =  \relative c,
 {
   \set Staff.instrument = "Bass "
+  \set Staff.instr = "Bass"
   \set Staff.midiInstrument = "acoustic bass"
   \partial 8*2  r4
   \repeat volta 2 {
@@ -355,8 +355,26 @@ bass =  \relative c,
          \set chordChanges = ##t
          \harmonies
       }
-   \new Staff << \melody >>
-   \new Staff << \alternate >>
+   \context Staff = mel {
+     \set Staff.instrument = "Melody"
+     \set Staff.instr = "Mel."
+     \melody
+   }
+   \context Staff = alt {
+     \set Staff.instrument = "Alt. Melody"
+     \set Staff.instr = "Alt."
+     \alternate
+   }
+   \context Staff = celloA {
+     \set Staff.instrument = "Cello 1"
+     \set Staff.instr = "Cel1"
+     \transpose c c,, << \clef bass \melody >> % 2 octaves down
+   }
+   \context Staff = celloB {
+     \set Staff.instrument = "Cello 2"
+     \set Staff.instr = "Cel2"
+     \transpose c c,, << \clef bass \alternate >> % 2 octaves down
+   }
    \new TabStaff <<
      \set TabStaff.stringTunings = #'(4 2 -3 -10 9)
 % G tuning: 2 -1 -5 -10 7
@@ -372,6 +390,7 @@ bass =  \relative c,
    \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
       \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
+      \set PianoStaff.instr = "Pia."
      \context Staff = upper << \time 4/4 \pianotop >>
      \context Staff = lower << \clef bass \pianobot >>
    >>
