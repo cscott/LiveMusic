@@ -317,7 +317,10 @@ bass = \relative c,
   g'2 d | g g |
   d a | d a4 d | d2 a | d2 d |
   g2 d | g gis |
-  a2\3 g4\3 f\3 | e\3 d\3 c\3 bes\3 | a2 g | f e |
+  \override Glissando #'style = #'zigzag
+  a2\3\glissando g4\3\glissando f\3\glissando |
+  e\3\glissando d\3\glissando c\3\glissando bes\3\glissando |
+  a2 g | f e |
   \repeat unfold 2 {
 % figure
     \repeat volta 2 {
