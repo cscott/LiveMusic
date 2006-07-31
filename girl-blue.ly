@@ -48,6 +48,43 @@ melody = \relative c'' {
   }
 }
 
+alternate = \relative c'' {
+  \set Staff.midiInstrument = "fiddle"
+  \key g \major
+  \partial 8 g16 a |
+  \repeat volta 2 {
+    b8 g16 b a8 fis16 a
+    g8 d d16 cis d g |
+    fis8 d d16 cis d e |
+    fis8 d d g16 a |
+
+    b8 g16 b a8 fis16 a
+    g8 d d16 cis d g |
+    fis8 d d16 cis d e |
+  }
+  \alternative {
+    { d8 b b g'16 a }
+    { d,8 b b r8 }
+  }
+  \break
+% part 2
+  \repeat volta 2 {
+    d8 g16 b d8. c16 |
+    c8 c c r8 |
+    a,8 d16 fis d'8. c16 |
+    c8 b b r8 |
+
+    e,8 g16 b e8. d16 |
+    d8 c c8. e16 |
+    d8 fis c d |
+  }
+  \alternative {
+    { b4. r8 }
+    { b4. \bar "|." }
+  }
+
+
+}
 harmonies = \chordmode {
   \set Staff.midiInstrument = "pizzicato strings"
   \set Score.markFormatter = #format-mark-box-letters
@@ -95,12 +132,24 @@ harmonies = \chordmode {
       \harmonies
     }
     \new Staff <<
-      \set Staff.instrument = "Melody"
+      \set Staff.instrument = "Flute"
+      \set Staff.instr = "Flu."
       \melody
     >>
     \new Staff <<
       \set Staff.instrument = "Clarinet"
+      \set Staff.instr = "Cla."
       \transpose bes c' << \melody >>
+    >>
+    \new Staff <<
+      \set Staff.instrument = "Cello 1"
+      \set Staff.instr = "Cel.1"
+      \transpose c c, << \clef bass \melody >>
+    >>
+    \new Staff <<
+      \set Staff.instrument = "Cello 2"
+      \set Staff.instr = "Cel.2"
+      \transpose c c, << \clef bass \alternate >>
     >>
 %    \new TabStaff <<
 %      \set TabStaff.stringTunings = #'(2 0 -7 -10 5) % (fDFCD)
@@ -125,6 +174,7 @@ harmonies = \chordmode {
   \context PianoStaff <<
     \time 2/4 
     \context Staff=melody << r4 \melody >>
+    \context Staff=alternate << r4 \alternate >>
 %    \context Staff=banjo \transpose f g << r4 \banjo >>
 %    \context Staff=bass << r4 \bass >>
     \context Staff=chords << r4\p \harmonies >>
