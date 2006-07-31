@@ -1,4 +1,3 @@
-% Lily was here -- automatically converted by /usr/bin/midi2ly from sandy_river_belle-1983.mid
 \version "2.6.3"
 \header {
   title = "Sandy River Belle"
@@ -16,6 +15,31 @@
   meter = 240
 }
 #(set-default-paper-size "letter")
+#(set-global-staff-size 16)
+
+melody = \relative c''' {
+  \set Staff.instrument = "Melody"
+  \set Staff.instr = "Mel."
+  \set Staff.midiInstrument = "fiddle"
+  \key g \major
+  \repeat volta 2 {
+    g4 g8 g d4 g | b8 a b4 a8 g a4 |
+    g4 g8 g d4 g | fis8 e fis g a2 |
+    g4 g8 g d4 g | b8 a b4 a8 g a4 |
+  } \alternative {
+    { g4 g8 g d4 e | d8 b a4 g2 | }
+    { g'4 g8 g d4 e | d8 b a4 g2 | }
+  }
+  \repeat volta 2 {
+    d8 e g a b4 b8 b | a4 g e' d |
+    d,8 e g a b4 b8 b | a4 g e2 |
+    d8 e g a b4 b8 b | a4 g e' d |
+  } \alternative {
+    { g4 g8 g d4 e | d8 b a4 g2 | }
+    { g'4 g8 g d4 e | d8 b a4 g2 | }
+  }
+}
+
 
 banjo = \relative c {
   \set Staff.midiInstrument = "banjo"
@@ -229,13 +253,18 @@ pianobot = \relative c,,
          \set chordChanges = ##t
          \harmonies
     }
-    \new Staff << \banjo >>
+    \new Staff << \melody >>
+    \context Staff = celloA {
+      \set Staff.instrument = "Cello 1"
+      \set Staff.instr = "Cel1"
+      \transpose c c,, << \clef bass \melody >> % 2 octaves down
+    }
     \new TabStaff <<
       \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "gDGBD)" } }
       \set TabStaff.stringTunings = #banjo-open-g-tuning
 %     \tempo 2 = 120 
       \time 4/4 
-      \key g \major
+%     \key g \major
       \banjo
     >>
     \new TabStaff <<
@@ -255,7 +284,8 @@ pianobot = \relative c,,
 \score {
   \unfoldRepeats
   \context PianoStaff <<
-    \context Staff=banjo << r4 \banjo >>
+    \context Staff=melody << r4 \melody >>
+    \context Staff=banjo << r4 \pp\banjo >>
     \context Staff=bass << r4 \bass >>
 %    \context Staff=chords << r4\p \harmonies >>
     \context Staff=upper << r4\pianotop >>
