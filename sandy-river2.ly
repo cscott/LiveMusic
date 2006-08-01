@@ -33,9 +33,10 @@ melody = \relative c''' {
     d,8 e g4 b2 | a8 g g4 e2 |
     d8 e g4 b2 | a8 g g4 e'8 d d4 |
   } \alternative {
-    { g4 g8 g d4 e | d8 b a4 g2 | }
-    { g'4 g8 g d4 e | d8 b a4 g2 | }
+    { g,4 g8 g d4 e | d8 b a4 g2 | }
+    { g''4 g8 g d4 e | d8 b a4 g2 | }
   }
+  \bar "|."
 }
 
 alternate = \relative c'' {
@@ -54,8 +55,8 @@ alternate = \relative c'' {
     b,8 c d4 g2 | fis8 d d4 b2 |
     b8 c d4 g2 | fis8 d d4 a'8 b b4 |
   } \alternative {
-    { d4 b8 d b4 c | a8 g fis4 d2 | }
-    { d'4 b8 d b4 c | a8 g fis4 d2 | }
+    { d,4 b8 d b4 c | a8 g fis4 d2 | }
+    { d''4 b8 d b4 c | a8 g fis4 d2 | }
   }
 }
 
