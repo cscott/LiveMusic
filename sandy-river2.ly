@@ -29,7 +29,7 @@ melody = \relative c''' {
     { g4 g8 g d4 e | d8 b a4 g2 | }
   }
   \repeat volta 2 {
-    d8 e g a b4 b8 b | a4 g e' d |
+    d'8 e g a b4 b8 b | a4 g e' d |
     d,8 e g a b4 b8 b | a4 g e2 |
     d8 e g a b4 b8 b | a4 g e' d |
   } \alternative {
@@ -50,10 +50,9 @@ alternate = \relative c'' {
     { d4 d8 d b4 b | a8 g fis4 d2 | }
   }
   \repeat volta 2 {
-    % first two notes in each of the next 3 lines was b4
-    d8 e d8 e g4 d8 g | fis4 d a' b |
-    d,8 e d8 e g4 d8 g | fis4 d g2 | % last note here was b
-    d8 e d8 e g4 d8 g | fis4 d a' b |
+    b'4 d8 e g4 d8 g | fis4 d a' b |
+    b,4 d8 e g4 d8 g | fis4 d b2 |
+    b4 d8 e g4 d8 g | fis4 d a' b |
   } \alternative {
     { d4 b8 d b4 c | a8 g fis4 d2 | }
     { d'4 b8 d b4 c | a8 g fis4 d2 | }
