@@ -119,9 +119,7 @@ banjo = \relative c {
 
 bass = \transpose c c,,
 {
-  \set Staff.instrument = "Bass "
-  \set Staff.midiInstrument = "acoustic bass"
-%  \key g \major
+  \key g \major
 
   \repeat volta 2 {
     g4 g'\2 g d'\3
@@ -266,7 +264,17 @@ pianobot = \relative c,,
   }
 }
 
+\paper {
+  scoreTitleMarkup = \bookTitleMarkup
+  bookTitleMarkup = \markup {}
+  raggedbottom = ##t
+}
+
+% combined score
 \score {
+  \header {
+    instrument = "Combined Score"
+  }
   <<
     \context ChordNames {
          \set chordChanges = ##t
@@ -294,26 +302,147 @@ pianobot = \relative c,,
     }
     \new TabStaff <<
       \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "gDGBD)" } }
+      \set Staff.instr = "Ban."
       \set TabStaff.stringTunings = #banjo-open-g-tuning
-%     \tempo 2 = 120 
       \time 4/4 
 %     \key g \major
       \banjo
     >>
     \new TabStaff <<
       \set TabStaff.stringTunings = #bass-tuning
+      \set Staff.instrument = "Bass "
+      \set Staff.instr = "Bas."
+      \set Staff.midiInstrument = "acoustic bass"
       \bass
     >>
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
       \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
-     \context Staff = upper << \time 4/4 \pianotop >>
-     \context Staff = lower << \clef bass \pianobot >>
-   >>
+      \set PianoStaff.instr = \markup { "Pia." \hspace #2.0 }
+      \context Staff = upper << \time 4/4 \pianotop >>
+      \context Staff = lower << \clef bass \pianobot >>
+    >>
+  >>
+  \layout { }
+}
+				
+% cello score
+\score {
+  \header {
+    instrument = "Cello"
+    breakbefore=##t
+  }
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
+    \context Staff = celloA {
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \transpose c c,, << \clef bass \melody >> % 2 octaves down
+    }
+    \context Staff = celloB {
+      \set Staff.instrument = "Alt. Melody"
+      \set Staff.instr = "Alt."
+      \transpose c c,, << \clef bass \alternate >> % 2 octaves down
+    }
+    \context Staff = celloC {
+      \set Staff.instrument = "Bass"
+      \set Staff.instr = "Bas."
+      \transpose c c' << \clef bass \bass >>
+    }
+  >>
+  \layout { }
+}
+% flute score
+\score {
+  \header {
+    instrument = "Flute"
+    breakbefore=##t
+  }
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
+    \context Staff = fluteA {
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \melody
+    }
+    \context Staff = fluteB {
+      \set Staff.instrument = "Alt. Melody"
+      \set Staff.instr = "Alt."
+      \alternate
+    }
+  >>
+  \layout { }
+}
+% banjo/bass score
+\score {
+  \header {
+    instrument = "Banjo/Bass"
+    breakbefore=##t
+  }
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
+    \context Staff = fluteA {
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \melody
+    }
+    \new TabStaff <<
+      \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "gDGBD)" } }
+      \set Staff.instr = "Ban."
+      \set TabStaff.stringTunings = #banjo-open-g-tuning
+      \time 4/4 
+%     \key g \major
+      \banjo
+    >>
+    \new TabStaff <<
+      \set TabStaff.stringTunings = #bass-tuning
+      \set Staff.instrument = "Bass "
+      \set Staff.instr = "Bas."
+      \set Staff.midiInstrument = "acoustic bass"
+      \bass
+    >>
+  >>
+  \layout { }
+}
+% piano/guitar score
+\score {
+  \header {
+    instrument = "Piano/Guitar"
+    breakbefore=##t
+  }
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
+    \new Staff <<
+      \set Staff.printPartCombineTexts = ##f
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \small\partcombine \melody \alternate
+    >>
+    \new PianoStaff <<
+      #(set-accidental-style 'piano-cautionary)
+      \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
+      \set PianoStaff.instr = \markup { "Pia." \hspace #2.0 }
+      \context Staff = upper << \time 4/4 \pianotop >>
+      \context Staff = lower << \clef bass \pianobot >>
+    >>
   >>
   \layout { }
 }
 
+
+% midi score.
 \score {
   \unfoldRepeats
   \context PianoStaff <<
