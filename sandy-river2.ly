@@ -29,9 +29,9 @@ melody = \relative c''' {
     { g4 g8 g d4 e | d8 b a4 g2 | }
   }
   \repeat volta 2 {
-    d'8 e g a b4 b8 b | a4 g e' d |
-    d,8 e g a b4 b8 b | a4 g e2 |
-    d8 e g a b4 b8 b | a4 g e' d |
+    d'8 e g4 b2 | a8 g g4 e'8 d d4 |
+    d,8 e g4 b2 | a8 g g4 e2 |
+    d8 e g4 b2 | a8 g g4 e'8 d d4 |
   } \alternative {
     { g4 g8 g d4 e | d8 b a4 g2 | }
     { g'4 g8 g d4 e | d8 b a4 g2 | }
@@ -50,9 +50,9 @@ alternate = \relative c'' {
     { d4 d8 d b4 b | a8 g fis4 d2 | }
   }
   \repeat volta 2 {
-    b'4 d8 e g4 d8 g | fis4 d a' b |
-    b,4 d8 e g4 d8 g | fis4 d b2 |
-    b4 d8 e g4 d8 g | fis4 d a' b |
+    b'8 c d4 g2 | fis8 d d4 a'8 b b4 |
+    b,8 c d4 g2 | fis8 d d4 b2 |
+    b8 c d4 g2 | fis8 d d4 a'8 b b4 |
   } \alternative {
     { d4 b8 d b4 c | a8 g fis4 d2 | }
     { d'4 b8 d b4 c | a8 g fis4 d2 | }
