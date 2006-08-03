@@ -35,9 +35,9 @@ melody = \relative c''
     { e,4 a g2 |}
   }
   \repeat volta 2 {
-    a8 b a4 g2 |
-    a8 b4. d,2 |
-    a'8 b a b a4 g |
+    \appoggiatura a16 b4 a4 g2 |
+    \appoggiatura a16 b2 d,2 |
+    \appoggiatura a'16 b4 \appoggiatura a16 b4 a4 g |
     d8 e g a g2 |
   }
   \bar "|."
@@ -59,6 +59,25 @@ alternate = \relative c''
   }
 }
 
+bass = \relative c,
+{
+  \set Staff.midiInstrument = "acoustic bass"
+  \key g \major
+  \time 4/4
+  \partial 8*2
+  r4
+  \repeat volta 2 {
+    g4 r d' r | c4 r g r |
+    g4 r d' r |
+  } \alternative {
+    { d4 r g, r | }
+    { d'4 r g, r | }
+  }
+  \repeat volta 2 {
+    \grace s16 g4 r d' r | g,4 r d' r | g,4 r d' r | d4 r g, r |
+  }
+}
+
 harmonies = \chordmode {
    \set Staff.midiInstrument = "pizzicato strings"
    \time 4/4
@@ -71,29 +90,70 @@ harmonies = \chordmode {
      { d2 g }
    }
    \repeat volta 2 {
-   g2 g | g g | g g | d g
+     \grace s16 g2 g | g g | g g | d g |
    }
 }
+
+guitarA = \relative c
+{
+  r4
+  \repeat volta 2 {
+    g2 d' | c2 g | g2 d' |
+  } \alternative {
+    { d2 g, | }
+    { d'2 g, | }
+  }
+  \repeat volta 2 {
+    \grace s16 g2 d' | g,2 d' | g,2 d' | d2 g, |
+  }
+}
+guitarB = \relative c
+{
+  s4 \arpeggioUp
+  \repeat volta 2 {
+    s4 <g' d' g>\arpeggio s4 <g d' g>\arpeggio |
+    s4 <g c e>\arpeggio s4 <g d' g>\arpeggio |
+    s4 <g d' g>\arpeggio s4 <g d' g>\arpeggio |
+  } \alternative {
+    { s4 <a d fis>\arpeggio s4 <g d' g>\arpeggio | }
+    { s4 <a d fis>\arpeggio s4 <g d' g>\arpeggio | }
+  }
+  \repeat volta 2 {
+    \grace s16
+    s4 <g d' g>\arpeggio s4 <g d' g>\arpeggio |
+    s4 <g d' g>\arpeggio s4 <g d' g>\arpeggio |
+    s4 <g d' g>\arpeggio s4 <g d' g>\arpeggio |
+    s4 <a d fis>\arpeggio s4 <g d' g>\arpeggio |
+  }
+}
+
 
 \score {
 
   <<
     \context ChordNames {
-         \set chordChanges = ##t
-         \transpose g a \harmonies
+      \set chordChanges = ##t
+      \transpose g a \harmonies
     }
-     \new Staff << \transpose g a \melody >>
-%     \new Staff << \alternate >>
-%    \new TabStaff <<
-%      \set TabStaff.stringTunings = #bass-tuning
-%      \bass
-%    >>
-%    \new PianoStaff <<
-%      #(set-accidental-style 'piano-cautionary)
-%      \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
-%     \context Staff = upper << \time 4/4 \pianotop >>
-%     \context Staff = lower << \clef bass \pianobot >>
-%   >>
+    \new Staff << \transpose g a \melody >>
+%{
+    \new Staff << \clef "treble_8"
+		  \new Voice { \transpose g a \guitarA }
+		  \new Voice { \transpose g a \guitarB }
+		>>
+%}
+    \new TabStaff << 
+      \set TabStaff.instrument = \markup{ \column{ "Guitar" "capo 2" } }
+      \time 4/4
+      \partial 8*2
+      \new TabVoice \guitarA
+      \new TabVoice \guitarB
+    >>
+    \new TabStaff <<
+      \set TabStaff.instrument = "Bass"
+      \set TabStaff.stringTunings = #bass-tuning
+      \transpose g a \bass
+    >>
   >>
   \layout { }
 }
@@ -101,15 +161,17 @@ harmonies = \chordmode {
 \score {
   \unfoldRepeats
   \context PianoStaff <<
-    \context Staff=melody << r4 \melody >>
-%    \context Staff=alternate << r4 \alternate >>
-%    \context Staff=banjo \transpose f g << r4 \banjo >>
-%    \context Staff=bass << r4 \bass >>
-    \context Staff=chords << r4\p \harmonies >>
-%    \context Staff=upper << r4\pianotop >>
-%    \context Staff=lower << r4\pianobot >>
+    \context Staff=melody << \melody >>
+    \context Staff=guitar <<
+      \set Staff.midiInstrument = "acoustic guitar (steel)"
+      \time 4/4
+      \partial 8*2
+      \new Voice \guitarA
+      \new Voice \guitarB >>
+    \context Staff=bass << \bass >>
+%    \context Staff=chords << r4\p \harmonies >>
   >>
   \midi {
-    \tempo 4=88
+    \tempo 2=120
   }
 }
