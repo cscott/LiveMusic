@@ -41,10 +41,16 @@ tradmel = \relative c''
     d8 e g a g2 |
   }
 }
+closer = \relative c'' 
+{
+  \times 2/3 { g'8 fis e } d8 e d b a g |
+  d8 e g b  g e d c |
+  cis8 e g b  c, d fis a |
+  \times 2/3 { g8 a b } \times 2/3 { d e fis } g4
+  \bar "|."
+}
 jethro = \relative c''
 {
-  \set Staff.instrument = "Jethro "
-  \set Staff.midiInstrument = "fiddle"
   \key g \major
   \time 4/4
 
@@ -66,16 +72,10 @@ jethro = \relative c''
     d8 e g a g2 |
   }
   % closer?
-  \times 2/3 { g'8 fis e } d8 e d b a g |
-  d8 e g b  g e d c |
-  cis8 e g b  c, d fis a |
-  \times 2/3 { g8 a b } \times 2/3 { d e fis } g4
-  \bar "|."
+  \closer
 }
 melody = \relative c''
 {
-  \set Staff.instrument = "Melody "
-  \set Staff.midiInstrument = "fiddle"
   \key g \major
   \time 4/4
 
@@ -97,8 +97,6 @@ melody = \relative c''
 }
 alternate = \relative c''
 {
-  \set Staff.instrument = "Alt. Melody "
-  \set Staff.midiInstrument = "fiddle"
   \key g \major
   \time 4/4
 
@@ -137,6 +135,7 @@ bass = \relative c,
     \grace s16 g4 r d' r | g,4 r d' r | g,4 r d' r | d4 r g, r |
   }
   g4 r d' r | g, r d' r | a r d r | g, r d'4
+  \bar "|."
 }
 
 harmonies = \chordmode {
@@ -194,9 +193,17 @@ guitarB = \relative c
   s4  <g d' g>\arpeggio <g d' g>
 }
 
+\paper {
+  scoreTitleMarkup = \bookTitleMarkup
+  bookTitleMarkup = \markup {}
+  raggedbottom = ##t
+}
 
+% combined score
 \score {
-
+  \header {
+    instrument = "Combined Score"
+  }
   <<
     \context ChordNames {
       \set chordChanges = ##t
@@ -205,9 +212,18 @@ guitarB = \relative c
 %{
     \new Staff << \tradmel >>
 %}
-    \new Staff << \melody >>
-    \new Staff << \alternate >>
-    \new Staff << \jethro >>
+    \new Staff << 
+      \set Staff.instrument = "Melody "
+      \melody
+    >>
+    \new Staff <<
+      \set Staff.instrument = "Alt. Melody "
+      \alternate
+    >>
+    \new Staff <<
+      \set Staff.instrument = "Variant"
+      \jethro
+    >>
 %{
     \new Staff << \clef "treble_8"
 		  \new Voice { \guitarA }
@@ -230,15 +246,128 @@ guitarB = \relative c
   \layout { }
 }
 
+% cello score
+\score {
+  \header {
+    instrument = "Cello"
+    breakbefore=##t
+  }
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
+    \context Staff = celloA {
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \transpose c c,, << \clef bass \melody >> % 2 octaves down
+    }
+    \context Staff = celloB {
+      \set Staff.instrument = "Alt. Melody"
+      \set Staff.instr = "Alt."
+      \transpose c c,, << \clef bass \alternate >> % 2 octaves down
+    }
+    \context Staff = celloC {
+      \set Staff.instrument = "Variant"
+      \set Staff.instr = "Var."
+      \transpose c c,, << \clef bass \jethro >> % 2 octaves down
+    }
+    \context Staff = celloD {
+      \set Staff.instrument = "Bass"
+      \set Staff.instr = "Bas."
+      \transpose c c' << \clef bass \bass >> % 1 octave up
+    }
+  >>
+  \layout { }
+}
+% flute score
+\score {
+  \header {
+    instrument = "Flute"
+    breakbefore=##t
+  }
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
+    \context Staff = fluteA {
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \melody
+    }
+    \context Staff = fluteB {
+      \set Staff.instrument = "Alt. Melody"
+      \set Staff.instr = "Alt."
+      \alternate
+    }
+    \context Staff = fluteC {
+      \set Staff.instrument = "Variant"
+      \set Staff.instr = "Var."
+      \jethro
+    }
+  >>
+  \layout { }
+}
+% guitar/bass score
+\score {
+  \header {
+    instrument = "Guitar/Bass"
+    breakbefore=##t
+  }
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
+    \context Staff = melody {
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \melody \break \closer
+    }
+    \new Staff << \clef "treble_8"
+		  \set Staff.instrument = "Guitar"
+		  \set Staff.instr = "Gui."
+		  \new Voice { \guitarA }
+		  \new Voice { \guitarB }
+		>>
+    \new TabStaff << 
+      \set TabStaff.instrument = "Guitar"
+      \set TabStaff.instr = "Gui."
+      \time 4/4
+      \partial 8*2
+      \new TabVoice \guitarA
+      \new TabVoice \guitarB
+    >>
+    \new TabStaff <<
+      \set TabStaff.instrument = "Bass"
+      \set TabStaff.instr = "Bas."
+      \set TabStaff.stringTunings = #bass-tuning
+      \bass
+    >>
+  >>
+  \layout { }
+}
+
+% midi score.
 \score {
   \unfoldRepeats
   \context PianoStaff <<
 %{
     \context Staff=trad << \tradmel >>
-    \context Staff=jethro << \jethro >>
+    \context Staff=jethro <<
+      \set Staff.midiInstrument = "fiddle"
+      \jethro
+    >>
 %}
-    \context Staff=melody << \melody >>
-    \context Staff=alternate << \alternate >>
+    \context Staff=melody <<
+      \set Staff.midiInstrument = "fiddle"
+      \melody
+    >>
+    \context Staff=alternate <<
+      \set Staff.midiInstrument = "fiddle"
+      \alternate
+    >>
     \context Staff=guitar <<
       \set Staff.midiInstrument = "acoustic guitar (steel)"
       \time 4/4
