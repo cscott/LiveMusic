@@ -148,15 +148,23 @@ opener = \lyricmode { % 32 measures
   But if you lose the dev -- il gets your soul. __ %4
 }
 
-figure = \lyricmode { % 32 measures
-  Heads you prom -- en -- ade half -- way a -- round the ring you go.
-  Now, "2" "&" "4" do a right "&" left thru "&" turn the girl you go.
+figureC = \lyricmode { % 32 measures
   Square thru "4" hands a -- round, move a -- round that floor.
   Do -- sa -- do and then you do an eight chain four.
   Fire on the moun -- tain, run, __ boys, run.
   Swing the cor -- ner, prom -- en -- ade her, son.
   Chick -- en in the bread -- pan, pick -- in' out dough.
   Gran -- ny, does your dog bite? No, child, no.
+}
+figureA = \lyricmode {
+  Heads you prom -- en -- ade half -- way a -- round the ring you go.
+  Now, "2" "&" "4" do a right "&" left thru "&" turn the girl you go.
+  \figureC
+}
+figureB = \lyricmode {
+  Sides you prom -- en -- ade half -- way a -- round the ring you go.
+  Now, "1" "&" "3" do a right "&" left thru "&" turn the girl you go.
+  \figureC
 }
 
 middle = \lyricmode { % 32 measures
@@ -379,7 +387,7 @@ bass = \relative c,
       \melody
     }
     \lyricsto melody \new Lyrics {
-      \opener \figure \middle \figure \closer \tagg
+      \opener \figureA \middle \figureB \closer \tagg
     }
     \context Staff = fiddle {
       \set Staff.instrument = "Fiddle"
@@ -438,7 +446,7 @@ bass = \relative c,
       \melody
     }
     \lyricsto melody \new Lyrics {
-      \opener \figure \middle \figure \closer \tagg
+      \opener \figureA \middle \figureB \closer \tagg
     }
     \context Staff = celloA {
       \set Staff.instrument = "Cello 1"
@@ -471,7 +479,7 @@ bass = \relative c,
       \melody
     }
     \lyricsto melody \new Lyrics {
-      \opener \figure \middle \figure \closer \tagg
+      \opener \figureA \middle \figureB \closer \tagg
     }
     \context Staff = fluteA {
       \set Staff.instrument = "Flute"
@@ -499,7 +507,7 @@ bass = \relative c,
       \transpose bes c' << \melody >>
     }
     \lyricsto melody \new Lyrics {
-      \opener \figure \middle \figure \closer \tagg
+      \opener \figureA \middle \figureB \closer \tagg
     }
     \context Staff = clarinet {
       \set Staff.instrument = "Clarinet"
@@ -527,7 +535,7 @@ bass = \relative c,
       \melody
     }
     \lyricsto melody \new Lyrics {
-      \opener \figure \middle \figure \closer \tagg
+      \opener \figureA \middle \figureB \closer \tagg
     }
     \new TabStaff <<
       \set TabStaff.stringTunings = #bass-tuning
