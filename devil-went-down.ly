@@ -297,7 +297,6 @@ harmonies = \chordmode {
 
 bass = \relative c,
 {
-  \set Staff.instrument = "Bass "
   \set Staff.midiInstrument = "acoustic bass"
 % drum intro
   r1 |
@@ -360,10 +359,18 @@ bass = \relative c,
   d4.\3 r8 r2 |
 }
 
+\paper {
+  scoreTitleMarkup = \bookTitleMarkup
+  bookTitleMarkup = \markup {}
+  raggedbottom = ##t
+}
+
+% combined score
 \score {
   <<
     \context ChordNames {
       \set chordChanges = ##t
+      \tempo 2=125
       \harmonies
     }
     \context Voice = melody {
@@ -395,6 +402,7 @@ bass = \relative c,
       \transpose c c' << \clef bass \bass >> % 1 octave up
     }
     \new TabStaff <<
+      \set Staff.instrument = "Bass "
       \set TabStaff.stringTunings = #bass-tuning
       \bass
     >>
@@ -411,6 +419,128 @@ bass = \relative c,
   }
 }
 
+				
+% cello score
+\score {
+  \header {
+    instrument = "Cello"
+    breakbefore=##t
+  }
+  <<
+    \context ChordNames {
+      \set chordChanges = ##t
+      \tempo 2=125
+      \harmonies
+    }
+    \context Voice = melody {
+      \set Staff.instrument = "Voice"
+      \set Staff.instr = "Voc"
+      \melody
+    }
+    \lyricsto melody \new Lyrics {
+      \opener \figure \middle \figure \closer \tagg
+    }
+    \context Staff = celloA {
+      \set Staff.instrument = "Cello 1"
+      \set Staff.instr = "Cel.1"
+      \transpose c c, << \clef bass \fiddle >> % 1 octave down
+    }
+    \context Staff = celloB {
+      \set Staff.instrument = "Cello 2"
+      \set Staff.instr = "Cel.2"
+      \transpose c c' << \clef bass \bass >> % 1 octave up
+    }
+  >>
+  \layout { }
+}
+% flute score
+\score {
+  \header {
+    instrument = "Flute"
+    breakbefore=##t
+  }
+  <<
+    \context ChordNames {
+      \set chordChanges = ##t
+      \tempo 2=125
+      \harmonies
+    }
+    \context Voice = melody {
+      \set Staff.instrument = "Voice"
+      \set Staff.instr = "Voc"
+      \melody
+    }
+    \lyricsto melody \new Lyrics {
+      \opener \figure \middle \figure \closer \tagg
+    }
+    \context Staff = fluteA {
+      \set Staff.instrument = "Flute"
+      \set Staff.instr = "Flu."
+      \fiddle
+    }
+  >>
+  \layout { }
+}
+% clarinet score
+\score {
+  \header {
+    instrument = "Clarinet"
+    breakbefore=##t
+  }
+  <<
+    \context ChordNames {
+      \set chordChanges = ##t
+      \tempo 2=125
+      \transpose bes c' << \harmonies >>
+    }
+    \context Voice = melody {
+      \set Staff.instrument = "Voice"
+      \set Staff.instr = "Voc"
+      \transpose bes c' << \melody >>
+    }
+    \lyricsto melody \new Lyrics {
+      \opener \figure \middle \figure \closer \tagg
+    }
+    \context Staff = clarinet {
+      \set Staff.instrument = "Clarinet"
+      \set Staff.instr = "Cla"
+      \transpose bes c' << \fiddle >>
+    }
+  >>
+  \layout { }
+}
+% guitar/bass score
+\score {
+  \header {
+    instrument = "Guitar/Bass"
+    breakbefore=##t
+  }
+  <<
+    \context ChordNames {
+      \set chordChanges = ##t
+      \tempo 2=125
+      \harmonies
+    }
+    \context Voice = melody {
+      \set Staff.instrument = "Voice"
+      \set Staff.instr = "Voc"
+      \melody
+    }
+    \lyricsto melody \new Lyrics {
+      \opener \figure \middle \figure \closer \tagg
+    }
+    \new TabStaff <<
+      \set TabStaff.stringTunings = #bass-tuning
+      \set Staff.instrument = "Bass "
+      \set Staff.instr = "Bas."
+      \bass
+    >>
+  >>
+  \layout { }
+}
+
+
+% midi score.
 \score {
   \unfoldRepeats
   \context PianoStaff <<
