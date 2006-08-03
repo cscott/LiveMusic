@@ -40,6 +40,36 @@ melody = \relative c''
     \appoggiatura a'16 b4 \appoggiatura a16 b4 a4 g |
     d8 e g a g2 |
   }
+}
+jethro = \relative c''
+{
+  \set Staff.instrument = "Alt. "
+  \set Staff.midiInstrument = "fiddle"
+  \key g \major
+  \time 4/4
+
+  \partial 8*2
+  e8 fis
+
+  \repeat volta 2 {
+  g8 fis g e d e d b |
+  c8 b c e d g, a ais |
+  <b g>8 <b g> <b g> g a g e c |
+  } \alternative {
+    { d8 e g a g4 e'8 fis }
+    { d,8 e g a g4 r4 }
+  }
+  \repeat volta 2 {
+    \appoggiatura a16 b4 \appoggiatura a16 b4 a8 g g g |
+    \appoggiatura a16 b4 \appoggiatura a16 b4 a8 g g g |
+    \appoggiatura a16 b4 \appoggiatura a16 b4 a8 g e c |
+    d8 e g a g2 |
+  }
+  % closer?
+  \times 2/3 { g'8 fis e } d8 e d b a g |
+  d8 e g b  g e d c |
+  cis8 e g b  c, d fis a |
+  \times 2/3 { g8 a b } \times 2/3 { d e fis } g4
   \bar "|."
 }
 alternate = \relative c''
@@ -76,6 +106,7 @@ bass = \relative c,
   \repeat volta 2 {
     \grace s16 g4 r d' r | g,4 r d' r | g,4 r d' r | d4 r g, r |
   }
+  g4 r d' r | g, r d' r | a r d r | g, r d'4
 }
 
 harmonies = \chordmode {
@@ -92,6 +123,7 @@ harmonies = \chordmode {
    \repeat volta 2 {
      \grace s16 g2 g | g g | g g | d g |
    }
+   g2 g | g g | a:7 d:7 | g g4
 }
 
 guitarA = \relative c
@@ -106,6 +138,7 @@ guitarA = \relative c
   \repeat volta 2 {
     \grace s16 g2 d' | g,2 d' | g,2 d' | d2 g, |
   }
+  g2 d' | g, d' | a d | g, d'4
 }
 guitarB = \relative c
 {
@@ -125,6 +158,10 @@ guitarB = \relative c
     s4 <g d' g>\arpeggio s4 <g d' g>\arpeggio |
     s4 <a d fis>\arpeggio s4 <g d' g>\arpeggio |
   }
+  s4 <g d' g>\arpeggio s4 <g d' g>\arpeggio |
+  s4 <g d' g>\arpeggio s4 <g d' g>\arpeggio |
+  s4 <g cis e>\arpeggio s4 <a d fis>\arpeggio |
+  s4  <g d' g>\arpeggio <g d' g>
 }
 
 
@@ -136,6 +173,7 @@ guitarB = \relative c
       \harmonies
     }
     \new Staff << \melody >>
+    \new Staff << \jethro >>
 %{
     \new Staff << \clef "treble_8"
 		  \new Voice { \guitarA }
@@ -161,7 +199,8 @@ guitarB = \relative c
 \score {
   \unfoldRepeats
   \context PianoStaff <<
-    \context Staff=melody << \melody >>
+%    \context Staff=melody << \melody >>
+    \context Staff=jethro << \jethro >>
     \context Staff=guitar <<
       \set Staff.midiInstrument = "acoustic guitar (steel)"
       \time 4/4
@@ -169,7 +208,7 @@ guitarB = \relative c
       \new Voice \guitarA
       \new Voice \guitarB >>
     \context Staff=bass << \bass >>
-%    \context Staff=chords << r4\p \harmonies >>
+%    \context Staff=chords << \harmonies >>
   >>
   \midi {
     \tempo 2=120
