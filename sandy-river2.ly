@@ -119,6 +119,7 @@ banjo = \relative c {
 
 bass = \transpose c c,,
 {
+  \set Staff.midiInstrument = "acoustic bass"
   \key g \major
 
   \repeat volta 2 {
@@ -312,7 +313,6 @@ pianobot = \relative c,,
       \set TabStaff.stringTunings = #bass-tuning
       \set Staff.instrument = "Bass "
       \set Staff.instr = "Bas."
-      \set Staff.midiInstrument = "acoustic bass"
       \bass
     >>
     \new PianoStaff <<
@@ -407,7 +407,6 @@ pianobot = \relative c,,
       \set TabStaff.stringTunings = #bass-tuning
       \set Staff.instrument = "Bass "
       \set Staff.instr = "Bas."
-      \set Staff.midiInstrument = "acoustic bass"
       \bass
     >>
   >>
