@@ -133,17 +133,17 @@ guitarB = \relative c
   <<
     \context ChordNames {
       \set chordChanges = ##t
-      \transpose g a \harmonies
+      \harmonies
     }
-    \new Staff << \transpose g a \melody >>
+    \new Staff << \melody >>
 %{
     \new Staff << \clef "treble_8"
-		  \new Voice { \transpose g a \guitarA }
-		  \new Voice { \transpose g a \guitarB }
+		  \new Voice { \guitarA }
+		  \new Voice { \guitarB }
 		>>
 %}
     \new TabStaff << 
-      \set TabStaff.instrument = \markup{ \column{ "Guitar" "capo 2" } }
+      \set TabStaff.instrument = "Guitar"
       \time 4/4
       \partial 8*2
       \new TabVoice \guitarA
@@ -152,7 +152,7 @@ guitarB = \relative c
     \new TabStaff <<
       \set TabStaff.instrument = "Bass"
       \set TabStaff.stringTunings = #bass-tuning
-      \transpose g a \bass
+      \bass
     >>
   >>
   \layout { }
