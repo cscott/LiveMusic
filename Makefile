@@ -1,5 +1,5 @@
 SONGS=soldiers-joy sandy-river2 last-chance girl-blue saturday-night \
-	devil-went-down
+	devil-went-down cripple-creek2
 all: $(foreach f,$(SONGS),$(f).mp3)
 
 %.midi %.ps %.pdf: %.ly
