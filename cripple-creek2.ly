@@ -119,7 +119,6 @@ alternate = \relative c''
 
 bass = \relative c,
 {
-  \set Staff.midiInstrument = "acoustic bass"
   \key g \major
   \time 4/4
   \partial 8*2
@@ -374,8 +373,14 @@ guitarB = \relative c
       \partial 8*2
       \new Voice \guitarA
       \new Voice \guitarB >>
-    \context Staff=bass << \bass >>
-    \context Staff=chords << \harmonies >>
+    \context Staff=bass <<
+      \set Staff.midiInstrument = "acoustic bass"
+      \bass
+    >>
+    \context Staff=chords <<
+      \set Staff.midiInstrument = "pizzicato strings"
+      \harmonies
+    >>
   >>
   \midi {
     \tempo 2=120

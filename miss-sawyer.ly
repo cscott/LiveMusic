@@ -75,7 +75,6 @@ banjo = \relative c {
 }
 
 harmonies = \chordmode {
-  \set Staff.midiInstrument = "pizzicato strings"
   \partial 8*2
   r4 |
   \repeat volta 2 {
@@ -167,13 +166,24 @@ guitarB = \relative c
   }
 }
 
+\paper {
+  scoreTitleMarkup = \bookTitleMarkup
+  bookTitleMarkup = \markup {}
+  raggedbottom = ##t
+}
+
+% combined score
 \score {
   <<
     \context ChordNames {
       \set chordChanges = ##t
       \harmonies
     }
-    \context Staff=melody \mandolin
+    \context Staff=mandolin <<
+      \set Staff.instrument = "Mandolin"
+      \set Staff.instr = "Man."
+      \mandolin
+    >>
     \new TabStaff <<
 %      \set TabStaff.stringTunings = #mandolin-tuning
       \set TabStaff.stringTunings = #'(16 9 2 -5)
@@ -181,7 +191,12 @@ guitarB = \relative c
       \set Staff.instr = "Man."
       \mandolin
     >>
-    \context Staff=banjo \transpose c c' \banjo
+    \context Staff=banjo <<
+      \clef "treble_8"
+      \set Staff.instrument = "Banjo"
+      \set Staff.instr = "Ban."
+      \banjo
+    >>
     \new TabStaff <<
       \set TabStaff.stringTunings = #'(4 2 -3 -10 9)
       \set Staff.instrument = "Banjo"
@@ -219,9 +234,27 @@ guitarB = \relative c
 \score {
   \unfoldRepeats
   \context PianoStaff <<
-    \context Staff=mandolin \mandolin
-    \context Staff=banjo \banjo
-    \context Staff=chords \harmonies
+    \context Staff=mandolin <<
+      \set Staff.midiInstrument = "fiddle"
+      \mandolin
+    >>
+    \context Staff=banjo <<
+      \set Staff.midiInstrument = "banjo"
+      \banjo
+    >>
+    \context Staff=guitar <<
+      \set Staff.midiInstrument = "acoustic guitar (steel)"
+      \time 4/4
+      \new Voice \guitarA
+      \new Voice \guitarB >>
+    \context Staff=bass <<
+      \set Staff.midiInstrument = "acoustic bass"
+      \bass
+    >>
+    \context Staff=chords <<
+      \set Staff.midiInstrument = "pizzicato strings"
+      \harmonies
+    >>
   >>
   \midi {
     \tempo 2=120
