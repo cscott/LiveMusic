@@ -1,9 +1,13 @@
-% Lily was here -- automatically converted by /usr/bin/midi2ly from MS/LM/mssawyer.mid
 \version "2.3.25"
+\header {
+  title = "Mississippi Sawyer"
+  piece = "Traditional"
+}
+#(set-default-paper-size "letter")
 
 melody = \relative c {
   \time 4/4
-  \tempo 4 = 96
+  \tempo 2 = 120
   \partial 8*2
   
   % [SEQUENCE_TRACK_NAME] main
@@ -36,6 +40,24 @@ melody = \relative c {
 
 \score {
   <<
-    \context Staff=trackA \melody
+    \context Staff=melody \melody
+    \new TabStaff <<
+%      \set TabStaff.stringTunings = #mandolin-tuning
+      \set TabStaff.stringTunings = #'(16 9 2 -5)
+      \set Staff.instrument = "Mandolin"
+      \set Staff.instr = "Man."
+      \melody
+    >>
   >>
+}
+
+% midi score
+\score {
+  \unfoldRepeats
+  \context PianoStaff <<
+    \context Staff=melody \melody
+  >>
+  \midi {
+    \tempo 2=120
+  }
 }
