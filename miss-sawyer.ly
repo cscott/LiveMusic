@@ -402,15 +402,14 @@ guitarC = \relative c
     \new Staff <<
       \set Staff.instrument = "Variant"
       \set Staff.instr = "Var."
-      \transpose c c,, << \clef bass \mandolin >>
+      \transpose c c,, << \clef bass \mandolin >> % 2 octaves down
     >>
     \new Staff <<
       \set Staff.instrument = "Bass"
       \set Staff.instr = "Bas."
-      \transpose c c' << \clef bass \bass >>
+      \transpose c c' << \clef bass \bass >> % 1 octave up
     >>
   >>
-  \layout { }
 }
 \score {
   \header {
