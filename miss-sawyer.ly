@@ -8,10 +8,9 @@
 
 % simplified melody.  A part like mandolin, B part simpler.
 simple = \relative c {
-  \set Staff.midiInstrument = "fiddle"
   \time 4/4
-  \key d \major
-  \partial 8*2
+  \tag #'key \key d \major
+  \tag #'partial \partial 8*2
   
   fis''8 g |
   \repeat volta 2 {
@@ -41,10 +40,9 @@ simple = \relative c {
 }
 % harmony to simplified melody
 simpleharmony = \relative c'' {
-  \set Staff.midiInstrument = "fiddle"
   \time 4/4
-  \key d \major
-  \partial 8*2
+  \tag #'key \key d \major
+  \tag #'partial \partial 8*2
   
   d8 e |
   \repeat volta 2 {
@@ -74,10 +72,9 @@ simpleharmony = \relative c'' {
 }
 
 mandolin = \relative c {
-  \set Staff.midiInstrument = "fiddle"
   \time 4/4
-  \key d \major
-  \partial 8*2
+  \tag #'key \key d \major
+  \tag #'partial \partial 8*2
   
   fis''8 g |
   \repeat volta 2 {
@@ -110,9 +107,10 @@ mandolin = \relative c {
 % originally arranged for guitar.
 longvar = \relative c'' {
   \time 4/4
-  \key d \major
-  \partial 8*2
+  \tag #'key \key d \major
+  \tag #'partial \partial 8*2
   \times 2/3 { e8 fis g } |
+  \mark\default
   a4 a8 fis a4 a8 fis |
   a4 a8 fis a b a fis |
   g4 g8 fis g4 g8 fis |
@@ -129,7 +127,9 @@ longvar = \relative c'' {
   d8 e fis g a b a g |
   fis8 e d fis e d cis a |
   d4 <d fis,> d \times 2/3 { a8 b cis } |
+  \break
   \repeat volta 2 {
+    \mark\default
     d4 fis d fis |
     d8 e fis g a fis e d |
     a4 cis8 b a b cis b |
@@ -147,10 +147,9 @@ longvar = \relative c'' {
 
 % banjo version, reconstructed from Marc's fragmentary notes.
 banjo = \relative c {
-  \set Staff.midiInstrument = "banjo"
   \time 4/4
-  \key d \major
-  \partial 8*2
+  \tag #'key \key d \major
+  \tag #'partial \partial 8*2
   
   fis'8 g |
   \repeat volta 2 {
@@ -181,10 +180,10 @@ banjo = \relative c {
 
 % chords.
 harmonies = \chordmode {
-  \tempo 2 = 120
-  \partial 8*2
+  \tag #'partial \partial 8*2
   r4 |
   \repeat volta 2 {
+    \mark\default
     d2 d | d d | g g | g g |
     d2 d | d d | d a |
   } \alternative {
@@ -192,21 +191,21 @@ harmonies = \chordmode {
     { d2 d | }
   }
   \repeat volta 2 {
+    \mark\default
     d2 d | d d | a a | a a |
     d2 d | d d | d a |
   } \alternative {
     { d2 d | }
-    { d2 d | }
+    { d2 d4 \bar "|." }
   }
 }    
 
 % simple bass line
 bass = \relative c,
 {
-  \set Staff.midiInstrument = "acoustic bass"
-  \key d \major
+  \tag #'key \key d \major
   \time 4/4
-  \partial 8*2
+  \tag #'partial \partial 8*2
   r4
   \repeat volta 2 {
     d2 a | d2 a | g2 d' | g,2 d' |
@@ -227,7 +226,7 @@ bass = \relative c,
 % guitar accompaniment
 guitarA = \relative c
 {
-  \partial 8*2
+  \tag #'partial \partial 8*2
   r4
   \repeat volta 2 {
     d2 a | d2 a | g2 d' | g,2 d' |
@@ -247,7 +246,7 @@ guitarA = \relative c
 
 guitarB = \relative c
 {
-  \partial 8*2
+  \tag #'partial \partial 8*2
   s4 \arpeggioUp
   \repeat volta 2 {
     s4 <a' d fis>\arpeggio s4 <a d fis>\arpeggio |
@@ -271,7 +270,24 @@ guitarB = \relative c
     s4 <a d fis>\arpeggio s4 <g cis e>\arpeggio |
   } \alternative {
     { s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio | }
-    { s4 <a d fis>\arpeggio <a, a' d fis>4 }
+    { s4 <a d fis>\arpeggio <a, a' d fis>4\arpeggio }
+  }
+}
+guitarC = \relative c
+{
+  \tag #'partial \partial 8*2
+  s4 \arpeggioUp
+  \repeat volta 2 {
+    \repeat unfold 7 { r4 s4 r4 s4 | }
+  } \alternative {
+    { r4 s4 r4 s4 | }
+    { r4 s4 r4 s4 | }
+  }
+  \repeat volta 2 {
+    \repeat unfold 7 { r4 s4 r4 s4 | }
+  } \alternative {
+    { r4 s4 r4 s4 | }
+    { r4 s4 s4 }
   }
 }
 
@@ -283,26 +299,23 @@ guitarB = \relative c
 
 % combined score
 \score {
+  \header {
+    instrument = "Combined Score"
+  }
   <<
+    \set Score.markFormatter = #format-mark-box-letters
     \context ChordNames {
       \set chordChanges = ##t
       \harmonies
     }
     \context Staff=simple <<
-      \set Staff.instrument = "Simplified"
-      \set Staff.instr = "Sim."
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
       \partcombine \simple \simpleharmony
     >>
     \context Staff=mandolin <<
-      \set Staff.instrument = "Mandolin"
-      \set Staff.instr = "Man."
-      \mandolin
-    >>
-    \new TabStaff <<
-%      \set TabStaff.stringTunings = #mandolin-tuning
-      \set TabStaff.stringTunings = #'(16 9 2 -5)
-      \set Staff.instrument = "Mandolin"
-      \set Staff.instr = "Man."
+      \set Staff.instrument = "Solo"
+      \set Staff.instr = "Sol."
       \mandolin
     >>
     \context Staff=banjo <<
@@ -311,23 +324,130 @@ guitarB = \relative c
       \set Staff.instr = "Ban."
       \banjo
     >>
-    \new TabStaff <<
-      \set TabStaff.stringTunings = #'(4 2 -3 -10 9)
-      \set Staff.instrument = "Banjo"
-      \set Staff.instr = "Ban."
-      \banjo
-    >>
-%{
     \new Staff << 
-      \set Staff.instrument = "Guitar"
+      \set Staff.instrument = \markup{ \column{ "Guitar/" "Bass" } }
       \set Staff.instr = "Gui."
       \clef "treble_8"
       \time 4/4
       \key d \major
       \new Voice { \guitarA }
       \new Voice { \guitarB }
+      \new Voice { \guitarC }
     >>
-%}
+  >>
+}
+
+% melody parts, for flutes (non-transposing)
+\score {
+  \header {
+    instrument = "Flute"
+    breakbefore=##t
+  }
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \context ChordNames {
+      \set chordChanges = ##t
+      \harmonies
+    }
+    \new Staff <<
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \simple
+    >>
+    \new Staff <<
+      \set Staff.instrument = "Harmony"
+      \set Staff.instr = "Har."
+      \simpleharmony
+    >>
+    \new Staff <<
+      \set Staff.instrument = "Variant"
+      \set Staff.instr = "Var."
+      \mandolin
+    >>
+  >>
+}
+\score {
+  \header {
+    instrument = "Flute Solo" % not new page
+    breakbefore=##t
+  }
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \new Staff { \longvar }
+  >>
+}
+
+% melody parts, for cellos (octave-shifted)
+\score {
+  \header {
+    instrument = "Cello"
+    breakbefore=##t
+  }
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \context ChordNames {
+      \set chordChanges = ##t
+      \harmonies
+    }
+    \new Staff <<
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \transpose c c,, << \clef bass \simple >> % 2 octaves down
+    >>
+    \new Staff <<
+      \set Staff.instrument = "Harmony"
+      \set Staff.instr = "Har."
+      \transpose c c,, << \clef bass \simpleharmony >> % 2 octaves down
+    >>
+    \new Staff <<
+      \set Staff.instrument = "Variant"
+      \set Staff.instr = "Var."
+      \transpose c c,, << \clef bass \mandolin >>
+    >>
+    \new Staff <<
+      \set Staff.instrument = "Bass"
+      \set Staff.instr = "Bas."
+      \transpose c c' << \clef bass \bass >>
+    >>
+  >>
+  \layout { }
+}
+\score {
+  \header {
+    instrument = "Cello Solo"
+    breakbefore=##t
+  }
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \new Staff { \transpose c c,, << \clef bass \longvar >> }
+  >>
+}
+
+% tablature parts
+\score {
+  \header {
+    instrument = "Mandolin/Banjo/Guitar/Bass"
+    breakbefore=##t
+  }
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \context ChordNames {
+      \set chordChanges = ##t
+      \harmonies
+    }
+    \new TabStaff <<
+%     \set TabStaff.stringTunings = #mandolin-tuning
+      \set TabStaff.stringTunings = #'(16 9 2 -5)
+      \set Staff.instrument = "Mandolin"
+      \set Staff.instr = "Man."
+      \removeWithTag #'key \mandolin
+    >>
+    \new TabStaff <<
+      \set TabStaff.stringTunings = #'(4 2 -3 -10 9)
+      \set Staff.instrument = "Banjo"
+      \set Staff.instr = "Ban."
+      \removeWithTag #'key \banjo
+    >>
     \new TabStaff << 
       \set TabStaff.instrument = "Guitar"
       \set TabStaff.instr = "Gui."
@@ -339,7 +459,30 @@ guitarB = \relative c
       \set TabStaff.instrument = "Bass"
       \set TabStaff.instr = "Bas."
       \set TabStaff.stringTunings = #bass-tuning
-      \bass
+      \removeWithTag #'key \bass
+    >>
+  >>
+}
+
+% piano part (same as guitar part)
+\score {
+  \header {
+    instrument = "Piano"
+    breakbefore=##t
+  }
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \context ChordNames {
+      \set chordChanges = ##t
+      \harmonies
+    }
+    \new PianoStaff <<
+      \new Staff {
+	\partcombine
+	{ \transpose c c' \guitarB }
+	{ \partcombine { \partial 8*2 r4 } \guitarC }
+      }
+      \new Staff { \clef bass \guitarA }
     >>
   >>
 }
@@ -349,25 +492,50 @@ guitarB = \relative c
   \unfoldRepeats
   \context PianoStaff <<
     \context Staff=mandolin <<
-      \set Staff.midiInstrument = "fiddle"
-      \mandolin
+      \set Staff.midiInstrument = "flute"
+      \transpose c c' \mandolin
     >>
+    \context Staff=melody <<
+      \set Staff.midiInstrument = "fiddle"
+      { 
+	\partial 8*2
+	s4 | s1*31 | s2 s4
+	\removeWithTag #'partial \simple
+      }
+    >>
+    \context Staff=harmony <<
+      \set Staff.midiInstrument = "fiddle"
+      { 
+	\partial 8*2
+	s4 | s1*31 | s2 s4
+	\removeWithTag #'partial \simpleharmony
+      }
+    >>
+    \context Staff=variant <<
+      \set Staff.midiInstrument = "piccolo"
+      { 
+	\partial 8*2
+	s4 | s1*63 | s2 s4
+	\transpose c c' \removeWithTag #'partial \longvar
+      }
+    >>
+    
     \context Staff=banjo <<
       \set Staff.midiInstrument = "banjo"
-      \banjo
+      \repeat unfold 3 { \banjo }
     >>
     \context Staff=guitar <<
       \set Staff.midiInstrument = "acoustic guitar (steel)"
       \time 4/4
-      \new Voice \guitarA
-      \new Voice \guitarB >>
+      \new Voice \repeat unfold 3 { \guitarA }
+      \new Voice \repeat unfold 3 { \guitarB } >>
     \context Staff=bass <<
       \set Staff.midiInstrument = "acoustic bass"
-      \bass
+      \repeat unfold 3 { \bass }
     >>
     \context Staff=chords <<
       \set Staff.midiInstrument = "pizzicato strings"
-      \harmonies
+      \repeat unfold 3 { \harmonies }
     >>
   >>
   \midi {
