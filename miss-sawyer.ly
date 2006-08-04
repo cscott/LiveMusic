@@ -4,8 +4,10 @@
   piece = "Traditional"
 }
 #(set-default-paper-size "letter")
+#(set-global-staff-size 18)
 
 melody = \relative c {
+  \set Staff.midiInstrument = "fiddle"
   \time 4/4
   \tempo 2 = 120
   \key d \major
@@ -39,6 +41,7 @@ melody = \relative c {
 }
 
 banjo = \relative c {
+  \set Staff.midiInstrument = "banjo"
   \time 4/4
   \tempo 2 = 120
   \key d \major
@@ -47,32 +50,56 @@ banjo = \relative c {
   fis'8 g |
   \repeat volta 2 {
     a8 fis\2 a8 a\5 a8 fis\2 a8 a\5 |
-    a8 fis\2 a8 a\5 b4 c |
+    a8 fis\2 a8 a\5 b4 a |
     g8 e\2 g8 a\5 g4 g8 e |
     g4 g8 e a4 g |
     e8 fis fis8 a\5 fis e d\2 a'\5 |
     d, e fis a\5 a4 a8 a\5 |
     fis e d a'\5 e d cis\3 a'\5 |
   } \alternative {
-    { d,4 b8 a'\5 d,4 b8 a'\5 | }
-    { d,4 b8 a'\5 d,4 b8 a'\5 | }
+    { d,4 d8 a'\5 d,4 d8 a'\5 | }
+    { d,4 d8 a'\5 d,4 d8 a'\5 | }
   }
   \repeat volta 2 {
     d,,8 e' fis a\5 a, d fis d |
     a d fis g a4 a8 a\5 |
     e8 d cis a'\5 a, cis cis a'\5 |
-    e d cis a a4 r4 |
+    e d cis a a2 |
     e'8 fis fis8 a\5 fis e d\2 a'\5 |
     d, e fis a\5 a4 a8 a\5 |
     fis e d a'\5 e d cis\3 a'\5 |
   } \alternative {
-    { d,4 b8 a'\5 d,4 b8 a'\5 | }
-    { d,4 b8 a'\5 d,4 \bar "|." }
+    { d,4 d8 a'\5 d,4 d8 a'\5 | }
+    { d,4 d8 a'\5 d,4 \bar "|." }
   }
 }
 
+harmonies = \chordmode {
+  \set Staff.midiInstrument = "pizzicato strings"
+  \partial 8*2
+  r4 |
+  \repeat volta 2 {
+    d2 d | d d | g g | g g |
+    d2 d | d d | d a |
+  } \alternative {
+    { d2 d | }
+    { d2 d | }
+  }
+  \repeat volta 2 {
+    d2 d | d d | a a | a a |
+    d2 d | d d | d a |
+  } \alternative {
+    { d2 d | }
+    { d2 d | }
+  }
+}    
+
 \score {
   <<
+    \context ChordNames {
+      \set chordChanges = ##t
+      \harmonies
+    }
     \context Staff=melody \melody
     \new TabStaff <<
 %      \set TabStaff.stringTunings = #mandolin-tuning
@@ -95,8 +122,9 @@ banjo = \relative c {
 \score {
   \unfoldRepeats
   \context PianoStaff <<
-%    \context Staff=melody \melody
+    \context Staff=melody \melody
     \context Staff=banjo \banjo
+    \context Staff=chords \harmonies
   >>
   \midi {
     \tempo 2=120
