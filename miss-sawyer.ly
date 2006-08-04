@@ -392,22 +392,22 @@ guitarC = \relative c
     \new Staff <<
       \set Staff.instrument = "Melody"
       \set Staff.instr = "Mel."
-      \transpose c c,, << \clef bass \simple >> % 2 octaves down
+      \transpose c c,, { \clef bass \simple } % 2 octaves down
     >>
     \new Staff <<
       \set Staff.instrument = "Harmony"
       \set Staff.instr = "Har."
-      \transpose c c,, << \clef bass \simpleharmony >> % 2 octaves down
+      \transpose c c,, { \clef bass \simpleharmony } % 2 octaves down
     >>
     \new Staff <<
       \set Staff.instrument = "Variant"
       \set Staff.instr = "Var."
-      \transpose c c,, << \clef bass \mandolin >> % 2 octaves down
+      \transpose c c,, { \clef bass \mandolin } % 2 octaves down
     >>
     \new Staff <<
       \set Staff.instrument = "Bass"
       \set Staff.instr = "Bas."
-      \transpose c c' << \clef bass \bass >> % 1 octave up
+      \transpose c c' { \clef bass \bass } % 1 octave up
     >>
   >>
 }
