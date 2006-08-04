@@ -6,7 +6,7 @@
 #(set-default-paper-size "letter")
 #(set-global-staff-size 18)
 
-melody = \relative c {
+mandolin = \relative c {
   \set Staff.midiInstrument = "fiddle"
   \time 4/4
   \tempo 2 = 120
@@ -94,19 +94,92 @@ harmonies = \chordmode {
   }
 }    
 
+bass = \relative c,
+{
+  \set Staff.midiInstrument = "acoustic bass"
+  \key d \major
+  \time 4/4
+  \partial 8*2
+  r4
+  \repeat volta 2 {
+    d2 a | d2 a | g2 d' | g,2 d' |
+    d2 a | d2 a | d2 a |
+  } \alternative {
+    { d2 a | }
+    { d2 a | }
+  }
+  \repeat volta 2 {
+    d2 a | d2 a | a2 e | a2 e |
+    d'2 a | d2 a | d2 a |
+  } \alternative {
+    { d2 a | }
+    { a2 d4 }
+  }
+}
+
+guitarA = \relative c
+{
+  \partial 8*2
+  r4
+  \repeat volta 2 {
+    d2 a | d2 a | g2 d' | g,2 d' |
+    d2 a | d2 a | d2 a |
+  } \alternative {
+    { d2 a | }
+    { d2 a | }
+  }
+  \repeat volta 2 {
+    d2 a | d2 a | a2 e | a2 e |
+    d'2 a | d2 a | d2 a |
+  } \alternative {
+    { d2 a | }
+    { d2 s4 }
+  }
+}
+
+guitarB = \relative c
+{
+  \partial 8*2
+  s4 \arpeggioUp
+  \repeat volta 2 {
+    s4 <a' d fis>\arpeggio s4 <a d fis>\arpeggio |
+    s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio |
+    s4 <g d' g>\arpeggio s4 <g d' g>\arpeggio |
+    s4 <g d' g>\arpeggio s4 <g d' g>\arpeggio |
+    s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio |
+    s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio |
+    s4 <a d fis>\arpeggio s4 <g cis e>\arpeggio |
+  } \alternative {
+    { s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio | }
+    { s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio | }
+  }
+  \repeat volta 2 {
+    s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio |
+    s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio |
+    s4 <g cis e>\arpeggio s4 <g cis e>\arpeggio |
+    s4 <g cis e>\arpeggio s4 <g cis e>\arpeggio |
+    s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio |
+    s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio |
+    s4 <a d fis>\arpeggio s4 <g cis e>\arpeggio |
+  } \alternative {
+    { s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio | }
+    { s4 <a d fis>\arpeggio <a, a' d fis>4 }
+  }
+}
+
 \score {
   <<
     \context ChordNames {
       \set chordChanges = ##t
       \harmonies
     }
-    \context Staff=melody \melody
+    \context Staff=melody \mandolin
     \new TabStaff <<
 %      \set TabStaff.stringTunings = #mandolin-tuning
       \set TabStaff.stringTunings = #'(16 9 2 -5)
       \set Staff.instrument = "Mandolin"
       \set Staff.instr = "Man."
-      \melody
+      \mandolin
     >>
     \context Staff=banjo \transpose c c' \banjo
     \new TabStaff <<
@@ -115,6 +188,30 @@ harmonies = \chordmode {
       \set Staff.instr = "Ban."
       \banjo
     >>
+%{
+    \new Staff << 
+      \set Staff.instrument = "Guitar"
+      \set Staff.instr = "Gui."
+      \clef "treble_8"
+      \time 4/4
+      \key d \major
+      \new Voice { \guitarA }
+      \new Voice { \guitarB }
+    >>
+%}
+    \new TabStaff << 
+      \set TabStaff.instrument = "Guitar"
+      \set TabStaff.instr = "Gui."
+      \time 4/4
+      \new TabVoice \guitarA
+      \new TabVoice \guitarB
+    >>
+    \new TabStaff <<
+      \set TabStaff.instrument = "Bass"
+      \set TabStaff.instr = "Bas."
+      \set TabStaff.stringTunings = #bass-tuning
+      \bass
+    >>
   >>
 }
 
@@ -122,7 +219,7 @@ harmonies = \chordmode {
 \score {
   \unfoldRepeats
   \context PianoStaff <<
-    \context Staff=melody \melody
+    \context Staff=mandolin \mandolin
     \context Staff=banjo \banjo
     \context Staff=chords \harmonies
   >>
