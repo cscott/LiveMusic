@@ -6,10 +6,76 @@
 #(set-default-paper-size "letter")
 #(set-global-staff-size 18)
 
+% simplified melody.  A part like mandolin, B part simpler.
+simple = \relative c {
+  \set Staff.midiInstrument = "fiddle"
+  \time 4/4
+  \key d \major
+  \partial 8*2
+  
+  fis''8 g |
+  \repeat volta 2 {
+    a4 a8 fis a4 a8 fis |
+    a4 a8 fis a b a fis |
+    g4 g8 e g4 g8 e |
+    g4 g8 e g a g e |
+    fis4 e d fis8 a |
+    d,8 e fis g a4 g |
+    fis4 fis8 a e4 cis |
+  } \alternative {
+    { d4 d8 fis d2 | }
+    { d4 d8 fis d4 d8 fis | }
+  }
+  \repeat volta 2 {
+    d4 fis8 a d,4 fis8 a |
+    d,8 e fis g a4 d, |
+    cis4 e8 a cis,4 e8 a |
+    cis,8 d e fis g4 cis, |
+    d4 fis8 a d,4 fis8 e |
+    d8 e fis g a4 g |
+    fis4 fis8 a e4 e8 a
+  } \alternative {
+    { d,4 d8 fis d4 d8 fis | }
+    { d4 d8 fis d4 \bar "|." }
+  }
+}
+% harmony to simplified melody
+simpleharmony = \relative c'' {
+  \set Staff.midiInstrument = "fiddle"
+  \time 4/4
+  \key d \major
+  \partial 8*2
+  
+  d8 e |
+  \repeat volta 2 {
+    fis4 fis8 d fis4 fis8 d |
+    fis4 fis8 d fis g fis d |
+    b4 d8 cis b4 d8 cis |
+    b4 d8 cis b cis d cis |
+    d4 b a d8 fis |
+    a,8 b d e fis4 e |
+    d4 d8 fis cis4 a |
+  } \alternative {
+    { fis4 a8 d a2 | }
+    { fis4 a8 d a4 a8 d | }
+  }
+  \repeat volta 2 {
+    fis,8 a d4 fis,8 a d4 |
+    a8 g fis e d4 a' |
+    e8 a cis4 e,8 a cis4 |
+    a8 b cis d e4 a, |
+    fis8 a d4 fis,8 a d4 |
+    a8 g fis e d4 fis |
+    a8 d d4 a8 cis cis4 |
+  } \alternative {
+    { fis,8 a d4 fis,8 a d4 | }
+    { fis,8 a d4 fis,4 \bar "|." }
+  }
+}
+
 mandolin = \relative c {
   \set Staff.midiInstrument = "fiddle"
   \time 4/4
-  \tempo 2 = 120
   \key d \major
   \partial 8*2
   
@@ -40,10 +106,49 @@ mandolin = \relative c {
   }
 }
 
+% this variant uses different A parts the 1st & 2nd times through.
+% originally arranged for guitar.
+longvar = \relative c'' {
+  \time 4/4
+  \key d \major
+  \partial 8*2
+  \times 2/3 { e8 fis g } |
+  a4 a8 fis a4 a8 fis |
+  a4 a8 fis a b a fis |
+  g4 g8 fis g4 g8 fis |
+  g4 g8 g g a g e |
+  fis8 g fis e d cis d b |
+  a8 b d e fis a g fis |
+  e8 g fis e cis a b cis |
+  d4 <d fis,> d fis8 g |
+  <a c,>4 <a c,> <a c,>8 <a c,> <a c,> <a c,> |
+  <a c,>4 <a c,>8 <a c,> <b c,> <b c,> <b c,> a |
+  g4 g g e8 fis |
+  g8 a g e g a g e |
+  fis g fis e d4 a8 cis |
+  d8 e fis g a b a g |
+  fis8 e d fis e d cis a |
+  d4 <d fis,> d \times 2/3 { a8 b cis } |
+  \repeat volta 2 {
+    d4 fis d fis |
+    d8 e fis g a fis e d |
+    a4 cis8 b a b cis b |
+    a8 b cis d e g fis e |
+    d4 fis d \times 2/3 { a8 b cis } |
+    d4 fis8 g a4 a8 g |
+    fis8 e d fis e d cis a |
+  }
+  \alternative {
+    { d4 <d fis,> <d fis,> \times 2/3 { a8 b cis } | }
+    { d4 <d fis,> <d fis,> % \times 2/3 { fis8 g gis } |
+      \bar "|." }
+  }
+}
+
+% banjo version, reconstructed from Marc's fragmentary notes.
 banjo = \relative c {
   \set Staff.midiInstrument = "banjo"
   \time 4/4
-  \tempo 2 = 120
   \key d \major
   \partial 8*2
   
@@ -74,7 +179,9 @@ banjo = \relative c {
   }
 }
 
+% chords.
 harmonies = \chordmode {
+  \tempo 2 = 120
   \partial 8*2
   r4 |
   \repeat volta 2 {
@@ -93,6 +200,7 @@ harmonies = \chordmode {
   }
 }    
 
+% simple bass line
 bass = \relative c,
 {
   \set Staff.midiInstrument = "acoustic bass"
@@ -116,6 +224,7 @@ bass = \relative c,
   }
 }
 
+% guitar accompaniment
 guitarA = \relative c
 {
   \partial 8*2
@@ -179,6 +288,11 @@ guitarB = \relative c
       \set chordChanges = ##t
       \harmonies
     }
+    \context Staff=simple <<
+      \set Staff.instrument = "Simplified"
+      \set Staff.instr = "Sim."
+      \partcombine \simple \simpleharmony
+    >>
     \context Staff=mandolin <<
       \set Staff.instrument = "Mandolin"
       \set Staff.instr = "Man."
