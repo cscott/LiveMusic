@@ -276,7 +276,11 @@ guitarC = \relative c
       \set chordChanges = ##t
       \harmonies
     }
-    \new Staff << { \tradmel r4 \bar "||" \break } >>
+    \new Staff <<
+      \set Staff.instrument = "Trad. Mel."
+      \set Staff.instr = "Tra."
+      { \tradmel r4 \bar "||" \break }
+    >>
     \new Staff << 
       \set Staff.instrument = "Melody "
       \set Staff.instr = "Mel."
