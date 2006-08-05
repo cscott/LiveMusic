@@ -11,12 +11,13 @@
   meter = 129
 }
 #(set-default-paper-size "letter")
-#(set-global-staff-size 20)
 
+% melody in bill's sheet music.
 melody = \relative c'' {
-  \set Staff.midiInstrument = "fiddle"
-  \key g \major
-  \partial 8 b16 c |
+  \tag #'key \key g \major
+  \time 2/4
+  \tag #'partial \partial 8
+  b16 c |
   \repeat volta 2 {
     d8 b16 d c8 a16 c
     b8 g g16 fis g b |
@@ -31,14 +32,14 @@ melody = \relative c'' {
     { a8 g g b16 c }
     { a8 g g r8 }
   }
-  \break
+
 % part 2
   \repeat volta 2 {
     g8 b16 d g8. fis16 |
     fis8 e e r8 |
     d,8 fis16 a fis'8. e16 |
     e8 d d r8 |
-\break
+
     g,8 b16 d g8. fis16 |
     fis8 e e8. g16 |
     fis8 a e fis |
@@ -49,10 +50,12 @@ melody = \relative c'' {
   }
 }
 
+% harmony to this melody
 alternate = \relative c'' {
-  \set Staff.midiInstrument = "fiddle"
-  \key g \major
-  \partial 8 g16 a |
+  \tag #'key \key g \major
+  \time 2/4
+  \tag #'partial \partial 8
+  g16 a |
   \repeat volta 2 {
     b8 g16 b a8 fis16 a
     g8 d d16 cis d g |
@@ -67,7 +70,6 @@ alternate = \relative c'' {
     { d8 b b g'16 a }
     { d,8 b b r8 }
   }
-  \break
 % part 2
   \repeat volta 2 {
     d8 g16 b d8. c16 |
@@ -83,21 +85,20 @@ alternate = \relative c'' {
     { b4. r8 }
     { b4. \bar "|." }
   }
-
-
 }
+
 harmonies = \chordmode {
-  \set Staff.midiInstrument = "pizzicato strings"
-  \set Score.markFormatter = #format-mark-box-letters
-  \partial 8 
+  \time 2/4
+  \tag #'partial \partial 8 
   r8 |
+  \once\override Score.RehearsalMark #'extra-offset = #'(0 . 2)
   \mark\default
   \repeat volta 2 {
     g4 d:7
     g4 g
     d:7 d
     g g
-    
+\break    
     g4 d:7
     g4 g
     d:7 d
@@ -106,8 +107,10 @@ harmonies = \chordmode {
     { g g }
     { g g }
   }
-  
+
+  \break
 % Part 2
+  \once\override Score.RehearsalMark #'extra-offset = #'(-4 . 2)
   \mark\default
   \repeat volta 2 {
     g4 g
@@ -125,72 +128,220 @@ harmonies = \chordmode {
   }
 }
 
+% guitar part (also bass and piano)
+% XXX TO DO
+
+\paper {
+  scoreTitleMarkup = \bookTitleMarkup
+  bookTitleMarkup = \markup {}
+  raggedbottom = ##t
+}
+
+% combined score
 \score {
+  \header {
+    instrument = "Combined Score"
+  }
   <<
-    \time 2/4 
+    \set Score.markFormatter = #format-mark-box-letters
     \context ChordNames {
       \set chordChanges = ##t
       \harmonies
     }
     \new Staff <<
-      \set Staff.instrument = "Flute 1"
-      \set Staff.instr = "Flu.1"
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \partcombine { \melody \bar "|." } \alternate
+    >>
+%{
+    \new Staff <<
+      \set Staff.instrument = \markup{ \column{ "Guitar/" "Bass" } }
+      \set Staff.instr = "Gui."
+      \clef "treble_8"
+      \key g \major
+      \new Voice { \guitarA }
+      \new Voice { \guitarB }
+      \new Voice { \guitarC }
+    >>
+%}
+    %\new Staff << \key g \major \harmonies >>
+  >>
+}
+% melody parts, for flutes (non-transposing)
+\score {
+  \header {
+    instrument = "Flute"
+    breakbefore=##t
+  }
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \context ChordNames {
+      \set chordChanges = ##t
+      \harmonies
+    }
+    \new Staff <<
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
       \melody
     >>
     \new Staff <<
-      \set Staff.instrument = "Flute 2"
-      \set Staff.instr = "Flu.2"
-      \alternate
+      \set Staff.instrument = "Harmony"
+      \set Staff.instr = "Har."
+      \transpose c c' \alternate
     >>
-    \new Staff <<
-      \set Staff.instrument = "Clarinet 1"
-      \set Staff.instr = "Cla.1"
-      \transpose bes c' << \melody >>
-    >>
-    \new Staff <<
-      \set Staff.instrument = "Clarinet 2"
-      \set Staff.instr = "Cla.2"
-      \transpose bes c' << \alternate >>
-    >>
-    \new Staff <<
-      \set Staff.instrument = "Cello 1"
-      \set Staff.instr = "Cel.1"
-      \transpose c c, << \clef bass \melody >>
-    >>
-    \new Staff <<
-      \set Staff.instrument = "Cello 2"
-      \set Staff.instr = "Cel.2"
-      \transpose c c, << \clef bass \alternate >>
-    >>
-%    \new TabStaff <<
-%      \set TabStaff.stringTunings = #'(2 0 -7 -10 5) % (fDFCD)
-%      \banjo
-%    >>
-%    \new TabStaff <<
-%      \set TabStaff.stringTunings = #bass-tuning
-%      \bass
-%    >>
-%    \new PianoStaff <<
-%      #(set-accidental-style 'piano-cautionary)
-%      \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
-%     \context Staff = upper << \time 4/4 \pianotop >>
-%     \context Staff = lower << \clef bass \pianobot >>
-%   >>
   >>
-  \layout { }
 }
 
+% melody parts, for clarinet (transposing)
+\score {
+  \header {
+    instrument = "Clarinet"
+    breakbefore=##t
+  }
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \context ChordNames {
+      \set chordChanges = ##t
+      \transpose bes c' \harmonies
+    }
+    \new Staff <<
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \transpose bes c' \melody
+    >>
+    \new Staff <<
+      \set Staff.instrument = "Harmony"
+      \set Staff.instr = "Har."
+      \transpose bes c'' \alternate
+    >>
+  >>
+}
+% melody parts, for cellos (octave-shifted)
+\score {
+  \header {
+    instrument = "Cello"
+    breakbefore=##t
+  }
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \context ChordNames {
+      \set chordChanges = ##t
+      \harmonies
+    }
+    \new Staff <<
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \transpose c c, { \clef bass \melody } % 1 octave down
+    >>
+    \new Staff <<
+      \set Staff.instrument = "Harmony"
+      \set Staff.instr = "Har."
+      \transpose c c, { \clef bass \alternate } % 1 octave down
+    >>
+%{
+    \new Staff <<
+      \set Staff.instrument = "Bass"
+      \set Staff.instr = "Bas."
+      \transpose c c { \clef bass \guitarAA } % no trans
+    >>
+%}
+  >>
+}
+
+%{
+% tablature parts
+\score {
+  \header {
+    instrument = "Guitar/Bass"
+    breakbefore=##t
+  }
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \context ChordNames {
+      \set chordChanges = ##t
+      \harmonies
+    }
+    \new TabStaff << 
+      \set TabStaff.instrument = "Guitar"
+      \set TabStaff.instr = "Gui."
+      \time 4/4
+      \new TabVoice \guitarA
+      \new TabVoice \guitarB
+    >>
+    \new TabStaff <<
+      \set TabStaff.instrument = "Bass"
+      \set TabStaff.instr = "Bas."
+      \set TabStaff.stringTunings = #bass-tuning
+      \removeWithTag #'key \bass
+    >>
+  >>
+}
+
+% piano part (same as guitar part)
+\score {
+  \header {
+    instrument = "Piano"
+    breakbefore=##t
+  }
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \context ChordNames {
+      \set chordChanges = ##t
+      \harmonies
+    }
+    \new PianoStaff <<
+      \new Staff {
+	\partcombine
+	{ \transpose c c' \guitarB }
+	{ \partcombine { \partial 8*2 r4 } \guitarC }
+      }
+      \new Staff { \clef bass \guitarAA }
+    >>
+  >>
+}
+%}
+
+% midi score
 \score {
   \unfoldRepeats
   \context PianoStaff <<
-    \time 2/4 
-    \context Staff=melody << r4 \melody >>
-    \context Staff=alternate << r4 \alternate >>
-%    \context Staff=banjo \transpose f g << r4 \banjo >>
-%    \context Staff=bass << r4 \bass >>
-    \context Staff=chords << r4\p \harmonies >>
-%    \context Staff=upper << r4\pianotop >>
-%    \context Staff=lower << r4\pianobot >>
+    \context Staff=melody <<
+      \set Staff.midiInstrument = "flute"
+      {
+	\melody
+      }
+    >>
+    \context Staff = celloA <<
+      \set Staff.midiInstrument = "fiddle"
+      {
+	\partial 8
+	r8 | r2*31 | r4 r8
+	\removeWithTag #'partial \melody
+      }
+    >>
+    \context Staff = celloB <<
+      \set Staff.midiInstrument = "fiddle"
+      {
+	\partial 8
+	r8 | r2*31 | r4 r8
+	\removeWithTag #'partial \alternate
+      }
+    >>
+%{
+    \context Staff=guitar <<
+      \set Staff.midiInstrument = "acoustic guitar (steel)"
+      \time 2/4
+      \new Voice \repeat unfold 2 { \guitarA }
+      \new Voice \repeat unfold 2 { \guitarB } >>
+    \context Staff=bass <<
+      \set Staff.midiInstrument = "acoustic bass"
+      \repeat unfold 2 { \bass }
+    >>
+%}
+    \context Staff=chords <<
+      \set Staff.midiInstrument = "pizzicato strings"
+      \repeat unfold 2 { \harmonies }
+    >>
   >>
   \midi {
     \tempo 4=120
