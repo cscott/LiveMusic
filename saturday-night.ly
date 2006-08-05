@@ -85,6 +85,78 @@ alternate = \relative c'' {
   }
 }
 
+fmelody = \relative c'' {
+  \set Staff.midiInstrument = "fiddle"
+  \key c \major
+  \partial 8 e16 f |
+  \repeat volta 2 {
+    g8 e16 f a g e8 |
+    c'8 g e4 |
+    f16 g f e d e f g |
+    a16 g g fis g8 e16 f |
+
+    g8 e16 f a g e8 |
+    c'8 g e4 |
+    f16 e f b d, c b d |
+  }
+  \alternative {
+    { c8 e c e16 f }
+    { c8 e c e16 g }
+  }
+  \break
+% part 2
+  \repeat volta 2 {
+    c8 g e16 f g e |
+    c'8 g e4 |
+    f16 g f e d e f g |
+    a16 g g fis g8 a16 b |
+
+    c8 g e16 f g e |
+    c'8 g e4 |
+    f16 e f b d c b d |
+  }
+  \alternative {
+    { c8 e c e,16 g }
+    { c8 e c \bar "|." }
+  }
+}
+
+falternate = \relative c'' {
+  \set Staff.midiInstrument = "fiddle"
+  \key c \major
+  \partial 8 c16 d |
+  \repeat volta 2 {
+    e8 c16 d e e c8 |
+    g'8 e c4 |
+    d16 e d c b c d e |
+    e16 c e d d8 c16 d |
+
+    e8 c16 d e e c8 |
+    g'8 e c4 |
+    d16 c d g b, a g b |
+  }
+  \alternative {
+    { g8 c g c16 d }
+    { g,8 c g c16 e }
+  }
+  \break
+% part 2
+  \repeat volta 2 {
+    g8 e c16 d e c |
+    g'8 e c4 |
+    d16 e d c b c d e |
+    e16 c e d d8 fis16 g |
+
+    g8 e c16 d e c |
+    g'8 e c4 |
+    d16 c d g b a g b |
+  }
+  \alternative {
+    { g8 c g c,16 e }
+    { g8 c g \bar "|." }
+  }
+}
+
 harmonies = \chordmode {
   \set Staff.midiInstrument = "pizzicato strings"
   \set Score.markFormatter = #format-mark-box-letters
@@ -136,12 +208,12 @@ harmonies = \chordmode {
     \new Staff <<
       \set Staff.instrument = "Flute 1"
       \set Staff.instr = "Flu.1"
-      \melody
+      \fmelody
     >>
     \new Staff <<
       \set Staff.instrument = "Flute 2"
       \set Staff.instr = "Flu.2"
-      \alternate
+      \falternate
     >>
     \new Staff <<
       \set Staff.instrument = "Clarinet 1"
