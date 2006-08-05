@@ -355,7 +355,7 @@ bass = \transpose c c, \guitarA
 % melody parts, for clarinet (transposing)
 \score {
   \header {
-    instrument = "Flute"
+    instrument = "Clarinet"
     breakbefore=##t
   }
   <<
