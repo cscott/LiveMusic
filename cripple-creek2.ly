@@ -154,17 +154,23 @@ bass = \relative c,
 }
 
 harmonies = \chordmode {
+  \set Score.markFormatter = #format-mark-box-letters
    \time 4/4
    \tag #'partial \partial 8*2 r4
    \repeat volta 2 {
-   g2 g | c g |
-   g2 g | 
+     \once\override Score.RehearsalMark #'extra-offset = #'(0 . 2)
+     \mark\default
+     g2 g | c g |
+     g2 g | 
    } \alternative {
      { d2 g }
      { d2 g }
    }
    \repeat volta 2 {
-     \grace s16 g2 g | g g | g g |
+     \grace s16
+     \once\override Score.RehearsalMark #'extra-offset = #'(0 . 2)
+     \mark\default
+     g2 g | g g | g g |
    } \alternative {
      { d2 g | }
      { d2 g4 }
@@ -271,7 +277,6 @@ guitarC = \relative c
     instrument = "Combined Score"
   }
   <<
-    \set Score.markFormatter = #format-mark-box-letters
     \context ChordNames {
       \set chordChanges = ##t
       \harmonies
@@ -284,6 +289,7 @@ guitarC = \relative c
     \new Staff << 
       \set Staff.instrument = "Melody "
       \set Staff.instr = "Mel."
+      \set Staff.printPartCombineTexts = ##f
       \partcombine { \melody r4 \bar "||" } { \alternate r4 }
 
     >>
@@ -316,7 +322,6 @@ guitarC = \relative c
     breakbefore=##t
   }
   <<
-    \set Score.markFormatter = #format-mark-box-letters
     \context ChordNames {
          \set chordChanges = ##t
          \harmonies
@@ -346,7 +351,6 @@ guitarC = \relative c
     breakbefore=##t
   }
   <<
-    \set Score.markFormatter = #format-mark-box-letters
     \context ChordNames {
          \set chordChanges = ##t
          \harmonies
@@ -375,14 +379,12 @@ guitarC = \relative c
 }
 
 % guitar/bass score (tablature)
-%{
 \score {
   \header {
     instrument = "Guitar/Bass"
     breakbefore=##t
   }
   <<
-    \set Score.markFormatter = #format-mark-box-letters
     \context ChordNames {
          \set chordChanges = ##t
          \harmonies
@@ -406,9 +408,7 @@ guitarC = \relative c
       \removeWithTag #'key \bass
     >>
   >>
-  \layout { }
 }
-%}
 
 % piano part (same as guitar part)
 \score {
@@ -417,13 +417,13 @@ guitarC = \relative c
     breakbefore=##t
   }
   <<
-    \set Score.markFormatter = #format-mark-box-letters
     \context ChordNames {
       \set chordChanges = ##t
       \harmonies
     }
     \new PianoStaff <<
       \new Staff {
+	\set Staff.printPartCombineTexts = ##f
 	\partcombine
 	{ \transpose c c' \guitarB }
 	{ \partcombine { \partial 8*2 r4 } \guitarC }
