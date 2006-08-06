@@ -263,8 +263,8 @@ guitarB = \relative c
   \repeat volta 2 {
     s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio |
     s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio |
-    s4 <g cis e>\arpeggio s4 <g cis e>\arpeggio |
-    s4 <g cis e>\arpeggio s4 <g cis e>\arpeggio |
+    s4 <a cis e>\arpeggio s4 <a cis e>\arpeggio |
+    s4 <a cis e>\arpeggio s4 <a cis e>\arpeggio |
     s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio |
     s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio |
     s4 <a d fis>\arpeggio s4 <g cis e>\arpeggio |
