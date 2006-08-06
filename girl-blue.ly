@@ -146,7 +146,7 @@ guitarA = \relative c
     g,4 e' | a, a | d c |
   } \alternative {
     { d4 g, | }
-    { g4. }
+    { g4. \bar "|." }
   }
 }
 guitarAA = \guitarA
