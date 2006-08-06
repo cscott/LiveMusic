@@ -42,12 +42,14 @@ tradmel = \relative c''
     { d8 e g a g4 }
   }
 }
+closerX = \relative c' { d8 e g b  g e d c | cis8 e g b  c, d fis a | }
 closer = \relative c'' 
 {
   r4 |
   \times 2/3 { g'8 fis e } d8 e d b a g |
-  d8 e g b  g e d c |
-  cis8 e g b  c, d fis a |
+  << \tag #'std \closerX
+     \tag #'flute \transpose c c' \closerX
+   >>
   \times 2/3 { g8 a b } \times 2/3 { d e fis } g4
   \bar "|."
 }
@@ -76,7 +78,34 @@ jethro = \relative c''
     { d8 e g a g4 }
   }
   % closer?
-  \tag #'closer \closer
+  \tag #'closer \keepWithTag #'std \closer
+}
+fjethro = \relative c''
+{
+  \tag #'key \key g \major
+  \time 4/4
+
+  \tag #'partial \partial 8*2
+  e8 fis
+
+  \repeat volta 2 {
+  g8 fis g e d e d b |
+  c8 b c e d g a ais |
+  <b g>8 <b g> <b g> g a g e c |
+  } \alternative {
+    { d8 e g a g4 e8 fis }
+    { d8 e g a g4 r4 }
+  }
+  \repeat volta 2 {
+    \appoggiatura a16 b4 \appoggiatura a16 b4 a8 g g g |
+    \appoggiatura a16 b4 \appoggiatura a16 b4 a8 g g g |
+    \appoggiatura a16 b4 \appoggiatura a16 b4 a8 g e c |
+  } \alternative {
+    { d8 e g a g2 | }
+    { d8 e g a g4 }
+  }
+  % closer?
+  \tag #'closer \keepWithTag #'flute \closer
 }
 melody = \relative c''
 {
@@ -88,7 +117,7 @@ melody = \relative c''
   d8(e)
   \repeat volta 2 {
     g4 g d g | c,8 d e4 d2 |
-    g4 g d g |
+    g4 g d e |
   } \alternative {
     { d8 b a4 g2 } { \voiceTwo d'8 b a4 g2 }
   }
@@ -112,18 +141,18 @@ alternate = \relative c''
   b8(c)
   \repeat volta 2 {
     d4 d b d | g,8 a c4 b2 |
-    d4 d b d |
+    d4 d b c |
   } \alternative {
     { a8 g fis4 d2 } { \voiceOne fis'8 g a4 g2 }
   }
   \repeat volta 2 {
     \grace s16
-    cis,8 d d4 c8 b d,4 |
-    cis'8 d d4 g,8 a b4 |
+    cis,8 d d4 c8 b b4 |
+    cis8 d d4 g,8 a b4 |
     cis8 d d4 c8 b a g |
   } \alternative {
     { fis8 g d' e d2 | }
-    { fis8 g d' e d4 }
+    { fis,8 g d' e d4 }
   }
 }
 
@@ -339,7 +368,7 @@ guitarC = \relative c
     \context Staff = fluteC {
       \set Staff.instrument = "Variant"
       \set Staff.instr = "Var."
-      \jethro
+      \fjethro
     }
   >>
 }
@@ -392,7 +421,7 @@ guitarC = \relative c
     \context Staff = melody {
       \set Staff.instrument = "Melody"
       \set Staff.instr = "Mel."
-      \melody \break \closer
+      \melody \break \keepWithTag #'std \closer
     }
     \new TabStaff << 
       \set TabStaff.instrument = "Guitar"
