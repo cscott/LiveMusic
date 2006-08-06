@@ -117,7 +117,7 @@ harmonies = \chordmode {
     a4:m a:m
     d4:7 d:7
     g4 g
-
+\break
     g4 e:m
     a4:m a
     d4:7 d:7
@@ -129,7 +129,80 @@ harmonies = \chordmode {
 }
 
 % guitar part (also bass and piano)
-% XXX TO DO
+guitarA = \relative c
+{
+  \time 2/4
+  \tag #'partial \partial 8
+  r8
+  \repeat volta 2 {
+    g4 c | g b | c d | d g, |
+    g4 c | g b | c d |
+  } \alternative {
+    {  g4 d | }
+    {  g4 d | }
+  }
+  \repeat volta 2 {
+    g,4 d' | e a, | d c | g d' |
+    g,4 e' | a, a | d c |
+  } \alternative {
+    { d4 g, | }
+    { g4. }
+  }
+}
+guitarAA = \guitarA
+
+guitarB = \relative c'
+{
+  \time 2/4
+  \tag #'partial \partial 8
+  s8 \arpeggioUp
+  \repeat volta 2 {
+    s8 <g d' g>\arpeggio s8 <a d fis>\arpeggio |
+    s8 <g d' g>\arpeggio s8 <g d' g>\arpeggio |
+    s8 <a d fis>\arpeggio s8 <a d fis>\arpeggio |
+    s8 <g d' g>\arpeggio s8 <g d' g>\arpeggio |
+
+    s8 <g d' g>\arpeggio s8 <a d fis>\arpeggio |
+    s8 <g d' g>\arpeggio s8 <g d' g>\arpeggio |
+    s8 <a d fis>\arpeggio s8 <a d fis>\arpeggio |
+  } \alternative {
+    { s8 <g d' g>\arpeggio s8 <g d' g>\arpeggio | }
+    { s8 <g d' g>\arpeggio s8 <g d' g>\arpeggio | }
+  }
+  \repeat volta 2 {
+    s8 <g d' g>\arpeggio s8 <g d' g>\arpeggio |
+    s8 <g c e>\arpeggio s8 <g c e>\arpeggio | % am7
+    s8 <a d fis>\arpeggio s8 <a d fis>\arpeggio |
+    s8 <g d' g>\arpeggio s8 <g d' g>\arpeggio |
+
+    s8 <g d' g>\arpeggio s8 <g b e>\arpeggio |
+    s8 <a c e>\arpeggio s8 <a cis e>\arpeggio |
+    s8 <a d fis>\arpeggio s8 <a d fis>\arpeggio |
+  } \alternative {
+    { s8 <g d' g>\arpeggio s8 <g d' g>\arpeggio | }
+    { s8 <g d' g>4\arpeggio }
+  }
+}
+guitarC = \relative c
+{
+  \time 2/4
+  \tag #'partial \partial 8
+  s8 \arpeggioUp
+  \repeat volta 2 {
+    \repeat unfold 7 { r8 s8 r8 s8 | }
+  } \alternative {
+    { r8 s8 r8 s8 }
+    { r8 s8 r8 s8 }
+  }
+  \repeat volta 2 {
+    \repeat unfold 7 { r8 s8 r8 s8 | }
+  } \alternative {
+    { r8 s8 r8 s8 }
+    { r8 s8 s8 }
+  }
+}
+
+bass = \transpose c c, \guitarA
 
 \paper {
   scoreTitleMarkup = \bookTitleMarkup
@@ -153,7 +226,6 @@ harmonies = \chordmode {
       \set Staff.instr = "Mel."
       \partcombine { \melody \bar "|." } \alternate
     >>
-%{
     \new Staff <<
       \set Staff.instrument = \markup{ \column{ "Guitar/" "Bass" } }
       \set Staff.instr = "Gui."
@@ -163,7 +235,6 @@ harmonies = \chordmode {
       \new Voice { \guitarB }
       \new Voice { \guitarC }
     >>
-%}
     %\new Staff << \key g \major \harmonies >>
   >>
 }
@@ -216,6 +287,7 @@ harmonies = \chordmode {
     >>
   >>
 }
+
 % melody parts, for cellos (octave-shifted)
 \score {
   \header {
@@ -238,17 +310,14 @@ harmonies = \chordmode {
       \set Staff.instr = "Har."
       \transpose c c, { \clef bass \alternate } % 1 octave down
     >>
-%{
     \new Staff <<
       \set Staff.instrument = "Bass"
       \set Staff.instr = "Bas."
       \transpose c c { \clef bass \guitarAA } % no trans
     >>
-%}
   >>
 }
 
-%{
 % tablature parts
 \score {
   \header {
@@ -299,7 +368,6 @@ harmonies = \chordmode {
     >>
   >>
 }
-%}
 
 % midi score
 \score {
@@ -327,21 +395,22 @@ harmonies = \chordmode {
 	\removeWithTag #'partial \alternate
       }
     >>
-%{
     \context Staff=guitar <<
       \set Staff.midiInstrument = "acoustic guitar (steel)"
       \time 2/4
       \new Voice \repeat unfold 2 { \guitarA }
-      \new Voice \repeat unfold 2 { \guitarB } >>
+      \new Voice \repeat unfold 2 { \guitarB }
+    >>
     \context Staff=bass <<
       \set Staff.midiInstrument = "acoustic bass"
       \repeat unfold 2 { \bass }
     >>
-%}
+%{
     \context Staff=chords <<
       \set Staff.midiInstrument = "pizzicato strings"
       \repeat unfold 2 { \harmonies }
     >>
+%}
   >>
   \midi {
     \tempo 4=120
