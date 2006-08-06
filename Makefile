@@ -12,4 +12,5 @@ all: $(foreach f,$(SONGS),$(f).mp3)
 	lame $< $@
 
 upload: $(foreach f,$(SONGS),$(f).mp3 $(f).ly $(f).pdf)
-	scp $^ k2.csail.mit.edu:public_html/LiveMusic/
+#	scp $^ k2.csail.mit.edu:public_html/LiveMusic/
+	rsync --chmod=a+r -avz $^ k2.csail.mit.edu:public_html/LiveMusic/
