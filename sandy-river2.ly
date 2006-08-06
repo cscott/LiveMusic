@@ -15,11 +15,12 @@
   meter = 240
 }
 #(set-default-paper-size "letter")
-#(set-global-staff-size 16)
+%#(set-global-staff-size 18)
 
 melody = \relative c''' {
-  \set Staff.midiInstrument = "fiddle"
-  \key g \major
+  \tag #'key \key g \major
+  \time 4/4
+
   \repeat volta 2 {
     g4 g8 g d4 g | b8 a b4 a8 g a4 |
     g4 g8 g d4 g | fis8 e fis g a2 |
@@ -40,8 +41,9 @@ melody = \relative c''' {
 }
 
 alternate = \relative c'' {
-  \set Staff.midiInstrument = "fiddle"
-  \key g \major
+  \tag #'key \key g \major
+  \time 4/4
+
   \repeat volta 2 {
     d4 d8 d b4 d | g8 fis g4 fis8 e fis4 |
     d4 d8 d b4 d | d8 cis d e fis2 |
@@ -60,10 +62,10 @@ alternate = \relative c'' {
   }
 }
 
-banjo = \relative c {
-  \set Staff.midiInstrument = "banjo"
-  
-  % [SEQUENCE_TRACK_NAME] Clawhammer Banjo
+banjo = \relative c { % clawhammer banjo part
+  \tag #'key \key g \major
+  \time 4/4
+
   \repeat volta 2 {
   d'8( g) <g b,> g\5 e( d) <d b > g\5 |
   % 2
@@ -119,8 +121,8 @@ banjo = \relative c {
 
 bass = \transpose c c,,
 {
-  \set Staff.midiInstrument = "acoustic bass"
-  \key g \major
+  \tag #'key \key g \major
+  \time 4/4
 
   \repeat volta 2 {
     g4 g'\2 g d'\3
@@ -137,7 +139,6 @@ bass = \transpose c c,,
     { g4 g'\2 g d'\3
       c'4\3 d'\3 g2 }
    }
-   \break
 
  % Part 2
    \repeat volta 2 {
@@ -158,48 +159,54 @@ bass = \transpose c c,,
 }
 
 harmonies = \chordmode {
-   \set Staff.midiInstrument = "pizzicato strings"
-   \set Score.markFormatter = #format-mark-box-letters
-   \repeat volta 2 {
-   \mark\default
-   g4 g g g
-   g4 g g g
-   g4 g g g
-   d4 d d d
-   g4 g g g
-   g4 g g g
+  \set Score.markFormatter = #format-mark-box-letters
+  \time 4/4
+
+  \repeat volta 2 {
+    %\once\override Score.RehearsalMark #'extra-offset = #'(0 . 2)
+    \mark\default
+    g4 g g g
+    g4 g g g
+    g4 g g g
+\break
+    d4 d d d
+    g4 g g g
+    g4 g g g
   }
   \alternative {
-   { g4 g g g
-     d4/+c d g g }
-   { \set chordChanges = ##f
-     g4 \set chordChanges = ##t g g g
-     d4/+c d g g }
+    { g4 g g g
+      d4/+c d g g }
+    { \set chordChanges = ##f
+      g4 \set chordChanges = ##t g g g
+      d4/+c d g g }
   }
-  \break
-
+\break
+   
 % Part 2
   \repeat volta 2 {
-  \mark\default
-  g4 g g g
-  g4 g g g
-  g4 g g g
-  d4 d e:m e:m
-  g4 g g g
-  g4 g g g
+    %\once\override Score.RehearsalMark #'extra-offset = #'(0 . 2)
+    \mark\default
+    g4 g g g
+    g4 g g g
+    g4 g g g
+    d4 d e:m e:m
+\break
+    g4 g g g
+    g4 g g g
   }
   \alternative {
-   { g4 g g g
-     d4/+c d g g }
-   { \set chordChanges = ##f
-     g4 \set chordChanges = ##t g g g
-     d4/+c d g g }
+    { g4 g g g
+      d4/+c d g g }
+    { \set chordChanges = ##f
+      g4 \set chordChanges = ##t g g g
+      d4/+c d g g }
   }
 }
 
 pianotop = \relative c'''
 {
-  \key g \major
+  \tag #'key \key g \major
+  \time 4/4
   #(set-octavation 1)
 
   \repeat volta 2 {
@@ -217,7 +224,6 @@ pianotop = \relative c'''
     { r4 g b g
       r4 d b' g }
   }
-  \break
 
 % Part 2
   \repeat volta 2 {
@@ -239,29 +245,29 @@ pianotop = \relative c'''
 
 pianobot = \relative c,,
 {
-  \key g \major
+  \tag #'key \key g \major
+  \time 4/4
   #(set-octavation -1)
 
   \repeat volta 2 {
-   g'2 g' g, g' g, g'
-   d,2 d'
-   g,2 g' g, g'
+   g'2 d' g, d' g, d'
+   d,2 a'
+   g2 d' g, d'
   }
   \alternative {
-   { g,2 g' c, g' }
-   { g,2 g' c, g' }
+   { g,2 d' c g }
+   { g2 d' c g }
   }
-  \break
 
 % Part 2
   \repeat volta 2 {
-   g,2 g' g, g' g, g'
-   d,2 e'
-   g,2 g' g, g'
+   g2 d' g, d' g, d'
+   a2 e'
+   g,2 d' g, d'
   }
   \alternative {
-   { g,2 g' d g }
-   { g,2 g' d g }
+   { g,2 d' c g }
+   { g2 d' c g }
   }
 }
 
@@ -284,77 +290,32 @@ pianobot = \relative c,,
     \new Staff <<
       \set Staff.instrument = "Melody"
       \set Staff.instr = "Mel."
-      \melody 
+      \partcombine \melody \alternate
     >>
     \new Staff <<
-      \set Staff.instrument = "Alt. Melody"
-      \set Staff.instr = "Alt."
-      \alternate
-    >>
-    \context Staff = celloA {
-      \set Staff.instrument = "Cello 1"
-      \set Staff.instr = "Cel1"
-      \transpose c c,, << \clef bass \melody >> % 2 octaves down
-    }
-    \context Staff = celloB {
-      \set Staff.instrument = "Cello 2"
-      \set Staff.instr = "Cel2"
-      \transpose c c,, << \clef bass \alternate >> % 2 octaves down
-    }
-    \new TabStaff <<
       \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "gDGBD)" } }
       \set Staff.instr = "Ban."
-      \set TabStaff.stringTunings = #banjo-open-g-tuning
-      \time 4/4 
-%     \key g \major
       \banjo
     >>
+%{
     \new TabStaff <<
       \set TabStaff.stringTunings = #bass-tuning
       \set Staff.instrument = "Bass "
       \set Staff.instr = "Bas."
       \bass
     >>
+%}
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
       \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
       \set PianoStaff.instr = \markup { "Pia." \hspace #2.0 }
-      \context Staff = upper << \time 4/4 \pianotop >>
+      \context Staff = upper << \pianotop >>
       \context Staff = lower << \clef bass \pianobot >>
     >>
   >>
   \layout { }
 }
 				
-% cello score
-\score {
-  \header {
-    instrument = "Cello"
-    breakbefore=##t
-  }
-  <<
-    \context ChordNames {
-         \set chordChanges = ##t
-         \harmonies
-    }
-    \context Staff = celloA {
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
-      \transpose c c,, << \clef bass \melody >> % 2 octaves down
-    }
-    \context Staff = celloB {
-      \set Staff.instrument = "Alt. Melody"
-      \set Staff.instr = "Alt."
-      \transpose c c,, << \clef bass \alternate >> % 2 octaves down
-    }
-    \context Staff = celloC {
-      \set Staff.instrument = "Bass"
-      \set Staff.instr = "Bas."
-      \transpose c c' << \clef bass \bass >>
-    }
-  >>
-  \layout { }
-}
 % flute score
 \score {
   \header {
@@ -377,9 +338,36 @@ pianobot = \relative c,,
       \alternate
     }
   >>
-  \layout { }
 }
-% banjo/bass score
+% cello score (octave-shifted)
+\score {
+  \header {
+    instrument = "Cello"
+    breakbefore=##t
+  }
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
+    \context Staff = celloA {
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \transpose c c,, << \clef bass \melody >> % 2 octaves down
+    }
+    \context Staff = celloB {
+      \set Staff.instrument = "Harmony"
+      \set Staff.instr = "Har."
+      \transpose c c,, << \clef bass \alternate >> % 2 octaves down
+    }
+    \context Staff = celloC {
+      \set Staff.instrument = "Bass"
+      \set Staff.instr = "Bas."
+      \transpose c c' << \clef bass \bass >> % 1 octave up
+    }
+  >>
+}
+% banjo/bass score (tablature)
 \score {
   \header {
     instrument = "Banjo/Bass"
@@ -390,28 +378,28 @@ pianobot = \relative c,,
          \set chordChanges = ##t
          \harmonies
     }
+%{
     \context Staff = fluteA {
       \set Staff.instrument = "Melody"
       \set Staff.instr = "Mel."
       \melody
     }
+%}
     \new TabStaff <<
       \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "gDGBD)" } }
       \set Staff.instr = "Ban."
       \set TabStaff.stringTunings = #banjo-open-g-tuning
-      \time 4/4 
-%     \key g \major
-      \banjo
+      \removeWithTag #'key \banjo
     >>
     \new TabStaff <<
       \set TabStaff.stringTunings = #bass-tuning
       \set Staff.instrument = "Bass "
       \set Staff.instr = "Bas."
-      \bass
+      \removeWithTag #'key \bass
     >>
   >>
-  \layout { }
 }
+
 % piano/guitar score
 \score {
   \header {
@@ -424,9 +412,9 @@ pianobot = \relative c,,
          \harmonies
     }
     \new Staff <<
-      \set Staff.printPartCombineTexts = ##f
       \set Staff.instrument = "Melody"
       \set Staff.instr = "Mel."
+      \set Staff.printPartCombineTexts = ##f
       \small\partcombine \melody \alternate
     >>
     \new PianoStaff <<
