@@ -501,10 +501,12 @@ bass = \transpose c c, \guitarA
       \set Staff.midiInstrument = "acoustic bass"
       \repeat unfold 3 { \bass }
     >>
+%{
     \context Staff=chords <<
       \set Staff.midiInstrument = "pizzicato strings"
       \repeat unfold 3 { \harmonies }
     >>
+%}
   >>
   \midi {
     \tempo 4=120
