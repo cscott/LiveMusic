@@ -482,11 +482,13 @@ guitarC = \relative c
       \repeat unfold 2 { \removeWithTag #'closer \bass }
       \removeWithTag #'partial \bass % includes closer
     >>
+%{
     \context Staff=chords <<
       \set Staff.midiInstrument = "pizzicato strings"
       \repeat unfold 2 { \removeWithTag #'closer \harmonies }
       \removeWithTag #'partial \harmonies % includes closer
     >>
+%}
   >>
   \midi {
     \tempo 2=120
