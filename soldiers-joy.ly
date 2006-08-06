@@ -18,61 +18,13 @@
 %  tagline = "\\raisebox{10mm}{\\parbox{188mm}{\\quad\\small\\noindent " + \footer + " \\hspace{\\stretch{1}} This music is part of the Mutopia project: \\hspace{\\stretch{1}} \\texttt{http://www.MutopiaProject.org/}\\\\ \\makebox[188mm][c]{It has been typeset and placed in the public domain by " + \maintainer + ".} \\makebox[188mm][c]{Unrestricted modification and redistribution is permitted and encouraged---copy this music and share it!}}}"
 }
 #(set-default-paper-size "letter")
-#(set-global-staff-size 16)
-
-
-banjo = \relative c'
-{
-  \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "aDADE)" } }
-  \set Staff.instr = "Banj."
-  \set Staff.midiInstrument = "banjo"
-  \partial 8*2 a8\3( b\3)
-
-  \repeat volta 2 {
-    d8 a fis( d) d( fis) fis a'\5
-    a,8\3( b\3) b a'\5 d,4\2 a8\3( b\3)
-    d8 a fis( d) d( fis) fis a'\5
-    e,4 a8 a'\5 e,4 a8( b)
-    d8 a fis( d) d( fis) fis a'\5
-    a,8\3( b\3) b a'\5 d,4\2 fis\1
-    g8( e) e d cis( a) b( cis)
-  }
-  \alternative {
-        {
-    d4 fis8 a\5 d,4 a8\3( b\3)
-        }
-        {
-    d4 fis8 a\5 d,4 fis8( a\5)
-        }
-  }
-
-% Part 2
-
-  \repeat volta 2 {
-    fis8 d g a\5 a\1 fis\2 a\1 a\5
-    e8 d fis a\5 g4 g8 a\5
-    fis8 d g a\5 a\1( e) fis a\5
-    e8 d cis( a) a( cis) e a\5
-    fis8 d g a\5 a\1( e) fis a\5
-    e8 d fis a\5 <g d b>4 fis
-    g8( e) e d cis( a) b( cis)
-  }
-  \alternative {
-        {
-    d4 fis8 a\5 d,4 a8\3( b\3)
-        }
-        {
-    d4 fis8 a\5 d,4 \bar "|."
-        }
-  }
-}
 
 melody = \relative c''
 {
-  \set Staff.midiInstrument = "fiddle"
-  \key d \major
-  \partial 8*2 fis8( g8 )
-
+  \tag #'key \key d \major
+  \time 4/4
+  \tag #'partial \partial 8*2 fis8( g8 )
+  
   \repeat volta 2 {
     a8 fis8 d8 fis8
     a8 fis8 d8 fis8
@@ -81,57 +33,45 @@ melody = \relative c''
     a8 fis8 d8 fis8
     a8 fis8 d8 fis8
     g4 e4 e4
-
+    
     fis8( g8 )
     a8 fis8 d8 fis8
     a8 fis8 d8 fis8
     a4 d4 d4 e8( g8 )
-
+    
     fis8 a8 fis8 d8
     e8 g8 fis8 e8
-    }
-
-    \alternative {
-        {
-          d4 d8 d8 d4 fis,8( g8 )
-        }
-
-        {
-          d'4 << d4 fis >> << d fis >> d,8( e8 )
-        }
-    }
-
+  } \alternative {
+    { d4 d8 d8 d4 fis,8( g8 ) }
+    { d'4 << d4 fis >> << d fis >> d,8( e8 ) }
+  }
+  
 % Part 2
 
   \repeat volta 2 {
     fis4 g4 a4 g8( fis8)
     e8 d8 e8 fis8 g4 e8( g8)
-
+    
     fis4 g4 a4 g8( fis8)
     e8 d8 cis8 b8 a4 d8( e8)
-
+    
     fis4 g4 a4 g8( fis8)
     e8 d8 e8 fis8 g4 e8( g8)
 
     fis8 a fis d e g fis e
-  }
-
-  \alternative {
-    {
-      d4 d8 d d4 d8( e)
-    }
-    {
-      d4 << d8 fis8 >> << d fis >> << d4 fis4 >> \bar "|."
-    }
+  } \alternative {
+    { d4 d8 d d4 d8( e) }
+    { d4 << d8 fis8 >> << d fis >> << d4 fis4 >> \bar "|." }
   }
 }
 
 alternate = \relative c'' % based on the banjo part
 {
-  \set Staff.midiInstrument = "fiddle"
-  \key d \major
-  \partial 8*2 a8\3( b\3)
+  \tag #'key \key d \major
+  \time 4/4
+  \tag #'partial \partial 8*2
 
+  a8\3( b\3)
   \repeat volta 2 {
     d8 a fis( d) d( fis) fis a
     a4 fis' d a8( b)
@@ -172,17 +112,63 @@ alternate = \relative c'' % based on the banjo part
   }
 }
 
+banjo = \relative c' { % clawhammer banjo part
+  \tag #'key \key d \major
+  \time 4/4
+  \tag #'partial \partial 8*2
+
+  a8\3( b\3)
+  \repeat volta 2 {
+    d8 a fis( d) d( fis) fis a'\5
+    a,8\3( b\3) b a'\5 d,4\2 a8\3( b\3)
+    d8 a fis( d) d( fis) fis a'\5
+    e,4 a8 a'\5 e,4 a8( b)
+    d8 a fis( d) d( fis) fis a'\5
+    a,8\3( b\3) b a'\5 d,4\2 fis\1
+    g8( e) e d cis( a) b( cis)
+  }
+  \alternative {
+        {
+    d4 fis8 a\5 d,4 a8\3( b\3)
+        }
+        {
+    d4 fis8 a\5 d,4 fis8( a\5)
+        }
+  }
+
+% Part 2
+
+  \repeat volta 2 {
+    fis8 d g a\5 a\1 fis\2 a\1 a\5
+    e8 d fis a\5 g4 g8 a\5
+    fis8 d g a\5 a\1( e) fis a\5
+    e8 d cis( a) a( cis) e a\5
+    fis8 d g a\5 a\1( e) fis a\5
+    e8 d fis a\5 <g d b>4 fis
+    g8( e) e d cis( a) b( cis)
+  }
+  \alternative {
+        {
+    d4 fis8 a\5 d,4 a8\3( b\3)
+        }
+        {
+    d4 fis8 a\5 d,4 \bar "|."
+        }
+  }
+}
+
 harmonies = \chordmode {
-   \set Staff.midiInstrument = "pizzicato strings"
-   \set Score.markFormatter = #format-mark-box-letters
+  \set Score.markFormatter = #format-mark-box-letters
+  \time 4/4
 \once\override Score.RehearsalMark #'extra-offset = #'(1 . 2)
 \mark\default
-   \partial 8*2 r4
+   \tag #'partial \partial 8*2 r4
    \repeat volta 2 {
    d4 d4 d4 d4
    d4 d4 d4 d4
    d4 d4 d4 d4
    a4 a4 a4 a4
+\break
    d4 d4 d4 d4
    d4 d4 d4 d4
    d4 d4 a4 a4
@@ -197,7 +183,8 @@ harmonies = \chordmode {
    d4 d4 d4 d4
       }
   }
-  \break
+\break
+
 \once\override Score.RehearsalMark #'extra-offset = #'(-4 . 2)
 \mark\default % fix this!
 
@@ -226,10 +213,12 @@ harmonies = \chordmode {
 
 pianotop = \relative c'''
 {
-  \key d \major
-  \partial 8*2 r4
+  \tag #'key \key d \major
+  \time 4/4
+  \tag #'partial \partial 8*2
   #(set-octavation 1)
 
+  r4
   \repeat volta 2 {
     r4 d fis d
     r4 d fis d
@@ -275,10 +264,12 @@ pianotop = \relative c'''
 
 pianobot = \relative c,%,
 {
-  \key d \major
-  \partial 8*2  r4
+  \tag #'key \key d \major
+  \time 4/4
+  \tag #'partial \partial 8*2 
 %  #(set-octavation -1)
 
+  r4
   \repeat volta 2 {
    d2 a' d, a' d, g
    a e d a' d, a' d, a'
@@ -313,10 +304,11 @@ pianobot = \relative c,%,
 
 bass =  \relative c,
 {
-  \set Staff.instrument = "Bass "
-  \set Staff.instr = "Bass"
-  \set Staff.midiInstrument = "acoustic bass"
-  \partial 8*2  r4
+  \tag #'key \key d \major
+  \time 4/4
+  \tag #'partial \partial 8*2 
+
+  r4
   \repeat volta 2 {
    d2\3 a'\2 d,\3 a'\2 d,\3 g\2
    a\2 e\3 d\3 a'\2 d,\3 a'\2 d,\3 a'\2
@@ -349,68 +341,210 @@ bass =  \relative c,
   }
 }
 
+\paper {
+  scoreTitleMarkup = \bookTitleMarkup
+  bookTitleMarkup = \markup {}
+  raggedbottom = ##t
+}
+
+% combined score
 \score {
-   <<
-      \context ChordNames {
+  \header {
+    instrument = "Combined Score"
+  }
+  <<
+    \context ChordNames {
+      \set chordChanges = ##t
+      \harmonies
+    }
+    \new Staff <<
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \partcombine \melody \alternate
+    >>
+    \new Staff <<
+      \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "aDADE)" } }
+      \set Staff.instr = "Ban."
+      \banjo
+    >>
+%{
+    \new TabStaff <<
+      \set TabStaff.stringTunings = #bass-tuning
+      \set Staff.instrument = "Bass "
+      \set Staff.instr = "Bas."
+      \bass
+    >>
+%}
+    \new PianoStaff <<
+      #(set-accidental-style 'piano-cautionary)
+      \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
+      \set PianoStaff.instr = \markup { "Pia." \hspace #2.0 }
+      \context Staff = upper << \pianotop >>
+      \context Staff = lower << \clef bass \pianobot >>
+    >>
+  >>
+  \layout { }
+}
+				
+% flute score
+\score {
+  \header {
+    instrument = "Flute"
+    breakbefore=##t
+  }
+  <<
+    \context ChordNames {
          \set chordChanges = ##t
          \harmonies
-      }
-   \context Staff = mel {
-     \set Staff.instrument = "Melody"
-     \set Staff.instr = "Mel."
-     \melody
-   }
-   \context Staff = alt {
-     \set Staff.instrument = "Alt. Melody"
-     \set Staff.instr = "Alt."
-     \alternate
-   }
-   \context Staff = celloA {
-     \set Staff.instrument = "Cello 1"
-     \set Staff.instr = "Cel1"
-     \transpose c c,, << \clef bass \melody >> % 2 octaves down
-   }
-   \context Staff = celloB {
-     \set Staff.instrument = "Cello 2"
-     \set Staff.instr = "Cel2"
-     \transpose c c,, << \clef bass \alternate >> % 2 octaves down
-   }
-   \new TabStaff <<
-     \set TabStaff.stringTunings = #'(4 2 -3 -10 9)
+    }
+    \context Staff = fluteA {
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \melody
+    }
+    \context Staff = fluteB {
+      \set Staff.instrument = "Alt. Melody"
+      \set Staff.instr = "Alt."
+      \alternate
+    }
+  >>
+}
+% cello score (octave-shifted)
+\score {
+  \header {
+    instrument = "Cello"
+    breakbefore=##t
+  }
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
+    \context Staff = celloA {
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \transpose c c,, << \clef bass \melody >> % 2 octaves down
+    }
+    \context Staff = celloB {
+      \set Staff.instrument = "Harmony"
+      \set Staff.instr = "Har."
+      \transpose c c,, << \clef bass \alternate >> % 2 octaves down
+    }
+    \context Staff = celloC {
+      \set Staff.instrument = "Bass"
+      \set Staff.instr = "Bas."
+      \transpose c c' << \clef bass \bass >> % 1 octave up
+    }
+  >>
+}
+% banjo/bass score (tablature)
+\score {
+  \header {
+    instrument = "Banjo/Bass"
+    breakbefore=##t
+  }
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
+%{
+    \context Staff = fluteA {
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \melody
+    }
+%}
+    \new TabStaff <<
+      \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "aDADE)" } }
+      \set Staff.instr = "Ban."
+      \set TabStaff.stringTunings = #'(4 2 -3 -10 9)
 % G tuning: 2 -1 -5 -10 7
 % Double-C: 2 0 -5 -12 7
 % capo'd:   4 2 -3 -10 9  (aDADE)
 % D tuning: 2 -3 -6 -10 7
-     \banjo
-   >>
-   \new TabStaff <<
-     \set TabStaff.stringTunings = #bass-tuning
-     \bass
-   >>
-   \new PianoStaff <<
-      #(set-accidental-style 'piano-cautionary)
-      \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
-      \set PianoStaff.instr = "Pia."
-     \context Staff = upper << \time 4/4 \pianotop >>
-     \context Staff = lower << \clef bass \pianobot >>
-   >>
-   >>
-
-   \layout{ }
+      \removeWithTag #'key \banjo
+    >>
+    \new TabStaff <<
+      \set TabStaff.stringTunings = #bass-tuning
+      \set Staff.instrument = "Bass "
+      \set Staff.instr = "Bas."
+      \removeWithTag #'key \bass
+    >>
+  >>
 }
 
+% piano/guitar score
+\score {
+  \header {
+    instrument = "Piano/Guitar"
+    breakbefore=##t
+  }
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
+    \new Staff <<
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \set Staff.printPartCombineTexts = ##f
+      %\small\partcombine \melody \alternate
+      \melody
+    >>
+    \new PianoStaff <<
+      #(set-accidental-style 'piano-cautionary)
+      \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
+      \set PianoStaff.instr = \markup { "Pia." \hspace #2.0 }
+      \context Staff = upper << \time 4/4 \pianotop >>
+      \context Staff = lower << \clef bass \pianobot >>
+    >>
+  >>
+  \layout { }
+}
+
+
+% midi score.
 \score {
   \unfoldRepeats
   \context PianoStaff <<
-    \context Staff=upper << r4\pianotop >>
-    \context Staff=lower << r4\f\pianobot >>
-    \context Staff=chords <<r4\p\harmonies >>
-    \context Staff=melody << r4\melody >>
-    \context Staff=alternate << r4\alternate >>
-    \context Staff=banjo << r4\banjo >>
-    \context Staff=bass << r4\bass >>
+    \context Staff=melody << 
+       \set Staff.midiInstrument = "fiddle"
+       r1 \melody
+     >>
+    \context Staff=alternate <<
+       \set Staff.midiInstrument = "fiddle"
+       r1 \alternate
+     >>
+    \context Staff=banjo <<
+      \set Staff.midiInstrument = "banjo"
+      r1\pp
+      \banjo
+    >>
+    \context Staff=bass <<
+      \set Staff.midiInstrument = "acoustic bass"
+      r1
+      \bass
+    >>
+%{
+    \context Staff=chords <<
+      \set Staff.midiInstrument = "pizzicato strings"
+      r1\pp
+      \harmonies
+    >>
+%}
+    \context Staff=upper <<
+      \set Staff.midiInstrument = "acoustic grand"
+      r1
+      \pianotop
+    >>
+    \context Staff=lower <<
+      \set Staff.midiInstrument = "acoustic grand"
+      r1
+      \pianobot
+    >>
   >>
   \midi {
-    \tempo 2=110
+    \tempo 2=120
   }
 }
