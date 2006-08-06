@@ -433,13 +433,41 @@ pianobot = \relative c,,
 \score {
   \unfoldRepeats
   \context PianoStaff <<
-    \context Staff=melody << r4 \melody >>
-    \context Staff=alternate << r4 \alternate >>
-    \context Staff=banjo << r4 \pp\banjo >>
-    \context Staff=bass << r4 \bass >>
-%    \context Staff=chords << r4\p \harmonies >>
-    \context Staff=upper << r4\pianotop >>
-    \context Staff=lower << r4\pianobot >>
+    \context Staff=melody << 
+       \set Staff.midiInstrument = "fiddle"
+       r1 \melody
+     >>
+    \context Staff=alternate <<
+       \set Staff.midiInstrument = "fiddle"
+       r1 \alternate
+     >>
+    \context Staff=banjo <<
+      \set Staff.midiInstrument = "banjo"
+      r1\pp
+      \banjo
+    >>
+    \context Staff=bass <<
+      \set Staff.midiInstrument = "acoustic bass"
+      r1
+      \bass
+    >>
+%{
+    \context Staff=chords <<
+      \set Staff.midiInstrument = "pizzicato strings"
+      r1\pp
+      \harmonies
+    >>
+%}
+    \context Staff=upper <<
+      \set Staff.midiInstrument = "acoustic grand"
+      r1
+      \pianotop
+    >>
+    \context Staff=lower <<
+      \set Staff.midiInstrument = "acoustic grand"
+      r1
+      \pianobot
+    >>
   >>
   \midi {
     \tempo 2=120
