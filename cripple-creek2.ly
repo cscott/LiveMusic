@@ -236,35 +236,45 @@ guitarA = \relative c
     \bar "|."
   }
 }
-guitarB = \relative c
+gchord = << \tag #'guitar \relative c' { <g d' g>4\arpeggio }
+	    \tag #'piano \relative c' { <b d g>4 }
+	  >>
+cchord = << \tag #'guitar \relative c' { <g c e>4\arpeggio }
+	    \tag #'piano \relative c' { <c e g>4 }
+	  >>
+aschord = << \tag #'guitar \relative c' { <g cis e>4\arpeggio }
+	    \tag #'piano \relative c' { <cis e g>4 }
+	  >>
+
+guitarB = \relative c'
 {
   \time 4/4
   \tag #'partial \partial 8*2
   s4 \arpeggioUp
   \repeat volta 2 {
-    s4 <g' d' g>\arpeggio s4 <g d' g>\arpeggio |
-    s4 <g c e>\arpeggio s4 <g d' g>\arpeggio |
-    s4 <g d' g>\arpeggio s4 <g d' g>\arpeggio |
+    s4 \gchord s4 \gchord |
+    s4 \cchord s4 \gchord |
+    s4 \gchord s4 \gchord |
   } \alternative {
-    { s4 <a d fis>\arpeggio s4 <g d' g>\arpeggio | }
-    { s4 <a d fis>\arpeggio s4 <g d' g>\arpeggio | }
+    { s4 <a d fis>\arpeggio s4 \gchord | }
+    { s4 <a d fis>\arpeggio s4 \gchord | }
   }
   \repeat volta 2 {
     \grace s16
-    s4 <g d' g>\arpeggio s4 <g d' g>\arpeggio |
-    s4 <g d' g>\arpeggio s4 <g d' g>\arpeggio |
-    s4 <g d' g>\arpeggio s4 <g d' g>\arpeggio |
+    s4 \gchord s4 \gchord |
+    s4 \gchord s4 \gchord |
+    s4 \gchord s4 \gchord |
   } \alternative {
-    { s4 <a d fis>\arpeggio s4 <g d' g>\arpeggio | }
+    { s4 <a d fis>\arpeggio s4 \gchord | }
     { s4 <a d fis>\arpeggio s4 }
   }
   \tag #'closer
   {
     <g d' g>4\arpeggio |
-    s4 <g d' g>\arpeggio s4 <g d' g>\arpeggio |
-    s4 <g d' g>\arpeggio s4 <g d' g>\arpeggio |
-    s4 <g cis e>\arpeggio s4 <a d fis>\arpeggio |
-    s4  <g d' g>\arpeggio <g d' g>
+    s4 \gchord s4 \gchord |
+    s4 \gchord s4 \gchord |
+    s4 \aschord s4 <a d fis>\arpeggio |
+    s4  \gchord \gchord
     \bar "|."
   }
 }
@@ -333,7 +343,7 @@ guitarC = \relative c
       \clef "treble_8"
       \key g \major
       \new Voice { \guitarA }
-      \new Voice { \guitarB }
+      \new Voice { \removeWithTag #'piano \guitarB }
       \new Voice { \guitarC }
     >>
     \new Staff << \clef "bass_8"
@@ -428,7 +438,7 @@ guitarC = \relative c
       \set TabStaff.instr = "Gui."
       \time 4/4
       \new TabVoice \guitarA
-      \new TabVoice \guitarB
+      \new TabVoice \removeWithTag #'piano \guitarB
     >>
     \new TabStaff <<
       \set TabStaff.instrument = "Bass"
@@ -454,7 +464,7 @@ guitarC = \relative c
       \new Staff {
 	\set Staff.printPartCombineTexts = ##f
 	\partcombine
-	{ \transpose c c' \guitarB }
+	{ \transpose c c' \removeWithTag #'guitar \guitarB }
 	{ \partcombine { \partial 8*2 r4 } \guitarC }
       }
       \new Staff { \clef bass \guitarA }
@@ -502,8 +512,8 @@ guitarC = \relative c
 	\removeWithTag #'partial \guitarA % includes closer
       }
       \new Voice {
-	\repeat unfold 2 { \removeWithTag #'closer \guitarB }
-	\removeWithTag #'partial \guitarB % includes closer
+	\repeat unfold 2 { \removeWithTag #'closer \removeWithTag #'piano \guitarB }
+	\removeWithTag #'partial \removeWithTag #'piano \guitarB % includes closer
       }
     >>
     \context Staff=bass <<
