@@ -163,43 +163,43 @@ harmonies = \chordmode {
   \time 4/4
 
   \repeat volta 2 {
-    %\once\override Score.RehearsalMark #'extra-offset = #'(0 . 2)
+    \once\override Score.RehearsalMark #'extra-offset = #'(0 . 2)
     \mark\default
-    g4 g g g
-    g4 g g g
-    g4 g g g
+    g4 g g g |
+    g4 g g g |
+    g4 g g g |
+    d4 d d d |
 \break
-    d4 d d d
-    g4 g g g
-    g4 g g g
+    g4 g g g |
+    g4 g g g |
   }
   \alternative {
-    { g4 g g g
-      d4/+c d g g }
+    { g4 g g g |
+      d4/+c d g g | }
     { \set chordChanges = ##f
-      g4 \set chordChanges = ##t g g g
-      d4/+c d g g }
+      g4 \set chordChanges = ##t g g g |
+      d4/+c d g g | }
   }
 \break
    
 % Part 2
   \repeat volta 2 {
-    %\once\override Score.RehearsalMark #'extra-offset = #'(0 . 2)
+    \once\override Score.RehearsalMark #'extra-offset = #'(-3 . 0)
     \mark\default
-    g4 g g g
-    g4 g g g
-    g4 g g g
-    d4 d e:m e:m
+    g4 g g g |
+    g4 g g g |
+    g4 g g g |
+    d4 d e:m e:m |
 \break
-    g4 g g g
-    g4 g g g
+    g4 g g g |
+    g4 g g g |
   }
   \alternative {
-    { g4 g g g
-      d4/+c d g g }
+    { g4 g g g |
+      d4/+c d g g | }
     { \set chordChanges = ##f
-      g4 \set chordChanges = ##t g g g
-      d4/+c d g g }
+      g4 \set chordChanges = ##t g g g |
+      d4/+c d g g | }
   }
 }
 
