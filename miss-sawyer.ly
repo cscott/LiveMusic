@@ -48,8 +48,8 @@ simpleharmony = \relative c'' {
   \repeat volta 2 {
     fis4 fis8 d fis4 fis8 d |
     fis4 fis8 d fis g fis d |
-    b4 d8 cis b4 d8 cis |
-    b4 d8 cis b cis d cis |
+    a4 e'8 cis a4 e'8 cis |
+    a4 e'8 cis a cis e cis |
     d4 b a d8 fis |
     a,8 b d e fis4 e |
     d4 d8 fis cis4 a |
@@ -184,7 +184,7 @@ harmonies = \chordmode {
   r4 |
   \repeat volta 2 {
     \mark\default
-    d2 d | d d | g g | g g |
+    d2 d | d d | a:7 a:7 | a:7 a:7 |
     d2 d | d d | d a |
   } \alternative {
     { d2 d | }
@@ -208,8 +208,8 @@ bass = \relative c,
   \tag #'partial \partial 8*2
   r4
   \repeat volta 2 {
-    d2 a | d2 a | g2 d' | g,2 d' |
-    d2 a | d2 a | d2 a |
+    d2 a | d2 a | a2 e | a2 e |
+    d'2 a | d2 a | d2 a |
   } \alternative {
     { d2 a | }
     { d2 a | }
@@ -229,8 +229,8 @@ guitarA = \relative c
   \tag #'partial \partial 8*2
   r4
   \repeat volta 2 {
-    d2 a | d2 a | g2 d' | g,2 d' |
-    d2 a | d2 a | d2 a |
+    d2 a | d2 a | a2 e | a2 e |
+    d'2 a | d2 a | d2 a |
   } \alternative {
     { d2 a | }
     { d2 a | }
@@ -251,8 +251,8 @@ guitarB = \relative c
   \repeat volta 2 {
     s4 <a' d fis>\arpeggio s4 <a d fis>\arpeggio |
     s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio |
-    s4 <g d' g>\arpeggio s4 <g d' g>\arpeggio |
-    s4 <g d' g>\arpeggio s4 <g d' g>\arpeggio |
+    s4 <a cis e>\arpeggio s4 <a cis e>\arpeggio |
+    s4 <a cis e>\arpeggio s4 <a cis e>\arpeggio |
     s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio |
     s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio |
     s4 <a d fis>\arpeggio s4 <g cis e>\arpeggio |
