@@ -409,6 +409,29 @@ bass =  \relative c,
     }
   >>
 }
+% clarinet score
+\score {
+  \header {
+    instrument = "Clarinet"
+    breakbefore=##t
+  }
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \transpose bes c' \harmonies
+    }
+    \context Staff = clarA {
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \transpose bes c' \melody
+    }
+    \context Staff = clarB {
+      \set Staff.instrument = "Alt. Melody"
+      \set Staff.instr = "Alt."
+      \transpose bes c' \alternate
+    }
+  >>
+}
 % cello score (octave-shifted)
 \score {
   \header {

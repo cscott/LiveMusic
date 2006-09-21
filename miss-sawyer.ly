@@ -377,6 +377,46 @@ guitarC = \relative c
   >>
 }
 
+% melody parts, for clarinet (transposing)
+\score {
+  \header {
+    instrument = "Clarinet"
+    breakbefore=##t
+  }
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \context ChordNames {
+      \set chordChanges = ##t
+      \transpose bes c' \harmonies
+    }
+    \new Staff <<
+      \set Staff.instrument = "Melody"
+      \set Staff.instr = "Mel."
+      \transpose bes c' \simple
+    >>
+    \new Staff <<
+      \set Staff.instrument = "Harmony"
+      \set Staff.instr = "Har."
+      \transpose bes c' \simpleharmony
+    >>
+    \new Staff <<
+      \set Staff.instrument = "Variant"
+      \set Staff.instr = "Var."
+      \transpose bes c' \mandolin
+    >>
+  >>
+}
+\score {
+  \header {
+    instrument = "Clarinet Solo" % not new page
+    breakbefore=##t
+  }
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \new Staff { \transpose bes c' \longvar }
+  >>
+}
+
 % melody parts, for cellos (octave-shifted)
 \score {
   \header {
