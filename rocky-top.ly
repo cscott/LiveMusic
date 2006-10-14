@@ -94,6 +94,6 @@ harmonies = \chordmode {
     \context Staff=chords << \harmonies >>
   >>
   \midi {
-    \tempo 4=125
+    \tempo 2=125
   }
 }
