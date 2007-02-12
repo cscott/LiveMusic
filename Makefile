@@ -1,5 +1,7 @@
 SONGS=soldiers-joy sandy-river2 last-chance girl-blue saturday-night \
-	devil-went-down cripple-creek2 miss-sawyer rocky-top
+	devil-went-down cripple-creek2 miss-sawyer rocky-top \
+	kitchen-girl
+LAME=toolame
 all: $(foreach f,$(SONGS),$(f).mp3)
 
 %.midi %.ps %.pdf: %.ly
@@ -9,7 +11,7 @@ all: $(foreach f,$(SONGS),$(f).mp3)
 %.ogg: %.wav
 	oggenc $<
 %.mp3: %.wav
-	lame $< $@
+	$(LAME) $< $@
 
 upload: $(foreach f,$(SONGS),$(f).mp3 $(f).ly $(f).pdf)
 #	scp $^ k2.csail.mit.edu:public_html/LiveMusic/
