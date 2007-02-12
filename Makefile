@@ -1,6 +1,6 @@
 SONGS=soldiers-joy sandy-river2 last-chance girl-blue saturday-night \
 	devil-went-down cripple-creek2 miss-sawyer rocky-top \
-	kitchen-girl
+	kitchen-girl frosty-morn
 LAME=toolame
 all: $(foreach f,$(SONGS),$(f).mp3)
 

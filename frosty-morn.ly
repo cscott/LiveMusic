@@ -1,8 +1,8 @@
 \version "2.6.3"
 \header {
-  title = "The Kitchen Girl"
+  title = "Frosty Morning"
   piece = "Traditional"
-  mutopiatitle = "The Kitchen Girl"
+  mutopiatitle = "Frosty Morning"
   mutopiacomposer = "Traditional"
   mutopiainstrument = "Violin, Guitar, Banjo, Piano"
   source = "The Fiddler's Fakebook (melody only)"
@@ -16,39 +16,79 @@
 #(set-default-paper-size "letter")
 %#(set-global-staff-size 18)
 
-melody = \relative c'' { % c above middle c
-  \tag #'key \key d \major
+%%%%%%% HACK(ISH) TO SUPPORT PARENTHESIZED NOTES
+%%%%%%% I think newer Lilyponds have a \parenthesized tweak to do this.
+%%%%%%% From http://lilypond.org/doc/v2.6/input/regression/collated-files.html
+%%%%%%%  "stencil-hacking.ly"
+
+#(define (parenthesize-callback callback)
+   "Construct a function that will do CALLBACK and add parentheses."
+   (define (parenthesize-stencil grob)
+     "This function adds parentheses to the original callback for
+GROB.  The dimensions of the stencil is not affected."
+     
+     (let* ((fn (ly:get-default-font grob))
+	    (pclose (ly:font-get-glyph fn "accidentals.rightparen"))
+	    (popen (ly:font-get-glyph fn "accidentals.leftparen"))
+	    (subject (callback grob))
+
+	    ; remember old size
+	    (subject-dim-x (ly:stencil-extent subject 0))
+	    (subject-dim-y (ly:stencil-extent subject 1)))
+
+        ;; add parens
+        (set! subject
+	     (ly:stencil-combine-at-edge 
+	      (ly:stencil-combine-at-edge subject 0 1 pclose 0.2)
+	      0 -1 popen  0.2))
+
+	; revert old size.
+       (ly:make-stencil
+        (ly:stencil-expr subject) subject-dim-x subject-dim-y)))
+   parenthesize-stencil)
+par = \override NoteHead  #'print-function = #(parenthesize-callback Note_head::print)
+nopar = \revert NoteHead #'print-function
+    
+
+melody = \relative c' { % middle c
+  \tag #'key \key g \major
   \time 4/4
 
   \repeat volta 2 {
-    <cis='' a'>2 <b g'>2 | e8( fis) e d cis4 cis8 d |
-    e=''8( cis) e fis g( a) b a | g4 e e e8 g |
-    a=''8( b) a fis g( a) g g | e( fis) e d cis( d) e fis |
-    g=''4 d e8 fis e d |
+    e='8 d e( g) a \par g \nopar a \par g \nopar |
+    a='8 b c( d) e4 \times 2/3 { d,8( e fis } |
+    g='8) \par a \nopar b a g4 d |
+    g='8 a b( c d4) \par d,4( \nopar |
+    e='8) d e g a \par g \nopar a \par g \nopar |
+    a='8 b c d( e4) e8 d |
+    c=''( b) a c( b a) g4 |
   } \alternative {
-    { cis=''4 a a e'8( g) | } % technically, the slur should extend to the first chord
-    { cis,=''4 a a <a a>( ~ |}
+    { a='4. b8( a4) \par d,4 \nopar | }% the d should be tied to the first e
+    { a'='4. b8( a2) | }
   }
   \repeat volta 2 {
-    <a=' a>8 b) c a b( a) g b | a( b) a g e( d) e g |
-    a='4 a8 a c4 d | e4. g8( e4) <a, a>4( ~ |
-    <a=' a>8 b) c a b( a) g b | a( b) a g e( g) a b |
-    c=''4 a b8( a) g4 |
+    e'=''4 a a a |
+    a=''8( b) a( g e) d( cis d) |
+    e=''8( d) e fis( g fis) g( fis |
+    e=''8) d b d( e4) e |
+    a,='4 a8 \par a( \nopar c4) c8 \par c( \nopar |
+    d=''8 c) d \par d( \nopar e4) e8 d |
+    c=''8 b a c b( a) g4 |
   } \alternative {
-    { a='4. b8( a4) <a a>4 %{\laissezVibrer%} | }
-    { a='4. b8( <a a>2) | }
+    { a='4( a8 b a2) }
+    { a='1 }
   }
   \bar "|."
 }
 
 bass = \transpose c c,,
 {
-  \tag #'key \key d \major
+  \tag #'key \key g \major
   \time 4/4
 
   \repeat volta 2 {
-    a2 g | a e' | a e' | e b |
-    a2 g | a e' | g e |
+    a2 e | a e' | g d' | g d' |
+    a2 e | a e' | a g |
    }
    \alternative {
      { a e }
@@ -57,8 +97,8 @@ bass = \transpose c c,,
 
  % Part 2
   \repeat volta 2 {
-    a2 g | a e' | a c' | e' e |
-    a2 g | a e' | a g |
+    a2 e | a e' | g d' | g d' |
+    a2 c' | d' e' | a g |
    }
    \alternative {
      { a e }
@@ -73,19 +113,19 @@ harmonies = \chordmode {
   \repeat volta 2 {
     \once\override Score.RehearsalMark #'extra-offset = #'(0 . 2)
     \mark\default
-    a4 a g g |
-    a4 a a a |
-    a4 a a a |
-    e4 e e e |
+    a4:m a:m a:m a:m |
+    a4:m a:m a:m a:m |
+    g4 g g g |
+    g4 g g g |
 \break
-    a4 a g g |
-    a4 a a a |
-    g4 g e e |
+    a4:m a:m a:m a:m |
+    a4:m a:m a:m a:m |
+    a4:m a:m g g |
   }
   \alternative {
-    { a4 a a a | }
+    { a4:m a:m a:m a:m | }
     { \set chordChanges = ##f
-      a4 \set chordChanges = ##t a a a | }
+      a4:m \set chordChanges = ##t a:m a:m a:m | }
   }
 \break
    
@@ -93,19 +133,19 @@ harmonies = \chordmode {
   \repeat volta 2 {
     \once\override Score.RehearsalMark #'extra-offset = #'(-3 . 0)
     \mark\default
-    a4:m a:m g g |
     a4 a a a |
     a4 a a a |
-    e4 e e e |
+    g4 g g g |
+    g4 g g g |
 \break
+    a4:m a:m a:m a:m |
+    a4:m a:m a:m a:m |
     a4:m a:m g g |
-    a4 a a a |
-    a4 a g g |
   }
   \alternative {
-    { a4 a a a | }
+    { a4:m a:m a:m a:m | }
     { \set chordChanges = ##f
-      a4 \set chordChanges = ##t a a a | }
+      a4:m \set chordChanges = ##t a:m a:m a:m | }
   }
 }
 
@@ -197,7 +237,7 @@ harmonies = \chordmode {
     \context Staff = celloA {
       \set Staff.instrument = "Melody"
       \set Staff.instr = "Mel."
-      \transpose c c,, << \clef bass \melody >> % 2 octaves down
+      \transpose c c, << \clef bass \melody >> % 1 octave down
     }
 %{
     \context Staff = celloB {
@@ -302,8 +342,8 @@ harmonies = \chordmode {
 %}
     \context Staff=bass <<
       \set Staff.midiInstrument = "acoustic bass"
-      r1
-      \bass
+      r1\ff
+      \transpose c c' \bass
     >>
 %{
     \context Staff=upper <<
