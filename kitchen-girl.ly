@@ -142,7 +142,7 @@ harmonies = \chordmode {
       \set TabStaff.stringTunings = #bass-tuning
       \set Staff.instrument = "Bass "
       \set Staff.instr = "Bas."
-      \bass
+      \removeWithTag #'key \bass
     >>
 %{
     \new PianoStaff <<

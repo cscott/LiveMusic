@@ -50,10 +50,7 @@ par = \override NoteHead  #'print-function = #(parenthesize-callback Note_head::
 nopar = \revert NoteHead #'print-function
     
 
-melody = \relative c' { % middle c
-  \tag #'key \key g \major
-  \time 4/4
-
+melodya = \relative c' { % middle c
   \repeat volta 2 {
     e='8 d e( g) a \par g \nopar a \par g \nopar |
     a='8 b c( d) e4 \times 2/3 { d,8( e fis } |
@@ -66,6 +63,8 @@ melody = \relative c' { % middle c
     { a='4. b8( a4) \par d,4 \nopar | }% the d should be tied to the first e
     { a'='4. b8( a2) | }
   }
+}
+melodyb = \relative c' { % middle c
   \repeat volta 2 {
     e'=''4 a a a |
     a=''8( b) a( g e) d( cis d) |
@@ -79,6 +78,18 @@ melody = \relative c' { % middle c
     { a='1 }
   }
   \bar "|."
+}
+melody = { 
+  \tag #'key \key g \major
+  \time 4/4
+  \melodya
+  \melodyb
+}
+cello = {
+  \tag #'key \key g \major
+  \time 4/4
+  \melodya
+  \transpose c' c \melodyb
 }
 
 bass = \transpose c c,,
@@ -182,7 +193,7 @@ harmonies = \chordmode {
       \set TabStaff.stringTunings = #bass-tuning
       \set Staff.instrument = "Bass "
       \set Staff.instr = "Bas."
-      \bass
+      \removeWithTag #'key \bass
     >>
 %{
     \new PianoStaff <<
@@ -237,7 +248,7 @@ harmonies = \chordmode {
     \context Staff = celloA {
       \set Staff.instrument = "Melody"
       \set Staff.instr = "Mel."
-      \transpose c c, << \clef bass \melody >> % 1 octave down
+      \transpose c c, << \clef bass \cello >> % 1 octave down
     }
 %{
     \context Staff = celloB {
