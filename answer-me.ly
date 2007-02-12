@@ -49,7 +49,7 @@ melody = \relative c' { % middle c
 harmonyA = \chordmode {
     ees4 ees ees | bes4 bes bes |
     aes4 aes aes:m | ees4:sus4 ees ees |
-    aes4:6 aes:6 aes:6 | ees4:maj7.9 ees:maj7.9 ges:dim7 |
+    aes4:6 aes:6 aes:6 | ees4:maj7.9 ees:maj7.9 ges:dim |
     f4:m7 bes:7 bes:7 |
 }
 
@@ -75,9 +75,33 @@ harmonies = \chordmode {
   }
   \alternative {
     { ees4 bes:7 bes:7 }
-    { ees4 ees ees }
+    { ees4 ees2 }
   }
 }
+
+words = \lyricmode {
+  An -- swer me, oh, my love,
+  Just what sin have I been guilt -- y of?
+  Tell me how I came to lose your love? __
+  Please an -- swer me, my love.
+
+  You were mine yes -- ter -- day,
+  I be -- lieved that love was here to stay,
+  Won't you tell me where I've gone a -- stray? __
+  Please an -- swer me, my love.
+
+  If you're hap -- pi -- er with -- out me,
+  I'll try not to care,
+  But if you still think a -- bout me,
+  Please lis -- ten to my prayer.
+
+  You must know I've been true.
+  Won't you say that we can start a -- new.
+  In my sor -- row now I turn to you, __
+  Please an -- swer me, my love.
+  love.
+}
+
 
 \paper {
   scoreTitleMarkup = \bookTitleMarkup
@@ -95,12 +119,13 @@ harmonies = \chordmode {
          \set chordChanges = ##t
          \harmonies
     }
-    \new Staff <<
+    \context Voice = melody {
       \set Staff.instrument = "Melody"
       \set Staff.instr = "Mel."
       \melody
 %      \partcombine \melody \alternate
-    >>
+    }
+    \lyricsto melody \new Lyrics { \words }
     \new Staff <<
       \key ees \major
       \time 3/4
@@ -142,7 +167,7 @@ harmonies = \chordmode {
          \set chordChanges = ##t
          \harmonies
     }
-    \context Staff = fluteA {
+    \context Voice = fluteA {
       \set Staff.instrument = "Melody"
       \set Staff.instr = "Mel."
       \melody
@@ -167,11 +192,12 @@ harmonies = \chordmode {
          \set chordChanges = ##t
          \harmonies
     }
-    \context Staff = celloA {
+    \context Voice = celloA {
       \set Staff.instrument = "Melody"
       \set Staff.instr = "Mel."
       \transpose c c, << \clef bass \melody >> % 1 octave down
     }
+    \lyricsto celloA \new Lyrics { \words }
 %{
     \context Staff = celloB {
       \set Staff.instrument = "Harmony"
@@ -187,24 +213,24 @@ harmonies = \chordmode {
   >>
 }
 
-%{
 % banjo/bass score (tablature)
 \score {
   \header {
-    instrument = "Banjo/Bass"
+    instrument = "Banjo/Guitar/Bass, capo'ed up 1 fret"
     breakbefore=##t
   }
   <<
     \context ChordNames {
          \set chordChanges = ##t
-         \harmonies
+         \transpose ees d \harmonies
     }
-    \context Staff = fluteA {
+    \context Voice = melody {
       \set Staff.instrument = "Melody"
       \set Staff.instr = "Mel."
-      \melody
+      \transpose ees d \melody
     }
-
+    \lyricsto melody \new Lyrics { \words }
+%{
     \new TabStaff <<
       \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "gDGBD)" } }
       \set Staff.instr = "Ban."
@@ -217,9 +243,11 @@ harmonies = \chordmode {
       \set Staff.instr = "Bas."
       \removeWithTag #'key \bass
     >>
+%}
   >>
 }
 
+%{
 % piano/guitar score
 \score {
   \header {
@@ -290,6 +318,6 @@ harmonies = \chordmode {
 %}
   >>
   \midi {
-    \tempo 2=120
+    \tempo 4=80
   }
 }
