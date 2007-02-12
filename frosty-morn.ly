@@ -353,8 +353,9 @@ harmonies = \chordmode {
 %}
     \context Staff=bass <<
       \set Staff.midiInstrument = "acoustic bass"
-      r1\ff
-      \transpose c c' \bass
+      r1
+      %\transpose c c' 
+      \bass
     >>
 %{
     \context Staff=upper <<
