@@ -122,7 +122,7 @@ words = \lyricmode {
     \context Voice = melody {
       \set Staff.instrument = "Melody"
       \set Staff.instr = "Mel."
-      \set Staff.voltaSpannerDuration = #(ly:make-moment 3 4)
+      \set Staff.voltaSpannerDuration = #(ly:make-moment 4 4)
       \melody
 %      \partcombine \melody \alternate
     }
@@ -196,7 +196,7 @@ words = \lyricmode {
     \context Voice = celloA {
       \set Staff.instrument = "Melody"
       \set Staff.instr = "Mel."
-      \set Staff.voltaSpannerDuration = #(ly:make-moment 3 4)
+      \set Staff.voltaSpannerDuration = #(ly:make-moment 4 4)
       \transpose c c, << \clef bass \melody >> % 1 octave down
     }
     \new Lyrics \lyricsto "celloA" { \words }
@@ -230,7 +230,7 @@ words = \lyricmode {
     \context Voice = melody {
       \set Staff.instrument = "Melody"
       \set Staff.instr = "Mel."
-      \set Staff.voltaSpannerDuration = #(ly:make-moment 3 4)
+      \set Staff.voltaSpannerDuration = #(ly:make-moment 4 4)
       \transpose ees d \melody
     }
     \new Lyrics \lyricsto "melody" { \words }
