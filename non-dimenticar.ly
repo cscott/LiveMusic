@@ -129,31 +129,31 @@ words = \lyricmode {
   <<
     \context ChordNames {
          \set chordChanges = ##t
-         \harmonies
+         \transpose bes d' \harmonies
     }
     \context Voice = melody {
       \set Staff.instrument = "Melody"
       \set Staff.instr = "Mel."
-      \melody
+      \transpose bes d' \melody
 %      \partcombine \melody \alternate
     }
     \new Lyrics \lyricsto "melody" { \words }
     \new Staff <<
-      \key bes \major
+      \key d \major
       \time 4/4
-      \harmonies
+      \transpose bes d' \harmonies
     >>
 %{
     \new Staff <<
       \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "gDGBD)" } }
       \set Staff.instr = "Ban."
-      \banjo
+      \transpose bes d' \banjo
     >>
     \new TabStaff <<
       \set TabStaff.stringTunings = #bass-tuning
       \set Staff.instrument = "Bass "
       \set Staff.instr = "Bas."
-      \removeWithTag #'key \bass
+      \removeWithTag #'key \transpose bes d' \bass
     >>
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
@@ -202,12 +202,12 @@ words = \lyricmode {
   <<
     \context ChordNames {
          \set chordChanges = ##t
-         \harmonies
+         \transpose bes d' \harmonies
     }
     \context Voice = celloA {
       \set Staff.instrument = "Melody"
       \set Staff.instr = "Mel."
-      \transpose c c, << \clef bass \melody >> % 1 octave down
+      \transpose c c, << \clef bass \transpose bes d' \melody >> % 1 octave down
     }
     \new Lyrics \lyricsto "celloA" { \words }
 %{
@@ -293,12 +293,12 @@ words = \lyricmode {
   \context PianoStaff <<
     \context Staff=melody << 
        \set Staff.midiInstrument = "fiddle"
-       r1 \melody
+       r1 \transpose bes d' \melody
      >>
     \context Staff=chords <<
       \set Staff.midiInstrument = "pizzicato strings"
       r1\pp
-      \harmonies
+      \transpose bes d' \harmonies
     >>
 %{
     \context Staff=alternate <<
