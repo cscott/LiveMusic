@@ -12,7 +12,7 @@
   meter = 240
 }
 #(set-default-paper-size "letter")
-%#(set-global-staff-size 18)
+#(set-global-staff-size 16)
     
 melodyA = \relative g' { % g above middle c
     g='8. bes16 bes2 | c8. bes16 bes2 |
@@ -79,6 +79,7 @@ harmonies = \chordmode {
 
   g4:m g:m g:m | f4:7 f:7 f:7 |
   f4 f f | bes4 bes bes |
+\break
 
   \repeat volta 2 {
     \once\override Score.RehearsalMark #'extra-offset = #'(-2 . 2)
@@ -87,20 +88,24 @@ harmonies = \chordmode {
       \harmonyA
       ees4 ees ees |
     }
+\break
 
     g4:m g:m g:m | ees4:9 ees:9 ees:9 |
     g4:m6 g:m6 g:m6 | g4:m g:m g:m |
     g4:m g:m g:m | ees4:m6.9 ees:m6.9 ees:m6.9 |
     f4:7 f:7 f:7 | bes4:7 bes:7 bes:7 |
+\break
 
     \harmonyA
   }
   \alternative {
     { ees4 bes:7 bes:7 |
+\break
       \once\override Score.RehearsalMark #'extra-offset = #'(0 . 2)
       \mark\default
       \harmonyB |  f4:m f:m f:m |
       ees4 ees ees | bes4 bes bes |
+\break
 
       \harmonyB | f4:7 f:7 f:7 |
       f4 f f | bes4 bes bes |
@@ -146,6 +151,51 @@ words = \lyricmode {
   love.
 }
 
+bassA = \relative ees {
+  \octave ees
+  ees,4 g aes | bes4 d f | aes,4 ees' ces | bes4 g ees |
+  \octave aes,
+  aes4 ees' f | ees bes aes | f bes aes |
+}
+bassB = \relative c {
+  \octave ees
+  ees,4 g aes | bes d f | aes, ees' c | bes g ees |
+  \octave g,
+  g4 bes d |
+}
+
+bass = \relative g, { % g below c below middle c
+  \tag #'key \key ees \major
+  \time 3/4
+
+  \octave g,
+  g4 bes d | f, c' ees | f a, c | bes d aes' |
+
+  \repeat volta 2 {
+    \bassA | \octave g   g,4 bes ees, |
+    \bassA | \octave ees, ees4 g ees' |
+
+    \octave g
+    g4 d bes | ees bes f | g bes ees | g, bes d |
+    \octave g
+    g4 d bes | ees bes ges | f a c | bes d aes' | 
+
+    \bassA
+  }
+  \alternative {
+    { \octave g
+      g,4 bes ees |
+      \bassB
+      \octave f
+      f,4 aes c | ees, g bes | f aes bes |
+      \bassB
+      \octave f,
+      f4 a ees' | f a, c | bes d aes' |
+    }
+    { \octave ees
+      ees,4 g' ees }
+  }
+}
 
 \paper {
   scoreTitleMarkup = \bookTitleMarkup
@@ -174,9 +224,14 @@ words = \lyricmode {
     \new Staff <<
       \key ees \major
       \time 3/4
-      \harmonies
+      \clef bass \bass
     >>
 %{
+    \new Staff <<
+      \key ees \major
+      \time 3/4
+      \harmonies
+    >>
     \new Staff <<
       \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "gDGBD)" } }
       \set Staff.instr = "Ban."
@@ -250,12 +305,12 @@ words = \lyricmode {
       \set Staff.instr = "Har."
       \transpose c c,, << \clef bass \alternate >> % 2 octaves down
     }
+%}
     \context Staff = celloC {
       \set Staff.instrument = "Bass"
       \set Staff.instr = "Bas."
-      \transpose c c' << \clef bass \bass >> % 1 octave up
+      \clef bass \bass
     }
-%}
   >>
 }
 
@@ -332,12 +387,12 @@ words = \lyricmode {
        \set Staff.midiInstrument = "fiddle"
        r1 \melody
      >>
+%{
     \context Staff=chords <<
       \set Staff.midiInstrument = "pizzicato strings"
       r1\pp
       \harmonies
     >>
-%{
     \context Staff=alternate <<
        \set Staff.midiInstrument = "fiddle"
        r1 \alternate
@@ -347,11 +402,13 @@ words = \lyricmode {
       r1\pp
       \banjo
     >>
+%}
     \context Staff=bass <<
       \set Staff.midiInstrument = "acoustic bass"
       r1
       \transpose c c' \bass
     >>
+%{
     \context Staff=upper <<
       \set Staff.midiInstrument = "acoustic grand"
       r1
