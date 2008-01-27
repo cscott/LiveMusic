@@ -1,4 +1,4 @@
-\version "2.6.3"
+\version "2.10.10"
 \header {
   title = "Rocky Top"
   piece = "Traditional"
@@ -18,7 +18,7 @@
 
 melody = \relative c''
 {
-  \set Staff.instrument = "Melody "
+  \set Staff.instrumentName = "Melody "
   \set Staff.midiInstrument = "fiddle"
   \key a \major
   \time 4/4
@@ -58,7 +58,7 @@ harmonies = \chordmode {
 \paper {
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
-  raggedbottom = ##t
+  ragged-bottom = ##t
 }
 
 \score {
@@ -73,10 +73,6 @@ harmonies = \chordmode {
 }
 
 \score {
- \header {
-   instrument = "Clarinet"
-   breakbefore=##t
- }
   <<
     \context ChordNames {
          \set chordChanges = ##t
@@ -85,6 +81,10 @@ harmonies = \chordmode {
      \new Staff << \transpose bes c' \melody >>
   >>
   \layout { }
+ \header {
+   instrument = "Clarinet"
+   breakbefore=##t
+ }
 }
 
 \score {
@@ -93,7 +93,13 @@ harmonies = \chordmode {
     \context Staff=melody << \melody >>
     \context Staff=chords << \harmonies >>
   >>
+  
   \midi {
-    \tempo 2=125
-  }
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 125 2)
+      }
+    }
+
+
 }
