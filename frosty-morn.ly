@@ -18,6 +18,8 @@
 
 
 melodya = \relative c' { % middle c
+  \tag #'key \key g \major
+  \time 4/4
   \repeat volta 2 {
     e='8 d e( g) a < \parenthesize g > a < \parenthesize g > |
     a='8 b c( d) e4 \times 2/3 { d,8( e fis } |
@@ -47,14 +49,10 @@ melodyb = \relative c' { % middle c
   \bar "|."
 }
 melody = { 
-  \tag #'key \key g \major
-  \time 4/4
   \melodya
   \melodyb
 }
 cello = {
-  \tag #'key \key g \major
-  \time 4/4
   \melodya
   \transpose c' c \melodyb
 }
@@ -200,6 +198,56 @@ harmonies = \chordmode {
   }
 }
 %}
+
+% clarinet score
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \transpose bes c \harmonies
+    }
+    \context Staff = clarinetA {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \transpose bes c' \melodya
+      \transpose bes c' \melodyb
+    }
+    \context Staff = clarinetB {
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \transpose bes c''' \bass
+    }
+  >>
+  \header {
+    instrument = "Clarinet (Bb)"
+    breakbefore=##t
+  }
+}
+
+% saxophone score
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \transpose ees c \harmonies
+    }
+    \context Staff = saxA {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \transpose ees c' \melodya
+      \transpose ees c \melodyb
+    }
+    \context Staff = saxB {
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \transpose ees c''' \bass
+    }
+  >>
+  \header {
+    instrument = "Saxophone (Eb)"
+    breakbefore=##t
+  }
+}
 
 % cello score (octave-shifted)
 \score {
