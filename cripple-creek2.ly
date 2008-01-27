@@ -53,7 +53,7 @@ closer = \relative c''
   \times 2/3 { g8 a b } \times 2/3 { d e fis } g4
   \bar "|."
 }
-jethro = \relative c''
+jethroa = \relative c''
 {
   \tag #'key \key g \major
   \time 4/4
@@ -66,21 +66,13 @@ jethro = \relative c''
   c8 b c e d g, a ais |
   <b g>8 <b g> <b g> g a g e c |
   } \alternative {
-    { d8 e g a g4 e'8 fis }
-    { d,8 e g a g4 r4 }
+    { d8 e g a g4
+      \tag #'goingup { e'8 fis }
+      \tag #'goingdown { e,8 fis } }
+    { d8 e g a g4 r4 } % might have to replace d,8 here
   }
-  \repeat volta 2 {
-    \appoggiatura a16 b4 \appoggiatura a16 b4 a8 g g g |
-    \appoggiatura a16 b4 \appoggiatura a16 b4 a8 g g g |
-    \appoggiatura a16 b4 \appoggiatura a16 b4 a8 g e c |
-  } \alternative {
-    { d8 e g a g2 | }
-    { d8 e g a g4 }
-  }
-  % closer?
-  \tag #'closer \keepWithTag #'std \closer
 }
-fjethro = \relative c''
+fjethroa = \relative c''
 {
   \tag #'key \key g \major
   \time 4/4
@@ -93,9 +85,14 @@ fjethro = \relative c''
   c8 b c e d g a ais |
   <b g>8 <b g> <b g> g a g e c |
   } \alternative {
-    { d8 e g a g4 e8 fis }
-    { d8 e g a g4 r4 }
+    { d8 e g a g4
+      \tag #'goingup { e'8 fis }
+      \tag #'goingdown { e,8 fis } }
+    { d8 e g a g4 r4 } % might have to replace d,8 here
   }
+}
+jethrob = \relative c''
+{
   \repeat volta 2 {
     \appoggiatura a16 b4 \appoggiatura a16 b4 a8 g g g |
     \appoggiatura a16 b4 \appoggiatura a16 b4 a8 g g g |
@@ -104,10 +101,15 @@ fjethro = \relative c''
     { d8 e g a g2 | }
     { d8 e g a g4 }
   }
-  % closer?
-  \tag #'closer \keepWithTag #'flute \closer
 }
-melody = \relative c''
+jethro = { \removeWithTag #'goingdown \jethroa
+	   \jethrob
+	   \tag #'closer \keepWithTag #'std \closer }
+fjethro = { \removeWithTag #'goingup \fjethroa
+	    \transpose c c' \jethrob
+	    \tag #'closer \keepWithTag #'flute \closer }
+
+melodyapart = \relative c''
 {
   \voiceOne
   \tag #'key \key g \major
@@ -121,6 +123,10 @@ melody = \relative c''
   } \alternative {
     { d8 b a4 g2 } { \voiceTwo d'8 b a4 g2 }
   }
+  %\tag #'bpartup \transpose c c'
+}
+melodybpart = \relative c''
+{
   \repeat volta 2 {
     \grace s16
     ais8 b b4 a8 g g4 |
@@ -131,7 +137,9 @@ melody = \relative c''
     { d8 e g a g4 }
   }
 }
-alternate = \relative c''
+melody = { \melodyapart \melodybpart }
+
+alternateapart = \relative c''
 {
   \voiceTwo
   \tag #'key \key g \major
@@ -145,9 +153,12 @@ alternate = \relative c''
   } \alternative {
     { a8 g fis4 d2 } { \voiceOne fis'8 g a4 g2 }
   }
+}
+alternatebpart = \relative c''
+{
   \repeat volta 2 {
     \grace s16
-    cis,8 d d4 c8 b b4 |
+    cis8 d d4 c8 b b4 |
     cis8 d d4 g,8 a b4 |
     cis8 d d4 c8 b a g |
   } \alternative {
@@ -155,6 +166,7 @@ alternate = \relative c''
     { fis,8 g d' e d4 }
   }
 }
+alternate = { \alternateapart \alternatebpart }
 
 bass = \relative c,
 {
@@ -194,7 +206,7 @@ harmonies = \chordmode {
    } \alternative {
      { d2 g }
      { d2 g }
-   }
+   } \break
    \repeat volta 2 {
      \grace s16
      \once\override Score.RehearsalMark #'extra-offset = #'(0 . 2)
@@ -379,6 +391,76 @@ guitarC = \relative c'
   >>
   \header {
     instrument = "Flute"
+    breakbefore=##t
+  }
+}
+
+% clarinet score (transposing)
+\score {
+  %\transposition bes
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \transpose bes c
+         \harmonies
+    }
+    \context Staff = clarinetA {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      { \transpose bes c \melodyapart }
+      { \transpose bes c' \melodybpart }
+      \bar "||" \break
+    }
+    \context Staff = clarinetB {
+      \set Staff.instrumentName = "Harmony"
+      \set Staff.shortInstrumentName = "Har."
+      { \transpose bes c \alternateapart }
+      { \transpose bes c' \alternatebpart }
+    }
+    \context Staff = clarinetC {
+      \set Staff.instrumentName = "Variant"
+      \set Staff.shortInstrumentName = "Var."
+      \transpose bes c'
+      \jethro
+    }
+  >>
+  \header {
+    instrument = "Clarinet (Bb)"
+    breakbefore=##t
+  }
+}
+
+% saxophone score (transposing)
+\score {
+  %\transposition ees
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \transpose ees c
+         \harmonies
+    }
+    \context Staff = saxA {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      { \transpose ees c \melodyapart }
+      { \transpose ees c' \melodybpart }
+      \bar "||" \break
+    }
+    \context Staff = saxB {
+      \set Staff.instrumentName = "Harmony"
+      \set Staff.shortInstrumentName = "Har."
+      { \transpose ees c \alternateapart }
+      { \transpose ees c' \alternatebpart }
+    }
+    \context Staff = saxC {
+      \set Staff.instrumentName = "Variant"
+      \set Staff.shortInstrumentName = "Var."
+      \transpose ees c
+      \fjethro
+    }
+  >>
+  \header {
+    instrument = "Saxophone (Eb)"
     breakbefore=##t
   }
 }
