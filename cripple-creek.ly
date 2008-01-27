@@ -1,4 +1,4 @@
-\version "2.6.3"
+\version "2.10.10"
 \header {
   title = "Cripple Creek"
   piece = "Traditional"
@@ -18,7 +18,7 @@
 
 melody = \relative c''
 {
-  \set Staff.instrument = "Melody "
+  \set Staff.instrumentName = "Melody "
   \set Staff.midiInstrument = "fiddle"
   \key c \major
   \time 2/4
@@ -84,7 +84,7 @@ harmonies = \chordmode {
 %    >>
 %    \new PianoStaff <<
 %      #(set-accidental-style 'piano-cautionary)
-%      \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
+%      \set PianoStaff.instrumentName = \markup { "Piano" \hspace #2.0 }
 %     \context Staff = upper << \time 4/4 \pianotop >>
 %     \context Staff = lower << \clef bass \pianobot >>
 %   >>
@@ -102,7 +102,13 @@ harmonies = \chordmode {
 %    \context Staff=upper << r4\pianotop >>
 %    \context Staff=lower << r4\pianobot >>
   >>
+  
   \midi {
-    \tempo 4=88
-  }
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 88 4)
+      }
+    }
+
+
 }

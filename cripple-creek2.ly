@@ -1,4 +1,4 @@
-\version "2.6.3"
+\version "2.10.10"
 \header {
   title = "Cripple Creek"
   piece = "Traditional"
@@ -163,21 +163,21 @@ bass = \relative c,
   \tag #'partial \partial 8*2
   r4
   \repeat volta 2 {
-    g4 r d' r | c4 r g r |
-    g4 r d' r |
+    g4\4 r d' r | c4 r g\4 r |
+    g4\4 r d' r |
   } \alternative {
-    { d4 r g, r | }
-    { d'4 r g, r | }
+    { d4 r g,\4 r | }
+    { d'4 r g,\4 r | }
   }
   \repeat volta 2 {
-    \grace s16 g4 r d' r | g,4 r d' r | g,4 r d' r |
+    \grace s16 g4\4 r d' r | g,4\4 r d' r | g,4\4 r d' r |
   } \alternative {
-    { d4 r g, r }
-    { d'4 r g, }
+    { d4 r g,\4 r }
+    { d'4 r g,\4 }
   }
   \tag #'closer
   { r |
-    g4 r d' r | g, r d' r | a r d r | g, r d'4
+    g4\4 r d' r | g,\4 r d' r | a r d r | g,\4 r d'4
     \bar "|."
   }
 }
@@ -217,22 +217,22 @@ guitarA = \relative c
   \tag #'partial \partial 8*2
   r4
   \repeat volta 2 {
-    g2 d' | c2 g | g2 d' |
+    g2\6 d' | c2 g\6 | g2\6 d' |
   } \alternative {
-    { d2 g, | }
-    { d'2 g, | }
-  }
+    { d2 g,\6 | }
+    { d'2 g,\6 | }
+  } \break
   \repeat volta 2 {
     \grace s16
-    g2 d' | g,2 d' | g,2 d' |
+    g2\6 d' | g,2\6 d' | g,2\6 d' |
   } \alternative {
-    {  d2 g, | }
-    {  d'2 g,4-\tag #'closer ~ }
+    {  d2 g,\6 | }
+    {  d'2 g,4\6-\tag #'closer ~ }
   }
   \tag #'closer
   {
-    g4 |
-    g2 d' | g, d' | a d | g, d'4
+    g4\6 | %\break
+    g2\6 d' | g,\6 d' | a d | g,\6 d'4
     \bar "|."
   }
 }
@@ -278,28 +278,28 @@ guitarB = \relative c'
     \bar "|."
   }
 }
-guitarC = \relative c
+guitarC = \relative c'
 {
   \time 4/4
   \tag #'partial \partial 8*2
   s4 \arpeggioUp
   \repeat volta 2 {
-    \repeat unfold 3 { r4 s4 r4 s4 | }
+    \repeat unfold 3 { c4\rest s4 c4\rest s4 | }
   } \alternative {
-    { r4 s4 r4 s4 | }
-    { r4 s4 r4 s4 | }
+    { c4\rest s4 c4\rest s4 | }
+    { c4\rest s4 c4\rest s4 | }
   }
   \repeat volta 2 {
     \grace s16
-    \repeat unfold 3 { r4 s4 r4 s4 | }
+    \repeat unfold 3 { c4\rest s4 c4\rest s4 | }
   } \alternative {
-    { r4 s4 r4 s4 }
-    { r4 s4 r4 }
+    { c4\rest s4 c4\rest s4 }
+    { c4\rest s4 c4\rest }
   }
   \tag #'closer
   { s4 |
-    \repeat unfold 3 { r4 s4 r4 s4 | }
-    r4 s4 s4
+    \repeat unfold 3 { c4\rest s4 c4\rest s4 | }
+    c4\rest s4 s4
     \bar "|."
   }
 }
@@ -307,39 +307,36 @@ guitarC = \relative c
 \paper {
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
-  raggedbottom = ##t
+  ragged-bottom = ##t
 }
 
 % combined score
 \score {
-  \header {
-    instrument = "Combined Score"
-  }
   <<
     \context ChordNames {
       \set chordChanges = ##t
       \harmonies
     }
     \new Staff <<
-      \set Staff.instrument = "Trad. Mel."
-      \set Staff.instr = "Tra."
+      \set Staff.instrumentName = "Trad. Mel."
+      \set Staff.shortInstrumentName = "Tra."
       { \tradmel r4 \bar "||" \break }
     >>
     \new Staff << 
-      \set Staff.instrument = "Melody "
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody "
+      \set Staff.shortInstrumentName = "Mel."
       \set Staff.printPartCombineTexts = ##f
       \partcombine { \melody r4 \bar "||" } { \alternate r4 }
 
     >>
     \new Staff <<
-      \set Staff.instrument = "Variant"
-      \set Staff.instr = "Var."
+      \set Staff.instrumentName = "Variant"
+      \set Staff.shortInstrumentName = "Var."
       \jethro
     >>
     \new Staff <<
-      \set Staff.instrument = "Guitar"
-      \set Staff.instr = "Gui."
+      \set Staff.instrumentName = "Guitar"
+      \set Staff.shortInstrumentName = "Gui."
       \clef "treble_8"
       \key g \major
       \new Voice { \guitarA }
@@ -347,114 +344,113 @@ guitarC = \relative c
       \new Voice { \guitarC }
     >>
     \new Staff << \clef "bass_8"
-      \set Staff.instrument = "Bass"
-      \set Staff.instr = "Bas."
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
       \bass
     >>
   >>
+  \header {
+    instrument = "Combined Score"
+  }
 }
 
 % flute score
 \score {
-  \header {
-    instrument = "Flute"
-    breakbefore=##t
-  }
   <<
     \context ChordNames {
          \set chordChanges = ##t
          \harmonies
     }
     \context Staff = fluteA {
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \melody \bar "||" \break
     }
     \context Staff = fluteB {
-      \set Staff.instrument = "Harmony"
-      \set Staff.instr = "Har."
+      \set Staff.instrumentName = "Harmony"
+      \set Staff.shortInstrumentName = "Har."
       \alternate
     }
     \context Staff = fluteC {
-      \set Staff.instrument = "Variant"
-      \set Staff.instr = "Var."
+      \set Staff.instrumentName = "Variant"
+      \set Staff.shortInstrumentName = "Var."
       \fjethro
     }
   >>
+  \header {
+    instrument = "Flute"
+    breakbefore=##t
+  }
 }
 
 % cello score (octave-shifted)
 \score {
-  \header {
-    instrument = "Cello"
-    breakbefore=##t
-  }
   <<
     \context ChordNames {
          \set chordChanges = ##t
          \harmonies
     }
     \context Staff = celloA {
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \transpose c c,, { \clef bass \melody  \bar "||" \break } % 2 octaves down
     }
     \context Staff = celloB {
-      \set Staff.instrument = "Harmony"
-      \set Staff.instr = "Har."
+      \set Staff.instrumentName = "Harmony"
+      \set Staff.shortInstrumentName = "Har."
       \transpose c c,, { \clef bass \alternate } % 2 octaves down
     }
     \context Staff = celloC {
-      \set Staff.instrument = "Variant"
-      \set Staff.instr = "Var."
+      \set Staff.instrumentName = "Variant"
+      \set Staff.shortInstrumentName = "Var."
       \transpose c c,, { \clef bass \jethro } % 2 octaves down
     }
     \context Staff = celloD {
-      \set Staff.instrument = "Bass"
-      \set Staff.instr = "Bas."
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
       \transpose c c' { \clef bass \bass } % 1 octave up
     }
   >>
+  \header {
+    instrument = "Cello"
+    breakbefore=##t
+  }
 }
 
 % guitar/bass score (tablature)
 \score {
-  \header {
-    instrument = "Guitar/Bass"
-    breakbefore=##t
-  }
   <<
     \context ChordNames {
          \set chordChanges = ##t
          \harmonies
     }
     \context Staff = melody {
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \melody \break \keepWithTag #'std \closer
     }
     \new TabStaff << 
-      \set TabStaff.instrument = "Guitar"
-      \set TabStaff.instr = "Gui."
+      \set TabStaff.instrumentName = "Guitar"
+      \set TabStaff.shortInstrumentName = "Gui."
       \time 4/4
       \new TabVoice \guitarA
       \new TabVoice \removeWithTag #'piano \guitarB
     >>
     \new TabStaff <<
-      \set TabStaff.instrument = "Bass"
-      \set TabStaff.instr = "Bas."
+      \set TabStaff.instrumentName = "Bass"
+      \set TabStaff.shortInstrumentName = "Bas."
       \set TabStaff.stringTunings = #bass-tuning
       \removeWithTag #'key \bass
     >>
   >>
+  \header {
+    instrument = "Guitar/Bass"
+    breakbefore=##t
+  }
 }
 
 % piano part (same as guitar part)
 \score {
-  \header {
-    instrument = "Piano"
-    breakbefore=##t
-  }
   <<
     \context ChordNames {
       \set chordChanges = ##t
@@ -470,6 +466,10 @@ guitarC = \relative c
       \new Staff { \clef bass \guitarA }
     >>
   >>
+  \header {
+    instrument = "Piano"
+    breakbefore=##t
+  }
 }
 
 % midi score.
@@ -529,7 +529,13 @@ guitarC = \relative c
     >>
 %}
   >>
+  
   \midi {
-    \tempo 2=120
-  }
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 120 2)
+      }
+    }
+
+
 }
