@@ -2,7 +2,8 @@
 	devil-went-down cripple-creek2 miss-sawyer rocky-top \
 	kitchen-girl frosty-morn answer-me one-toke non-dimenticar
 ### updated for latest lilypond
-SONGS=cripple-creek2 miss-sawyer kitchen-girl frosty-morn answer-me rocky-top
+SONGS=cripple-creek2 miss-sawyer kitchen-girl frosty-morn answer-me rocky-top\
+	non-dimenticar
 LAME=toolame
 all: $(foreach f,$(SONGS),$(f).mp3)
 
