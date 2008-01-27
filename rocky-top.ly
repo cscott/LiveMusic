@@ -78,11 +78,26 @@ harmonies = \chordmode {
          \set chordChanges = ##t
          \transpose bes c' \harmonies
     }
-     \new Staff << \transpose bes c' \melody >>
+     \new Staff << \transpose bes c \melody >>
   >>
   \layout { }
  \header {
    instrument = "Clarinet"
+   breakbefore=##t
+ }
+}
+
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \transpose ees c' \harmonies
+    }
+     \new Staff << \transpose ees c \melody >>
+  >>
+  \layout { }
+ \header {
+   instrument = "Saxophone"
    breakbefore=##t
  }
 }
