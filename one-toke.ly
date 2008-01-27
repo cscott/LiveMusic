@@ -182,6 +182,59 @@ words = \lyricmode {
 }
 %}
 
+
+% clarinet score
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \transpose bes c \harmonies
+    }
+    \context Staff = clarinetA {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \transpose bes c' \melody
+    }
+%{
+    \context Staff = clarinetB {
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \transpose bes c''' \bass
+    }
+%}
+  >>
+  \header {
+    instrument = "Clarinet (Bb)"
+    breakbefore=##t
+  }
+}
+
+% saxophone score
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \transpose ees c \harmonies
+    }
+    \context Staff = saxA {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \transpose ees c' \melody
+    }
+%{
+    \context Staff = saxB {
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \transpose ees c''' \bass
+    }
+%}
+  >>
+  \header {
+    instrument = "Saxophone (Eb)"
+    breakbefore=##t
+  }
+}
+
 % cello score (octave-shifted)
 \score {
   <<
