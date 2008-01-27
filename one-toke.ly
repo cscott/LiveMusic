@@ -1,5 +1,5 @@
 % -*- coding: utf-8; -*-
-\version "2.6.3"
+\version "2.10.10"
 \include "alt-chords.ly"
 \header {
   title = "One Toke Over The Line"
@@ -106,22 +106,19 @@ words = \lyricmode {
 \paper {
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
-  raggedbottom = ##t
+  ragged-bottom = ##t
 }
 
 % combined score
 \score {
-  \header {
-    instrument = "Combined Score"
-  }
   <<
     \context ChordNames {
          \set chordChanges = ##t
          \harmonies
     }
     \context Voice = melody {
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \set Staff.voltaSpannerDuration = #(ly:make-moment 4 4)
       \melody
 %      \partcombine \melody \alternate
@@ -134,147 +131,150 @@ words = \lyricmode {
     >>
 %{
     \new Staff <<
-      \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "gDGBD)" } }
-      \set Staff.instr = "Ban."
+      \set Staff.instrumentName = \markup{ \column{ "Banjo" "(tuned" "gDGBD)" } }
+      \set Staff.shortInstrumentName = "Ban."
       \banjo
     >>
     \new TabStaff <<
       \set TabStaff.stringTunings = #bass-tuning
-      \set Staff.instrument = "Bass "
-      \set Staff.instr = "Bas."
+      \set Staff.instrumentName = "Bass "
+      \set Staff.shortInstrumentName = "Bas."
       \removeWithTag #'key \bass
     >>
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
-      \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
-      \set PianoStaff.instr = \markup { "Pia." \hspace #2.0 }
+      \set PianoStaff.instrumentName = \markup { "Piano" \hspace #2.0 }
+      \set PianoStaff.shortInstrumentName = \markup { "Pia." \hspace #2.0 }
       \context Staff = upper << \pianotop >>
       \context Staff = lower << \clef bass \pianobot >>
     >>
 %}
   >>
   \layout { }
+  \header {
+    instrument = "Combined Score"
+  }
 }
 				
 %{
 % flute score
 \score {
-  \header {
-    instrument = "Flute"
-    breakbefore=##t
-  }
   <<
     \context ChordNames {
          \set chordChanges = ##t
          \harmonies
     }
     \context Voice = fluteA {
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \melody
     }
     \context Staff = fluteB {
-      \set Staff.instrument = "Alt. Melody"
-      \set Staff.instr = "Alt."
+      \set Staff.instrumentName = "Alt. Melody"
+      \set Staff.shortInstrumentName = "Alt."
       \alternate
     }
   >>
+  \header {
+    instrument = "Flute"
+    breakbefore=##t
+  }
 }
 %}
 
 % cello score (octave-shifted)
 \score {
-  \header {
-    instrument = "Cello"
-    breakbefore=##t
-  }
   <<
     \context ChordNames {
          \set chordChanges = ##t
          \harmonies
     }
     \context Voice = celloA {
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \set Staff.voltaSpannerDuration = #(ly:make-moment 4 4)
       \transpose c c, << \clef bass \melody >> % 1 octave down
     }
     \new Lyrics \lyricsto "celloA" { \words }
 %{
     \context Staff = celloB {
-      \set Staff.instrument = "Harmony"
-      \set Staff.instr = "Har."
+      \set Staff.instrumentName = "Harmony"
+      \set Staff.shortInstrumentName = "Har."
       \transpose c c,, << \clef bass \alternate >> % 2 octaves down
     }
     \context Staff = celloC {
-      \set Staff.instrument = "Bass"
-      \set Staff.instr = "Bas."
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
       \transpose c c' << \clef bass \bass >> % 1 octave up
     }
 %}
   >>
+  \header {
+    instrument = "Cello"
+    breakbefore=##t
+  }
 }
 
 %{
 % banjo/bass score (tablature)
 \score {
-  \header {
-    instrument = "Banjo/Guitar/Bass, capo'ed up 1 fret"
-    breakbefore=##t
-  }
   <<
     \context ChordNames {
          \set chordChanges = ##t
          \transpose ees d \harmonies
     }
     \context Voice = melody {
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \set Staff.voltaSpannerDuration = #(ly:make-moment 4 4)
       \transpose ees d \melody
     }
     \new Lyrics \lyricsto "melody" { \words }
     \new TabStaff <<
-      \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "gDGBD)" } }
-      \set Staff.instr = "Ban."
+      \set Staff.instrumentName = \markup{ \column{ "Banjo" "(tuned" "gDGBD)" } }
+      \set Staff.shortInstrumentName = "Ban."
       \set TabStaff.stringTunings = #banjo-open-g-tuning
       \removeWithTag #'key \banjo
     >>
     \new TabStaff <<
       \set TabStaff.stringTunings = #bass-tuning
-      \set Staff.instrument = "Bass "
-      \set Staff.instr = "Bas."
+      \set Staff.instrumentName = "Bass "
+      \set Staff.shortInstrumentName = "Bas."
       \removeWithTag #'key \bass
     >>
   >>
+  \header {
+    instrument = "Banjo/Guitar/Bass, capo'ed up 1 fret"
+    breakbefore=##t
+  }
 }
 
 % piano/guitar score
 \score {
-  \header {
-    instrument = "Piano/Guitar"
-    breakbefore=##t
-  }
   <<
     \context ChordNames {
          \set chordChanges = ##t
          \harmonies
     }
     \new Staff <<
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \set Staff.printPartCombineTexts = ##f
       \small\partcombine \melody \alternate
     >>
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
-      \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
-      \set PianoStaff.instr = \markup { "Pia." \hspace #2.0 }
+      \set PianoStaff.instrumentName = \markup { "Piano" \hspace #2.0 }
+      \set PianoStaff.shortInstrumentName = \markup { "Pia." \hspace #2.0 }
       \context Staff = upper << \time 4/4 \pianotop >>
       \context Staff = lower << \clef bass \pianobot >>
     >>
   >>
   \layout { }
+  \header {
+    instrument = "Piano/Guitar"
+    breakbefore=##t
+  }
 }
 %}
 
@@ -318,7 +318,13 @@ words = \lyricmode {
     >>
 %}
   >>
+  
   \midi {
-    \tempo 4=120
-  }
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 120 4)
+      }
+    }
+
+
 }
