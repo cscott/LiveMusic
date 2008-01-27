@@ -219,7 +219,7 @@ bass = \relative c,
     d'2 a | d2 a | d2 a |
   } \alternative {
     { d2 a | }
-    { a2 d4 }
+    { a2 d4 \bar "|." }
   }
 }
 
@@ -402,7 +402,7 @@ guitarC = \relative c'
     >>
   >>
   \header {
-    instrument = "Clarinet"
+    instrument = "Clarinet (Bb)"
     breakbefore=##t
   }
 }
@@ -412,10 +412,73 @@ guitarC = \relative c'
     \new Staff { \transpose bes c' \longvar }
   >>
   \header {
-    instrument = "Clarinet Solo" % not new page
+    instrument = "Clarinet (Bb) Solo" % not new page
     breakbefore=##t
   }
 }
+% bass part for clarinet
+\score {
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \new Staff { \transpose bes c''' \bass }
+  >>
+  \header {
+    instrument = "Clarinet (Bb) Bass Line" % not new page
+    breakbefore=##t
+  }
+}
+
+% melody parts, for saxophone (transposing)
+\score {
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \context ChordNames {
+      \set chordChanges = ##t
+      \transpose ees c \harmonies
+    }
+    \new Staff <<
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \transpose ees c \simple
+    >>
+    \new Staff <<
+      \set Staff.instrumentName = "Harmony"
+      \set Staff.shortInstrumentName = "Har."
+      \transpose ees c \simpleharmony
+    >>
+    \new Staff <<
+      \set Staff.instrumentName = "Variant"
+      \set Staff.shortInstrumentName = "Var."
+      \transpose ees c \mandolin
+    >>
+  >>
+  \header {
+    instrument = "Saxophone (Eb)"
+    breakbefore=##t
+  }
+}
+\score {
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \new Staff { \transpose ees c \longvar }
+  >>
+  \header {
+    instrument = "Saxophone (Eb) Solo" % not new page
+    breakbefore=##t
+  }
+}
+% bass part for saxophone
+\score {
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \new Staff { \transpose ees c''' \bass }
+  >>
+  \header {
+    instrument = "Saxophone (Eb) Bass Line" % not new page
+    breakbefore=##t
+  }
+}
+
 
 % melody parts, for cellos (octave-shifted)
 \score {
