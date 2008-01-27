@@ -16,7 +16,7 @@
 #(set-default-paper-size "letter")
 %#(set-global-staff-size 18)
 
-melody = \relative c'' { % c above middle c
+melodya = \relative c'' { % c above middle c
   \tag #'key \key d \major
   \time 4/4
 
@@ -27,19 +27,24 @@ melody = \relative c'' { % c above middle c
     g=''4 d e8 fis e d |
   } \alternative {
     { cis=''4 a a e'8( g) | } % technically, the slur should extend to the first chord
-    { cis,=''4 a a <a a>( ~ |}
+    { cis,=''4 a a 
+      \tag #'down { <a a>\laissezVibrer}
+      \tag #'up   { <a' a>\laissezVibrer} |}
   }
+}
+melodyb = \relative c'' { % c above middle c
   \repeat volta 2 {
-    <a=' a>8 b) c a b( a) g b | a( b) a g e( d) e g |
+    <a=' a>8\repeatTie b c a b( a) g b | a( b) a g e( d) e g |
     a='4 a8 a c4 d | e4. g8( e4) <a, a>4( ~ |
     <a=' a>8 b) c a b( a) g b | a( b) a g e( g) a b |
     c=''4 a b8( a) g4 |
   } \alternative {
-    { a='4. b8( a4) <a a>4 %{\laissezVibrer%} | }
+    { a='4. b8( a4) <a a>4\laissezVibrer | }
     { a='4. b8( <a a>2) | }
   }
   \bar "|."
 }
+melody = { \removeWithTag #'up \melodya \melodyb }
 
 bass = \transpose c c,,
 {
@@ -182,6 +187,56 @@ harmonies = \chordmode {
   }
 }
 %}
+
+% clarinet score
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \transpose bes c \harmonies
+    }
+    \context Staff = clarinetA {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \transpose bes c \removeWithTag #'down \melodya
+      \transpose bes c' \melodyb
+    }
+    \context Staff = clarinetB {
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \transpose bes c''' \bass
+    }
+  >>
+  \header {
+    instrument = "Clarinet (Bb)"
+    breakbefore=##t
+  }
+}
+
+% saxophone score
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \transpose ees c \harmonies
+    }
+    \context Staff = saxA {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \transpose ees c \removeWithTag #'up \melodya
+      \transpose ees c \melodyb
+    }
+    \context Staff = saxB {
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \transpose ees c''' \bass
+    }
+  >>
+  \header {
+    instrument = "Saxophone (Eb)"
+    breakbefore=##t
+  }
+}
 
 % cello score (octave-shifted)
 \score {
