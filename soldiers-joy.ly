@@ -360,6 +360,7 @@ bass =  \relative c,
     \new Staff <<
       \set Staff.instrument = "Melody"
       \set Staff.instr = "Mel."
+      \set Staff.printPartCombineTexts = ##f
       \partcombine \melody \alternate
     >>
     \new Staff <<

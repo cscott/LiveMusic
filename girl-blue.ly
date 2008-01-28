@@ -224,6 +224,7 @@ bass = \transpose c c, \removeWithTag #'g \guitarA
     \new Staff <<
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
+      \set Staff.printPartCombineTexts = ##f
       \partcombine { \melody \bar "|." } \alternate
     >>
     \new Staff <<
@@ -385,6 +386,7 @@ bass = \transpose c c, \removeWithTag #'g \guitarA
     }
     \new PianoStaff <<
       \new Staff {
+	\set Staff.printPartCombineTexts = ##f
 	\partcombine
 	{ \transpose c c' \guitarB }
 	{ \partcombine { \partial 8*2 r4 } \guitarC }

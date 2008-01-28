@@ -308,6 +308,7 @@ guitarC = \relative c'
     \context Staff=simple <<
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
+      \set Staff.printPartCombineTexts = ##f
       \partcombine \simple \simpleharmony
     >>
     \context Staff=mandolin <<
@@ -576,6 +577,7 @@ guitarC = \relative c'
     }
     \new PianoStaff <<
       \new Staff {
+	\set Staff.printPartCombineTexts = ##f
 	\partcombine
 	{ \transpose c c' \guitarB }
 	{ \partcombine { \partial 8*2 r4 } \guitarC }
