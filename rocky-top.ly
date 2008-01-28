@@ -16,41 +16,124 @@
 }
 #(set-default-paper-size "letter")
 
-melody = \relative c''
+melody = \transpose a g \relative c''
 {
-  \set Staff.instrumentName = "Melody "
-  \set Staff.midiInstrument = "fiddle"
-  \key a \major
+  \tag #'key \key a \major
   \time 4/4
 
-  e2 e | e e | fis fis | e4 cis a2 |
+  % intro
+  a4 a a2 | b2 b | a1 | r1 | \break
+
+  % verse
+  \repeat volta 7 {
+  e'2 e | e e | fis fis | e4 cis a2 |
   a2 a4 a | b a b2 | cis1 | r1 |
   e2 e | e e | fis fis | e4 cis a2 |
-  a2 a | e'4 cis b2 | a1 | r1 | \bar "||"
+  a2 a | e'4 cis b2 | a1 | r1 | %\bar "||"
 
+  % chorus
   fis'4 fis fis2~ | fis2 fis | e e | e1 |
-  g2 g | g4 fis2 e4 | fis1 | r1 |
+  g2 g | g4( fis2) e4 | fis1 | r1 |
   fis1 | fis | e4 cis a2~ | a1 |
-  a4 a a2 | b2 b | cis1 | r1 | \bar "||"
+  a4 a a2 | b2 b | a1 | }
+  \alternative { { r1 | } { r1 | } } \break
 
-  a4 a a2 | b2 b | a1 | r1 |
+  % tag
   a4 a a2 | b2 b | cis1 | r1 |
   a4 a a2 | b2 b | a1( | g1 | a1) | \bar "|."
 }
+altonotag = \transpose a g \relative c'
+{
+  \tag #'key \key a \major
+  \time 4/4
 
-harmonies = \chordmode {
-%   \set Staff.midiInstrument = "pizzicato strings"
+  % intro
+  e4 e e2 | g2 fis | e1 | r1 | \break
+
+  % verse
+  \repeat volta 7 {
+  cis'2 cis | cis cis | d d | cis4 a e2 |
+  fis2 fis4 fis | gis fis gis2 | a1 | r1 |
+  cis2 cis | cis cis | d d | cis4 a e2 |
+  fis2 fis | b4 gis gis2 | e1 | r1 | %\bar "||"
+
+  % chorus
+  cis'4 cis cis2~ | cis2 cis | b b | b1 |
+  d2 d | d4( d2) d4 | d1 | r1 |
+  d1 | d | cis4 a e2~ | e1 |
+  e4 e e2 | g2 fis | e1 | }
+  \alternative { { r1 | } { r1 | } } \break
+}
+altotag =  \transpose a g \relative c' {
+  % tag
+  e4 e e2 | g2 fis | a1 | r1
+  e4 e e2 | g2 fis | e1( | <\tag #'normal d \tag #'sax g >1 | e1) | \bar "|."
+}
+alto = \altonotag { \removeWithTag #'sax \altotag }
+tenor = \transpose a g \relative c'
+{
+  \tag #'key \key a \major
+  \time 4/4
+
+  % intro
+  cis4 cis cis2 | d2 d | cis1 | r1 | \break
+
+  % verse
+  \repeat volta 7 {
+  a'2 a | a a | a a | a4 e cis2 |
+  cis2 cis4 cis | e e e2 | e1 | r1 |
+  a2 a | a a | a a | a4 e cis2 |
+  cis2 cis | gis'4 e e2 | cis1 | r1 | %\bar "||"
+
+  % chorus
+  a'4 a a2~ | a2 a | gis gis | gis1 |
+  b2 b | b4( b2) b4 | a1 | r1 |
+  a1 | a | a4 e cis2~ | cis1 |
+  cis4 cis cis2 | d2 d | cis1 | }
+  \alternative { { r1 | } { r1 | } } \break
+
+  % tag
+  cis4 cis cis2 | d2 d | e1 | r1 |
+  cis4 cis cis2 | d2 d | cis1( | b1 | cis1) | \bar "|."
+}
+
+words = \lyricmode {
+  % intro
+  "" "" "" "" "" ""
+  % verse
+  Wish that I was up on Rock -- y Top
+  back in the Ten -- nes -- see hills.
+  Ain't no smog -- gy smoke on Rock -- y Top
+  Ain't no tel -- le -- phone bills.
+  % chorus
+  Rock -- y Top __ you'll al -- ways be
+  home sweet home __ to me.
+  Good ol' Rock -- y Top
+  Rock -- y Top Ten -- ne -- see.
+  % tag.
+  Rock -- y Top Ten -- ne -- see.
+  Rock -- y Top Ten -- ne -- see. __ __
+}
+
+harmonies = \transpose a g \chordmode {
+   % intro
+   a2 a | g d | a a | a a |
+
+   % verse
+  \repeat volta 7 {
    a2 a | a a | d d | a a |
    fis:m fis:m | e e | a a | a a |
    a a | a a | d d | a a |
    fis:m fis:m | e e | a a | a a |
 
+   % chorus
    fis:m fis:m | fis:m fis:m | e e | e e |
    g g | g g | d d | d d |
    d d | d d | a a | a a | 
-   a a | g d | a a | a a |
+   a a | g d | a a | }
+   \alternative { { a a } { a a } }
 
-   a a | g d | a a | a a |
+   % tag
    a a | g d | a a | a a |
    a a | g d | a a | g g | a a |
 }
@@ -67,9 +150,26 @@ harmonies = \chordmode {
          \set chordChanges = ##t
          \harmonies
     }
-     \new Staff << \melody >>
+    \context Staff = melody <<
+      \context Voice = melody { \small\melody }
+      \context Lyrics = one \lyricsto melody \words
+    >>
+    \context PianoStaff <<
+      \context Staff = upper <<
+	\set Staff.printPartCombineTexts = ##f
+	\partcombine \melody \alto
+      >>
+      \context Staff = lower <<
+	\set Staff.printPartCombineTexts = ##f
+	\clef bass
+	\tenor
+      >>
+    >>
   >>
   \layout { }
+  \header {
+    instrument = "Combined Score"
+  }
 }
 
 \score {
@@ -78,7 +178,17 @@ harmonies = \chordmode {
          \set chordChanges = ##t
          \transpose bes c' \harmonies
     }
-     \new Staff << \transpose bes c \melody >>
+    \new Staff << 
+	\set Staff.instrumentName = "Melody "
+	\set Staff.shortInstrumentName = "Mel. "
+	\new Voice =  melody \transpose bes c \melody
+      >>
+    \new Lyrics \lyricsto melody \words
+    \new Staff <<
+      \set Staff.instrumentName = "Alto "
+      \set Staff.shortInstrumentName = "Alt. "
+      \transpose bes c' \alto
+    >>
   >>
   \layout { }
  \header {
@@ -93,7 +203,17 @@ harmonies = \chordmode {
          \set chordChanges = ##t
          \transpose ees c' \harmonies
     }
-     \new Staff << \transpose ees c \melody >>
+    \new Staff << 
+	\set Staff.instrumentName = "Melody "
+	\set Staff.shortInstrumentName = "Mel. "
+	\new Voice =  melody \transpose ees c \melody
+      >>
+    \new Lyrics \lyricsto melody \words
+    \new Staff <<
+      \set Staff.instrumentName = "Alto "
+      \set Staff.shortInstrumentName = "Alt. "
+      \transpose ees c { \altonotag \removeWithTag #'normal \altotag }
+    >>
   >>
   \layout { }
  \header {
@@ -105,8 +225,22 @@ harmonies = \chordmode {
 \score {
   \unfoldRepeats
   \context PianoStaff <<
-    \context Staff=melody << \melody >>
-    \context Staff=chords << \harmonies >>
+    \context Staff=melody <<
+      \set Staff.midiInstrument = "fiddle"
+      \melody
+    >>
+    \context Staff=alto <<
+      \set Staff.midiInstrument = "fiddle"
+      \alto
+    >>
+    \context Staff=tenor <<
+      \set Staff.midiInstrument = "fiddle"
+      \tenor
+    >>
+    \context Staff=chords <<
+      \set Staff.midiInstrument = "pizzicato strings"
+      \harmonies
+    >>
   >>
   
   \midi {
