@@ -207,6 +207,7 @@ lowg = \relative c g4-\tag #'b \4-\tag #'g \6
 lowf = \relative c f,4-\tag #'b \4-\tag #'g \6
 guitarA = \relative c
 {
+  \tag #'key \key c \major
   \time 2/4
   \tag #'partial \partial 8
   r8
@@ -227,6 +228,7 @@ guitarA = \relative c
 } 
 guitarAA = \relative c % alternate bass line for cello/piano
 {
+  \tag #'key \key c \major
   \time 2/4
   \tag #'partial \partial 8
   r8
@@ -247,6 +249,7 @@ guitarAA = \relative c % alternate bass line for cello/piano
 } 
 guitarB = \relative c'
 {
+  \tag #'key \key c \major
   \time 2/4
   \tag #'partial \partial 8
   s8 \arpeggioUp
@@ -277,6 +280,7 @@ guitarB = \relative c'
 }
 guitarC = \relative c'
 {
+  \tag #'key \key c \major
   \time 2/4
   \tag #'partial \partial 8
   s8 \arpeggioUp
@@ -319,7 +323,6 @@ bass = \transpose c c, { \removeWithTag #'g \guitarA }
       \set Staff.instrumentName = \markup{ \column{ "Guitar/" "Bass" } }
       \set Staff.shortInstrumentName = "Gui."
       \clef "treble_8"
-      \key g \major
       \new Voice { \guitarA }
       \new Voice { \guitarB }
       \new Voice { \guitarC }
@@ -365,16 +368,45 @@ bass = \transpose c c, { \removeWithTag #'g \guitarA }
     \new Staff <<
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \transpose bes c' \fmelody
+      \transpose bes c \melody
     >>
     \new Staff <<
       \set Staff.instrumentName = "Harmony"
       \set Staff.shortInstrumentName = "Har."
-      \transpose bes c' \falternate
+      \transpose bes c \falternate
     >>
   >>
   \header {
     instrument = "Clarinet"
+    breakbefore=##t
+  }
+}
+% parts for saxophone (transposing)
+\score {
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \context ChordNames {
+      \set chordChanges = ##t
+      \transpose ees c \harmonies
+    }
+    \new Staff <<
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \transpose ees c \fmelody
+    >>
+    \new Staff <<
+      \set Staff.instrumentName = "Harmony"
+      \set Staff.shortInstrumentName = "Har."
+      \transpose ees c \falternate
+    >>
+    \new Staff <<
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \transpose ees c'' \guitarA
+    >>
+  >>
+  \header {
+    instrument = "Saxophone"
     breakbefore=##t
   }
 }
@@ -420,8 +452,8 @@ bass = \transpose c c, { \removeWithTag #'g \guitarA }
       \set TabStaff.instrumentName = "Guitar"
       \set TabStaff.shortInstrumentName = "Gui."
       \time 4/4
-      \new TabVoice { \removeWithTag #'b \guitarA }
-      \new TabVoice \guitarB
+      \new TabVoice { \removeWithTag #'b { \removeWithTag #'key \guitarA } }
+      \new TabVoice { \removeWithTag #'key \guitarB }
     >>
     \new TabStaff <<
       \set TabStaff.instrumentName = "Bass"
