@@ -1,4 +1,4 @@
-\version "2.6.3"
+\version "2.10.10"
 \header {
   title = "The Girl With The Blue Dress On"
   piece = "Traditional"
@@ -13,7 +13,7 @@
 #(set-default-paper-size "letter")
 
 % melody in bill's sheet music.
-melody = \relative c'' {
+melodya = \relative c'' {
   \tag #'key \key g \major
   \time 2/4
   \tag #'partial \partial 8
@@ -32,8 +32,9 @@ melody = \relative c'' {
     { a8 g g b16 c }
     { a8 g g r8 }
   }
-
+}
 % part 2
+melodyb = \relative c'' {
   \repeat volta 2 {
     g8 b16 d g8. fis16 |
     fis8 e e r8 |
@@ -49,6 +50,7 @@ melody = \relative c'' {
     { g4. \bar "|." }
   }
 }
+melody = { \melodya \melodyb }
 
 % harmony to this melody
 alternate = \relative c'' {
@@ -129,27 +131,28 @@ harmonies = \chordmode {
 }
 
 % guitar part (also bass and piano)
+lowg = \relative c g4-\tag #'b \4-\tag #'g \6
 guitarA = \relative c
 {
   \time 2/4
   \tag #'partial \partial 8
   r8
   \repeat volta 2 {
-    g4 c | g b | c d | d g, |
-    g4 c | g b | c d |
+    \lowg c4 | \lowg b4 | c d | d \lowg |
+    \lowg c4 | \lowg b | c d |
   } \alternative {
     {  g4 d | }
     {  g4 d | }
   }
   \repeat volta 2 {
-    g,4 d' | e a, | d c | g d' |
-    g,4 e' | a, a | d c |
+    \lowg d4 | e a, | d c | \lowg d |
+    \lowg e | a, a | d c |
   } \alternative {
-    { d4 g, | }
-    { g4. \bar "|." }
+    { d4 \lowg | }
+    { g,4.-\tag #'b \4-\tag #'g \6 \bar "|." }
   }
 }
-guitarAA = \guitarA
+guitarAA = \removeWithTag #'b \guitarA
 
 guitarB = \relative c'
 {
@@ -183,38 +186,35 @@ guitarB = \relative c'
     { s8 <g d' g>4\arpeggio }
   }
 }
-guitarC = \relative c
+guitarC = \relative c'
 {
   \time 2/4
   \tag #'partial \partial 8
   s8 \arpeggioUp
   \repeat volta 2 {
-    \repeat unfold 7 { r8 s8 r8 s8 | }
+    \repeat unfold 7 { e8\rest s8 e8\rest s8 | }
   } \alternative {
-    { r8 s8 r8 s8 }
-    { r8 s8 r8 s8 }
+    { e8\rest s8 e8\rest s8 }
+    { e8\rest s8 e8\rest s8 }
   }
   \repeat volta 2 {
-    \repeat unfold 7 { r8 s8 r8 s8 | }
+    \repeat unfold 7 { e8\rest s8 e8\rest s8 | }
   } \alternative {
-    { r8 s8 r8 s8 }
-    { r8 s8 s8 }
+    { e8\rest s8 e8\rest s8 }
+    { e8\rest s8 s8 }
   }
 }
 
-bass = \transpose c c, \guitarA
+bass = \transpose c c, \removeWithTag #'g \guitarA
 
 \paper {
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
-  raggedbottom = ##t
+  ragged-bottom = ##t
 }
 
 % combined score
 \score {
-  \header {
-    instrument = "Combined Score"
-  }
   <<
     \set Score.markFormatter = #format-mark-box-letters
     \context ChordNames {
@@ -222,28 +222,27 @@ bass = \transpose c c, \guitarA
       \harmonies
     }
     \new Staff <<
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \partcombine { \melody \bar "|." } \alternate
     >>
     \new Staff <<
-      \set Staff.instrument = \markup{ \column{ "Guitar/" "Bass" } }
-      \set Staff.instr = "Gui."
+      \set Staff.instrumentName = \markup{ \column{ "Guitar/" "Bass" } }
+      \set Staff.shortInstrumentName = "Gui."
       \clef "treble_8"
       \key g \major
-      \new Voice { \guitarA }
+      \new Voice { \guitarAA }
       \new Voice { \guitarB }
       \new Voice { \guitarC }
     >>
     %\new Staff << \key g \major \harmonies >>
   >>
+  \header {
+    instrument = "Combined Score"
+  }
 }
 % melody parts, for flutes (non-transposing)
 \score {
-  \header {
-    instrument = "Flute"
-    breakbefore=##t
-  }
   <<
     \set Score.markFormatter = #format-mark-box-letters
     \context ChordNames {
@@ -251,24 +250,24 @@ bass = \transpose c c, \guitarA
       \harmonies
     }
     \new Staff <<
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \melody
     >>
     \new Staff <<
-      \set Staff.instrument = "Harmony"
-      \set Staff.instr = "Har."
+      \set Staff.instrumentName = "Harmony"
+      \set Staff.shortInstrumentName = "Har."
       \transpose c c' \alternate
     >>
   >>
+  \header {
+    instrument = "Flute"
+    breakbefore=##t
+  }
 }
 
 % melody parts, for clarinet (transposing)
 \score {
-  \header {
-    instrument = "Clarinet"
-    breakbefore=##t
-  }
   <<
     \set Score.markFormatter = #format-mark-box-letters
     \context ChordNames {
@@ -276,24 +275,50 @@ bass = \transpose c c, \guitarA
       \transpose bes c' \harmonies
     }
     \new Staff <<
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \transpose bes c' \melody
     >>
     \new Staff <<
-      \set Staff.instrument = "Harmony"
-      \set Staff.instr = "Har."
-      \transpose bes c'' \alternate
+      \set Staff.instrumentName = "Harmony"
+      \set Staff.shortInstrumentName = "Har."
+      \transpose bes c' \alternate
     >>
   >>
+  \header {
+    instrument = "Clarinet"
+    breakbefore=##t
+  }
+}
+
+% melody parts, for saxophone (transposing)
+\score {
+  <<
+    \set Score.markFormatter = #format-mark-box-letters
+    \context ChordNames {
+      \set chordChanges = ##t
+      \transpose ees c' \harmonies
+    }
+    \new Staff <<
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      { \transpose ees c' \melodya
+      \transpose ees c \melodyb }
+    >>
+    \new Staff <<
+      \set Staff.instrumentName = "Harmony"
+      \set Staff.shortInstrumentName = "Har."
+      \transpose ees c' \alternate
+    >>
+  >>
+  \header {
+    instrument = "Saxophone (Eb)"
+    breakbefore=##t
+  }
 }
 
 % melody parts, for cellos (octave-shifted)
 \score {
-  \header {
-    instrument = "Cello"
-    breakbefore=##t
-  }
   <<
     \set Score.markFormatter = #format-mark-box-letters
     \context ChordNames {
@@ -301,29 +326,29 @@ bass = \transpose c c, \guitarA
       \harmonies
     }
     \new Staff <<
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \transpose c c, { \clef bass \melody } % 1 octave down
     >>
     \new Staff <<
-      \set Staff.instrument = "Harmony"
-      \set Staff.instr = "Har."
+      \set Staff.instrumentName = "Harmony"
+      \set Staff.shortInstrumentName = "Har."
       \transpose c c, { \clef bass \alternate } % 1 octave down
     >>
     \new Staff <<
-      \set Staff.instrument = "Bass"
-      \set Staff.instr = "Bas."
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
       \transpose c c { \clef bass \guitarAA } % no trans
     >>
   >>
+  \header {
+    instrument = "Cello"
+    breakbefore=##t
+  }
 }
 
 % tablature parts
 \score {
-  \header {
-    instrument = "Guitar/Bass"
-    breakbefore=##t
-  }
   <<
     \set Score.markFormatter = #format-mark-box-letters
     \context ChordNames {
@@ -331,27 +356,27 @@ bass = \transpose c c, \guitarA
       \harmonies
     }
     \new TabStaff << 
-      \set TabStaff.instrument = "Guitar"
-      \set TabStaff.instr = "Gui."
+      \set TabStaff.instrumentName = "Guitar"
+      \set TabStaff.shortInstrumentName = "Gui."
       \time 4/4
-      \new TabVoice \guitarA
+      \new TabVoice \guitarAA
       \new TabVoice \guitarB
     >>
     \new TabStaff <<
-      \set TabStaff.instrument = "Bass"
-      \set TabStaff.instr = "Bas."
+      \set TabStaff.instrumentName = "Bass"
+      \set TabStaff.shortInstrumentName = "Bas."
       \set TabStaff.stringTunings = #bass-tuning
       \removeWithTag #'key \bass
     >>
   >>
+  \header {
+    instrument = "Guitar/Bass"
+    breakbefore=##t
+  }
 }
 
 % piano part (same as guitar part)
 \score {
-  \header {
-    instrument = "Piano"
-    breakbefore=##t
-  }
   <<
     \set Score.markFormatter = #format-mark-box-letters
     \context ChordNames {
@@ -367,6 +392,10 @@ bass = \transpose c c, \guitarA
       \new Staff { \clef bass \guitarAA }
     >>
   >>
+  \header {
+    instrument = "Piano"
+    breakbefore=##t
+  }
 }
 
 % midi score
@@ -398,7 +427,7 @@ bass = \transpose c c, \guitarA
     \context Staff=guitar <<
       \set Staff.midiInstrument = "acoustic guitar (steel)"
       \time 2/4
-      \new Voice \repeat unfold 2 { \guitarA }
+      \new Voice \repeat unfold 2 { \guitarAA }
       \new Voice \repeat unfold 2 { \guitarB }
     >>
     \context Staff=bass <<
@@ -412,7 +441,13 @@ bass = \transpose c c, \guitarA
     >>
 %}
   >>
+  
   \midi {
-    \tempo 4=120
-  }
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 120 4)
+      }
+    }
+
+
 }

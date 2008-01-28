@@ -3,7 +3,7 @@
 	kitchen-girl frosty-morn answer-me one-toke non-dimenticar
 ### updated for latest lilypond
 SONGS=cripple-creek2 miss-sawyer kitchen-girl frosty-morn answer-me rocky-top\
-	non-dimenticar one-toke
+	non-dimenticar one-toke girl-blue
 LAME=toolame
 all: $(foreach f,$(SONGS),$(f).mp3)
 
