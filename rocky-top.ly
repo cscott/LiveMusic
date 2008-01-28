@@ -69,7 +69,7 @@ altotag =  \transpose a g \relative c' {
   e4 e e2 | g2 fis | a1 | r1
   e4 e e2 | g2 fis | e1( | <\tag #'normal d \tag #'sax g >1 | e1) | \bar "|."
 }
-alto = \altonotag { \removeWithTag #'sax \altotag }
+alto = { \altonotag \removeWithTag #'sax \altotag }
 tenor = \transpose a g \relative c'
 {
   \tag #'key \key a \major
@@ -249,6 +249,4 @@ harmonies = \transpose a g \chordmode {
       tempoWholesPerMinute = #(ly:make-moment 125 2)
       }
     }
-
-
 }
