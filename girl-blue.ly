@@ -134,6 +134,7 @@ harmonies = \chordmode {
 lowg = \relative c g4-\tag #'b \4-\tag #'g \6
 guitarA = \relative c
 {
+  \tag #'key \key g \major
   \time 2/4
   \tag #'partial \partial 8
   r8
@@ -156,6 +157,7 @@ guitarAA = \removeWithTag #'b \guitarA
 
 guitarB = \relative c'
 {
+  \tag #'key \key g \major
   \time 2/4
   \tag #'partial \partial 8
   s8 \arpeggioUp
@@ -188,6 +190,7 @@ guitarB = \relative c'
 }
 guitarC = \relative c'
 {
+  \tag #'key \key g \major
   \time 2/4
   \tag #'partial \partial 8
   s8 \arpeggioUp
@@ -231,17 +234,16 @@ bass = \transpose c c, \removeWithTag #'g \guitarA
       \set Staff.instrumentName = \markup{ \column{ "Guitar/" "Bass" } }
       \set Staff.shortInstrumentName = "Gui."
       \clef "treble_8"
-      \key g \major
       \new Voice { \guitarAA }
-      \new Voice { \guitarB }
-      \new Voice { \guitarC }
+      \new Voice { \removeWithTag #'key \guitarB }
+      \new Voice { \removeWithTag #'key \guitarC }
     >>
-    %\new Staff << \key g \major \harmonies >>
   >>
   \header {
     instrument = "Combined Score"
   }
 }
+
 % melody parts, for flutes (non-transposing)
 \score {
   <<
@@ -311,6 +313,11 @@ bass = \transpose c c, \removeWithTag #'g \guitarA
       \set Staff.shortInstrumentName = "Har."
       \transpose ees c' \alternate
     >>
+    \new Staff <<
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \transpose ees c'' \guitarA
+    >>
   >>
   \header {
     instrument = "Saxophone (Eb)"
@@ -360,8 +367,8 @@ bass = \transpose c c, \removeWithTag #'g \guitarA
       \set TabStaff.instrumentName = "Guitar"
       \set TabStaff.shortInstrumentName = "Gui."
       \time 4/4
-      \new TabVoice \guitarAA
-      \new TabVoice \guitarB
+      \new TabVoice \removeWithTag #'key \guitarAA
+      \new TabVoice \removeWithTag #'key \guitarB
     >>
     \new TabStaff <<
       \set TabStaff.instrumentName = "Bass"
