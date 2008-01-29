@@ -152,45 +152,53 @@ altoclar = \relative c' { % middle c
   \bar "|."
 }
 
+lowbes = \relative c, { < \tag #'n bes \tag #'l \tag #'s \tag #'c bes' >4 }
+lowb   = \relative c, { < \tag #'n b   \tag #'l \tag #'s \tag #'c b'   >4 }
+lowcx  = \relative c, { < \tag #'n c   \tag #'l \tag #'s \tag #'c c'   >4 }
+lowc   = \relative c, { < \tag #'n \tag #'l c   \tag #'s \tag #'c c'   >4 }
+lowdes = \relative c, { < \tag #'n \tag #'l \tag #'s des \tag #'c des' >4 }
 bass = \relative c, { % c two octaves below middle c
-  \tag #'key \key bes \major
+  \tag #'key \tag #'n \tag #'l \tag #'s \tag #'c \key bes \major
   \time 4/4
 
   R1*4 | % intro
 
   \repeat volta 2 {
-    bes=,,4 f' a d, |
-    bes=,,4 f' d g |
+    \lowbes f=,4 a d, |
+    \lowbes f=,4 d g |
     c=4 g f ees |
-    d=,4 b c ees |
+    d=,4 \lowb \lowcx ees |
     g=,4 bes c g |
   }
   \alternative {
     { f=,4 a c f, |
-      bes,=,,4 f' b, f' |
-      c=,4 g' f c | }
+      \lowbes f=,4 \lowb f |
+      \lowc g=,4 f \lowc | }
     { f=,4 a c f, |
-      bes,=,,4 f' ees ges |
+      \lowbes f=,4 ees ges |
     }
   }
 
-  fes=,4 des bes d |
+  fes=,4 \lowdes \lowbes d=, |
   f=,4 c' bes a |
   f=,4 c' bes fis |
   ees=,4 bes' c g |
   ees=,4 g bes c |
   g=,4 d' c bes |
   g=,4 d' c bes |
-  c,=,4 ees bes' c |
+  \lowc ees,=,4 bes' c |
   f=4 c a ees |
-  bes=,,4 f' a d, |
-  bes=,,4 f' d g |
+  \lowbes f=,4 a d, |
+  \lowbes f=,4 d g |
   c=4 g f ees |
-  d=,4 b c ees |
+  d=,4 \lowb \lowcx ees |
   f=,4 a c g |
   f=,4 a c ees |
   bes=,4 f ees ges |
-  bes=,4 f bes, r4 |
+  bes=,4
+  \tag #'n \relative c, { f4 bes, }
+  \tag #'l \tag #'s \tag #'c \relative c { f4 bes }
+  r4 |
 
   R1*6 | % outro
   \bar "|."
@@ -291,7 +299,7 @@ words = \lyricmode {
 	\clef bass
 	%\key bes \major \time 4/4
 	%\transpose c c,, \harmonies
-	\bass
+	\keepWithTag #'n \bass
       >>
     >>
 %{
@@ -304,7 +312,7 @@ words = \lyricmode {
       \set TabStaff.stringTunings = #bass-tuning
       \set Staff.instrumentName = "Bass "
       \set Staff.shortInstrumentName = "Bas."
-      \removeWithTag #'key \bass
+      \removeWithTag #'key \keepWithTag #'n \bass
     >>
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
@@ -367,13 +375,12 @@ words = \lyricmode {
       \set Staff.shortInstrumentName = "Alt."
       \transpose bes c \altoclar
     }
-%{
     \context Staff = clarinetC {
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
-      \transpose bes c''' \bass
+      \transpose bes c''
+      \keepWithTag #'c \bass
     }
-%}
   >>
   \header {
     instrument = "Clarinet (Bb)"
@@ -406,7 +413,8 @@ words = \lyricmode {
     \context Staff = saxC {
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
-      \transpose ees c''' \bass
+      \transpose ees c''
+      \keepWithTag #'s \bass
     }
   >>
   \header {
@@ -422,7 +430,7 @@ words = \lyricmode {
          \set chordChanges = ##t
          \transpose bes a \harmonies
     }
-    \context Staff = saxA {
+    \context Staff = guiA {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \new Voice = melody {
@@ -431,7 +439,7 @@ words = \lyricmode {
     }
     \new Lyrics \lyricsto "melody" { \words }
 %{
-    \context Staff = saxB {
+    \context Staff = guiB {
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
       \transpose bes a \bass
@@ -460,12 +468,13 @@ words = \lyricmode {
     \context Staff = celloB {
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
-      \transpose c c,, << \clef bass \alto >> % 2 octaves down
+      \transpose c c, << \clef bass \alto >> % 1 octave down
     }
     \context Staff = celloC {
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
-      \transpose c c' << \clef bass \bass >> % 1 octave up
+      \clef bass 
+      \keepWithTag #'l \bass
     }
   >>
   \header {
@@ -498,7 +507,7 @@ words = \lyricmode {
       \set TabStaff.stringTunings = #bass-tuning
       \set Staff.instrumentName = "Bass "
       \set Staff.shortInstrumentName = "Bas."
-      \removeWithTag #'key \bass
+      \removeWithTag #'key \keepWithTag #'n \bass
     >>
   >>
   \header {
@@ -552,7 +561,7 @@ words = \lyricmode {
       \set Staff.midiInstrument = "acoustic bass"
       r1
       %\transpose c c'
-      \bass
+      \keepWithTag #'n \bass
     >>
 %{
     \context Staff=chords <<
