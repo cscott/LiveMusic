@@ -108,6 +108,50 @@ alto = \relative c' { % middle c
   \bar "|."
 }
 
+% same as alto part, but some very low notes raised.
+% I assume the clarinet can play E below middle C (but not Eb)
+altoclar = \relative c' { % middle c
+  \tag #'key \key bes \major
+  \time 4/4
+
+  R1*4 | % intro
+
+  \repeat volta 2 {
+    f='8 a \times 2/3 { bes f a ~ } a4. f8 |
+    ees='8 f \times 2/3 { g ees f ~ } f4. d8 |
+    ees='2 ees2( |
+    d='2) ees8 ees g bes |
+    g='1( |
+  }
+  \alternative {
+    { f2) ees8 d ees f | d2( f | ees2.) r4 | }
+    { f2\repeatTie ees8 d f a | f2( ees | }
+  }
+
+  fes='4) r4 g8 f g gis |
+  a='2 d,8 e d ees |
+  f='2 g8 a bes g |
+  g='2 ees2 ~ |
+  ees='2 aes8 g aes a |
+  bes='2 ees,8 d ees f |
+  g='4. f8 g a bes g |
+  bes='2 g2( |
+  f='2.) r4 |
+
+  f='8 a \times 2/3 { bes f a ~ } a4. f8 |
+  ees='8 f \times 2/3 { g ees f ~ } f4. d8 |
+  ees='2 ees2( |
+  d='2) ees8 ees g bes |
+  a='2 bes8 a g ees |
+  f='2 bes8 a ges ees |
+
+  f='2( ees4 ges |
+  f='2.) r4 |
+
+  R1*6 | % outro
+  \bar "|."
+}
+
 harmonies = \chordmode {
   \set Score.markFormatter = #format-mark-box-letters
   \chordProperties
@@ -277,7 +321,7 @@ words = \lyricmode {
     \context Staff = clarinetB {
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
-      \transpose bes c \alto
+      \transpose bes c \altoclar
     }
 %{
     \context Staff = clarinetC {
