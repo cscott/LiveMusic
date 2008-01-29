@@ -145,7 +145,7 @@ bass = \transpose c c,,
     g4\4 g'\2 g\4 d'\3
     g4\4 g'\2 g\4 d'\3
     g4\4 g'\2 g\4 d'\3
-    d'4\3 d'' e\0 b
+    d'4\3 d'' e\1 b
 
     g4\4 g'\2 g\4 d'\3
     g4\4 g'\2 g\4 d'\3
@@ -330,7 +330,7 @@ pianobot = \relative c,,
       \melody
     }
     \context Staff = fluteB {
-      \set Staff.instrumentName = "Alt. Melody"
+      \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
       \alternate
     }
@@ -340,6 +340,60 @@ pianobot = \relative c,,
     breakbefore=##t
   }
 }
+
+% clarinet score (transposed to Bb)
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \transpose bes c \harmonies
+    }
+    \context Staff = clarinetA {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \transpose bes c \melody
+    }
+    \context Staff = clarinetB {
+      \set Staff.instrumentName = "Alto"
+      \set Staff.shortInstrumentName = "Alt."
+      \transpose bes c \alternate
+    }
+  >>
+  \header {
+    instrument = "Clarinet (Bb)"
+    breakbefore=##t
+  }
+}
+
+% saxophone score (transposed to Bb)
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \transpose ees c \harmonies
+    }
+    \context Staff = saxophoneA {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \transpose ees c \melody
+    }
+    \context Staff = saxophoneB {
+      \set Staff.instrumentName = "Alto"
+      \set Staff.shortInstrumentName = "Alt."
+      \transpose ees c \alternate
+    }
+    \context Staff = saxophoneC {
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \transpose ees c''' \bass
+    }
+  >>
+  \header {
+    instrument = "Saxophone (Eb)"
+    breakbefore=##t
+  }
+}
+
 % cello score (octave-shifted)
 \score {
   <<
