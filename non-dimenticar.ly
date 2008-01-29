@@ -30,7 +30,7 @@ melody = \relative c'' { % c above middle c
   }
   \alternative {
     { c2 ees,8 f g a | g1 ~ | g2. r4 | }
-    { c2 ees,8 f a c | bes1 ~ | }
+    { c2\repeatTie ees,8 f a c | bes1 ~ | }
   }
 
   bes='4 r4 bes8 a bes b |
@@ -61,6 +61,48 @@ melody = \relative c'' { % c above middle c
   % align right
   \once \override Score.RehearsalMark #'self-alignment-X = #right
   \mark "D.S. al Coda" \break
+
+  R1*6 | % outro
+  \bar "|."
+}
+
+alto = \relative c' { % middle c
+  \tag #'key \key bes \major
+  \time 4/4
+
+  R1*4 | % intro
+
+  \repeat volta 2 {
+    f='8 a \times 2/3 { bes f a ~ } a4. f8 |
+    ees='8 f \times 2/3 { g ees f ~ } f4. d8 |
+    ees='2 c2( |
+    b=2) c8 ees g bes |
+    g='1( |
+  }
+  \alternative {
+    { f2) c8 d ees f | d2( b | c2.) r4 | }
+    { f2\repeatTie c8 d f a | f2( ees | }
+  }
+
+  des='4) r4 g8 f g gis |
+  a='2 d,8 cis d ees |
+  f='2 g8 a bes g |
+  g='2 ees2 ~ |
+  ees='2 aes8 g aes a |
+  bes='2 ees,8 d ees f |
+  g='4. f8 g a bes g |
+  bes='2 g2( |
+  f='2.) r4 |
+
+  f='8 a \times 2/3 { bes f a ~ } a4. f8 |
+  ees='8 f \times 2/3 { g ees f ~ } f4. d8 |
+  ees='2 c2( |
+  b=2) c8 ees g bes |
+  a='2 bes8 a g ees |
+  f='2 bes8 a ges ees |
+
+  f='2( ees4 ges |
+  f='2.) r4 |
 
   R1*6 | % outro
   \bar "|."
@@ -147,17 +189,22 @@ words = \lyricmode {
          \set chordChanges = ##t
          \harmonies
     }
-    \context Voice = melody {
-      \set Staff.instrumentName = "Melody"
-      \set Staff.shortInstrumentName = "Mel."
-      \melody
-%      \partcombine \melody \alternate
-    }
-    \new Lyrics \lyricsto "melody" { \words }
-    \new Staff <<
-      \key bes \major
-      \time 4/4
-      \harmonies
+    \context Staff = melody <<
+      \context Voice = melody { \small\melody }
+      \context Lyrics = one \lyricsto melody \words
+    >>
+    \context PianoStaff <<
+      \context Staff = upper <<
+	\set Staff.printPartCombineTexts = ##f
+	\partcombine \melody \alto
+      >>
+      \context Staff = lower <<
+	\set Staff.printPartCombineTexts = ##f
+	\clef bass
+	\key bes \major \time 4/4
+	\transpose c c,, \harmonies
+	%\tenor
+      >>
     >>
 %{
     \new Staff <<
@@ -227,8 +274,13 @@ words = \lyricmode {
       }
     }
     \new Lyrics \lyricsto "melody" { \words }
-%{
     \context Staff = clarinetB {
+      \set Staff.instrumentName = "Alto"
+      \set Staff.shortInstrumentName = "Alt."
+      \transpose bes c \alto
+    }
+%{
+    \context Staff = clarinetC {
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
       \transpose bes c''' \bass
@@ -252,12 +304,19 @@ words = \lyricmode {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \new Voice = melody {
-	\transpose ees c \melody
+	\transpose ees c' \melody
       }
     }
     \new Lyrics \lyricsto "melody" { \words }
-%{
     \context Staff = saxB {
+      \set Staff.instrumentName = "Alto"
+      \set Staff.shortInstrumentName = "Alt."
+      \new Voice = alto {
+	\transpose ees c' \alto
+      }
+    }
+%{
+    \context Staff = saxC {
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
       \transpose ees c''' \bass
