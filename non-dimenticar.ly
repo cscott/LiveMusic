@@ -333,7 +333,6 @@ words = \lyricmode {
   }
 }
 				
-%{
 % flute score
 \score {
   <<
@@ -342,14 +341,18 @@ words = \lyricmode {
          \harmonies
     }
     \context Voice = fluteA {
+      #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
+      \transpose c c'
       \melody
     }
     \context Staff = fluteB {
-      \set Staff.instrumentName = "Alt. Melody"
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
-      \alternate
+      \transpose c c'
+      \alto
     }
   >>
   \header {
@@ -357,7 +360,6 @@ words = \lyricmode {
     breakbefore=##t
   }
 }
-%}
 
 % clarinet score
 \score {
@@ -367,6 +369,7 @@ words = \lyricmode {
          \transpose bes c \harmonies
     }
     \context Staff = clarinetA {
+      #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \new Voice = melody {
@@ -375,11 +378,13 @@ words = \lyricmode {
     }
     \new Lyrics \lyricsto "melody" { \words }
     \context Staff = clarinetB {
+      #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
       \transpose bes c \altoclar
     }
     \context Staff = clarinetC {
+      #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
       \transpose bes c''
@@ -400,6 +405,7 @@ words = \lyricmode {
          \transpose ees c \harmonies
     }
     \context Staff = saxA {
+      #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \new Voice = melody {
@@ -408,6 +414,7 @@ words = \lyricmode {
     }
     \new Lyrics \lyricsto "melody" { \words }
     \context Staff = saxB {
+      #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
       \new Voice = alto {
@@ -415,6 +422,7 @@ words = \lyricmode {
       }
     }
     \context Staff = saxC {
+      #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
       \transpose ees c''
@@ -435,6 +443,7 @@ words = \lyricmode {
          \transpose bes a \harmonies
     }
     \context Staff = guiA {
+      #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \new Voice = melody {
@@ -464,17 +473,20 @@ words = \lyricmode {
          \harmonies
     }
     \context Voice = celloA {
+      #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \transpose c c, << \clef bass \melody >> % 1 octave down
     }
     \new Lyrics \lyricsto "celloA" { \words }
     \context Staff = celloB {
+      #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
       \transpose c c, << \clef bass \alto >> % 1 octave down
     }
     \context Staff = celloC {
+      #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
       \clef bass 
