@@ -152,6 +152,50 @@ altoclar = \relative c' { % middle c
   \bar "|."
 }
 
+bass = \relative c, { % c two octaves below middle c
+  \tag #'key \key bes \major
+  \time 4/4
+
+  R1*4 | % intro
+
+  \repeat volta 2 {
+    bes=,,4 f' a d, |
+    bes=,,4 f' d g |
+    c=4 g f ees |
+    d=,4 b c ees |
+    g=,4 bes c g |
+  }
+  \alternative {
+    { f=,4 a c f, |
+      bes,=,,4 f' b, f' |
+      c=,4 g' f c | }
+    { f=,4 a c f, |
+      bes,=,,4 f' ees ges |
+    }
+  }
+
+  fes=,4 des bes d |
+  f=,4 c' bes a |
+  f=,4 c' bes fis |
+  ees=,4 bes' c g |
+  ees=,4 g bes c |
+  g=,4 d' c bes |
+  g=,4 d' c bes |
+  c,=,4 ees bes' c |
+  f=4 c a ees |
+  bes=,,4 f' a d, |
+  bes=,,4 f' d g |
+  c=4 g f ees |
+  d=,4 b c ees |
+  f=,4 a c g |
+  f=,4 a c ees |
+  bes=,4 f ees ges |
+  bes=,4 f bes, r4 |
+
+  R1*6 | % outro
+  \bar "|."
+}
+
 harmonies = \chordmode {
   \set Score.markFormatter = #format-mark-box-letters
   \chordProperties
@@ -245,9 +289,9 @@ words = \lyricmode {
       \context Staff = lower <<
 	\set Staff.printPartCombineTexts = ##f
 	\clef bass
-	\key bes \major \time 4/4
-	\transpose c c,, \harmonies
-	%\tenor
+	%\key bes \major \time 4/4
+	%\transpose c c,, \harmonies
+	\bass
       >>
     >>
 %{
@@ -359,13 +403,11 @@ words = \lyricmode {
 	\transpose ees c' \alto
       }
     }
-%{
     \context Staff = saxC {
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
       \transpose ees c''' \bass
     }
-%}
   >>
   \header {
     instrument = "Saxophone (Eb)"
@@ -415,18 +457,16 @@ words = \lyricmode {
       \transpose c c, << \clef bass \melody >> % 1 octave down
     }
     \new Lyrics \lyricsto "celloA" { \words }
-%{
     \context Staff = celloB {
-      \set Staff.instrumentName = "Harmony"
-      \set Staff.shortInstrumentName = "Har."
-      \transpose c c,, << \clef bass \alternate >> % 2 octaves down
+      \set Staff.instrumentName = "Alto"
+      \set Staff.shortInstrumentName = "Alt."
+      \transpose c c,, << \clef bass \alto >> % 2 octaves down
     }
     \context Staff = celloC {
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
       \transpose c c' << \clef bass \bass >> % 1 octave up
     }
-%}
   >>
   \header {
     instrument = "Cello"
@@ -504,25 +544,26 @@ words = \lyricmode {
        \set Staff.midiInstrument = "fiddle"
        r1 \melody
      >>
+    \context Staff=alto << 
+       \set Staff.midiInstrument = "fiddle"
+       r1 \alto
+     >>
+    \context Staff=bass <<
+      \set Staff.midiInstrument = "acoustic bass"
+      r1
+      %\transpose c c'
+      \bass
+    >>
+%{
     \context Staff=chords <<
       \set Staff.midiInstrument = "pizzicato strings"
       r1\pp
       \harmonies
     >>
-%{
-    \context Staff=alternate <<
-       \set Staff.midiInstrument = "fiddle"
-       r1 \alternate
-     >>
     \context Staff=banjo <<
       \set Staff.midiInstrument = "banjo"
       r1\pp
       \banjo
-    >>
-    \context Staff=bass <<
-      \set Staff.midiInstrument = "acoustic bass"
-      r1
-      \transpose c c' \bass
     >>
     \context Staff=upper <<
       \set Staff.midiInstrument = "acoustic grand"
