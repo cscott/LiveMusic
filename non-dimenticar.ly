@@ -18,6 +18,9 @@ melody = \relative c'' { % c above middle c
   \tag #'key \key bes \major
   \time 4/4
 
+  R1*4 | % intro
+
+  \mark \markup { \musicglyph #"scripts.segno" }
   \repeat volta 2 {
     bes='8 c \times 2/3 { d bes c ~ } c4. a8 |
     g='8 a \times 2/3 { bes g a ~ } a4. f8 |
@@ -29,6 +32,7 @@ melody = \relative c'' { % c above middle c
     { c2 ees,8 f g a | g1 ~ | g2. r4 | }
     { c2 ees,8 f a c | bes1 ~ | }
   }
+
   bes='4 r4 bes8 a bes b |
   c=''2 f,8 e f g |
   aes='2 bes8 c d bes |
@@ -45,9 +49,20 @@ melody = \relative c'' { % c above middle c
   f='2 ees8 g bes d |
   c=''2 d8 c bes g |
   c=''2 d8 c bes c |
+  % coda should go at end of line, not beginning.
+  \override Score.RehearsalMark
+  #'break-visibility = #begin-of-line-invisible
+  \mark \markup { \musicglyph #"scripts.coda" }
   bes='1 ~ |
   bes='2. r4 |
+  % D.S. should go at end of line, not beginning.
+  \override Score.RehearsalMark
+  #'break-visibility = #begin-of-line-invisible
+  % align right
+  \once \override Score.RehearsalMark #'self-alignment-X = #right
+  \mark "D.S. al Coda" \break
 
+  R1*6 | % outro
   \bar "|."
 }
 
@@ -55,6 +70,8 @@ harmonies = \chordmode {
   \set Score.markFormatter = #format-mark-box-letters
   \chordProperties
   \time 4/4
+
+  R1*4 | % intro
 
   \repeat volta 2 {
     bes4 bes bes:maj7 bes:maj7 |
@@ -87,6 +104,8 @@ harmonies = \chordmode {
   f4:9 f:9 c:m7 ees:m |
   bes4 bes ees ees:m |
   bes2. r4 |
+
+  R1*6 | % outro
 }
 
 words = \lyricmode {
