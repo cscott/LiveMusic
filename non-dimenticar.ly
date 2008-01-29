@@ -84,7 +84,7 @@ alto = \relative c' { % middle c
     { f2\repeatTie c8 d f a | f2( ees | }
   }
 
-  des='4) r4 g8 f g gis |
+  fes='4) r4 g8 f g gis |
   a='2 d,8 cis d ees |
   f='2 g8 a bes g |
   g='2 ees2 ~ |
@@ -125,10 +125,10 @@ altoclar = \relative c' { % middle c
   }
   \alternative {
     { f2) ees8 d ees f | d2( f | ees2.) r4 | }
-    { f2\repeatTie ees8 d f a | f2( ees | }
+    { f2\repeatTie ees8 d f a | f2( ges | }
   }
 
-  fes='4) r4 g8 f g gis |
+  g='4) r4 g8 f g gis |  % the first g here is really a double-flat
   a='2 d,8 e d ees |
   f='2 g8 a bes g |
   g='2 ees2 ~ |
@@ -157,6 +157,7 @@ lowb   = \relative c, { < \tag #'n b   \tag #'l \tag #'s \tag #'c b'   >4 }
 lowcx  = \relative c, { < \tag #'n c   \tag #'l \tag #'s \tag #'c c'   >4 }
 lowc   = \relative c, { < \tag #'n \tag #'l c   \tag #'s \tag #'c c'   >4 }
 lowdes = \relative c, { < \tag #'n \tag #'l \tag #'s des \tag #'c des' >4 }
+lowdx = \relative c,  { < \tag #'n \tag #'l \tag #'s d   \tag #'c d'   >4 }
 bass = \relative c, { % c two octaves below middle c
   \tag #'key \tag #'n \tag #'l \tag #'s \tag #'c \key bes \major
   \time 4/4
@@ -175,15 +176,15 @@ bass = \relative c, { % c two octaves below middle c
       \lowbes f=,4 \lowb f |
       \lowc g=,4 f \lowc | }
     { f=,4 a c f, |
-      \lowbes f=,4 ees ges |
+      \lowbes f=,4 ees \lowc |
     }
   }
 
-  fes=,4 \lowdes \lowbes d=, |
+  \lowbes \lowdes \lowbes \lowdx | 
   f=,4 c' bes a |
   f=,4 c' bes fis |
   ees=,4 bes' c g |
-  ees=,4 g bes c |
+  ees=,4 bes' g c |
   g=,4 d' c bes |
   g=,4 d' c bes |
   \lowc ees,=,4 bes' c |
@@ -295,14 +296,17 @@ words = \lyricmode {
 	\partcombine \melody \alto
       >>
       \context Staff = lower <<
-	\set Staff.printPartCombineTexts = ##f
+	%\set Staff.printPartCombineTexts = ##f
 	\clef bass
-	%\key bes \major \time 4/4
-	%\transpose c c,, \harmonies
 	\keepWithTag #'n \bass
       >>
     >>
 %{
+    \new Staff <<
+	\clef bass
+	\key bes \major \time 4/4
+	\transpose c c,, \harmonies
+    >>
     \new Staff <<
       \set Staff.instrumentName = \markup{ \column{ "Banjo" "capo'd" "to A" } }
       \set Staff.shortInstrumentName = "Ban."
@@ -559,7 +563,7 @@ words = \lyricmode {
      >>
     \context Staff=bass <<
       \set Staff.midiInstrument = "acoustic bass"
-      r1
+      r1\ff
       %\transpose c c'
       \keepWithTag #'n \bass
     >>
