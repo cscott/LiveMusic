@@ -96,6 +96,25 @@ tenor = \transpose a g \relative c'
   cis4 cis cis2 | d2 d | e1 | r1 |
   cis4 cis cis2 | d2 d | cis1( | b1 | cis1) | \bar "|."
 }
+bass = \transpose a g {
+  \tag #'key \key a \major
+  \time 4/4
+
+  % intro
+  a2 e | g d | a e | a4 e fis gis | \break
+
+  % verse
+  \repeat volta 7 {
+    a2 e | a e | d a, | a gis | fis cis | e b, | a e |
+    a2 e | a, b, | c cis | d a, | a gis | fis cis | e b, | a e |
+    a2 gis | fis cis | fis cis | e b, | e fis | g d | g d |
+    d2 e | f fis | d a, | d a, | a e | a e | a e |
+    g d | a e | }
+  \alternative { { a2 e | } { a2 e | } } \break
+
+  a2 e | g d | a e | a4 e fis gis |
+  g2 d | a e | a4 e fis gis | g4 d e fis | a1
+}
 
 words = \lyricmode {
   % intro
@@ -162,7 +181,7 @@ harmonies = \transpose a g \chordmode {
       \context Staff = lower <<
 	\set Staff.printPartCombineTexts = ##f
 	\clef bass
-	\tenor
+	\partcombine \tenor \bass
       >>
     >>
   >>
@@ -197,6 +216,7 @@ harmonies = \transpose a g \chordmode {
  }
 }
 
+% saxophone score (transposed)
 \score {
   <<
     \context ChordNames {
@@ -214,10 +234,49 @@ harmonies = \transpose a g \chordmode {
       \set Staff.shortInstrumentName = "Alt. "
       \transpose ees c { \altonotag \removeWithTag #'normal \altotag }
     >>
+    \new Staff <<
+      \set Staff.instrumentName = "Bass "
+      \set Staff.shortInstrumentName = "Bas. "
+      \transpose ees c'' \bass
+    >>
   >>
   \layout { }
  \header {
    instrument = "Saxophone"
+   breakbefore=##t
+ }
+}
+
+% cello score (octave-shifted)
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
+    \new Staff << 
+	\set Staff.instrumentName = "Melody "
+	\set Staff.shortInstrumentName = "Mel. "
+	\clef bass
+	\new Voice =  melody \transpose c c,, \melody
+      >>
+    \new Lyrics \lyricsto melody \words
+    \new Staff <<
+      \clef bass
+      \set Staff.instrumentName = "Alto "
+      \set Staff.shortInstrumentName = "Alt. "
+      \transpose c c,, \alto
+    >>
+    \new Staff <<
+      \clef bass
+      \set Staff.instrumentName = "Bass "
+      \set Staff.shortInstrumentName = "Bas. "
+      \bass
+    >>
+  >>
+  \layout { }
+ \header {
+   instrument = "Cello"
    breakbefore=##t
  }
 }
