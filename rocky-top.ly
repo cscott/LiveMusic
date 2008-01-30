@@ -96,6 +96,7 @@ tenor = \transpose a g \relative c'
   cis4 cis cis2 | d2 d | e1 | r1 |
   cis4 cis cis2 | d2 d | cis1( | b1 | cis1) | \bar "|."
 }
+
 bass = \transpose a g {
   \tag #'key \key a \major
   \time 4/4
@@ -114,6 +115,26 @@ bass = \transpose a g {
 
   a2 e | g d | a e | a4 e fis gis |
   g2 d | a e | a4 e fis gis | g4 d e fis | a1
+}
+
+basssax = \transpose a g {
+  \tag #'key \key a \major
+  \time 4/4
+
+  % intro
+  a2 e | g d' | a e | a4 e fis gis | \break
+
+  % verse
+  \repeat volta 7 {
+    a2 e | a e | d' a | a gis | fis cis' | e b | a e |
+    a2 e | a b | c' cis' | d' a | a gis | fis cis' | e b | a e |
+    a2 gis | fis cis' | fis cis' | e b | e fis | g d' | g d' |
+    d'2 e | f fis | d' a | d' a | a e | a e | a e |
+    g d' | a e | }
+  \alternative { { a2 e | } { a2 e | } } \break
+
+  a2 e | g d' | a e | a4 e fis gis |
+  g2 d' | a e | a4 e fis gis | g4 b a g | a1
 }
 
 words = \lyricmode {
@@ -237,7 +258,7 @@ harmonies = \transpose a g \chordmode {
     \new Staff <<
       \set Staff.instrumentName = "Bass "
       \set Staff.shortInstrumentName = "Bas. "
-      \transpose ees c'' \bass
+      \transpose ees c' \basssax
     >>
   >>
   \layout { }
@@ -296,10 +317,17 @@ harmonies = \transpose a g \chordmode {
       \set Staff.midiInstrument = "fiddle"
       \tenor
     >>
+    \context Staff=bass <<
+      \set Staff.midiInstrument = "acoustic bass"
+      %\transpose c c'
+      \bass
+    >>
+%{
     \context Staff=chords <<
       \set Staff.midiInstrument = "pizzicato strings"
       \harmonies
     >>
+%}
   >>
   
   \midi {
