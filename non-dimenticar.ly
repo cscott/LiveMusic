@@ -14,16 +14,21 @@
 #(set-default-paper-size "letter")
 %#(set-global-staff-size 18)
 
-melody = \relative c'' { % c above middle c
+melody = \relative c' { % middle c
   \tag #'key \key bes \major
   \time 4/4
 
-  R1*4 | % intro
+  % intro
+  r8 f='4 f8 bes d, f bes |
+  r8 d=''4 a8 f d f a |
+  r8 bes='4 g8 ees g bes c |
+  f,='4-. r4. f8 d' c |
 
+  % verse
   \mark \markup { \musicglyph #"scripts.segno" }
   \repeat volta 2 {
-    bes='8 c \times 2/3 { d bes c ~ } c4. a8 |
-    g='8 a \times 2/3 { bes g a ~ } a4. f8 |
+    bes='8 c d bes c4. a8 |
+    g='8 a bes g a4. f8 |
     g='2 f2 ~ |
     f='2 ees8 g bes d |
     c=''1 ~ |
@@ -43,8 +48,8 @@ melody = \relative c'' { % c above middle c
   d=''2 c2 ~ |
   c=''2. r4 |
 
-  bes='8 c \times 2/3 { d bes c ~ } c4. a8 |
-  g='8 a \times 2/3 { bes g a ~ } a4. f8 |
+  bes='8 c d bes c4. a8 |
+  g='8 a bes g a4. f8 |
   g='2 f2 ~ |
   f='2 ees8 g bes d |
   c=''2 d8 c bes g |
@@ -61,8 +66,14 @@ melody = \relative c'' { % c above middle c
   % align right
   \once \override Score.RehearsalMark #'self-alignment-X = #right
   \mark "D.S. al Coda" \break
-
-  R1*6 | % outro
+  bes='4
+}
+melodytag = \relative c'' { % c above middle c
+  % outro
+  bes8 bes' bes aes ges aes |
+  f=''4 f,8 d' c ees g bes |
+  f'='''1 ~ |
+  f='''2. r4 |
   \bar "|."
 }
 
@@ -70,11 +81,15 @@ alto = \relative c' { % middle c
   \tag #'key \key bes \major
   \time 4/4
 
-  R1*4 | % intro
+  % intro
+  r8 d='4 d8 f bes, d f |
+  r8 a='4 f8 d a d f |
+  r8 g='4 ees8 bes ees g ees |
+  c='4-. r4. c8 f ees |
 
   \repeat volta 2 {
-    f='8 a \times 2/3 { bes f a ~ } a4. f8 |
-    ees='8 f \times 2/3 { g ees f ~ } f4. d8 |
+    f='8 a bes f a4. f8 |
+    ees='8 f g ees f4. d8 |
     ees='2 c2( |
     b=2) c8 ees g bes |
     g='1( |
@@ -94,8 +109,8 @@ alto = \relative c' { % middle c
   bes='2 g2( |
   f='2.) r4 |
 
-  f='8 a \times 2/3 { bes f a ~ } a4. f8 |
-  ees='8 f \times 2/3 { g ees f ~ } f4. d8 |
+  f='8 a bes f a4. f8 |
+  ees='8 f g ees f4. d8 |
   ees='2 c2( |
   b=2) c8 ees g bes |
   a='2 bes8 a g ees |
@@ -104,7 +119,14 @@ alto = \relative c' { % middle c
   f='2( ees4 ges |
   f='2.) r4 |
 
-  R1*6 | % outro
+  % outro
+  f='4
+}
+altotag = \relative f' {
+  f8 f' f ees d ees |
+  d=''4 d,8 bes' aes c ees g |
+  d'='''1 ~ |
+  d='''2. r4 |
   \bar "|."
 }
 
@@ -114,11 +136,15 @@ altoclar = \relative c' { % middle c
   \tag #'key \key bes \major
   \time 4/4
 
-  R1*4 | % intro
+  % intro
+  r8 d='4 d8 f d d f |
+  r8 a='4 f8 d d d f |
+  r8 g='4 ees8 ees ees g ees |
+  f='4-. r4. f8 f ees |
 
   \repeat volta 2 {
-    f='8 a \times 2/3 { bes f a ~ } a4. f8 |
-    ees='8 f \times 2/3 { g ees f ~ } f4. d8 |
+    f='8 a bes f a4. f8 |
+    ees='8 f g ees f4. d8 |
     ees='2 ees2( |
     d='2) ees8 ees g bes |
     g='1( |
@@ -138,8 +164,8 @@ altoclar = \relative c' { % middle c
   bes='2 g2( |
   f='2.) r4 |
 
-  f='8 a \times 2/3 { bes f a ~ } a4. f8 |
-  ees='8 f \times 2/3 { g ees f ~ } f4. d8 |
+  f='8 a bes f a4. f8 |
+  ees='8 f g ees f4. d8 |
   ees='2 ees2( |
   d='2) ees8 ees g bes |
   a='2 bes8 a g ees |
@@ -148,8 +174,8 @@ altoclar = \relative c' { % middle c
   f='2( ees4 ges |
   f='2.) r4 |
 
-  R1*6 | % outro
-  \bar "|."
+  % outro
+  f='4
 }
 
 lowbes = \relative c, { < \tag #'n bes \tag #'l \tag #'s \tag #'c bes' >4 }
@@ -158,12 +184,17 @@ lowcx  = \relative c, { < \tag #'n c   \tag #'l \tag #'s \tag #'c c'   >4 }
 lowc   = \relative c, { < \tag #'n \tag #'l c   \tag #'s \tag #'c c'   >4 }
 lowdes = \relative c, { < \tag #'n \tag #'l \tag #'s des \tag #'c des' >4 }
 lowdx = \relative c,  { < \tag #'n \tag #'l \tag #'s d   \tag #'c d'   >4 }
-bass = \relative c, { % c two octaves below middle c
+bass = \relative c { % c below middle c
   \tag #'key \tag #'n \tag #'l \tag #'s \tag #'c \key bes \major
   \time 4/4
 
-  R1*4 | % intro
+  % intro
+  bes=,4-. r4 r2 |
+  d=4-. r4 r2 |
+  c=4-. r4 r2 |
+  f,=,4-. r4 r2 |
 
+  % verse
   \repeat volta 2 {
     \lowbes f=,4 a d, |
     \lowbes f=,4 d g |
@@ -201,7 +232,14 @@ bass = \relative c, { % c two octaves below middle c
   \tag #'l \tag #'s \tag #'c \relative c { f4 bes }
   r4 |
 
-  R1*6 | % outro
+  % outro
+  bes=,4 d ees ges |
+  bes=4 f ees c |
+  bes=,4 f ees ges |
+  bes=,4
+  \tag #'n \relative c, { f4 bes, }
+  \tag #'l \tag #'s \tag #'c \relative c { f4 bes }
+  r4 |
   \bar "|."
 }
 
@@ -210,8 +248,13 @@ harmonies = \chordmode {
   \chordProperties
   \time 4/4
 
-  R1*4 | % intro
+  % intro
+  bes4 bes bes bes |
+  d4:m d:m d:m d:m |
+  ees4:6 ees:6 ees:6 ees:6 |
+  f4/c f/c f/c f/c |
 
+  % verse
   \repeat volta 2 {
     bes4 bes bes:maj7 bes:maj7 |
     bes4 bes g:9 g:9 |
@@ -244,12 +287,22 @@ harmonies = \chordmode {
   bes4 bes ees ees:m |
   bes2. r4 |
 
-  R1*6 | % outro
+  % outro
+  bes4 bes ees:m ees:m |
+  bes4 bes ees ees |
+  bes4 bes ees ees:m |
+  bes2. r4 |
 }
 
 words = \lyricmode {
-  Non Di -- men -- ti -- car __
-  means don't for -- get you are __
+  % intro
+  "" "" "" "" "" ""
+  "" "" "" "" "" ""
+  "" "" "" "" "" ""
+  "" "" "" ""
+  % verse
+  Non Di -- men -- ti -- car
+  means don't for -- get you are
   my dar -- ling __
   Don't for -- get to be __
   all you mean to me. __
@@ -264,12 +317,13 @@ words = \lyricmode {
   my heart felt this glow,
   or on -- ly just to -- night dear __
 
-  Non Di -- men -- ti -- car __
-  al -- though you trav -- el far, __
+  Non Di -- men -- ti -- car
+  al -- though you trav -- el far,
   my dar -- ling __
   It's my heart you own
   so I'll wait a -- lone
-  Non Di -- men -- ti -- car. __
+  Non Di -- men -- ti -- car.
+  car.
 }
 
 
@@ -287,13 +341,13 @@ words = \lyricmode {
          \harmonies
     }
     \context Staff = melody <<
-      \context Voice = melody { \small\melody }
+      \context Voice = melody { \small\melody\melodytag }
       \context Lyrics = one \lyricsto melody \words
     >>
     \context PianoStaff <<
       \context Staff = upper <<
 	\set Staff.printPartCombineTexts = ##f
-	\partcombine \melody \alto
+	\partcombine {\melody\melodytag} {\alto\altotag}
       >>
       \context Staff = lower <<
 	%\set Staff.printPartCombineTexts = ##f
@@ -344,15 +398,13 @@ words = \lyricmode {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \transpose c c'
-      \melody
+      \transpose c c' { \melody \transpose c c, \melodytag }
     }
     \context Staff = fluteB {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
-      \transpose c c'
-      \alto
+      \transpose c c' { \alto \transpose c c, \altotag }
     }
   >>
   \header {
@@ -373,7 +425,7 @@ words = \lyricmode {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \new Voice = melody {
-	\transpose bes c \melody
+	\transpose bes c { \melody \melodytag }
       }
     }
     \new Lyrics \lyricsto "melody" { \words }
@@ -381,7 +433,7 @@ words = \lyricmode {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
-      \transpose bes c \altoclar
+      \transpose bes c { \altoclar \altotag }
     }
     \context Staff = clarinetC {
       #(set-accidental-style 'modern-cautionary)
@@ -409,7 +461,7 @@ words = \lyricmode {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \new Voice = melody {
-	\transpose ees c' \melody
+	\transpose ees c' { \melody \transpose c c, \melodytag }
       }
     }
     \new Lyrics \lyricsto "melody" { \words }
@@ -418,7 +470,7 @@ words = \lyricmode {
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
       \new Voice = alto {
-	\transpose ees c' \alto
+	\transpose ees c' { \alto \transpose c c, \altotag }
       }
     }
     \context Staff = saxC {
@@ -447,7 +499,7 @@ words = \lyricmode {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \new Voice = melody {
-	\transpose bes a \melody
+	\transpose bes a { \melody \melodytag }
       }
     }
     \new Lyrics \lyricsto "melody" { \words }
@@ -476,14 +528,18 @@ words = \lyricmode {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \transpose c c, << \clef bass \melody >> % 1 octave down
+      % 1 octave down
+      \clef bass
+      \transpose c c, { \melody \transpose c c, \melodytag }
     }
     \new Lyrics \lyricsto "celloA" { \words }
     \context Staff = celloB {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
-      \transpose c c, << \clef bass \alto >> % 1 octave down
+      % 1 octave down
+      \clef bass
+      \transpose c c, { \alto \transpose c c, \altotag }
     }
     \context Staff = celloC {
       #(set-accidental-style 'modern-cautionary)
@@ -510,7 +566,7 @@ words = \lyricmode {
     \context Voice = melody {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \transpose bes a \melody
+      \transpose bes a { \melody \melodytag }
     }
     \new Lyrics \lyricsto "melody" { \words }
     \new TabStaff <<
@@ -543,7 +599,7 @@ words = \lyricmode {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \set Staff.printPartCombineTexts = ##f
-      \small\partcombine \melody \alternate
+      \small\partcombine {\melody\melodytag} \alternate
     >>
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
@@ -567,11 +623,11 @@ words = \lyricmode {
   \context PianoStaff <<
     \context Staff=melody << 
        \set Staff.midiInstrument = "fiddle"
-       r1 \melody
+       r1 { \melody \melodytag }
      >>
     \context Staff=alto << 
        \set Staff.midiInstrument = "fiddle"
-       r1 \alto
+       r1 { \alto \altotag }
      >>
     \context Staff=bass <<
       \set Staff.midiInstrument = "acoustic bass"
@@ -606,7 +662,7 @@ words = \lyricmode {
   \midi {
     \context {
       \Score
-      tempoWholesPerMinute = #(ly:make-moment 90 4)
+      tempoWholesPerMinute = #(ly:make-moment 110 4)
       }
     }
 
