@@ -17,7 +17,7 @@
 #(set-default-paper-size "letter")
 %#(set-global-staff-size 18)
 
-melody = \relative c'' {
+melodya = \relative c'' {
   \tag #'key \key c \major
   \time 4/4
 
@@ -31,8 +31,10 @@ melody = \relative c'' {
     f=''8 e f e d b a b |
   } \alternative {
     { g='2. d'4 | }
-    { g,='2. b8 c | }
+    { g,='2. b'8 c | }
   }
+}
+melodyb = \transpose c c' \relative c'' {
   \repeat volta 2 {
     d=''8 c a4 g b8 a | g4 b8 c d4 d |
     f,='4 g a b | c4 e c b8 c |
@@ -40,12 +42,13 @@ melody = \relative c'' {
     f,='4 g a8 g f4 |
   } \alternative {
     { g='2. b4 | }
-    { g='2. d'4 | }
+    { g='2. d4 | }
   }
-  g,='2. \bar "|."
+  g='2. \bar "|."
 }
+melody = { \melodya \melodyb }
 
-alternate = \relative c'' {
+alternatea = \relative c'' {
   \tag #'key \key c \major
   \time 4/4
 
@@ -59,8 +62,10 @@ alternate = \relative c'' {
     c=''8 a c a b g f g |
   } \alternative {
     { d='2. b'4 | }
-    { d,='2. g8 a | }
+    { d,='2. g'8 a | }
   }
+}
+alternateb = \transpose c c' \relative c'' {
   \repeat volta 2 {
     b='8 a f4 d g8 f | d4 g8 a b4 b |
     c,='4 e f d | g4 c g e8 g |
@@ -68,11 +73,11 @@ alternate = \relative c'' {
     c,='4 e f8 e d4 |
   } \alternative {
     { d='2. g4 | }
-    { d='2. b'4 | }
+    { d='2. b4 | }
   }
-  d,='2. \bar "|."
+  d='2. \bar "|."
 }
-
+alternate = { \alternatea \alternateb }
 
 bass = \transpose c c,,
 {
@@ -238,12 +243,13 @@ harmonies = \chordmode {
     \context Staff = clarinetA {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \transpose bes c \melody
+      \transpose bes c { \melody }
     }
     \context Staff = clarinetB {
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
-      \transpose bes c \alternate
+      \transpose bes c { \alternate }
+
     }
   >>
   \header {
@@ -262,12 +268,12 @@ harmonies = \chordmode {
     \context Staff = saxophoneA {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \transpose ees c \melody
+      \transpose ees c { \melody }
     }
     \context Staff = saxophoneB {
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
-      \transpose ees c \alternate
+      \transpose ees c { \alternate }
     }
     \context Staff = saxophoneC {
       \set Staff.instrumentName = "Bass"
