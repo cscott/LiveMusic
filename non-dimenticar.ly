@@ -665,6 +665,4 @@ words = \lyricmode {
       tempoWholesPerMinute = #(ly:make-moment 110 4)
       }
     }
-
-
 }
