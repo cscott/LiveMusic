@@ -147,8 +147,11 @@ harmonies = \chordmode {
       g2 \set chordChanges = ##t g | }
   }
   \bar ":|"
+
+  %\set Score.repeatCommands = #'((volta "final" ) end-repeat)
   \set chordChanges = ##f
   g2. \set chordChanges = ##t
+  %\set Score.repeatCommands = #'((volta #f))
 }
 
 \paper {
@@ -394,7 +397,7 @@ harmonies = \chordmode {
     \context Staff=bass <<
       \set Staff.midiInstrument = "acoustic bass"
       r1\ff
-      \transpose c c' \bass
+      \bass
     >>
 %{
     \context Staff=chords <<
