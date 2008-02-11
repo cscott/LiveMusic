@@ -12,7 +12,7 @@
   meter = 240
 }
 #(set-default-paper-size "letter")
-%#(set-global-staff-size 18)
+#(set-global-staff-size 18)
 
 melody = \relative c' { % middle c
   \tag #'key \key bes \major
@@ -55,17 +55,22 @@ melody = \relative c' { % middle c
   c=''2 d8 c bes g |
   c=''2 d8 c bes c |
   % coda should go at end of line, not beginning.
-  \override Score.RehearsalMark
+  \once \override Score.RehearsalMark
   #'break-visibility = #begin-of-line-invisible
   \mark \markup { \musicglyph #"scripts.coda" }
   bes='1 ~ |
-  bes='2. r4 |
-  % D.S. should go at end of line, not beginning.
-  \override Score.RehearsalMark
-  #'break-visibility = #begin-of-line-invisible
-  % align right
-  \once \override Score.RehearsalMark #'self-alignment-X = #right
-  \mark "D.S. al Coda" \break
+  % D.S. should go at end of line, not beginning; align right.
+  % lilypond doesn't allow multiple marks on a single bar line, so
+  % attach it to the final rest instead. (and skooch it over a bit)
+  bes='2. 
+  \once \override TextScript #'self-alignment-X = #right
+  \once \override TextScript #'extra-offset = #'( 2.0 . 0.0 )
+  r4^\markup{ "D.S. al Coda" }
+  \bar ":|"
+  |
+  \break\noPageBreak
+  % coda symbol at start of tag
+  \mark \markup { \musicglyph #"scripts.coda" }
   bes='4
 }
 melodytag = \relative c'' { % c above middle c
@@ -176,6 +181,114 @@ altoclar = \relative c' { % middle c
 
   % outro
   f='4
+}
+
+pianotop = {
+  \tag #'key \key bes \major
+  \time 4/4
+
+  % intro
+  r1 | r1 | r1 | r1 |
+
+  % verse
+  \repeat volta 2 {
+    bes' 8 c'' d'' bes' r d'' f'' a'  |
+    r8 a' bes' g' r b' d'' f'  |
+    g' 8 c'' ees'' bes' r f' a' ees''  |
+    r8 f' b' d'' r g' bes' d''  |
+    c'' 8 ees'' g'' bes' r ees'' g'' a'  |
+  } \alternative {
+    {
+      r8 c'' ees'' f' r f' g' a'  |
+      g' 8 bes' d'' f' r b' d'' f'  |
+      r8 c'' ees'' g' r f'' ees'' c''  |
+    }
+    {
+      r8 c'' ees'' f' r f' a' c''  |
+      bes' 8 d'' f'' a' r c'' ees'' ges'  |
+    }
+  }
+
+  r8 bes' des'' g' r a' bes' b'  |
+  c'' 8 ees'' f'' f' r e' f' g'  |
+  r8 aes' c'' ees' r c'' d'' bes'  |
+  c'' 8 ees'' g'' bes' r ees'' g'' g'  |
+  r8 g' bes' des'' r b' c'' cis''  |
+  d'' 8 g'' bes'' f'' r fis'' g'' a''  |
+  r8 d'' g'' a' r c'' d'' bes'  |
+  d'' 8 g'' bes'' c'' r ees'' g'' bes'  |
+  r8 c'' ees'' a' r c'' ees'' f'  |
+
+  bes' 8 c'' d'' bes' r d'' f'' a'  |
+  r8 a' bes' g' r b' d'' f'  |
+  g' 8 c'' ees'' bes' r f' a' ees''  |
+  r8 f' b' d'' r g' bes' d''  |
+  c'' 8 ees'' g'' a' r c'' bes' g'  |
+  r8 c'' ees'' f' r c'' bes' c''  |
+
+  bes' 8 d'' f'' a' r g' ees'' ges'  |
+  r8 bes' d'' f' r ees' d'' c''  |
+
+  % outro
+  bes' 8 d'' f'' bes' r aes' ges' aes'  |
+  r8 bes' d'' f' r g' ees'' c''  |
+  bes' 8 d'' f'' a' r g' ees'' ges'  |
+  r8 bes' d'' f' bes 4 r  |
+  \bar "|."
+}
+pianobot = {
+  \tag #'key \key bes \major
+  \time 4/4
+
+  % intro
+  < f bes, d > 2. r4  |
+  < f a d > 2. r4  |
+  < bes g c ees > 2. r4  |
+  < f a c > 2. r4  |
+
+  \repeat volta 2 {
+    bes, 2 c  |
+    g 2 a  |
+    c 2 f  |
+    b, 2 ees  |
+    c 2 bes,  |
+  } \alternative {
+    {
+      f 2 ees  |
+      bes, 2 b,  |
+      c 2 f  |
+    }
+    {
+      f 2 ees  |
+      bes, 2 ees  |
+    }
+  }
+
+  des 2 bes,  |
+  f, 2 bes,  |
+  c 2 bes,  |
+  ees 2 g  |
+  ees 2 c  |
+  g, 2 bes,  |
+  g 2 bes,  |
+  c 2 bes,  |
+  f, 2 ees  |
+
+  bes, 2 c  |
+  g 2 a  |
+  c 2 f  |
+  b, 2 ees  |
+  f 2 d  |
+  f 2 d  |
+
+  bes, 2 ees  |
+  bes 2 f  |
+
+  % outro
+  bes, 2 ees  |
+  bes 2 ees  |
+  bes, 2 ees  |
+  bes 2 bes, 4 r  |
 }
 
 lowbes = \relative c, { < \tag #'n bes \tag #'l \tag #'s \tag #'c bes' >4 }
@@ -331,6 +444,7 @@ words = \lyricmode {
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
   ragged-bottom = ##t
+  %annotate-spacing = ##t
 }
 
 % combined score
@@ -341,16 +455,24 @@ words = \lyricmode {
          \harmonies
     }
     \context Staff = melody <<
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \context Voice = melody { \small\melody\melodytag }
       \context Lyrics = one \lyricsto melody \words
     >>
     \context PianoStaff <<
+      #(set-accidental-style 'piano-cautionary)
       \context Staff = upper <<
+	\set Staff.instrumentName = \markup{ \column { "Soprano/" "Alto" } }
+	\set Staff.shortInstrumentName = "S/A"
 	\set Staff.printPartCombineTexts = ##f
 	\partcombine {\melody\melodytag} {\alto\altotag}
       >>
       \context Staff = lower <<
 	%\set Staff.printPartCombineTexts = ##f
+	\set Staff.instrumentName = "Bass"
+	\set Staff.shortInstrumentName = "Bas."
 	\clef bass
 	\keepWithTag #'n \bass
       >>
@@ -368,18 +490,18 @@ words = \lyricmode {
     >>
     \new TabStaff <<
       \set TabStaff.stringTunings = #bass-tuning
-      \set Staff.instrumentName = "Bass "
+      \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
       \removeWithTag #'key \keepWithTag #'n \bass
     >>
+%}
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
-      \set PianoStaff.instrumentName = \markup { "Piano" \hspace #2.0 }
-      \set PianoStaff.shortInstrumentName = \markup { "Pia." \hspace #2.0 }
+      \set PianoStaff.instrumentName = \markup { "Piano" }
+      \set PianoStaff.shortInstrumentName = \markup { "Pia." }
       \context Staff = upper << \pianotop >>
       \context Staff = lower << \clef bass \pianobot >>
     >>
-%}
   >>
   \layout { }
   \header {
@@ -398,8 +520,11 @@ words = \lyricmode {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \transpose c c' { \melody \transpose c c, \melodytag }
+      \new Voice = melody {
+	\transpose c c' { \melody \transpose c c, \melodytag }
+      }
     }
+    \new Lyrics \lyricsto "melody" { \words }
     \context Staff = fluteB {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Alto"
@@ -512,7 +637,7 @@ words = \lyricmode {
 %}
   >>
   \header {
-    instrument = "Banjo/Guitar"
+    instrument = "Banjo/Guitar, capo'ed up 1 fret"
     breakbefore=##t
   }
 }
@@ -577,7 +702,7 @@ words = \lyricmode {
     >>
     \new TabStaff <<
       \set TabStaff.stringTunings = #bass-tuning
-      \set Staff.instrumentName = "Bass "
+      \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
       \removeWithTag #'key \keepWithTag #'n \bass
     >>
@@ -587,6 +712,7 @@ words = \lyricmode {
     breakbefore=##t
   }
 }
+%}
 
 % piano/guitar score
 \score {
@@ -596,15 +722,20 @@ words = \lyricmode {
          \harmonies
     }
     \new Staff <<
+      #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \set Staff.printPartCombineTexts = ##f
-      \small\partcombine {\melody\melodytag} \alternate
+      %\small\partcombine {\melody\melodytag} {\alto\altotag}
+      \new Voice = melody {
+	\small{\melody\melodytag}
+      }
     >>
+    \new Lyrics \lyricsto "melody" { \small\words }
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
-      \set PianoStaff.instrumentName = \markup { "Piano" \hspace #2.0 }
-      \set PianoStaff.shortInstrumentName = \markup { "Pia." \hspace #2.0 }
+      \set PianoStaff.instrumentName = \markup { "Piano" }
+      \set PianoStaff.shortInstrumentName = \markup { "Pia." }
       \context Staff = upper << \time 4/4 \pianotop >>
       \context Staff = lower << \clef bass \pianobot >>
     >>
@@ -615,7 +746,6 @@ words = \lyricmode {
     breakbefore=##t
   }
 }
-%}
 
 % midi score.
 \score {
