@@ -16,7 +16,7 @@ all: $(foreach f,$(SONGS),$(f).mp3)
 %.mp3: %.wav
 	$(LAME) $< $@
 
-upload: $(foreach f,$(SONGS),$(f).mp3 $(f).ly $(f).pdf)
+upload: $(foreach f,$(SONGS),$(f).mp3 $(f).ly $(f).pdf) non-dimenticar-rg.mp3
 	rsync --chmod=a+r -avz $^ cscott.net:public_html/LiveMusic/
 
 answer-me.ps answer-me.pdf: alt-chords.ly
