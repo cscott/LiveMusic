@@ -94,7 +94,7 @@ alto = \relative c' { % middle c
 
   \repeat volta 2 {
     f='8 a bes f a4. f8 |
-    ees='8 f g ees f4. d8 |
+    f='8 f g ees f4. d8 |
     ees='2 c2( |
     b=2) c8 ees g bes |
     g='1( |
@@ -107,19 +107,19 @@ alto = \relative c' { % middle c
   fes='4) r4 g8 f g gis |
   a='2 d,8 cis d ees |
   f='2 g8 a bes g |
-  g='2 ees2 ~ |
-  ees='2 aes8 g aes a |
-  bes='2 ees,8 d ees f |
+  g='2 d2 ~ |
+  c='2 aes'8 g aes a |
+  bes='2 e,8 dis e f |
   g='4. f8 g a bes g |
   bes='2 g2( |
   f='2.) r4 |
 
   f='8 a bes f a4. f8 |
-  ees='8 f g ees f4. d8 |
+  f='8 f g ees f4. d8 |
   ees='2 c2( |
   b=2) c8 ees g bes |
-  a='2 bes8 a g ees |
-  f='2 bes8 a ges ees |
+  g='2 bes8 a g ees |
+  g='2 bes8 a ges ees |
 
   f='2( ees4 ges |
   f='2.) r4 |
@@ -149,7 +149,7 @@ altoclar = \relative c' { % middle c
 
   \repeat volta 2 {
     f='8 a bes f a4. f8 |
-    ees='8 f g ees f4. d8 |
+    f='8 f g ees f4. d8 |
     ees='2 ees2( |
     d='2) ees8 ees g bes |
     g='1( |
@@ -162,19 +162,19 @@ altoclar = \relative c' { % middle c
   g='4) r4 g8 f g gis |  % the first g here is really a double-flat
   a='2 d,8 e d ees |
   f='2 g8 a bes g |
-  g='2 ees2 ~ |
-  ees='2 aes8 g aes a |
-  bes='2 ees,8 d ees f |
+  g='2 d2 ~ |
+  c='2 aes'8 g aes a |
+  bes='2 e,8 dis e f |
   g='4. f8 g a bes g |
   bes='2 g2( |
   f='2.) r4 |
 
   f='8 a bes f a4. f8 |
-  ees='8 f g ees f4. d8 |
+  f='8 f g ees f4. d8 |
   ees='2 ees2( |
   d='2) ees8 ees g bes |
-  a='2 bes8 a g ees |
-  f='2 bes8 a ges ees |
+  g='2 bes8 a g ees |
+  g='2 bes8 a ges ees |
 
   f='2( ees4 ges |
   f='2.) r4 |
@@ -188,7 +188,13 @@ pianotop = {
   \time 4/4
 
   % intro
-  r1 | r1 | r1 | r1 |
+  r8 << { f'4 f'8 bes' d' f' bes' | } \\
+	{ d'4. s2 | } >>
+  r8 << { d''4 a'8 f' d' f' a' | } \\
+	{ f'4. s2 | } >>
+  r8 << { bes'4 g'8 ees' g' bes' c'' | } \\
+	{ ees'4. s2 | } >>
+  <f' ees'>4 r4. f'8 d'' c'' |
 
   % verse
   \mark \markup { \musicglyph #"scripts.segno" }
@@ -250,10 +256,13 @@ pianotop = {
   <f'' c'' g'>2. r4 |
 
   % outro
-  bes'4 bes'8 bes'' bes'' aes'' ges'' aes'' |
-  f''4 f'8 d'' c'' ees'' g'' bes'' |
-  f'''1 ~ |
-  f'''2. r4 |
+  << { bes'4 bes'8 bes'' bes'' aes'' ges'' aes'' | } \\
+     { <d' f'>4 s4 <ees'' ges''>2 | } >>
+  << { f''4 f'8 d'' c'' ees'' g'' bes'' | } \\
+     { <bes' d''>4 s4 g'2 | } >>
+  << { <bes' f' d'>2 c''8 f'' ees'' bes'' | } \\
+     { s2 g'4 <ges' bes'>4 | } >>
+  <f'' d'' bes'>2. r4 |
   \bar "|."
 }
 pianobot = {
@@ -261,10 +270,14 @@ pianobot = {
   \time 4/4
 
   % intro
-  < f bes, d > 2. r4  |
-  < f a d > 2. r4  |
-  < bes g c ees > 2. r4  |
-  < f a c > 2. r4  |
+  << { f2. f4 | } \\
+     { bes,2 d2 | } >>
+  << { a2 f2 | } \\
+     { d2. b,4 | } >>
+  << { bes2. g4 | } \\
+     { c2 ees2 | } >>
+  << { f2 a2 | } \\
+     { c2. ees4 | } >>
 
   \repeat volta 2 {
     <<{ f2. f4 | s2 r4 d4 | s2 r4 c4 | r4 f bes g | r8 c8 ees g bes4 g8 bes |}\\
@@ -298,10 +311,14 @@ pianobot = {
      { r2 bes,,4 s4 | } >>
 
   % outro
-  bes, 2 ees  |
-  bes 2 ees  |
-  bes, 2 ees  |
-  bes 2 bes, 4 r  |
+  << { r4 f4  ges2 | } \\
+     { bes,2. bes,4 ~ | } >>
+  << { f2 ees2 | } \\
+     { bes,4 bes,2. | } >>
+  << { r4 f4 bes c' | } \\
+     { bes,2 ees2 | } >>
+  << { <bes, f bes>2. r4 | } \\
+     { r2 bes,,4 s4 | } >>
 }
 
 pianochatop = {
@@ -412,6 +429,7 @@ pianochabot = {
   bes 2 bes, 4 r  |
 }
 
+lowa   = \relative c, { < \tag #'n a \tag #'l \tag #'s \tag #'c a' >4 }
 lowbes = \relative c, { < \tag #'n bes \tag #'l \tag #'s \tag #'c bes' >4 }
 lowb   = \relative c, { < \tag #'n b   \tag #'l \tag #'s \tag #'c b'   >4 }
 lowcx  = \relative c, { < \tag #'n c   \tag #'l \tag #'s \tag #'c c'   >4 }
@@ -423,44 +441,44 @@ bass = \relative c { % c below middle c
   \time 4/4
 
   % intro
-  bes=,4-. r4 r2 |
-  d=4-. r4 r2 |
-  c=4-. r4 r2 |
+  bes=,4-. r4 bes'4-. r4 |
+  d,=4-. r4 d'4-. r4 |
+  c,=4-. r4 ees4-. r4 |
   f,=,4-. r4 r2 |
 
   % verse
   \repeat volta 2 {
-    \lowbes f=,4 a d, |
-    \lowbes f=,4 d g |
+    \lowbes f=,4 a \lowbes |
+    d, f=,4 g bes |
     c=4 g f ees |
-    d=,4 \lowb \lowcx ees |
+    \lowb d=,4 \lowcx ees |
     g=,4 bes c g |
   }
   \alternative {
     { f=,4 a c f, |
       \lowbes f=,4 \lowb f |
-      \lowc g=,4 f \lowc | }
+      \lowc g=,4 f \lowa | }
     { f=,4 a c f, |
-      \lowbes f=,4 ees \lowc |
+      \lowbes f=,4 \lowb ees |
     }
   }
 
   \lowbes \lowdes \lowbes \lowdx | 
   f=,4 c' bes a |
-  f=,4 c' bes fis |
-  ees=,4 bes' c g |
+  f=,4 c' bes aes |
+  ees=,4 bes' d g, |
   ees=,4 bes' g c |
   g=,4 d' c bes |
   g=,4 d' c bes |
-  \lowc ees,=,4 bes' c |
+  f=,4 c' ees g |
   f=4 c a ees |
-  \lowbes f=,4 a d, |
-  \lowbes f=,4 d g |
+  \lowbes f=,4 a \lowbes |
+  d,4 f=,4 g bes |
   c=4 g f ees |
-  d=,4 \lowb \lowcx ees |
+  \lowb d=,4 \lowcx ees |
   f=,4 a c g |
-  f=,4 a c ees |
-  bes=,4 f ees ges |
+  f=,4 a c f |
+  bes,=,4 f ees ges |
   bes=,4
   \tag #'n \relative c, { f4 bes, }
   \tag #'l \tag #'s \tag #'c \relative c { f4 bes }
@@ -486,45 +504,45 @@ harmonies = \chordmode {
   bes4 bes bes bes |
   d4:m d:m d:m d:m |
   ees4:6 ees:6 ees:6 ees:6 |
-  f4/c f/c f/c f/c |
+  f:74/c f:7/c f:7/c f:7/c |
 
   % verse
   \repeat volta 2 {
     bes4 bes bes:maj7 bes:maj7 |
-    bes4 bes g:9 g:9 |
+    bes4/d bes/d g:9 g:9 |
     c4:m7 c:m7 f:7 f:7 |
     b4:dim7 b:dim7 c:m7 c:m7 |
     c4:m7 c4:m7 c4:m7 c4:m7
   }
   \alternative {
-    { f4:9 f:9 c:m7 f:aug7 | bes4 bes b:dim7 b:dim7 | c4:m7 c:m7 f:9 f:9 }
+    { f4:9 f:9 c:m7 f:aug7 | bes4 bes b:dim7 b:dim7 | c4:m7 c:m7 ees:maj7/f f:5.13.9- }
     { \set chordChanges = ##f
       f4:9 \set chordChanges = ##t
-      f:9 c:m7 f:7 | bes4 bes ees:m6 ees:m6 | }
+      f:9 c:m7 f:7 | bes4 bes ees:m6/bes ees:m6/bes | }
   }
   bes4:dim7 bes:dim7 bes:7 bes:7 |
   f4:m7 f:m7 bes:7 bes:7 |
-  f4:m7 f:m7 bes:7 bes:aug |
-  ees4:6 ees:6 ees:6 ees:6 |
+  f4:m7 f:m7 bes:7 bes:7aug |
+  ees4:6 ees:6 ees:maj7 ees:maj7 |
   ees4:6 ees:6 ees:6 ees:6 |
   g4:m7 g:m7 c:7 c:7 |
   g4:m7 g:m7 c:7 c:7 |
-  c4:m7 c:m7 c:m7 c:m7 |
-  f4:7 f:7 f:7 f:7 |
+  c4:m7/f c:m7/f c:m7/f c:m7/f |
+  c4:m7.5-/f c:m7.5-/f f:7 f:7 |
 
   bes4 bes bes:maj7 bes:maj7 |
-  bes4 bes g:9 g:9 |
+  bes4/d bes/d g:9 g:9 |
   c4:m7 c:m7 f:7 f:7 |
   b4:dim7 b:dim7 c:m7 c:m7 |
   f4:9 f:9 c:m7 c:m7 |
-  f4:9 f:9 c:m7 ees:m |
+  f4:9 f:9 c:m7 f:7.9- |
   bes4 bes ees ees:m |
   bes2. r4 |
 
   % outro
   bes4 bes ees:m ees:m |
   bes4 bes ees ees |
-  bes4 bes ees ees:m |
+  bes4 bes ees:6.9 ees:m6 |
   bes2. r4 |
 }
 
