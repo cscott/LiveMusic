@@ -62,10 +62,11 @@ melody = \relative c' { % middle c
   % D.S. should go at end of line, not beginning; align right.
   % lilypond doesn't allow multiple marks on a single bar line, so
   % attach it to the final rest instead. (and skooch it over a bit)
-  bes='2. 
-  \once \override TextScript #'self-alignment-X = #right
-  \once \override TextScript #'extra-offset = #'( 2.0 . 0.0 )
-  r4^\markup{ "D.S. al Coda" }
+  bes='2
+  \once \override TextScript #'self-alignment-X = #left
+  \once \override TextScript #'extra-offset = #'( -2.0 . 0.0 )
+  \once \override TextScript #'font-size = #2
+  r2^\markup{ "D.S. al Coda" }
   \bar ":|"
   |
   \break\noPageBreak
@@ -94,7 +95,7 @@ alto = \relative c' { % middle c
 
   \repeat volta 2 {
     f='8 a bes f a4. f8 |
-    f='8 f g ees f4. d8 |
+    d='8 f g ees f4. d8 |
     ees='2 c2( |
     b=2) c8 ees g bes |
     g='1( |
@@ -105,24 +106,24 @@ alto = \relative c' { % middle c
   }
 
   fes='4) r4 g8 f g gis |
-  a='2 d,8 cis d ees |
-  f='2 g8 a bes g |
-  g='2 d2 ~ |
-  c='2 aes'8 g aes a |
+  aes='2 d,8 cis d ees |
+  f='2 f8 a bes fis |
+  g='2 d2 |
+  c='2 g'8 g aes a |
   bes='2 e,8 dis e f |
   g='4. f8 g a bes g |
   bes='2 g2( |
   f='2.) r4 |
 
   f='8 a bes f a4. f8 |
-  f='8 f g ees f4. d8 |
+  d='8 f g ees f4. d8 |
   ees='2 c2( |
   b=2) c8 ees g bes |
   g='2 bes8 a g ees |
   g='2 bes8 a ges ees |
 
-  f='2( ees4 ges |
-  f='2.) r4 |
+  f='2( g4 d |
+  ees='2) g4 ges |
 
   % outro
   f='4
@@ -149,7 +150,7 @@ altoclar = \relative c' { % middle c
 
   \repeat volta 2 {
     f='8 a bes f a4. f8 |
-    f='8 f g ees f4. d8 |
+    d='8 f g ees f4. d8 |
     ees='2 ees2( |
     d='2) ees8 ees g bes |
     g='1( |
@@ -160,24 +161,24 @@ altoclar = \relative c' { % middle c
   }
 
   g='4) r4 g8 f g gis |  % the first g here is really a double-flat
-  a='2 d,8 e d ees |
-  f='2 g8 a bes g |
-  g='2 d2 ~ |
-  c='2 aes'8 g aes a |
+  aes='2 d,8 e d ees |
+  f='2 f8 a bes fis |
+  g='2 d2 |
+  c='2 g'8 g aes a |
   bes='2 e,8 dis e f |
   g='4. f8 g a bes g |
   bes='2 g2( |
   f='2.) r4 |
 
   f='8 a bes f a4. f8 |
-  f='8 f g ees f4. d8 |
+  d='8 f g ees f4. d8 |
   ees='2 ees2( |
   d='2) ees8 ees g bes |
   g='2 bes8 a g ees |
   g='2 bes8 a ges ees |
 
-  f='2( ees4 ges |
-  f='2.) r4 |
+  f='2( g4 d |
+  ees='2) g4 ges |
 
   % outro
   f='4
@@ -251,18 +252,19 @@ pianotop = {
   << { c''2 d''8 c'' bes' c'' | } \\
      { \stemUp <ees' g'>2 \stemDown <ees' g'>4 <ees' ges'>4 | } >>
 
-  << { <bes' f' d'>2 c''8 f'' ees'' bes'' | } \\
-     { s2 g'4 <ges' bes'>4 | } >>
-  <f'' c'' g'>2. r4 |
+  << { <bes' f' d'>2 g'4 a'8 bes' | } \\
+     { s2 <f' d'>2 | } >>
+  << { <g' d''>4 g'8 a' <ees' g' bes'>4 <ees' ges' c''>4 | } \\
+     { ees'2 s2 | } >>
 
   % outro
   << { bes'4 bes'8 bes'' bes'' aes'' ges'' aes'' | } \\
      { <d' f'>4 s4 <ees'' ges''>2 | } >>
   << { f''4 f'8 d'' c'' ees'' g'' bes'' | } \\
      { <bes' d''>4 s4 g'2 | } >>
-  << { <bes' f' d'>2 c''8 f'' ees'' bes'' | } \\
+  << { <bes'' f'' d''>2 c''8 f'' ees'' bes'' | } \\
      { s2 g'4 <ges' bes'>4 | } >>
-  <f'' d'' bes'>2. r4 |
+  <f'' c'' g'>2. r4 |
   \bar "|."
 }
 pianobot = {
@@ -305,10 +307,10 @@ pianobot = {
   << { a2 s2 | a2 bes4 bes8 a | } \\
      { f4 f,4 <c bes>2 | f4 f,4 c4 f4 | } >>
 
-  << { r4 f4 bes c' | } \\
-     { bes,2 ees2 | } >>
-  << { <bes, f d'>2. r4 | } \\
-     { r2 bes,,4 s4 | } >>
+  << { r4 f4 <bes g>2 | } \\
+     { bes,2 s2 | } >>
+  << { s2 bes4 a4 | } \\
+     { <c bes>2 f2 | } >>
 
   % outro
   << { r4 f4  ges2 | } \\
@@ -459,7 +461,7 @@ bass = \relative c { % c below middle c
       \lowbes f=,4 \lowb f |
       \lowc g=,4 f \lowa | }
     { f=,4 a c f, |
-      \lowbes f=,4 \lowb ees |
+      \lowbes f=,4 \lowbes ees |
     }
   }
 
@@ -478,11 +480,8 @@ bass = \relative c { % c below middle c
   \lowb d=,4 \lowcx ees |
   f=,4 a c g |
   f=,4 a c f |
-  bes,=,4 f ees ges |
-  bes=,4
-  \tag #'n \relative c, { f4 bes, }
-  \tag #'l \tag #'s \tag #'c \relative c { f4 bes }
-  r4 |
+  bes,=,4 f g d' |
+  c=4 bes f c' |
 
   % outro
   bes=,4 d ees ges |
@@ -536,8 +535,8 @@ harmonies = \chordmode {
   b4:dim7 b:dim7 c:m7 c:m7 |
   f4:9 f:9 c:m7 c:m7 |
   f4:9 f:9 c:m7 f:7.9- |
-  bes4 bes ees ees:m |
-  bes2. r4 |
+  bes4 bes g:m7 g:m7 |
+  c4:m7 c:m7 ees/f f:7.9-
 
   % outro
   bes4 bes ees:m ees:m |
