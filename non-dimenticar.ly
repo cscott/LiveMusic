@@ -105,7 +105,7 @@ alto = \relative c' { % middle c
     { f2\repeatTie c8 d f a | f2( ees | }
   }
 
-  fes='4) r4 g8 f g gis |
+  fes='4) r4 f8 f g gis |
   aes='2 d,8 cis d ees |
   f='2 f8 a bes fis |
   g='2 d2 |
@@ -160,7 +160,7 @@ altoclar = \relative c' { % middle c
     { f2\repeatTie ees8 d f a | f2( ges | }
   }
 
-  g='4) r4 g8 f g gis |  % the first g here is really a double-flat
+  g='4) r4 f8 f g gis |  % the first g here is really a double-flat
   aes='2 d,8 e d ees |
   f='2 f8 a bes fis |
   g='2 d2 |
