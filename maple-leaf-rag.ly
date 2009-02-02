@@ -45,6 +45,30 @@ pianotop = {
     { <ees' c''>16 aes' <ees' bes'>8 <ees' aes'> r8 | }
     { <ees' c''>16 aes' <ees' bes'>8 <ees' aes'> r8 \bar "||" | }
   }
+
+  \repeat volta 2 {
+    r16 g''16 <ees'' ees'''> g'' bes'' <d'' d'''>8 g''16 |
+    <des'' des'''>16 g'' bes'' <c'' c'''> ~ <c'' c'''> ees'' <bes' bes''> ees'' |
+    r16 c'' <aes' aes''> c'' ees'' <f' f''>8 c''16 |
+    <aes' aes''>16 c'' ees'' <f' f''> ~ <f' f''> c'' <f' f''>8 |
+
+    r16 ees'' <g' g''> bes' des'' <f' f''>8 ees''16 |
+    <g' g''>16 bes' des'' <f' f''> ~ <f' f''> des'' <f' f''>8 |
+    r16 c'' <aes' aes''> c'' ees'' <f' f''>8 c''16 |
+    <aes' aes''>16 c'' ees'' <f' f''> ~ <f' f''> c'' <f' f''>8 |
+
+    r16 g''16 <ees'' ees'''> g'' bes'' <d'' d'''>8 g''16 |
+    <des'' des'''>16 g'' bes'' <c'' c'''> ~ <c'' c'''> ees'' <bes' bes''> ees'' |
+    r16 c'' <aes' aes''> c'' ees'' <f' f''>8 c''16 |
+    <aes' aes''>8 <aes' aes''> <g' g''> <ges' ges''> |
+
+    r16 f' a' c'' f'' c'' a' f' |
+    r16 f' bes' des'' <f' f''>8 <f' bes' des''> |
+    <d' f' aes' c''>8 r16 <d' f' aes' c''> r16 <des' bes'>8 ees'16
+  } \alternative {
+    { <c' aes'>8 <ees' ees''> <ees' ees''> <ees' ees''> | }
+    { r16 aes' c'' ees'' <aes' aes''>8 r8 \bar "||" | }
+  }
 }
 pianobot = {
   \tag #'key \key aes \major
@@ -76,6 +100,30 @@ pianobot = {
   \alternative {
     { <ees aes c'>8 <ees g des'> <aes c'> <ees, ees> | }
     { <ees aes c'>8 <ees g des'> <aes c'> <a, a> | }
+  }
+
+  \repeat volta 2 {
+    <bes, bes>8 <ees g des'> <ees, ees> <ees g des'> |
+    <bes, bes>8 <ees g des'> <ees, ees> <g, g> |
+    <aes, aes>8 <ees aes c'> <ees, ees> <ees aes c'> |
+    <aes, aes>8 <ees aes c'> <aes, aes> <a, a> |
+    
+    <bes, bes>8 <ees g des'> <ees, ees> <ees g des'> |
+    <bes, bes>8 <ees g des'> <bes, bes> <b, b> |
+    <c c'>8 <ees aes c'> <ees, ees> <ees aes c'> |
+    <aes, aes>8 <ees aes c'> <aes, aes> <a, a> |
+    
+    <bes, bes>8 <ees g des'> <ees, ees> <ees g des'> |
+    <bes, bes>8 <ees g des'> <ees, ees> <g, g> |
+    <aes, aes>8 <ees aes c'> <ees, ees> <ees aes c'> |
+    <aes, aes>8 <aes, aes> <g, g> <ges, ges> |
+
+    <f, f>8 <f, f> <a, a> <a, a> |
+    <bes, bes>8 <f bes des'> <f bes des'> <f bes des'> |
+    <bes, f bes>8 <bes, f bes> <ees, ees> <g, g> |
+  } \alternative {
+    { <aes, aes>8 <ees aes c'> <ees aes c'> <a, a> | }
+    { <aes, aes>8 <aes c' ees'> <aes c' ees'> <ees, ees> | }
   }
 }
 
