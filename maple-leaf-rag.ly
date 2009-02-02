@@ -14,12 +14,7 @@
 #(set-default-paper-size "letter")
 #(set-global-staff-size 18)
 
-pianotop = {
-  \tag #'key \key aes \major
-  \time 2/4
-
-  \partial 8 r8
-  \repeat volta 2 {
+pianotopA = {
     r16 aes'16 <ees' ees''> aes' c'' <ees' ees''>8 g'16 |
     <ees' ees''>16 g' bes' <ees' ees''> ~ <ees' ees''>4 |
     r16 aes'16 <ees' ees''> aes' c'' <ees' ees''>8 g'16 |
@@ -40,6 +35,14 @@ pianotop = {
     <aes' aes''>8 <aes' aes''> <aes' aes''> <aes' aes''>16 <aes' aes''> ~ |
     <aes' aes''>16 ees'' <aes' f''> c'' ees'' <aes' f''>8 <aes' fes'>16 ~ |
     <aes' fes'>16 bes' <fes' ces''> aes' bes' <ees' c''>8 aes'16 |
+}
+pianotop = {
+  \tag #'key \key aes \major
+  \time 2/4
+
+  \partial 8 r8
+  \repeat volta 2 {
+    \pianotopA
   }
   \alternative {
     { <ees' c''>16 aes' <ees' bes'>8 <ees' aes'> r8 | }
@@ -69,12 +72,43 @@ pianotop = {
     { <c' aes'>8 <ees' ees''> <ees' ees''> <ees' ees''> | }
     { r16 aes' c'' ees'' <aes' aes''>8 r8 \bar "||" | }
   }
-}
-pianobot = {
-  \tag #'key \key aes \major
-  \time 2/4
-  \partial 8 <ees ees,>8 |
+
+  \pianotopA
+  <ees' c''>16 aes' <ees' bes'>8 <ees' aes'> <aes' aes''> \bar "||" |
+
+  % TRIO
+  \tag #'key \key des \major
   \repeat volta 2 {
+    <aes' c'' ees'' aes''>8. <bes' c'' ees'' aes''>16 ~ <bes' c'' ees'' aes''>
+    <c'' ees''> bes'8 |
+    <aes' c'' ees'' aes''>8. <bes' c'' ees'' aes''>16 ~ <bes' c'' ees'' aes''>
+    <c'' ees''> bes' <c'' ees''> |
+    aes'16 des'' bes' des'' f'' aes' des'' f'' |
+  
+    bes'16 des'' f'' aes' ~ aes' f'' bes' f'' |
+    <aes' c'' ees'' aes''>8. <bes' c'' ees'' aes''>16 ~ <bes' c'' ees'' aes''>
+    <c'' ees''> bes'8 |
+    <aes' c'' ees'' aes''>8. <bes' c'' ees'' aes''>16 ~ <bes' c'' ees'' aes''>
+    <c'' ees''> bes' <c'' ees''> |
+    aes'16 des'' bes' des'' f'' aes' des'' f'' |
+  
+    bes'16 des'' f'' aes' ~ aes' f'' a' <ees'' f''> |
+    <bes' d'' f'' bes''>8. <c'' d'' f'' bes''>16 ~ <c'' d'' f'' bes''> <d'' f''> c''8 |
+    <bes' d'' f'' bes''>8. <c'' d'' f'' bes''>16 ~ <c'' d'' f'' bes''> <d'' f''> c'' <d'' f''> |
+
+    r16 ees'' <bes' bes''> ees''  ges'' <c'' c'''>8 ees''16 |
+    <bes' bes''>16 ees'' ges'' <c'' c'''> ~ <c'' c'''> ees'' <bes' bes''>8 |
+    <des'' fes'' des'''>8 <des'' fes'' des'''> <c'' fes'' c'''> <bes' fes'' bes''> |
+    <aes' f''>16 des'' ees'' <bes' ges''> ~ <bes' ges''> bes' <aes' f''>8 |
+
+    <g' f''>16 des'' ees'' <ges' f''> ~ <ges' f''> c'' <ges' ees''> <f' des''> ~ |
+  } \alternative {
+    { <f' des''>16 <aes' aes''>8 f''16 <aes' aes''> f'' <aes' aes''> f'' | }
+    { <f' des''>16\repeatTie des'' f'' aes'' <des'' des'''>8 r | }
+  }
+}
+
+pianobotA = {
     <aes, aes>8 <ees aes c'> <ees aes c'> <a, a> |
     <bes, bes>8 <ees g des'> <ees g des'> <ees, ees> |
     <aes, aes>8 <ees aes c'> <ees aes c'> <a, a> |
@@ -96,6 +130,13 @@ pianobot = {
     <d f aes b>8 <d f aes b> <d f aes b> <d f aes b> |
     <ees aes c'>8 <ees aes c'> <ees aes c'> <ees aes c'> |
     <fes aes ces'>8 <fes aes ces'> <ees aes c'> <ees aes c'> |
+}
+pianobot = {
+  \tag #'key \key aes \major
+  \time 2/4
+  \partial 8 <ees ees,>8 |
+  \repeat volta 2 {
+    \pianobotA
   }
   \alternative {
     { <ees aes c'>8 <ees g des'> <aes c'> <ees, ees> | }
@@ -124,6 +165,35 @@ pianobot = {
   } \alternative {
     { <aes, aes>8 <ees aes c'> <ees aes c'> <a, a> | }
     { <aes, aes>8 <aes c' ees'> <aes c' ees'> <ees, ees> | }
+  }
+  \pianobotA
+  <ees aes c'>8 <ees g des'> <aes c'> r8 | 
+
+  % TRIO
+  \tag #'key \key des \major
+  \repeat volta 2 {
+    <ees, ees>8 <aes c' ges'> <ges, ges> <aes c' ges'> |
+    <f, f>8 <aes c' ges'> <ees, ees> <c, c> |
+    <des, des>8 <aes des' f'> <aes, aes> <aes des' f'> |
+
+    <f, f>8 <aes des' f'> <des, des> <d, d> |
+    <ees, ees>8 <aes c' ges'> <ges, ges> <aes c' ges'> |
+    <f, f>8 <aes c' ges'> <ees, ees> <c, c> |
+    <des, des>8 <aes des' f'> <aes, aes> <aes des' f'> |
+  
+    <f, f>8 <aes des' f'> <des, des> <c, c> |
+    <bes,, bes,>8 <bes d' aes'> <d, d> <bes d' aes'> |
+    <f, f>8 <bes d' aes'> <bes, bes> <bes d' aes'> |
+
+    <ees, ees>8 <bes ees' ges'> <ges, ges> <bes ees' ges'> |
+    <ees, ees>8 <bes ees' ges'> <ges, ges> <bes ees' ges'> |
+    g16 bes8 des'16 fes' des' bes g |
+    <aes, aes>8 <aes des' f'> bes, <aes bes d'> |
+
+    <ees bes des'>8 <ees bes des'> <aes c'> <aes c'> |
+  } \alternative {
+    { <des des'>8 <aes des' f'> <aes des' f'> <d, d> | }
+    { <des des'>8 <aes, aes> <des, des> <c c'> | }
   }
 }
 
