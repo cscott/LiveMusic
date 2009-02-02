@@ -79,7 +79,7 @@ pianotop = {
   % TRIO
   \tag #'key \key des \major
   \repeat volta 2 {
-    <aes' c'' ees'' aes''>8. <bes' c'' ees'' aes''>16 ~ <bes' c'' ees'' aes''>
+    <aes' c'' ees'' aes''>8. \mark "Trio" <bes' c'' ees'' aes''>16 ~ <bes' c'' ees'' aes''>
     <c'' ees''> bes'8 |
     <aes' c'' ees'' aes''>8. <bes' c'' ees'' aes''>16 ~ <bes' c'' ees'' aes''>
     <c'' ees''> bes' <c'' ees''> |
@@ -105,6 +105,32 @@ pianotop = {
   } \alternative {
     { <f' des''>16 <aes' aes''>8 f''16 <aes' aes''> f'' <aes' aes''> f'' | }
     { <f' des''>16\repeatTie des'' f'' aes'' <des'' des'''>8 r | }
+  }
+
+  \tag #'key \key aes \major
+  \repeat volta 2 {
+    <aes' aes''>8 <aes' f''> <aes' aes''> <aes' f''> |
+    <f'' aes''>8 <f'' bes''>16 <f'' c'''> ~ <f'' c'''> bes'' aes'' f'' |
+    ees''16 f''8 <aes' c''>16 ~ <aes' c''>4 |
+    r16 ees'' <aes' f''> c'' ees'' <aes' f''>8 c''16 |
+
+    <g' ees''>8 f''16 <g' bes'> ~ <g' bes'>4 |
+    r16 des'' <g' f''> bes' des'' <g' f''>8 <aes' c''>16 ~ |
+    <aes' c''>16 ees'' <aes' f''> c'' ees'' <aes' f''>8 <aes' c''>16 ~ |
+
+    <aes' c''>16 ees'' <aes' f''> c'' ees'' <aes' f''>8 ees''16 |
+    <aes' aes''>8 <aes' f''> <aes' aes''> <aes' f''> |
+    <f'' aes''>8 <f'' bes''>16 <f'' c'''> ~ <f'' c'''> bes'' aes'' f'' |
+
+    aes''8 f'' ees''16 aes''8 <aes' c''>16 ~ |
+    <aes' c''>16 ees'' <aes' f''> c'' ees'' <aes' f''>8 <aes' f'>16 ~ |
+    <aes' f'>16 bes' <aes' f'>8 <aes' fes'> <bes' fes'>16 <ees' aes'> ~ |
+
+    <ees' aes'>16 bes' <ees' c''> aes' bes' <ees' c''>8 <d' aes'>16 ~ |
+    <d' aes'>16 bes' <d' c''> aes' r16 <des' bes'>8 ees'16 |
+  } \alternative {
+    { <c' aes'>8 <ees' ees''> <ees' ees''> <ees' ees''> | }
+    { <c' aes'>8 <g' des'' ees''> <aes' c'' ees'' aes''> \bar "|." }
   }
 }
 
@@ -194,6 +220,32 @@ pianobot = {
   } \alternative {
     { <des des'>8 <aes des' f'> <aes des' f'> <d, d> | }
     { <des des'>8 <aes, aes> <des, des> <c c'> | }
+  }
+
+  \tag #'key \key aes \major
+  \repeat volta 2 {
+    <des des'>8 <aes des' f'> <aes des' f'> <c c'> |
+    <des des'>8 <aes des' f'> <bes, bes> <b, b> |
+    <c c'>8 <aes c' ees'> <aes c' ees'> <ees, ees> |
+    <aes, aes>8 <ees aes c'> <ees, ees> <a, a> |
+
+    <bes, bes>8 <ees g des'> <ees, ees> <a, a> |
+    <bes, bes>8 <ees g des'> <ees, ees> <g, g> |
+    <aes, aes>8 <ees aes c'> <ees, ees> <ees aes c'> |
+
+    <aes, aes>8 <ees aes c'> <bes, bes> <c c'> |
+    <des des'>8 <aes des' f'> <aes des' f'> <c c'> |
+    <des des'>8 <aes des' f'> <bes, bes> <b, b> |
+
+    <c c'>8 <aes c' ees'> <aes c' ees'> <ees, ees> |
+    <aes, aes>8 <ees aes c'> <ees, ees> <ees aes c'> |
+    <des, des>8 <des, des> <bes,, bes,> <d, d> |
+
+    <ees, ees>8 <ees aes c'> <ees, ees> <e, e> |
+    <f, f>8 <f, f> <g, g> <g, g> |
+  } \alternative {
+    { <aes, aes>8 <ees aes c'> <bes, bes> <c c'> | }
+    { <aes, aes>8 <ees, ees> <aes,, aes,> }
   }
 }
 
