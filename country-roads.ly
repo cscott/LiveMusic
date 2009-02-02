@@ -281,7 +281,33 @@ bass = \relative c { % c below middle c
   \tag #'key \tag #'n \tag #'l \tag #'s \tag #'c \key a \major
   \time 2/2
 
-  r1
+  % intro
+  a=,2 e | a e | a e | a e |
+  a=,2 e |
+  % verse
+  \repeat volta 2 {
+    a e | fis cis' | fis, fis |
+    e=,2 b' | e, b' | d, d | a' e |
+    a=,2 e | a e | a e | fis cis' | fis, fis |
+    e=,2 b' | e, b' | d2 cis4 b | a=,2
+    % signo
+    e=,2 | a e | a cis,4 d | e=,2 b' | e, b' |
+    fis=,2 cis | fis fis4 e | d2 a' | d2 cis4 b | a=,2 e |
+    a=,2 cis,4 d | e=,2 b' | e, b4 cis | d=,2 a' | d2 cis4 b |
+    a=,2 e | a e |
+  }
+  \alternative {
+    { a=,2 e | }
+    { fis=,1 | e1 | }
+  }
+  % b part
+  a=,2 e | a b4 cis | d2 cis4 b | a=,2 gis4 fis |
+  e=,2 b' | e, b' | fis=,2 fis | g g | d' cis4 b |
+  a=,2 gis4 fis | e=,2 b' | e, b' | e, b' | e4 r4
+  % outro
+  \partial 4*0 % reset timing for coda
+  a,=,2 e | a gis4 fis | e=,2 b' | e, fis4 gis | a=,2 e |
+  a=,2 gis4 fis | e=,2 b' | e, e | a e | a ~ a4\fermata r4 |
 }
 
 harmonies = \chordmode {
@@ -798,12 +824,12 @@ wordsB = \lyricmode {
       %\transpose c c'
       \keepWithTag #'n \bass
     >>
-%{
     \context Staff=chords <<
       \set Staff.midiInstrument = "pizzicato strings"
       r1\pp
       \harmonies
     >>
+%{
     \context Staff=banjo <<
       \set Staff.midiInstrument = "banjo"
       r1\pp
