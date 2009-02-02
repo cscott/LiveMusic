@@ -131,145 +131,6 @@ altoclar = \relative c' { % middle c
   r1
 }
 
-pianotop = {
-  \tag #'key \key bes \major
-  \time 4/4
-
-  % intro
-  r8 << { f'4 f'8 bes' d' f' bes' | } \\
-	{ d'4. s2 | } >>
-  r8 << { d''4 a'8 f' d' f' a' | } \\
-	{ f'4. s2 | } >>
-  r8 << { bes'4 g'8 ees' g' bes' c'' | } \\
-	{ ees'4. s2 | } >>
-  <f' ees'>4 r4. f'8 d'' c'' |
-
-  % verse
-  \mark \markup { \musicglyph #"scripts.segno" }
-  \repeat volta 2 {
-    << { bes'8 c'' d'' bes' <c'' a'>4. a'8 | } \\
-       { d'2 d'2 | } >>
-    << { g'8 a' bes' g' <a' f'>4. f'8 | } \\
-       { <bes f'>2 b2 | } >>
-    << { <g' ees' bes>2 <f' ees' a>2 ~ | } \\
-       { s1 | } >>
-    << { <f' d' aes>2 ees'8 g' bes' d'' | } \\
-       { s2 ees'2 | } >>
-    << { c''1 ~ | } \\
-       { <ees' g'>1 ~ | } >>
-  }
-  \alternative {
-    { << { c''2 ees'8 f' g' a' | <g' d'>2 ~ <g' d'>8 f' ees' d' | ees'8 f' \times 2/3 { g'8 bes' c'' } d''2 | } \\
-	 { \stemUp <ees' g'>2 \stemDown bes4 <cis' a>4 | \stemUp bes2 \stemDown aes2 | bes4 ees' <g' ees'> ~ <ges' ees'> | } >> }
-
-    { << { c''2\repeatTie ees'8 f' a' c'' | bes'1 ~ | } \\
-	 { \stemUp <ees' g'>2\repeatTie \stemDown bes4 <c' ees'>4 | <d' f'>2 <c' ees'> |}
-	 >> }
-  }
-
-  << { bes'2 bes'8 a' bes' b' | } \\
-     { \stemUp <cis' e'>2 \stemDown <d' f'>2 | } >>
-  << { <c'' aes'>2 f'8 e' f' g' | } \\
-     { \stemUp ees'2 \stemDown d'2 | } >>
-  << { aes'2 bes'8 c'' d'' bes' | } \\
-     { <c' ees'>2 <d' f'>4 <d' fis'>4 | } >>
-  << { c''2 <d' f' g'>2 ~ | } \\
-     { \stemUp <ees' g'>2 s2 | } >>
-  << { <c' ees' g'>2 c''8 b' c'' cis'' | } \\
-     { s2 \stemDown <ees' g'>2 | } >>
-  << { d''2 g'8 fis' g' a' | } \\
-     { <f' bes'>2 e'2 | } >>
-  << { bes'4. a'8 bes' c'' d'' bes' | } \\
-     { <d' f'>2 <e' g'> | } >>
-  << { d''2 c''2 ~ | } \\
-     { <ees' g' bes'>1 | } >>
-  << { c''1 | } \\
-     { <ees' ges' bes'>2 ~ <ees' f' a'>2 | } >>
-
-  << { bes'8 c'' d'' bes' <c'' a'>4. a'8 | } \\
-     { d'2 d'2 | } >>
-  << { g'8 a' bes' g' <a' f'>4. f'8 | } \\
-     { <bes f'>2 b2 | } >>
-  << { <g' ees' bes>2 <f' ees' a>2 ~ | } \\
-     { s1 | } >>
-  << { <f' d' aes>2 ees'8 g' bes' d'' | } \\
-     { s2 ees'2 | } >>
-  << { c''2 d''8 c'' bes' g' | } \\
-     { \stemUp <ees' g'>2 \stemDown ees'2 | } >>
-  << { c''2 d''8 c'' bes' c'' | } \\
-     { \stemUp <ees' g'>2 \stemDown <ees' g'>4 <ees' ges'>4 | } >>
-
-  << { <bes' f' d'>2 g'4 a'8 bes' | } \\
-     { s2 <f' d'>2 | } >>
-  << { <g' d''>4 g'8 a' <ees' g' bes'>4 <ees' ges' c''>4 | } \\
-     { ees'2 s2 | } >>
-
-  % outro
-  << { bes'4 bes'8 bes'' bes'' aes'' ges'' aes'' | } \\
-     { <d' f'>4 s4 <ees'' ges''>2 | } >>
-  << { f''4 f'8 d'' c'' ees'' g'' bes'' | } \\
-     { <bes' d''>4 s4 g'2 | } >>
-  << { <bes'' f'' d''>2 c''8 f'' ees'' bes'' | } \\
-     { s2 g'4 <ges' bes'>4 | } >>
-  <f'' c'' g'>2. r4 |
-  \bar "|."
-}
-pianobot = {
-  \tag #'key \key bes \major
-  \time 4/4
-
-  % intro
-  << { f2. f4 | } \\
-     { bes,2 d2 | } >>
-  << { a2 f2 | } \\
-     { d2. b,4 | } >>
-  << { bes2. g4 | } \\
-     { c2 ees2 | } >>
-  << { f2 a2 | } \\
-     { c2. ees4 | } >>
-
-  \repeat volta 2 {
-    <<{ f2. f4 | s2 r4 d4 | s2 r4 c4 | r4 f bes g | r8 c8 ees g bes4 g8 bes |}\\
-      { bes,2 f, | d2 g, | c4 c, f,2 | b,2 c | f,1~ | }>>
-  } \alternative {
-    {
-      << { a2 s2 | r4 f s2 | g4 bes bes a | } \\
-	 { f,4 f, c <f, ees> | bes,2 b, | c2 f2 | } >>
-    }
-    {
-      << { a2 s2 | r4 f4 ges2 | } \\
-	 { f,4\repeatTie f, c f, | bes,2. bes,4~ | } >>
-    }
-  }
-
-  << { g2 aes2 | r4 c4 s2 | r4 f4 s2 | r4 bes,2 bes,4~ | } \\
-     { bes,4 bes,2. | f,2 <bes, aes>2 | f,2 <bes, aes>2 | ees,1 | } >>
-  << { bes,4 bes,2. | r4 d4 s2 | r4 d4 s2 | r4 c2 c4 | r4 c2 c4 | } \\
-     { ees,1 | g,2 <c bes>2 | g,2 <c bes>2 | f,1 | f,1 | } >>
-
-  % second non-dimenticar
-  <<{ f2. f4 | s2 r4 d4 | s2 r4 c4 | r4 f bes g | } \\
-    { bes,2 f, | d2 g, | c4 c, f,2 | b,2 c | }>>
-  % own, so I'll wait alone
-  << { a2 s2 | a2 bes4 bes8 a | } \\
-     { f4 f,4 <c bes>2 | f4 f,4 c4 f4 | } >>
-
-  << { r4 f4 <bes g>2 | } \\
-     { bes,2 s2 | } >>
-  << { s2 bes4 a4 | } \\
-     { <c bes>2 f2 | } >>
-
-  % outro
-  << { r4 f4  ges2 | } \\
-     { bes,2. bes,4 ~ | } >>
-  << { f2 ees2 | } \\
-     { bes,4 bes,2. | } >>
-  << { r4 f4 bes c' | } \\
-     { bes,2 ees2 | } >>
-  << { <bes, f bes>2. r4 | } \\
-     { r2 bes,,4 s4 | } >>
-}
-
 lowa   = \relative c, { < \tag #'n a \tag #'l \tag #'s \tag #'c a' >4 }
 lowbes = \relative c, { < \tag #'n bes \tag #'l \tag #'s \tag #'c bes' >4 }
 lowb   = \relative c, { < \tag #'n b   \tag #'l \tag #'s \tag #'c b'   >4 }
@@ -309,6 +170,90 @@ bass = \relative c { % c below middle c
   a,=,2 e | a gis4 fis | e=,2 b' | e, fis4 gis | a=,2 e |
   a=,2 gis4 fis | e=,2 b' | e, e | a e | a ~ a4\fermata r4 |
 }
+
+pianotop = <<
+  \new Voice = "first" { \voiceOne \melody }
+  \new Voice = "second" { \voiceTwo
+
+  \tag #'key \key a \major
+  \time 2/2
+
+  % intro
+  s4 s2 a4 | s1 | r8 e'8 a' cis'' ~ cis''4 <cis'' a'>4 |
+  s8*3 cis''8 ~ cis'' cis'' <cis'' a'>4 |
+  s2 <cis' a>4 <cis' a>4 
+  % verse
+  \repeat volta 2 {
+    r8 a8 ~ <a cis'>2 <a cis'>4 |
+    r8 a8 ~ <a cis'>4 ~ <a cis'>2 |
+    r8 a8 ~ <a cis'>2 <a cis'>4 |
+    r8 e' ~ <e' gis'>2 <e' gis'>4 |
+    r8 e' ~ <e' gis'>2 <e' gis'>4 |
+    r8 a8 d'4 d' cis' |
+    cis'8 <cis' e'>4 <cis' e'>8 ~ <cis' e'>4 <cis' e'>4 |
+    r8 a8 ~ <a cis'>2 <a cis'>4 |
+    r8 a8 ~ <a cis'>2 <a cis'>4 |
+    r8 a8 ~ <a cis'>2 <a cis'>4 |
+    r8 cis'8 ~ <cis' fis'>4 <cis' fis'> <cis' fis' a'> |
+    r8 cis'8 ~ <cis' fis' a'>2 <cis' fis' a'>4 |
+    % page 2
+    r8 e'8 ~ <e' gis'>4 <e' gis'> <e' gis'> |
+    r8 e' ~ <e' gis'>2 <e' gis'>4 |
+    r8 d'8 ~ <d' fis'>4 <d' fis'> <d' fis'>8 <cis' e'> ~ |
+    <cis' e'>8 cis' e'4
+    % signo
+    cis'4 d' |
+    r8 cis'8 e' a' ~ a'4 <a' e' cis'>4 |
+    r8 cis'8 e' a' ~ a'4 a' |
+    r8 b8 e' gis' ~ gis'4 <gis' e' b>4 |
+    r8 b8 e' gis' ~ gis'4 <gis' d'>4 |
+    r8 a8 cis' fis' ~ fis'4 <fis' cis' a>4 |
+    r8 cis'8 fis' a'~ a'4 <a' cis''>4 |
+    r8 fis'8 a' d'' ~ d''4 <d'' a' fis'>4 |
+    r8 fis'8 a' d'' ~ d''4 <d'' a'>4 |
+    cis''8 e' a' e' ~ e'4 <e' cis'>4 |
+    r8 cis'8 e' a'~ a'4 a'4 |
+    gis'8 e' gis' e' ~ e'4 <e' gis'>4 |
+    r8 d'8 e' gis' ~ gis'4 e'4 |
+    r8 d'8 e' fis' ~ fis'4 <fis' d'>4 |
+    r8 d'8 e' fis' ~ fis'4 <fis' d'>4 |
+    r8 cis'8 d' e' ~ e'4 <e' cis'>4 |
+    r8 cis'8 d' e' ~ e'4 <e' cis'>4 |
+  } \alternative {
+    { r8 a8 b cis' ~ cis'4 <cis' a>4 | }
+    { r8 cis'8 ~ <cis' fis'>4 <cis' fis'>4 <cis' fis'>4 |
+      r8 b8 ~ <b e'>4 <d' fis'>4 <e' gis'>4 | }
+  }
+  % b part
+  r8 e'8 ~ <e' a'>4 <e' a'>4 <e' a'>4 |
+  r8 cis'8 ~ <cis' e'>2. |
+  r8 fis'8 ~ <fis' a'>2. |
+  r8 e'8 ~ <e' a'>4 <cis' e'>2 |
+  r8 e'8 ~ <e' gis'>2 <e' gis'>4 |
+  r8 e'8 ~ <e' gis'>2 <e' gis'>4 |
+  r8 fis'8 ~ <fis' a'>4 <fis' a'>4 <fis' a'>4 |
+  r8 d'8 ~ <d' g'>2 <d' g'>4 |
+  r8 d'8 ~ <d' fis'>2. |
+  r8 cis' ~ <cis' e'>2. |
+  r8 e'8 ~ <e' gis'>2 <e' gis'>4 |
+  r8 e'8 ~ <e' gis'>2 <e' gis'>4 |
+  r8 e'8 ~ <e' gis'>2 <e' gis'>4 |
+  <e' gis'>4 r4
+  % outro
+  \partial 4*0 % reset timing for coda
+  r8 a8 cis' e' ~ e'4 <e' cis'>4 |
+  r8 cis'8 e' a' ~ a'4 e'4 |
+  r8 d'8 e' gis' ~ gis'4 <gis' e'>4 |
+  r8 d'8 e' gis' ~ gis'4 fis'4 |
+  r8 a8 cis' e' ~ e'4 <e' cis'>4 |
+  r8 cis'8 e' a' ~ a'4 e'4 |
+  r8 d'8 e' gis' ~ gis'4 <gis' e'>4 |
+  r8 d'8 e' gis' ~ gis'4 e'4 |
+  r8 a8 cis' e' ~ e'4 <e' cis'>4 |
+  r8 a8 cis' e' ~ \acciaccatura b8 <e' cis'>4\fermata r4 |
+}
+>>
+pianobot = \bass
 
 harmonies = \chordmode {
   \set Score.markFormatter = #format-mark-box-letters
@@ -543,7 +488,6 @@ wordsB = \lyricmode {
       \removeWithTag #'key \keepWithTag #'n \bass
     >>
 %}
-%{
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
       \set PianoStaff.instrumentName = \markup { "Piano" }
@@ -551,7 +495,6 @@ wordsB = \lyricmode {
       \context Staff = upper << \pianotop >>
       \context Staff = lower << \clef bass \pianobot >>
     >>
-%}
   >>
   \layout { }
   \header {
@@ -771,7 +714,6 @@ wordsB = \lyricmode {
 %}
 
 % piano/guitar score
-%{
 \score {
   <<
     \context ChordNames {
@@ -804,7 +746,6 @@ wordsB = \lyricmode {
     breakbefore=##t
   }
 }
-%}
 
 % midi score.
 \score {
@@ -824,19 +765,18 @@ wordsB = \lyricmode {
       %\transpose c c'
       \keepWithTag #'n \bass
     >>
+%{
     \context Staff=chords <<
       \set Staff.midiInstrument = "pizzicato strings"
       r1\pp
       \harmonies
     >>
-%{
     \context Staff=banjo <<
       \set Staff.midiInstrument = "banjo"
       r1\pp
       \banjo
     >>
 %}
-%{
     \context Staff=upper <<
       \set Staff.midiInstrument = "acoustic grand"
       r1
@@ -847,7 +787,6 @@ wordsB = \lyricmode {
       r1
       \pianobot
     >>
-%}
   >>
   
   \midi {
