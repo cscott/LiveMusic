@@ -141,28 +141,24 @@ pianobot = {
 }
 
 melodyA = {
-                r16 aes' _( c'' aes' c'' ) ees'' 8 -\accent c'' 16 ^( 
-                % warning: overlong bar truncated here |
-                des'' 16 c'' bes' ) ees'' -\accent _~ ees'' 8 r  |
-                r16 aes' _( c'' aes' c'' ) ees'' 8 -\accent c'' 16 ^( 
-                % warning: overlong bar truncated here |
+  r16 aes'( c'' aes' c'') ees''8-\accent c''16( |
+  des''16 c'' bes') ees''-\accent ~ ees''8 r  |
+  r16 aes'( c'' aes' c'') ees''8-\accent c''16( |
 %% 5
-                des'' 16 c'' bes' ) ees'' -\accent _~ ees'' 8 r  |
-                e'' 4 -\accent ^( ees'' 8 ) ees''  |
-                e'' 4 -\accent ^( ees'' )  |
-                e'' 8 -\accent e'' -\accent _~ e'' -\accent e''  |
-                ees'' 4 -\accent _~ ees'' -\accent  |
+  des''16 c'' bes') ees''-\accent ~ ees''8 r  |
+  e''4-\accent( ees''8) ees''  |
+  e''4-\accent( ees'')  |
+  e''8-\accent e''-\accent ~ e''-\accent e''  |
+  ees''4-\accent ~ ees''-\accent  |
 %% 10
-                aes'' 8 aes'' aes'' aes'' 16 aes'' _~  |
-                aes'' 16 ees'' ^( f'' c'' ) ees'' f'' 8 -\accent r16  |
-                aes' 16 _( bes' ces'' ) aes' _( bes' aes' 8 ) bes' 16 _( 
-                % warning: overlong bar truncated here |
-                c'' 16 aes' bes' aes' _~ aes' 8 ) r  |
-                aes'' 8 aes'' aes'' aes'' 16 aes'' _~  |
+  aes''8 aes'' aes'' aes''16 aes'' ~  |
+  aes''16 ees''( f'' c'') ees'' f''8-\accent r16  |
+  aes'16( bes' ces'') aes'( bes' aes'8) bes' 16(  |
+  c''16 aes' bes' aes' ~ aes'8) r  |
+  aes''8 aes'' aes'' aes''16 aes'' ~  |
 %% 15
-                aes'' 16 ees'' ^( f'' c'' ) ees'' f'' 8 -\accent r16  |
-                aes' 16 _( bes' ces'' ) aes' _( bes' aes' 8 )
-                % warning: overlong bar truncated here |
+  aes''16 ees''( f'' c'') ees'' f''8-\accent r16  |
+  aes'16( bes' ces'') aes'( bes' aes'8)
 }
 melody = {
   \tag #'key \key aes \major
@@ -173,35 +169,155 @@ melody = {
     \melodyA bes'16(
   }
   \alternative {
-    { c'' 16 aes' bes' aes' _~ aes' 8 ) r  | }
-    { c'' 16 aes' bes' aes' _~ aes' 8 r  | }
+    { c''16 aes' bes' aes' ~ aes'8 ) r  | }
+    { c''16 aes' bes' aes' ~ aes'8 r  | }
   }
   \repeat volta 2 {
-                r8 ees'' r16 d'' 8. -\accent  |
-%% 20
-                des'' 8 r16 c'' -\accent _~ c'' 8 bes'  |
-                r8 aes' r16 f' 8. -\accent  |
-                aes' 8 r16 f' -\accent _~ f' 8 fis'  |
-                r8 g' r16 f' 8. -\accent  |
-                g' 8 r16 f' -\accent _~ f' 8 f'  |
-%% 25
-                r8 aes' r16 f' 8. -\accent  |
-                aes' 8 r16 f' -\accent _~ f' 8 fis'  |
-                r8 ees'' r16 d'' 8. -\accent  |
-                des'' 8 r16 c'' -\accent _~ c'' 8 bes'  |
-                r8 aes' r16 f' 8. -\accent  |
-%% 30
-                aes' 8 aes' g' ges'  |
-                f' 8 r16 f' a' 8 c''  |
-                des'' 8 c'' 16 bes' _~ bes' 4  |
-                c'' 8 c'' aes' 16 bes' 8 aes' 16 _~  |
-	      } \alternative {
-		{ aes' 4 r  | }
-		{ aes' 4 r  | }
-	      }
+    r8 ees'' r16 d''8.-\accent  |
+    %% 20
+    des''8 r16 c''-\accent ~ c''8 bes'  |
+    r8 aes' r16 f'8.-\accent  |
+    aes'8 r16 f'-\accent ~ f'8 fis'  |
+    r8 g' r16 f' 8.-\accent  |
+    g'8 r16 f'-\accent ~ f'8 f'  |
+    %% 25
+    r8 aes' r16 f'8.-\accent  |
+    aes' 8 r16 f'-\accent ~ f'8 fis'  |
+    r8 ees'' r16 d''8.-\accent  |
+    des''8 r16 c''-\accent ~ c''8 bes'  |
+    r8 aes' r16 f'8.-\accent  |
+    %% 30
+    aes'8 aes' g' ges'  |
+    f'8 r16 f' a'8 c''  |
+    des''8 c''16 bes' ~ bes'4  |
+    c''8 c'' aes'16 bes'8 aes'16 ~  |
+  } \alternative {
+    { aes'4 r  | }
+    { aes'4 r  | }
+  }
   \melodyA  bes'16
-  c'' 16 aes' bes' aes' _~ aes' 8 r  |
+  c''16 aes' bes' aes' ~ aes'8 r  |
   \bar "|."
+}
+
+trebleA = {
+  r8 < ees' aes' c'' > r < ees' c'' fis' >  |
+  r8 < ees' g' des'' > r < des'' g' ees' >  |
+  r8 < c'' ees' aes' > r < c'' fis' ees' >  |
+  %% 5
+  r8 < des'' g' ees' > r < g' des'' ees'' >  |
+  < aes' ces'' fes'' >4-\accent( < g' bes' ees'' >8) < ees'' g' bes' >  |
+  < fes'' aes' ces'' >4-\accent( < g' bes' ees'' >)  |
+  < aes' ces'' fes'' >8-\accent < aes' ces'' fes'' >-\accent ~ < aes' ces'' fes'' >-\accent < fes'' ces'' aes' >  |
+  < g' bes' ees'' >4-\accent ~ < g' bes' ees'' >-\accent  |
+  %% 10
+  r8 < f' aes' ces'' > r < ces'' aes' f' >  |
+  r8 < ees' aes' c'' > r < c'' ees' aes' >  |
+  r8 < ces'' aes' f' > r < ces'' aes' f' >  |
+  < c'' ees' aes' >8 < bes' g' des' >16 < aes' ees' c' > ~ < c' ees' aes' >8 r  |
+  r8 < ces'' aes' f' > r < ces'' f' aes' >  |
+  %% 15
+  r8 < c'' aes' ees' > r < c'' ees' aes' >  |
+  r8 < ces'' f' aes' > r < ces'' f' aes' >  |
+}
+treble = {
+  \tag #'key \key aes \major
+  \time 2/4
+
+  \partial 8 r8
+  \repeat volta 2 {
+    \trebleA
+  }
+  \alternative {
+    { < c'' aes' ees' >8 < des' bes' g' >16 < c' aes' ees' > ~ < aes' ees' c' >8 r  | }
+    { < c'' ees' aes' >8 < des' bes' g' >16 < c' aes' ees' > ~ < aes' c' ees' >8 r  | }
+  }
+
+  \repeat volta 2 {
+    r8 < ees'' bes' g' > r16 < d'' fis' a' >8.-\accent  |
+    %% 20
+    < des'' aes' f' >8 r16 < c'' g' ees' >-\accent ~ < ees' g' c'' >8 < des' f' bes' >  |
+    r8 < c' ees' aes' > r16 < aes c' f' >8.-\accent  |
+    < aes' c' ees' >8 r16 < f' c' aes >-\accent ~ < aes c' f' >8 < fis' c' ees' >  |
+    r8 < des' ees' g' > r16 < f' des' bes >8.-\accent  |
+    < g' ees' des' >8 r16 < f' des' bes >-\accent ~ < f' des' bes >8 < f' bes des' >  |
+    %% 25
+    r8 < aes' c' ees' > r16 < f' aes c' >8.-\accent  |
+    < aes' ees' c' >8 r16 < f' c' aes >-\accent ~ < f' c' aes >8 < fis' c' ees' >  |
+    r8 < ees'' bes' g' > r16 < d'' a' fis' >8.-\accent  |
+    < des'' f' aes' >8 r16 < c'' g' ees' >-\accent ~ < c'' g' ees' >8 < bes' f' des' >  |
+    r8 < aes' ees' c' > r16 < f' c' aes >8.-\accent  |
+    %% 30
+    < aes' ees' c' >8 < c' ges' aes' > < b g' f' > < bes fes' ges' >  |
+    < f' ees' a >8 < f' a ees' > r < f' a ees' >  |
+    < f' des' bes >8 < f' ees' a > < f' bes des' > < f' bes des' >  |
+    r8 < f' d' aes > < f' des' aes > < g' des' bes >  |
+  } \alternative {
+    { < c' ees' aes' >4 r  | }
+    { < c' ees' aes' >4 r  | }
+  }
+  \trebleA
+  < c'' aes' ees' >8 < des' bes' g' >16 < c' aes' ees' > ~ < aes' ees' c' >8 r  |
+  \bar "|."
+}
+bassA = {
+  aes,8 r a, r  |
+  bes,8 r ees ees,  |
+  aes,8 r a, r  |
+  %% 5
+  bes,8 r ees < ees ees' >  |
+  < d' d >4-\accent( < ees' ees >8) < ees' ees >  |
+  < d' d >4-\accent( < ees' ees >)  |
+  < d d' >8-\accent < d' d >-\accent ~ < d' d >-\accent < d' d >  |
+  < ees' ees > 8 < ees ees, >-\accent < f f, >-\accent < g g, >-\accent  |
+  %% 10
+  < aes aes, > 8 r d r  |
+  ees 8 r ees, ees  |
+  d 8 r d r  |
+  ees 8 ees, 16 aes, _~ aes, 8 ees-\accent  |
+  d 8 r d r  |
+  %% 15
+  ees 8 r ees, ees  |
+  d 8 r d r  |
+}
+bass = {
+  \tag #'key \key aes \major
+  \time 2/4
+  
+  \partial 8 r8
+  \repeat volta 2 {
+    \bassA
+  }
+  \alternative {
+    { ees8 ees,16 aes, ~ aes,8 ees-\accent  | }
+    { ees8 ees,16 aes, ~ aes,8 < aes aes, >-\accent  | }
+  }
+  \repeat volta 2 {
+    bes,8 r ees, r  |
+    %% 20
+    bes,8 r ees, g,  |
+    aes,8 r ees, r  |
+    aes,8 r aes, a,  |
+    bes,8 r ees, r  |
+    bes,8 r ees, g,  |
+    %% 25
+    aes,8 r ees, r  |
+    aes,8 r aes, a,  |
+    bes,8 r ees, r  |
+    bes,8 r ees, g,  |
+    aes,8 r ees, r  |
+    %% 30
+    aes,8 aes, g, ges,  |
+    f,8 r c r  |
+    bes,8 r f, f,  |
+    bes,8 r ees, r  |
+  }
+  \alternative {
+    { aes,8 aes,-\accent bes,-\accent c-\accent  | }
+    { aes,4 r \bar "|." }
+  }
+  | \bassA |
+  ees8 ees,16 aes, ~ aes,8 r  |
 }
 
 \paper {
@@ -297,6 +413,13 @@ melody = {
 %}
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
+      \set PianoStaff.instrumentName = \markup { "Accomp." }
+      \set PianoStaff.shortInstrumentName = \markup { "Acc." }
+      \context Staff = upper << \time 2/4 \treble >>
+      \context Staff = lower << \clef bass \bass >>
+    >>
+    \new PianoStaff <<
+      #(set-accidental-style 'piano-cautionary)
       \set PianoStaff.instrumentName = \markup { "Piano" }
       \set PianoStaff.shortInstrumentName = \markup { "Pia." }
       \context Staff = upper << \time 2/4 \pianotop >>
@@ -306,6 +429,79 @@ melody = {
   \layout { }
   \header {
     instrument = "Piano/Guitar"
+    breakbefore=##t
+  }
+}
+
+% flute score
+\score {
+  <<
+%{
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
+%}
+    \context Voice = fluteA {
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \new Voice = melody {
+	\transpose c c' { \melody }
+      }
+    }
+%{
+    \new Lyrics \lyricsto "melody" { \words }
+    \context Staff = fluteB {
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Alto"
+      \set Staff.shortInstrumentName = "Alt."
+      \transpose c c' { \alto \transpose c c, \altotag }
+    }
+%}
+  >>
+  \header {
+    instrument = "Flute"
+    breakbefore=##t
+  }
+}
+
+% clarinet score
+\score {
+  <<
+%{
+    \context ChordNames {
+         \set chordChanges = ##t
+         \transpose bes c \harmonies
+    }
+%}
+    \context Staff = clarinetA {
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \new Voice = melody {
+	\transpose bes c { \melody }
+      }
+    }
+%{
+    \new Lyrics \lyricsto "melody" { \words }
+    \context Staff = clarinetB {
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Alto"
+      \set Staff.shortInstrumentName = "Alt."
+      \transpose bes c { \altoclar \altotag }
+    }
+%}
+    \context Staff = clarinetC {
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \transpose bes c''
+      \keepWithTag #'c \bass
+    }
+  >>
+  \header {
+    instrument = "Clarinet (Bb)"
     breakbefore=##t
   }
 }
@@ -337,6 +533,7 @@ melody = {
 	\transpose ees c' { \alto \transpose c c, \altotag }
       }
     }
+%}
     \context Staff = saxC {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Bass"
@@ -344,7 +541,6 @@ melody = {
       \transpose ees c''
       \keepWithTag #'s \bass
     }
-%}
   >>
   \header {
     instrument = "Saxophone (Eb)"
@@ -366,12 +562,14 @@ melody = {
        \set Staff.midiInstrument = "fiddle"
        r1 { \alto \altotag }
      >>
+%}
     \context Staff=bass <<
       \set Staff.midiInstrument = "acoustic bass"
       r1\ff
       %\transpose c c'
       \keepWithTag #'n \bass
     >>
+%{
     \context Staff=chords <<
       \set Staff.midiInstrument = "pizzicato strings"
       r1\pp
