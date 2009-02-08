@@ -23,7 +23,7 @@ melodya = \relative c'' { % c above middle c
   \repeat volta 2 {
     <cis='' a'>2 <b g'>2 | e8( fis) e d cis4 cis8 d |
     e=''8( cis) e fis g( a) b a | g4 e e e8 g |
-    a=''8( b) a fis g( a) g g | e( fis) e d cis( d) e fis |
+    a=''8( b) a fis g( a) g fis | e( fis) e d cis( d) e fis |
     g=''4 d e8 fis e d |
   } \alternative {
     { cis=''4 a a e'8( g) | } % technically, the slur should extend to the first chord
@@ -99,18 +99,18 @@ harmonies = \chordmode {
     \once\override Score.RehearsalMark #'extra-offset = #'(-3 . 0)
     \mark\default
     a4:m a:m g g |
-    a4 a a a |
-    a4 a a a |
+    a4:m a:m a:m a:m |
+    a4:m a:m a:m a:m |
     e4 e e e |
 \break
     a4:m a:m g g |
-    a4 a a a |
-    a4 a g g |
+    a4:m a:m a:m a:m |
+    a4:m a:m g g |
   }
   \alternative {
-    { a4 a a a | }
+    { a4:m a:m a:m a:m | }
     { \set chordChanges = ##f
-      a4 \set chordChanges = ##t a a a | }
+      a4:m \set chordChanges = ##t a:m a:m a:m | }
   }
 }
 
