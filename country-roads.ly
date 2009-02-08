@@ -14,18 +14,16 @@
 #(set-default-paper-size "letter")
 #(set-global-staff-size 18)
 
-melody = \transpose a g \relative c' { % middle c
-  \tag #'key \key a \major
-  \time 2/2 % cut time
-
-  % intro
+melodyintro = \transpose a g \relative c' { % middle c
   r4 a8 e'8 ~ e='4 cis='4 |
   r8 e,8 a e' ~ e=' bis' cis='' e\accent ~ |
   e1 ~ |
   e8 bis cis e ~ e e fis4 |
-  cis8 a4. e='4 e |
-
+  cis8 a4. % partial measure
+}
+melodymain = \transpose a g \relative c' { % middle c
   % verse
+  e='4 e |
   \repeat volta 2 {
     fis='4. e8 ~ e2 |
     r2 fis='4 e8 fis ~ |
@@ -109,16 +107,19 @@ melody = \transpose a g \relative c' { % middle c
   a1 ~ |
   a2 ~ a4\fermata r4 \bar ":|" |
 }
-melodytag = \transpose a g \relative c'' { % c above middle c
-  % outro
+
+melody = { \transpose a g {
+  \tag #'key \key a \major
+  \time 2/2 % cut time
+}
+  \melodyintro
+  \melodymain
 }
 
 alto = \transpose a g \relative c' { % middle c
   \tag #'key \key a \major
   \time 2/2
   r1
-}
-altotag = \transpose a g \relative f' {
 }
 
 % same as alto part, but some very low notes raised.
@@ -447,7 +448,7 @@ wordsB = \lyricmode {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \context Voice = melody { \small\melody\melodytag }
+      \context Voice = melody { \small\melody }
       \context Lyrics = firstverse \lyricsto melody \wordsA
       \context Lyrics = secondverse \lyricsto melody \wordsB
     >>
@@ -457,7 +458,7 @@ wordsB = \lyricmode {
 	\set Staff.instrumentName = \markup{ \column { "Soprano/" "Alto" } }
 	\set Staff.shortInstrumentName = "S/A"
 	\set Staff.printPartCombineTexts = ##f
-	\partcombine {\melody\melodytag} {\alto\altotag}
+	\partcombine {\melody} {\alto}
       >>
       \context Staff = lower <<
 	%\set Staff.printPartCombineTexts = ##f
@@ -511,17 +512,19 @@ wordsB = \lyricmode {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \new Voice = melody {
-	\transpose c c' { \melody \transpose c c, \melodytag }
+	\transpose c c' \melody
       }
     }
     \new Lyrics \lyricsto "melody" { \wordsA }
-    \new Lyrics \lyricsto "melody" { \wordsB }
+    %\new Lyrics \lyricsto "melody" { \wordsB }
+%{
     \context Staff = fluteB {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
-      \transpose c c' { \alto \transpose c c, \altotag }
+      \transpose c c' { \alto }
     }
+%}
   >>
   \header {
     instrument = "Flute"
@@ -541,17 +544,24 @@ wordsB = \lyricmode {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \new Voice = melody {
-	\transpose bes c { \melody \melodytag }
+	\transpose bes c {
+	  \key g \major
+	  \time 2/2
+	  {\transpose c c' \melodyintro}
+	  \melodymain
+	}
       }
     }
     \new Lyrics \lyricsto "melody" { \wordsA }
     %\new Lyrics \lyricsto "melody" { \wordsB }
+%{
     \context Staff = clarinetB {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
-      \transpose bes c { \altoclar \altotag }
+      \transpose bes c { \altoclar }
     }
+%}
     \context Staff = clarinetC {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Bass"
@@ -578,19 +588,21 @@ wordsB = \lyricmode {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \new Voice = melody {
-	\transpose ees c' { \melody \transpose c c, \melodytag }
+	\transpose ees c' { \melody }
       }
     }
     \new Lyrics \lyricsto "melody" { \wordsA }
     %\new Lyrics \lyricsto "melody" { \wordsB }
+%{
     \context Staff = saxB {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
       \new Voice = alto {
-	\transpose ees c' { \alto \transpose c c, \altotag }
+	\transpose ees c' { \alto }
       }
     }
+%}
     \context Staff = saxC {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Bass"
@@ -610,14 +622,14 @@ wordsB = \lyricmode {
   <<
     \context ChordNames {
          \set chordChanges = ##t
-         \transpose bes a \harmonies
+         \harmonies
     }
     \context Staff = guiA {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \new Voice = melody {
-	\transpose bes a { \melody \melodytag }
+	{ \melody }
       }
     }
     \new Lyrics \lyricsto "melody" { \wordsA }
@@ -631,7 +643,7 @@ wordsB = \lyricmode {
 %}
   >>
   \header {
-    instrument = "Banjo/Guitar, capo'ed up 1 fret"
+    instrument = "Banjo/Guitar"
     breakbefore=##t
   }
 }
@@ -649,18 +661,20 @@ wordsB = \lyricmode {
       \set Staff.shortInstrumentName = "Mel."
       % 1 octave down
       \clef bass
-      \transpose c c, { \melody \transpose c c, \melodytag }
+      \transpose c c, { \melody }
     }
     \new Lyrics \lyricsto "celloA" { \wordsA }
     %\new Lyrics \lyricsto "celloA" { \wordsB }
+%{
     \context Staff = celloB {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
       % 1 octave down
       \clef bass
-      \transpose c c, { \alto \transpose c c, \altotag }
+      \transpose c c, { \alto }
     }
+%}
     \context Staff = celloC {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Bass"
@@ -686,7 +700,7 @@ wordsB = \lyricmode {
     \context Voice = melody {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \transpose bes a { \melody \melodytag }
+      \transpose bes a { \melody }
     }
     \new Lyrics \lyricsto "melody" { \wordsA }
     %\new Lyrics \lyricsto "melody" { \wordsB }
@@ -722,9 +736,9 @@ wordsB = \lyricmode {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \set Staff.printPartCombineTexts = ##f
-      %\small\partcombine {\melody\melodytag} {\alto\altotag}
+      %\small\partcombine {\melody} {\alto}
       \new Voice = melody {
-	\small{\melody\melodytag}
+	\small{\melody}
       }
     >>
     \new Lyrics \lyricsto "melody" { \small\wordsA }
@@ -750,11 +764,11 @@ wordsB = \lyricmode {
   \context PianoStaff <<
     \context Staff=melody << 
        \set Staff.midiInstrument = "fiddle"
-       r1 { \melody \melodytag }
+       r1 { \melody }
      >>
     \context Staff=alto << 
        \set Staff.midiInstrument = "fiddle"
-       r1 { \alto \altotag }
+       r1 { \alto }
      >>
     \context Staff=bass <<
       \set Staff.midiInstrument = "acoustic bass"
