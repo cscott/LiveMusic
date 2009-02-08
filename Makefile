@@ -1,7 +1,7 @@
 ### updated for latest lilypond
 SONGS=cripple-creek2 miss-sawyer kitchen-girl frosty-morn answer-me rocky-top\
 	non-dimenticar one-toke girl-blue saturday-night sandy-river2 \
-	june-apple country-roads maple-leaf-rag \
+	june-apple country-roads maple-leaf-round \
 	miss-sawyer-c kitchen-girl-c frosty-morn-f
 ### not yet updated
 #SONGS+=soldiers-joy last-chance devil-went-down
