@@ -152,7 +152,7 @@ harmonies = \transpose d c \chordmode {
       \set Staff.instrumentName = "Bass "
       \set Staff.instrumentName = "Bass "
       \set Staff.shortInstrumentName = "Bas."
-      { \clef "bass_8" \removeWithTag #'key \bass }
+      { \clef "bass_8" \bass }
     >>
 %{
     \new PianoStaff <<
