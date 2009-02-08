@@ -21,16 +21,17 @@ melodya = \relative c' { % middle c
   \tag #'key \key g \major
   \time 4/4
   \repeat volta 2 {
-    e='8 d e( g) a < \parenthesize g > a < \parenthesize g > |
-    a='8 b c( d) e4 \times 2/3 { d,8( e fis } |
-    g='8) < \parenthesize a > b a g4 d |
-    g='8 a b( c d4) < \parenthesize d, >4( |
-    e='8) d e g a < \parenthesize g > a < \parenthesize g > |
-    a='8 b c d( e4) e8 d |
-    c=''( b) a c( b a) g4 |
+    a'='8 b c b a4 e4 |
+    a='8 b c d e4 \times 2/3 { d,8( e fis } |
+    g='8) a b a g4 d |
+    g='8 a b( c d4) \times 2/3 { e,8( fis g } |
+
+    a='8) b c b a4 e4 |
+    a='8 b c d e4 e4 |
+    e=''8 d c e d c b g |
   } \alternative {
-    { a='4. b8( a4) < \parenthesize d, >4 | }% the d should be tied to the first e
-    { a'='4. b8( a2) | }
+    { a='4. b8( a4) \times 2/3 { e8( fis g) } | } % slur should extend to 1st note
+    { a='4. b8( a2) | }
   }
 }
 melodyb = \relative c' { % middle c
@@ -40,10 +41,10 @@ melodyb = \relative c' { % middle c
     e=''8( d) e fis( g fis) g( fis |
     e=''8) d b d( e4) e |
     a,='4 a8 < \parenthesize a >( c4) c8 < \parenthesize c >( |
-    d=''8 c) d < \parenthesize d >( e4) e8 d |
-    c=''8 b a c b( a) g4 |
+    d=''8 c) d4 e4 e8 d |
+    c=''8 b a c b( a) g e |
   } \alternative {
-    { a='4( a8 b a2) }
+    { a='4.\( b8 a2\) }
     { a='1 }
   }
   \bar "|."
