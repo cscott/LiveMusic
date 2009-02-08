@@ -14,7 +14,7 @@
 #(set-default-paper-size "letter")
 #(set-global-staff-size 18)
 
-melody = \relative c' { % middle c
+melody = \transpose a g \relative c' { % middle c
   \tag #'key \key a \major
   \time 2/2 % cut time
 
@@ -67,10 +67,9 @@ melody = \relative c' { % middle c
     b^\markup{ "To Coda" } |
     \break
     a='1 ~ |
-    a4 r4 r2 |
   }
   \alternative {
-    { r2 e='4 e | }
+    { a4 r4 e='4 e | }
     { r4 a='4 a a | gis2 a4 b | }
   }
   cis=''4 cis cis cis |
@@ -110,21 +109,21 @@ melody = \relative c' { % middle c
   a1 ~ |
   a2 ~ a4\fermata r4 \bar ":|" |
 }
-melodytag = \relative c'' { % c above middle c
+melodytag = \transpose a g \relative c'' { % c above middle c
   % outro
 }
 
-alto = \relative c' { % middle c
+alto = \transpose a g \relative c' { % middle c
   \tag #'key \key a \major
   \time 2/2
   r1
 }
-altotag = \relative f' {
+altotag = \transpose a g \relative f' {
 }
 
 % same as alto part, but some very low notes raised.
 % I assume the clarinet can play E below middle C (but not Eb)
-altoclar = \relative c' { % middle c
+altoclar = \transpose a g \relative c' { % middle c
   \tag #'key \key a \major
   \time 2/2
 
@@ -138,7 +137,7 @@ lowcx  = \relative c, { < \tag #'n c   \tag #'l \tag #'s \tag #'c c'   >4 }
 lowc   = \relative c, { < \tag #'n \tag #'l c   \tag #'s \tag #'c c'   >4 }
 lowdes = \relative c, { < \tag #'n \tag #'l \tag #'s des \tag #'c des' >4 }
 lowdx = \relative c,  { < \tag #'n \tag #'l \tag #'s d   \tag #'c d'   >4 }
-bass = \relative c { % c below middle c
+bass = \transpose a g \relative c { % c below middle c
   \tag #'key \tag #'n \tag #'l \tag #'s \tag #'c \key a \major
   \time 2/2
 
@@ -155,7 +154,7 @@ bass = \relative c { % c below middle c
     e=,2 | a e | a cis,4 d | e=,2 b' | e, b' |
     fis=,2 cis | fis fis4 e | d2 a' | d2 cis4 b | a=,2 e |
     a=,2 cis,4 d | e=,2 b' | e, b4 cis | d=,2 a' | d2 cis4 b |
-    a=,2 e | a e |
+    a=,2 e |
   }
   \alternative {
     { a=,2 e | }
@@ -173,7 +172,7 @@ bass = \relative c { % c below middle c
 
 pianotop = <<
   \new Voice = "first" { \voiceOne \melody }
-  \new Voice = "second" { \voiceTwo
+  \new Voice = "second" \transpose a g { \voiceTwo
 
   \tag #'key \key a \major
   \time 2/2
@@ -218,7 +217,6 @@ pianotop = <<
     r8 d'8 e' fis' ~ fis'4 <fis' d'>4 |
     r8 d'8 e' fis' ~ fis'4 <fis' d'>4 |
     r8 cis'8 d' e' ~ e'4 <e' cis'>4 |
-    r8 cis'8 d' e' ~ e'4 <e' cis'>4 |
   } \alternative {
     { r8 a8 b cis' ~ cis'4 <cis' a>4 | }
     { r8 cis'8 ~ <cis' fis'>4 <cis' fis'>4 <cis' fis'>4 |
@@ -255,7 +253,7 @@ pianotop = <<
 >>
 pianobot = \bass
 
-harmonies = \chordmode {
+harmonies = \transpose a g \chordmode {
   \set Score.markFormatter = #format-mark-box-letters
   \chordProperties
   \time 2/2
@@ -303,7 +301,6 @@ harmonies = \chordmode {
     d4 d d d |
     d4 d d d |
     % to coda
-    a4 a a a |
     a4 a a a |
   }
   \alternative {
