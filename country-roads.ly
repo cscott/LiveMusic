@@ -65,9 +65,10 @@ melodymain = \transpose a g \relative c' { % middle c
     b^\markup{ "To Coda" } |
     \break
     a='1 ~ |
+    a4 r4 r2 |
   }
   \alternative {
-    { a4 r4 e='4 e | }
+    { r2 e='4 e | }
     { r4 a='4 a a | gis2 a4 b | }
   }
   cis=''4 cis cis cis |
@@ -155,7 +156,7 @@ bass = \transpose a g \relative c { % c below middle c
     e=,2 | a e | a cis,4 d | e=,2 b' | e, b' |
     fis=,2 cis | fis fis4 e | d2 a' | d2 cis4 b | a=,2 e |
     a=,2 cis,4 d | e=,2 b' | e, b4 cis | d=,2 a' | d2 cis4 b |
-    a=,2 e |
+    a=,2 e | a e |
   }
   \alternative {
     { a=,2 e | }
@@ -217,6 +218,7 @@ pianotop = <<
     r8 d'8 e' gis' ~ gis'4 e'4 |
     r8 d'8 e' fis' ~ fis'4 <fis' d'>4 |
     r8 d'8 e' fis' ~ fis'4 <fis' d'>4 |
+    r8 cis'8 d' e' ~ e'4 <e' cis'>4 |
     r8 cis'8 d' e' ~ e'4 <e' cis'>4 |
   } \alternative {
     { r8 a8 b cis' ~ cis'4 <cis' a>4 | }
@@ -302,6 +304,7 @@ harmonies = \transpose a g \chordmode {
     d4 d d d |
     d4 d d d |
     % to coda
+    a4 a a a |
     a4 a a a |
   }
   \alternative {
