@@ -14,7 +14,8 @@
 #(set-default-paper-size "letter")
 #(set-global-staff-size 18)
 
-melodyintro = \transpose a g \relative c' { % middle c
+% \transpose a g
+melodyintro = \relative c' { % middle c
 
     r2 cis'=''8( b) a4 |
     b='4 cis2.~ |
@@ -23,12 +24,11 @@ melodyintro = \transpose a g \relative c' { % middle c
     a2 a4 b |
     a='1 ~ |
     a4 r4 r2 |
-    r2 % partial measure
 }
-melodymain = \transpose a g \relative c' { % middle c
-  % verse
-  e='4 e |
-  \repeat volta 2 {
+melodytoA = \relative c' { % middle c
+    r2 e='4 e |
+}
+melodypartA = \relative c' { % middle c
     fis='4. e8 ~ e2 |
     r2 fis='4 e8 fis ~ |
     fis='8 a4. ~ a2 |
@@ -43,10 +43,10 @@ melodymain = \transpose a g \relative c' { % middle c
     b='4 b b b |
     cis4. b8 ~ b2 |
     fis='4 a4 a b8 a ~ |
-    a2  \bar "||" \break
-
-    \mark \markup { \musicglyph #"scripts.segno" }
-    a='4 b4 |
+    a2
+}
+melodychorus = \relative c' {
+    a'='4 b4 |
     cis=''1 ~ |
     cis2 cis8( b) a4 |
     b1 ~ |
@@ -60,21 +60,16 @@ melodymain = \transpose a g \relative c' { % middle c
     b='4 cis2.~ |
     cis2 cis8( b) a4 |
     a1 ~ |
-    a2 a4
-    % "To Coda" should go at end of line, not beginning; align right.
-    \once \override TextScript #'self-alignment-X = #left
-    \once \override TextScript #'extra-offset = #'( -2.0 . 0.0 )
-    \once \override TextScript #'font-size = #2
-    b^\markup{ "To Coda" } |
+    a2 a4 b |
     \break
     a='1 ~ |
     a4 r4 r2 |
-  }
-  \alternative {
-    { r2 e='4 e | }
-    { r4 a='4 a a | gis2 a4 b | }
-  }
-  cis=''4 cis cis cis |
+}
+melodytoB = \relative c' { % middle c
+    r4 a'='4 a a | gis2 a4 b |
+}
+melodypartB = \relative c' { % middle c
+  cis'=''4 cis cis cis |
   cis=''4( b) a4. a8 |
   d=''4. d8 d4 d |
   d=''4 cis b a |
@@ -87,20 +82,10 @@ melodymain = \transpose a g \relative c' { % middle c
   b='4 cis4 b2 ~ |
   b2 b4 cis |
   d=''1 ~ |
-  d4
-  % D.S. should go at end of line, not beginning; align right.
-  % lilypond doesn't allow multiple marks on a single bar line, so
-  % attach it to the final rest instead. (and skooch it over a bit)
-  \once \override TextScript #'self-alignment-X = #right
-  \once \override TextScript #'extra-offset = #'( -2.0 . 0.0 )
-  \once \override TextScript #'font-size = #2
-  r4^\markup{ "D.S. al Coda" }
-  \bar "||"
-  \break
-  % coda symbol at start of tag
-  \partial 4*0 % reset timing for coda
-  \mark \markup { \musicglyph #"scripts.coda" }
-  a='1 ~ |
+  d4 r4\fermata
+}
+melodycoda = \relative c' { % middle c
+  a'='1 ~ |
   a4 r4 cis8( b) a4 |
   b1 ~ |
   b2 cis8( b) a4 |
@@ -112,12 +97,22 @@ melodymain = \transpose a g \relative c' { % middle c
   a2 ~ a4\fermata r4 \bar ":|" |
 }
 
-melody = { \transpose a g {
+melody = \transpose a g {
   \tag #'key \key a \major
   \time 2/2 % cut time
-}
+
   \melodyintro
-  \melodymain
+  \melodytoA
+  \melodypartA
+  \melodychorus
+  \repeat volta 2 {
+    \melodytoB
+    \melodypartB
+    \melodychorus
+  }
+  \melodytoA
+
+  \melodycoda
 }
 
 alto = \transpose a g \relative c' { % middle c
@@ -142,48 +137,58 @@ lowcx  = \relative c, { < \tag #'n c   \tag #'l \tag #'s \tag #'c c'   >4 }
 lowc   = \relative c, { < \tag #'n \tag #'l c   \tag #'s \tag #'c c'   >4 }
 lowdes = \relative c, { < \tag #'n \tag #'l \tag #'s des \tag #'c des' >4 }
 lowdx = \relative c,  { < \tag #'n \tag #'l \tag #'s d   \tag #'c d'   >4 }
-bass = \transpose a g \relative c { % c below middle c
-  \tag #'key \tag #'n \tag #'l \tag #'s \tag #'c \key a \major
-  \time 2/2
 
-  % intro
+bassintro = \relative c { % c below middle c
   r2 cis,=,4 d | e=,2 b' | e, b4 cis | d=,2 a' | d2 cis4 b |
   a=,2 e | a e |
+}
+basstoA = \relative c { % c below middle c
   a=,2 e |
-  % verse
-  \repeat volta 2 {
-    a e | fis cis' | fis, fis |
+}
+basspartA = \relative c {
+    a=,2 e | fis cis' | fis, fis |
     e=,2 b' | e, b' | d, d | a' e |
     a=,2 e | a e | fis cis' | fis, fis |
     e=,2 b' | e, b' | d2 cis4 b | a=,2
+}
+basschorus = \relative c {
     % signo
-    e=,2 | a e | a cis,4 d | e=,2 b' | e, b' |
+    e,=,2 | a e | a cis,4 d | e=,2 b' | e, b' |
     fis=,2 cis | fis fis4 e | d2 a' | d2 cis4 b | a=,2 e |
     a=,2 cis,4 d | e=,2 b' | e, b4 cis | d=,2 a' | d2 cis4 b |
     a=,2 e | a e |
-  }
-  \alternative {
-    { a=,2 e | }
-    { fis=,1 | e1 | }
-  }
-  % b part
+}
+basstoB = \relative c {
+    fis,=,1 | e1 |
+}
+basspartB = \relative c {
   a=,2 e | a b4 cis | d2 cis4 b | a=,2 gis4 fis |
   e=,2 b' | e, b' | fis=,2 fis | g g | d' cis4 b |
-  a=,2 gis4 fis | e=,2 b' | e, b' | e, b' | e4 r4
-  % outro
-  \partial 4*0 % reset timing for coda
-  a,=,2 e | a gis4 fis | e=,2 b' | e, fis4 gis | a=,2 e |
+  a=,2 gis4 fis | e=,2 b' | e, b' | e, b' | e4 r4\fermata
+}
+basscoda = \relative c {
+  a=,2 e | a gis4 fis | e=,2 b' | e, fis4 gis | a=,2 e |
   a=,2 gis4 fis | e=,2 b' | e, e | a e | a ~ a4\fermata r4 |
 }
-
-pianotop = <<
-  \new Voice = "first" { \voiceOne \melody }
-  \new Voice = "second" \transpose a g { \voiceTwo
-
+bass = \transpose a g {
   \tag #'key \key a \major
   \time 2/2
 
-  % intro
+  \bassintro
+  \basstoA
+  \basspartA
+  \basschorus
+  \repeat volta 2 {
+    \basstoB
+    \basspartB
+    \basschorus
+  }
+  \basstoA
+
+  \basscoda
+}
+
+pianotopintro = {
   s1 |
   gis'8 e' gis' e' ~ e'4 <e' gis'>4 |
   r8 d'8 e' gis' ~ gis'4 e'4 |
@@ -191,10 +196,11 @@ pianotop = <<
   r8 d'8 e' fis' ~ fis'4 <fis' d'>4 |
   r8 cis'8 d' e' ~ e'4 <e' cis'>4 |
   r8 cis'8 d' e' ~ e'4 <e' cis'>4 |
+}
+pianotoptoA = {
   r8 a8 b cis' ~ cis'4 <cis' a>4 |
-
-  % verse
-  \repeat volta 2 {
+}
+pianotoppartA = {
     r8 a8 ~ <a cis'>2 <a cis'>4 |
     r8 a8 ~ <a cis'>4 ~ <a cis'>2 |
     r8 a8 ~ <a cis'>2 <a cis'>4 |
@@ -211,6 +217,8 @@ pianotop = <<
     r8 e' ~ <e' gis'>2 <e' gis'>4 |
     r8 d'8 ~ <d' fis'>4 <d' fis'> <d' fis'>8 <cis' e'> ~ |
     <cis' e'>8 cis' e'4
+}
+pianotopchorus = {
     % signo
     cis'4 d' |
     r8 cis'8 e' a' ~ a'4 <a' e' cis'>4 |
@@ -229,12 +237,12 @@ pianotop = <<
     r8 d'8 e' fis' ~ fis'4 <fis' d'>4 |
     r8 cis'8 d' e' ~ e'4 <e' cis'>4 |
     r8 cis'8 d' e' ~ e'4 <e' cis'>4 |
-  } \alternative {
-    { r8 a8 b cis' ~ cis'4 <cis' a>4 | }
-    { r8 cis'8 ~ <cis' fis'>4 <cis' fis'>4 <cis' fis'>4 |
-      r8 b8 ~ <b e'>4 <d' fis'>4 <e' gis'>4 | }
-  }
-  % b part
+}
+pianotoptoB = {
+    r8 cis'8 ~ <cis' fis'>4 <cis' fis'>4 <cis' fis'>4 |
+    r8 b8 ~ <b e'>4 <d' fis'>4 <e' gis'>4 |
+}
+pianotoppartB = {
   r8 e'8 ~ <e' a'>4 <e' a'>4 <e' a'>4 |
   r8 cis'8 ~ <cis' e'>2. |
   r8 fis'8 ~ <fis' a'>2. |
@@ -248,9 +256,9 @@ pianotop = <<
   r8 e'8 ~ <e' gis'>2 <e' gis'>4 |
   r8 e'8 ~ <e' gis'>2 <e' gis'>4 |
   r8 e'8 ~ <e' gis'>2 <e' gis'>4 |
-  <e' gis'>4 r4
-  % outro
-  \partial 4*0 % reset timing for coda
+  <e' gis'>4 s4
+}
+pianotopcoda = {
   r8 a8 cis' e' ~ e'4 <e' cis'>4 |
   r8 cis'8 e' a' ~ a'4 e'4 |
   r8 d'8 e' gis' ~ gis'4 <gis' e'>4 |
@@ -262,15 +270,30 @@ pianotop = <<
   r8 a8 cis' e' ~ e'4 <e' cis'>4 |
   r8 a8 cis' e' ~ \acciaccatura b8 <e' cis'>4\fermata r4 |
 }
+pianotop = <<
+  \new Voice = "first" { \voiceOne \melody }
+  \new Voice = "second" \transpose a g { \voiceTwo
+
+  \tag #'key \key a \major
+  \time 2/2
+
+  \pianotopintro
+  \pianotoptoA
+  \pianotoppartA
+  \pianotopchorus
+  \repeat volta 2 {
+    \pianotoptoB
+    \pianotoppartB
+    \pianotopchorus
+  }
+  \pianotoptoA
+
+  \pianotopcoda
+}
 >>
 pianobot = \bass
 
-harmonies = \transpose a g \chordmode {
-  \set Score.markFormatter = #format-mark-box-letters
-  \chordProperties
-  \time 2/2
-
-  % intro
+harmoniesintro = \chordmode { \chordProperties
   s1 |
   e4 e e e |
   e4 e e e |
@@ -278,11 +301,11 @@ harmonies = \transpose a g \chordmode {
   d4 d d d |
   a4 a a a |
   a4 a a a | \break
+}
+harmoniestoA = \chordmode { \chordProperties
   a4 a a a | 
-
-  % verse
-  \repeat volta 2 {
-    \mark \default % A part
+}
+harmoniespartA = \chordmode { \chordProperties
     a4 a a a |
     fis4:m fis:m fis:m fis:m |
     fis4:m fis:m fis:m fis:m |
@@ -298,6 +321,8 @@ harmonies = \transpose a g \chordmode {
     e4 e e e |
     d4 d d d |
     a4 a 
+}
+harmonieschorus = \chordmode { \chordProperties
     % signo
     a a |
     a4 a a a |
@@ -314,16 +339,18 @@ harmonies = \transpose a g \chordmode {
     e4 e e e |
     d4 d d d |
     d4 d d d |
-    % to coda
+    \tag #'tocoda {    % to coda
+      \once\override Score.RehearsalMark #'break-visibility = #begin-of-line-invisible
+      \once\override Score.RehearsalMark #'self-alignment-X = #RIGHT  
+      \mark "To Coda"
+    }
     a4 a a a |
     a4 a a a |
-  }
-  \alternative {
-    { a4 a a a | }
-    { fis4:m fis:m fis:m fis:m | e4 e e e | }
-  }
-
-  \mark\default % B part
+}
+harmoniestoB = \chordmode { \chordProperties
+  fis4:m fis:m fis:m fis:m | e4 e e e |
+}
+harmoniespartB = \chordmode { \chordProperties
   a4 a a a |
   a4 a a a |
   d4 d d d |
@@ -338,10 +365,8 @@ harmonies = \transpose a g \chordmode {
   e4 e e e |
   e4:7 e:7 e:7 e:7 |
   e4:7 e:7
-  % ds al coda
-  %\mark\default % C part % multiple marks here not allowed.
-  % outro
-  \partial 4*0 % reset timing for coda
+}
+harmoniescoda = \chordmode { \chordProperties
   a4 a a a |
   a4 a a a |
   e4 e e e |
@@ -352,6 +377,38 @@ harmonies = \transpose a g \chordmode {
   e4 e e e |
   a4 a a a |
   a4 a a a |
+}
+harmonies = \transpose a g \chordmode {
+  \set Score.markFormatter = #format-mark-box-letters
+  \chordProperties
+  \time 2/2
+
+  \harmoniesintro
+  \mark \default % A part
+  \harmoniestoA
+  \mark \markup { \musicglyph #"scripts.segno" }
+  \harmoniespartA
+  \harmonieschorus
+  \mark \default % B part
+  \repeat volta 2 {
+    \harmoniestoB
+    \harmoniespartB
+    \removeWithTag #'tocoda \harmonieschorus
+  }
+  % attach the 'al segno' to the penultimate note, to work
+  % around a lilypond limitation which makes the al segno
+  % conflict with the coda symbol on the next bar.
+  %\override Score.RehearsalMark #'break-visibility = #begin-of-line-invisible
+  \chordmode { \chordProperties
+    a4 a a
+    \once\override Score.RehearsalMark #'self-alignment-X = #RIGHT  
+    s8. \mark "Al Segno" s16
+  }
+  \bar "||"
+  \break
+
+  \mark \markup { \musicglyph #"scripts.coda" }
+  \harmoniescoda
 }
 
 wordsA = \lyricmode {
@@ -392,7 +449,7 @@ wordsA = \lyricmode {
   home, __
   Coun -- try
   Roads. __
-  All my
+
   % ending 2
   I hear her
   voice, in the
@@ -408,6 +465,26 @@ wordsA = \lyricmode {
   should have been home
   yes -- ter -- day, __
   yes -- ter -- day. __
+
+
+  Coun -- try
+  Roads, __
+  take __ me
+  home __
+  to the
+  place __
+  I be -- long: __
+  West Vir --
+  gin -- ia, __
+  moun -- tain
+  mom -- ma, __
+  Take __ me
+  home, __
+  Coun -- try
+  Roads. __
+
+  All my
+
   % coda
   Roads, __
   take __ me
@@ -423,7 +500,7 @@ wordsB = \lyricmode {
   % intro
   "" "" "" ""
   "" "" ""
-  "" "" "" "" ""
+  "" "" "" All my
   % verse
   mem -- 'ries __
   gath -- er 'round __
@@ -439,7 +516,8 @@ wordsB = \lyricmode {
   mist -- y taste of
   moon -- shine, __
   tear -- drop in my eye.
-  %__
+  __
+  "" ""
 }
 
 \paper {
@@ -556,12 +634,7 @@ wordsB = \lyricmode {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \new Voice = melody {
-	\transpose bes c {
-	  \key g \major
-	  \time 2/2
-	  {\transpose c c' \melodyintro}
-	  \melodymain
-	}
+	\transpose bes c \melody
       }
     }
     \new Lyrics \lyricsto "melody" { \wordsA }
@@ -754,7 +827,7 @@ wordsB = \lyricmode {
       }
     >>
     \new Lyrics \lyricsto "melody" { \small\wordsA }
-    %\new Lyrics \lyricsto "melody" { \small\wordsB }
+    \new Lyrics \lyricsto "melody" { \small\wordsB }
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
       \set PianoStaff.instrumentName = \markup { "Piano" }
