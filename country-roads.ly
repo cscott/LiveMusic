@@ -130,16 +130,18 @@ altoclar = \transpose a g \relative c' { % middle c
   r1
 }
 
-lowa   = \relative c, { < \tag #'n a \tag #'l \tag #'s \tag #'c a' >4 }
-lowbes = \relative c, { < \tag #'n bes \tag #'l \tag #'s \tag #'c bes' >4 }
-lowb   = \relative c, { < \tag #'n b   \tag #'l \tag #'s \tag #'c b'   >4 }
-lowcx  = \relative c, { < \tag #'n c   \tag #'l \tag #'s \tag #'c c'   >4 }
-lowc   = \relative c, { < \tag #'n \tag #'l c   \tag #'s \tag #'c c'   >4 }
-lowdes = \relative c, { < \tag #'n \tag #'l \tag #'s des \tag #'c des' >4 }
-lowdx = \relative c,  { < \tag #'n \tag #'l \tag #'s d   \tag #'c d'   >4 }
+lowb = \relative c { < \tag #'lo b, \tag #'hi b' >4 }
+lowcis = \relative c { < \tag #'lo cis, \tag #'hi cis' >4 }
+lowciscis = \relative c { < \tag #'lo cis, \tag #'hi cis' >2 }
+lowd = \relative c { < \tag #'lo d, \tag #'hi d' >4 }
+lowdd = \relative c { < \tag #'lo d, \tag #'hi d' >2 }
+lowe = \relative c { < \tag #'lo e, \tag #'hi e' >4 }
+lowee = \relative c { < \tag #'lo e, \tag #'hi e' >2 }
+lowfis = \relative c { < \tag #'lo fis, \tag #'hi fis' >4 }
+
 
 bassintro = \relative c { % c below middle c
-  r2 cis,=,4 d | e=,2 b' | e, b4 cis | d=,2 a' | d2 cis4 b |
+  r2 \lowcis \lowd | \lowee b=,2 | e,2 \lowb \lowcis | \lowdd a=,2 | d2 cis4 b |
   a=,2 e | a e |
 }
 basstoA = \relative c { % c below middle c
@@ -147,15 +149,15 @@ basstoA = \relative c { % c below middle c
 }
 basspartA = \relative c {
     a=,2 e | fis cis' | fis, fis |
-    e=,2 b' | e, b' | d, d | a' e |
+    e=,2 b' | e, b' | \lowdd \lowdd | a=, e |
     a=,2 e | a e | fis cis' | fis, fis |
     e=,2 b' | e, b' | d2 cis4 b | a=,2
 }
 basschorus = \relative c {
     % signo
-    e,=,2 | a e | a cis,4 d | e=,2 b' | e, b' |
-    fis=,2 cis | fis fis4 e | d2 a' | d2 cis4 b | a=,2 e |
-    a=,2 cis,4 d | e=,2 b' | e, b4 cis | d=,2 a' | d2 cis4 b |
+    e,=,2 | a e | a \lowcis \lowd | \lowee b=, | e, b' |
+    fis=,2 \lowciscis | fis \lowfis \lowe | \lowdd a=, | d2 cis4 b | a=,2 e |
+    a=,2 \lowcis \lowd | \lowee b=,2 | e,2 \lowb \lowcis | \lowdd a=,2 | d2 cis4 b |
     a=,2 e | a e |
 }
 basstoB = \relative c {
@@ -291,7 +293,7 @@ pianotop = <<
   \pianotopcoda
 }
 >>
-pianobot = \bass
+pianobot = \removeWithTag #'hi \bass
 
 harmoniesintro = \chordmode { \chordProperties
   s1 |
@@ -528,6 +530,7 @@ wordsB = \lyricmode {
 }
 
 % combined score
+%{
 \score {
   <<
     \context ChordNames {
@@ -555,10 +558,9 @@ wordsB = \lyricmode {
 	\set Staff.instrumentName = "Bass"
 	\set Staff.shortInstrumentName = "Bas."
 	\clef bass
-	\keepWithTag #'n \bass
+	\bass
       >>
     >>
-%{
     \new Staff <<
 	\clef bass
 	\key bes \major \time 4/4
@@ -573,9 +575,8 @@ wordsB = \lyricmode {
       \set TabStaff.stringTunings = #bass-tuning
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
-      \removeWithTag #'key \keepWithTag #'n \bass
+      \removeWithTag #'key \bass
     >>
-%}
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
       \set PianoStaff.instrumentName = \markup { "Piano" }
@@ -589,6 +590,7 @@ wordsB = \lyricmode {
     instrument = "Combined Score"
   }
 }
+%}
 				
 % flute score
 \score {
@@ -623,6 +625,7 @@ wordsB = \lyricmode {
 }
 
 % clarinet score
+%{
 \score {
   <<
     \context ChordNames {
@@ -639,20 +642,20 @@ wordsB = \lyricmode {
     }
     \new Lyrics \lyricsto "melody" { \wordsA }
     %\new Lyrics \lyricsto "melody" { \wordsB }
-%{
+% {
     \context Staff = clarinetB {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
       \transpose bes c { \altoclar }
     }
-%}
+% }
     \context Staff = clarinetC {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
       \transpose bes c''
-      \keepWithTag #'c \bass
+      \bass
     }
   >>
   \header {
@@ -660,6 +663,7 @@ wordsB = \lyricmode {
     breakbefore=##t
   }
 }
+%}
 
 % saxophone score
 \score {
@@ -693,7 +697,7 @@ wordsB = \lyricmode {
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
       \transpose ees c''
-      \keepWithTag #'s \bass
+      \removeWithTag #'lo \bass
     }
   >>
   \header {
@@ -765,7 +769,7 @@ wordsB = \lyricmode {
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
       \clef bass 
-      \keepWithTag #'l \bass
+      \removeWithTag #'lo \bass
     }
   >>
   \header {
@@ -799,7 +803,7 @@ wordsB = \lyricmode {
       \set TabStaff.stringTunings = #bass-tuning
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
-      \removeWithTag #'key \keepWithTag #'n \bass
+      \removeWithTag #'key \bass
     >>
   >>
   \header {
@@ -859,7 +863,7 @@ wordsB = \lyricmode {
       \set Staff.midiInstrument = "acoustic bass"
       r1\ff
       %\transpose c c'
-      \keepWithTag #'n \bass
+      \removeWithTag #'lo \bass
     >>
 %{
     \context Staff=chords <<
