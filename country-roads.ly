@@ -31,8 +31,7 @@ melodymain = \transpose a g \relative c' { % middle c
     r2 b='8 b4. |
     cis=''4. b8 ~ b2 |
     fis='4 fis fis e |
-    fis='8( a4) a8 ~ a2 ~ |
-    a1 |
+    fis='8( a4) a8 ~ a2 |
     r2 e4 e='4 |
     fis4. e8 ~ e2 |
     fis4 a a cis |
@@ -150,7 +149,7 @@ bass = \transpose a g \relative c { % c below middle c
   \repeat volta 2 {
     a e | fis cis' | fis, fis |
     e=,2 b' | e, b' | d, d | a' e |
-    a=,2 e | a e | a e | fis cis' | fis, fis |
+    a=,2 e | a e | fis cis' | fis, fis |
     e=,2 b' | e, b' | d2 cis4 b | a=,2
     % signo
     e=,2 | a e | a cis,4 d | e=,2 b' | e, b' |
@@ -192,7 +191,6 @@ pianotop = <<
     r8 e' ~ <e' gis'>2 <e' gis'>4 |
     r8 a8 d'4 d' cis' |
     cis'8 <cis' e'>4 <cis' e'>8 ~ <cis' e'>4 <cis' e'>4 |
-    r8 a8 ~ <a cis'>2 <a cis'>4 |
     r8 a8 ~ <a cis'>2 <a cis'>4 |
     r8 a8 ~ <a cis'>2 <a cis'>4 |
     r8 cis'8 ~ <cis' fis'>4 <cis' fis'> <cis' fis' a'> |
@@ -277,7 +275,6 @@ harmonies = \transpose a g \chordmode {
     e4 e e e |
     e4 e e e |
     d4 d d d |
-    a4 a a a |
     a4 a a a |
     a4 a a a |
     a4 a a a |
