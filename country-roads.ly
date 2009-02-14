@@ -15,11 +15,15 @@
 #(set-global-staff-size 18)
 
 melodyintro = \transpose a g \relative c' { % middle c
-  r4 a8 e'8 ~ e='4 cis='4 |
-  r8 e,8 a e' ~ e=' bis' cis='' e\accent ~ |
-  e1 ~ |
-  e8 bis cis e ~ e e fis4 |
-  cis8 a4. % partial measure
+
+    r2 cis'=''8( b) a4 |
+    b='4 cis2.~ |
+    cis2 cis8( b) a4 |
+    a1 ~ |
+    a2 a4 b |
+    a='1 ~ |
+    a4 r4 r2 |
+    r2 % partial measure
 }
 melodymain = \transpose a g \relative c' { % middle c
   % verse
@@ -143,7 +147,8 @@ bass = \transpose a g \relative c { % c below middle c
   \time 2/2
 
   % intro
-  a=,2 e | a e | a e | a e |
+  r2 cis,=,4 d | e=,2 b' | e, b4 cis | d=,2 a' | d2 cis4 b |
+  a=,2 e | a e |
   a=,2 e |
   % verse
   \repeat volta 2 {
@@ -179,9 +184,15 @@ pianotop = <<
   \time 2/2
 
   % intro
-  s4 s2 a4 | s1 | r8 e'8 a' cis'' ~ cis''4 <cis'' a'>4 |
-  s8*3 cis''8 ~ cis'' cis'' <cis'' a'>4 |
-  s2 <cis' a>4 <cis' a>4 
+  s1 |
+  gis'8 e' gis' e' ~ e'4 <e' gis'>4 |
+  r8 d'8 e' gis' ~ gis'4 e'4 |
+  r8 d'8 e' fis' ~ fis'4 <fis' d'>4 |
+  r8 d'8 e' fis' ~ fis'4 <fis' d'>4 |
+  r8 cis'8 d' e' ~ e'4 <e' cis'>4 |
+  r8 cis'8 d' e' ~ e'4 <e' cis'>4 |
+  r8 a8 b cis' ~ cis'4 <cis' a>4 |
+
   % verse
   \repeat volta 2 {
     r8 a8 ~ <a cis'>2 <a cis'>4 |
@@ -260,11 +271,14 @@ harmonies = \transpose a g \chordmode {
   \time 2/2
 
   % intro
-  a4 a a a |
-  a4 a a a |
+  s1 |
+  e4 e e e |
+  e4 e e e |
+  d4 d d d |
+  d4 d d d |
   a4 a a a |
   a4 a a a | \break
-  a4 a a a |
+  a4 a a a | 
 
   % verse
   \repeat volta 2 {
@@ -342,10 +356,9 @@ harmonies = \transpose a g \chordmode {
 
 wordsA = \lyricmode {
   % intro
+  "" "" "" ""
   "" "" ""
-  "" "" "" "" "" ""
-  "" "" "" "" "" |
-  "" ""
+  "" "" ""
   % verse
   Al -- most
   heav -- en, __
@@ -408,10 +421,9 @@ wordsA = \lyricmode {
 }
 wordsB = \lyricmode {
   % intro
-  "" "" ""
-  "" "" "" "" "" ""
-  "" "" "" "" "" |
   "" "" "" ""
+  "" "" ""
+  "" "" "" "" ""
   % verse
   mem -- 'ries __
   gath -- er 'round __
