@@ -569,6 +569,25 @@ guitarC = \transpose d c \relative c'
 }
 %}
 
+% guitar (capo on 3rd fret)
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \transpose g e \harmonies
+    }
+    \context Staff = fluteA {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \transpose g e \simple
+    }
+  >>
+  \header {
+    instrument = "Guitar (capo on 3rd fret)"
+    breakbefore=##t
+  }
+}
+
 % piano part (same as guitar part)
 \score {
   <<

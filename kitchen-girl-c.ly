@@ -196,6 +196,25 @@ harmonies = \transpose d c \chordmode {
 }
 %}
 
+% guitar (capo on 3rd fret)
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \transpose g e \harmonies
+    }
+    \context Staff = fluteA {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \transpose g e \melody
+    }
+  >>
+  \header {
+    instrument = "Guitar (capo on 3rd fret)"
+    breakbefore=##t
+  }
+}
+
 % clarinet score
 \score {
   <<
