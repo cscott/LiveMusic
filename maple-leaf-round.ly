@@ -15,21 +15,20 @@
 #(set-global-staff-size 18)
 
 pianotopbreak = {
-  ees''16 e''8 f''16 |
-  <aes'' aes'>8. f''16 d''8. b'16 |
-  <f'' f'>8. d''16 b'8. aes'16 |
-  <d'' d'>8. b'16 aes'8. f'16 |
-  b'8. aes'16 f'8. d'16 |
-  ees'16 f' ees' d' ~ d'8. ees'16 |
-  e'8. f'16 ges'8. g'16 |
+  r16 ees'' e'' f'' |
+  <aes'' aes'>16 f'' d'' b' 
+  <f'' f'>16 d'' b' aes' |
+  <d'' d'>16 b' aes' f'
+  b'16 aes' f' d' |
+  \times 2/3 { ees' f' ees'} d'16 ees'
+  e'16 f' ges' g' |
 }
 pianotopbreakin = {
-  <aes' aes>4 r4 |
-  r2 |
+  <aes' aes>8 r8
+  r4 |
 }
 pianotopbreakout = {
-  <aes' aes>4 ees''16 f''8 ees''16 |
-  <aes'' aes'>4 r4 |
+  <aes' aes>16 ees''16 f'' ees'' <aes'' aes'>8 r8 | 
 }
 pianotopA = {
   \mark\default
@@ -98,20 +97,20 @@ pianotop = {
 
 pianobotbreak = {
   % r4 |
-  <d f aes b>4 r4 |
-  <f aes b d'>4 r4 |
-  <d f aes b>4 r4 |
-  <f aes b d'>4 r4 |
-  <ees bes des'>4 r4 |
-  r2 |
+  <d f aes b>8 r
+  <f aes b d'>8 r |
+  <d f aes b>8 r
+  <f aes b d'>8 r |
+  <ees bes des'>8 r
+  r4 |
 }
 pianobotbreakin = {
-  r4 <ees ees,>4 |
-  <f f,>4 <g g,>4 | % usually an <ees ees,>8 here?
+  r8 <ees ees,>8
+  <f f,>8 <g g,>8 | % usually an <ees ees,>8 here?
 }
 pianobotbreakout = {
-  r4 <ees ees,>4 |
-  <aes aes,>4\staccato <aes, aes,,>4\staccato
+  r8 <ees ees,>8
+  <aes aes,>8\staccato <aes, aes,,>8\staccato |
 }
 pianobotA = {
     <aes, aes>8 <ees aes c'> <ees aes c'> <a, a> |
@@ -176,14 +175,13 @@ pianobot = {
 }
 
 melodybreak = {
-  s4 | s2*6 |
+  s4 | s2*3 |
 }
 melodybreakin = {
-  s2*2 |
+  s2 |
 }
 melodybreakout = {
-  r4 ees''16 f''8 ees''16 |
-  aes''4 r4 |
+  r16 ees''16 f'' ees'' aes''8  r8 |
 }
 melodyA = {
   r16 aes'( c'' aes' c'') ees''8-\accent c''16( |
@@ -247,20 +245,20 @@ melody = {
 
 treblebreak = {
   r4 |
-  r8 <d' f' aes' b'> r <d' f' aes' b'> |
-  r8 <f' aes' b' d''> r <f' aes' b' d''> |
-  r8 <d' f' aes' b'> r <d' f' aes' b'> |
-  r8 <f' aes' b' d''> r <f' aes' b' d''> |
-  r8 <ees' bes' des''> r4 |
-  r2 |
+  r8 <d' f' aes' b'>
+  r8 <f' aes' b' d''> |
+  r8 <d' f' aes' b'>
+  r8 <f' aes' b' d''> |
+  r8 <ees' bes' des''>
+  r4 |
 }
 treblebreakin = {
-  <aes' c'' ees''>4 r4 |
-  r2 |
+  <aes' c'' ees''>8 r8
+  r4 |
 }
 treblebreakout = {
-  <aes' c'' ees''>4 r4 |
-  <aes'' c''' ees'''>4 r4 |
+  <aes' c'' ees''>8 r8
+  <aes'' c''' ees'''>8 r8 |
 }
 trebleA = {
   r8 < ees' aes' c'' > r < ees' c'' fis' >  |
@@ -275,12 +273,12 @@ trebleA = {
   %% 10
   r8 < f' aes' ces'' > r < ces'' aes' f' >  |
   r8 < ees' aes' c'' > r < c'' ees' aes' >  |
-  r8 < ces'' aes' f' > r < ces'' aes' f' >  |
+  r8 < ces'' aes' f' > r < c'' ees' aes' >  |
   < c'' ees' aes' >8 < bes' g' des' >16 < aes' ees' c' > ~ < c' ees' aes' >8 r  |
   r8 < ces'' aes' f' > r < ces'' f' aes' >  |
   %% 15
   r8 < c'' aes' ees' > r < c'' ees' aes' >  |
-  r8 < ces'' f' aes' > r < ces'' f' aes' >  |
+  r8 < ces'' f' aes' > r < c'' ees' aes' >  |
   < c'' ees' aes' >8 < des' bes' g' >16 < c' aes' ees' > ~ < aes' c' ees' >8 r  |
 }
 trebleB = {
@@ -324,20 +322,20 @@ treble = {
 }
 bassbreak = {
   r4 |
-  aes,4 r |
-  f,4 r |
-  d,4 r |
-  f,4 r |
-  ees,4 r |
-  r2 |
+  aes,8 r
+  f,8 r |
+  d,8 r
+  f,8 r |
+  ees,8 r
+  r4 |
 }
 bassbreakin = {
-  r4 ees, |
-  f,4 g, |
+  r8 ees,
+  f,8 g, |
 }
 bassbreakout = {
-  r4 ees |
-  aes4\staccato aes,\staccato
+  r8 ees
+  aes\staccato aes,\staccato
 }
 bassA = {
   aes,8 r a, r  |
@@ -352,12 +350,12 @@ bassA = {
   %% 10
   < aes aes, > 8 r d r  |
   ees 8 r ees, ees  |
-  d 8 r d r  |
-  ees 8 ees, 16 aes, _~ aes, 8 ees-\accent  |
+  fes 8 r ees r  |
+  ees 8 ees, 16 aes, ~ aes, 8 ees-\accent  |
   d 8 r d r  |
   %% 15
   ees 8 r ees, ees  |
-  d 8 r d r  |
+  fes8 r ees r  |
   ees8 ees,16 aes, ~ aes,8 < aes aes, >-\accent  |
 }
 bassB = {
@@ -396,6 +394,74 @@ bass = {
   aes,4
   \bassbreak
   \bassbreakout
+}
+
+harmoniesbreak = \chordmode
+{ \chordProperties
+  s4 |
+  aes4:dim7 aes:dim7/f |
+  aes4:dim7/d aes:dim7/f |
+  ees4:7sus s |
+}
+harmoniesbreakin = \chordmode
+{ \chordProperties
+  aes4 aes |
+}
+harmoniesbreakout = \chordmode
+{ \chordProperties
+  aes4 aes |
+}
+harmoniesA = \chordmode
+{ \chordProperties
+  aes4 aes | ees4/bes ees/bes |
+  aes4 aes | ees4/bes ees/bes |
+  fes4:7 ees | % the e7 could be a d:dim7 (e7==fes7)
+  fes4:7 ees |
+  d4:dim7 d:dim7 |
+  ees4 ees8/f ees/g |
+  d4:dim7/aes d:dim7 |
+  aes4/ees aes/ees |
+  fes4 aes/ees |
+  aes4/ees aes/ees |
+  d4:dim7 d:dim7 |
+  aes4/ees aes/ees |
+  fes4:7 aes/ees |
+  aes4/ees aes/ees |
+}  
+harmoniesB = \chordmode
+{ \chordProperties
+  ees4:7/bes d |
+  des4/bes des/bes |
+  aes4 f:m7/ees |
+  aes4 f:m7/aes |
+  ees4:7/bes ees4:9 |
+  ees4:7/bes ees4:9 |
+  aes4 f:m/ees |
+  aes4 f:m/aes |
+  ees4:7/bes d |
+  des4/bes des/bes |
+  aes4 f:m7/ees |
+  aes4 g8:7 ges:7 |
+  f4:7 f:7 |
+  bes4:m bes:m |
+  bes4:9 bes:9 |
+  aes4 aes |
+}
+
+harmonies = \chordmode
+{ \chordProperties
+
+  \partial 4
+  \harmoniesbreak
+  \harmoniesbreakin
+  \repeat volta 3 {
+    \harmoniesA
+    \harmoniesB
+  }
+  % coda
+  aes4
+  \harmoniesbreak
+  \harmoniesbreakout
 }
 
 \paper {
@@ -471,18 +537,24 @@ bass = {
 % piano/guitar score
 \score {
   <<
-%{
     \context ChordNames {
          \set chordChanges = ##t
          \harmonies
     }
-%}
     \new Staff <<
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \new Voice = melody {
 	\small{\melody}
+      }
+    >>
+    \new Staff <<
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Harmonies"
+      \set Staff.shortInstrumentName = "Har."
+      \new Voice = melody {
+	\small{\time 2/4 \key aes \major \harmonies}
       }
     >>
 %{
@@ -514,12 +586,10 @@ bass = {
 % flute score
 \score {
   <<
-%{
     \context ChordNames {
          \set chordChanges = ##t
          \harmonies
     }
-%}
     \context Voice = fluteA {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
@@ -547,12 +617,10 @@ bass = {
 % clarinet score
 \score {
   <<
-%{
     \context ChordNames {
          \set chordChanges = ##t
          \transpose bes c \harmonies
     }
-%}
     \context Staff = clarinetA {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
@@ -587,12 +655,10 @@ bass = {
 % saxophone score
 \score {
   <<
-%{
     \context ChordNames {
          \set chordChanges = ##t
          \transpose ees c \harmonies
     }
-%}
     \context Staff = saxA {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
@@ -669,6 +735,18 @@ bass = {
       r1
       \pianobot
     >>
+%{
+    \context Staff=upper <<
+      \set Staff.midiInstrument = "acoustic grand"
+      r1
+      \treble
+    >>
+    \context Staff=lower <<
+      \set Staff.midiInstrument = "acoustic grand"
+      r1
+      \bass
+    >>
+%}
   >>
   
   \midi {
