@@ -58,7 +58,7 @@ cello = {
   \transpose c' c \melodyb
 }
 
-bass = \transpose g f \transpose c c,,
+oldbass = \transpose g f \transpose c c,,
 {
   \tag #'key \key g \major
   \time 4/4
@@ -76,6 +76,31 @@ bass = \transpose g f \transpose c c,,
   \repeat volta 2 {
     a2 e\4 | a e' | g\4 d' | g\4 d' |
     a2 c' | d' e' | a g\4 |
+   }
+   \alternative {
+     { a e\4 }
+     { a a }
+   }
+}
+
+bass = \transpose g f \transpose c c,,
+{
+  \tag #'key \key g \major
+  \time 4/4
+
+  \repeat volta 2 {
+    a2 e | a4 c' e' fis' | g'2 d' | g4 b d' e' |
+    a'2 e' | a4 c' e' c' | a2 g |
+   }
+   \alternative {
+     { a e\4 }
+     { a a }
+   }
+
+ % Part 2
+  \repeat volta 2 {
+    a2 e | a b4 cis' | d'2 g' | b' d''4 b' |
+    a'2 e' | d' c'4 b | a2 g\4 |
    }
    \alternative {
      { a e\4 }
