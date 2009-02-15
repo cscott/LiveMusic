@@ -31,7 +31,6 @@ pianotopbreakout = {
   <aes' aes>16 ees''16 f'' ees'' <aes'' aes'>8 r8 | 
 }
 pianotopA = {
-  \mark\default
     r16 aes'16 <ees' ees''> aes' c'' <ees' ees''>8 g'16 |
     <ees' ees''>16 g' bes' <ees' ees''> ~ <ees' ees''>4 |
     r16 aes'16 <ees' ees''> aes' c'' <ees' ees''>8 g'16 |
@@ -55,7 +54,6 @@ pianotopA = {
     <ees' c''>16 aes' <ees' bes'>8 <ees' aes'> r8 \bar "||" |
 }
 pianotopB = {
-  \mark\default
     r16 g''16 <ees'' ees'''> g'' bes'' <d'' d'''>8 g''16 |
     <des'' des'''>16 g'' bes'' <c'' c'''> ~ <c'' c'''> ees'' <bes' bes''> ees'' |
     r16 c'' <aes' aes''> c'' ees'' <f' f''>8 c''16 |
@@ -78,7 +76,6 @@ pianotopB = {
     r16 aes' c'' ees'' <aes' aes''>8 r8 |
 }
 pianotop = {
-  \tempo 4 = 97
   \tag #'key \key aes \major
   \time 2/4
 
@@ -237,7 +234,24 @@ melody = {
     \melodyB
   }
   % coda
-  aes'4
+  aes'4\repeatTie
+  \melodybreak
+  \melodybreakout
+  \bar "|."
+}
+melodyflute = {
+  \tag #'key \key aes \major
+  \time 2/4
+
+  \partial 4
+  \melodybreak
+  \melodybreakin
+  \repeat volta 3 {
+    \melodyA
+    \transpose c c' { \melodyB }
+  }
+  % coda
+  aes'4\repeatTie
   \melodybreak
   \melodybreakout
   \bar "|."
@@ -445,20 +459,29 @@ harmoniesB = \chordmode
   f4:7 f:7 |
   bes4:m bes:m |
   bes4:9 bes:9 |
+  \mark "To Coda"
   aes4 aes |
 }
 
 harmonies = \chordmode
 { \chordProperties
+  \set Score.markFormatter = #format-mark-box-letters
 
   \partial 4
+  \tempo 4 = 97
   \harmoniesbreak
   \harmoniesbreakin
+  \break
   \repeat volta 3 {
+    \mark\default
     \harmoniesA
+    \bar "||" \break
+    \mark\default
     \harmoniesB
   }
+  \break
   % coda
+  \mark\markup { \musicglyph #"scripts.coda" }
   aes4
   \harmoniesbreak
   \harmoniesbreakout
@@ -472,7 +495,6 @@ harmonies = \chordmode
 }
 
 % combined score
-%{
 \score {
   <<
     \context ChordNames {
@@ -484,25 +506,26 @@ harmonies = \chordmode
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \context Voice = melody { \small\melody }
+%{
       \context Lyrics = firstverse \lyricsto melody \wordsA
       \context Lyrics = secondverse \lyricsto melody \wordsB
+%}
     >>
-    \context PianoStaff <<
+    \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
-      \context Staff = upper <<
-	\set Staff.instrumentName = \markup{ \column { "Soprano/" "Alto" } }
-	\set Staff.shortInstrumentName = "S/A"
-	\set Staff.printPartCombineTexts = ##f
-	\partcombine {\melody} {\alto}
-      >>
-      \context Staff = lower <<
-	%\set Staff.printPartCombineTexts = ##f
-	\set Staff.instrumentName = "Bass"
-	\set Staff.shortInstrumentName = "Bas."
-	\clef bass
-	\keepWithTag #'n \bass
-      >>
+      \set PianoStaff.instrumentName = \markup { "Accomp." }
+      \set PianoStaff.shortInstrumentName = \markup { "Acc." }
+      \context Staff = upper << \time 2/4 \treble >>
+      \context Staff = lower << \clef bass \bass >>
     >>
+    \new PianoStaff <<
+      #(set-accidental-style 'piano-cautionary)
+      \set PianoStaff.instrumentName = \markup { "Piano" }
+      \set PianoStaff.shortInstrumentName = \markup { "Pia." }
+      \context Staff = upper << \pianotop >>
+      \context Staff = lower << \clef bass \pianobot >>
+    >>
+%{
     \new Staff <<
 	\clef bass
 	\key bes \major \time 4/4
@@ -517,8 +540,23 @@ harmonies = \chordmode
       \set TabStaff.stringTunings = #bass-tuning
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
-      \removeWithTag #'key \keepWithTag #'n \bass
+      \removeWithTag #'key \bass
     >>
+%}
+  >>
+  \layout { }
+  \header {
+    instrument = "Combined Score"
+  }
+}
+				
+% piano score
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
       \set PianoStaff.instrumentName = \markup { "Piano" }
@@ -529,12 +567,12 @@ harmonies = \chordmode
   >>
   \layout { }
   \header {
-    instrument = "Combined Score"
+    instrument = "Piano"
+    breakbefore=##t
   }
 }
-%}
-				
-% piano/guitar score
+
+% accompaniment score
 \score {
   <<
     \context ChordNames {
@@ -549,36 +587,40 @@ harmonies = \chordmode
 	\small{\melody}
       }
     >>
-    \new Staff <<
-      #(set-accidental-style 'modern-cautionary)
-      \set Staff.instrumentName = "Harmonies"
-      \set Staff.shortInstrumentName = "Har."
-      \new Voice = melody {
-	\small{\time 2/4 \key aes \major \harmonies}
-      }
-    >>
-%{
-    \new Lyrics \lyricsto "melody" { \small\wordsA }
-    %\new Lyrics \lyricsto "melody" { \small\wordsB }
-%}
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
       \set PianoStaff.instrumentName = \markup { "Accomp." }
       \set PianoStaff.shortInstrumentName = \markup { "Acc." }
-      \context Staff = upper << \time 2/4 \treble >>
+      \context Staff = upper << \treble >>
       \context Staff = lower << \clef bass \bass >>
-    >>
-    \new PianoStaff <<
-      #(set-accidental-style 'piano-cautionary)
-      \set PianoStaff.instrumentName = \markup { "Piano" }
-      \set PianoStaff.shortInstrumentName = \markup { "Pia." }
-      \context Staff = upper << \time 2/4 \pianotop >>
-      \context Staff = lower << \clef bass \pianobot >>
     >>
   >>
   \layout { }
   \header {
-    instrument = "Piano/Guitar"
+    instrument = "Solo and Accompaniment"
+    breakbefore=##t
+  }
+}
+
+% guitar, capo'd up one fret
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \transpose aes g \harmonies
+    }
+    \new Staff <<
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \new Voice = melody \transpose aes g {
+	\small{\melody}
+      }
+    >>
+  >>
+  \layout { }
+  \header {
+    instrument = "Guitar (capo'd up 1 fret)"
     breakbefore=##t
   }
 }
@@ -594,9 +636,7 @@ harmonies = \chordmode
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \new Voice = melody {
-	\transpose c c' { \melody }
-      }
+      \new Voice = melody { \melodyflute }
     }
 %{
     \new Lyrics \lyricsto "melody" { \words }
@@ -626,7 +666,7 @@ harmonies = \chordmode
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \new Voice = melody {
-	\transpose bes c { \melody }
+	\transpose bes c { \melodyflute }
       }
     }
 %{
@@ -643,7 +683,7 @@ harmonies = \chordmode
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
       \transpose bes c''
-      \keepWithTag #'c \bass
+      \bass
     }
   >>
   \header {
@@ -664,7 +704,7 @@ harmonies = \chordmode
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \new Voice = melody {
-	\transpose ees c' { \melody }
+	\transpose ees c { \melodyflute }
       }
     }
 %{
@@ -683,7 +723,7 @@ harmonies = \chordmode
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
       \transpose ees c''
-      \keepWithTag #'s \bass
+      \bass
     }
   >>
   \header {
@@ -711,7 +751,7 @@ harmonies = \chordmode
       \set Staff.midiInstrument = "acoustic bass"
       r1\ff
       %\transpose c c'
-      \keepWithTag #'n \bass
+      \bass
     >>
 %{
     \context Staff=chords <<
