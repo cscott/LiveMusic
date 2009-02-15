@@ -9,12 +9,30 @@
   maintainerEmail = "cananian@alumni.princeton.edu"
   maintainerWeb = "http://cscott.net"
   lastupdated = "2009/Feb/2"
-  meter = 240 % ???
+  meter = 97 % quarter note
 }
 #(set-default-paper-size "letter")
 #(set-global-staff-size 18)
 
+pianotopbreak = {
+  ees''16 e''8 f''16 |
+  <aes'' aes'>8. f''16 d''8. b'16 |
+  <f'' f'>8. d''16 b'8. aes'16 |
+  <d'' d'>8. b'16 aes'8. f'16 |
+  b'8. aes'16 f'8. d'16 |
+  ees'16 f' ees' d' ~ d'8. ees'16 |
+  e'8. f'16 ges'8. g'16 |
+}
+pianotopbreakin = {
+  <aes' aes>4 r4 |
+  r2 |
+}
+pianotopbreakout = {
+  <aes' aes>4 ees''16 f''8 ees''16 |
+  <aes'' aes'>4 r4 |
+}
 pianotopA = {
+  \mark\default
     r16 aes'16 <ees' ees''> aes' c'' <ees' ees''>8 g'16 |
     <ees' ees''>16 g' bes' <ees' ees''> ~ <ees' ees''>4 |
     r16 aes'16 <ees' ees''> aes' c'' <ees' ees''>8 g'16 |
@@ -35,21 +53,10 @@ pianotopA = {
     <aes' aes''>8 <aes' aes''> <aes' aes''> <aes' aes''>16 <aes' aes''> ~ |
     <aes' aes''>16 ees'' <aes' f''> c'' ees'' <aes' f''>8 <aes' fes'>16 ~ |
     <aes' fes'>16 bes' <fes' ces''> aes' bes' <ees' c''>8 aes'16 |
+    <ees' c''>16 aes' <ees' bes'>8 <ees' aes'> r8 \bar "||" |
 }
-pianotop = {
-  \tag #'key \key aes \major
-  \time 2/4
-
-  \partial 8 r8
-  \repeat volta 2 {
-    \pianotopA
-  }
-  \alternative {
-    { <ees' c''>16 aes' <ees' bes'>8 <ees' aes'> r8 | }
-    { <ees' c''>16 aes' <ees' bes'>8 <ees' aes'> r8 \bar "||" | }
-  }
-
-  \repeat volta 2 {
+pianotopB = {
+  \mark\default
     r16 g''16 <ees'' ees'''> g'' bes'' <d'' d'''>8 g''16 |
     <des'' des'''>16 g'' bes'' <c'' c'''> ~ <c'' c'''> ees'' <bes' bes''> ees'' |
     r16 c'' <aes' aes''> c'' ees'' <f' f''>8 c''16 |
@@ -68,15 +75,44 @@ pianotop = {
     r16 f' a' c'' f'' c'' a' f' |
     r16 f' bes' des'' <f' f''>8 <f' bes' des''> |
     <d' f' aes' c''>8 r16 <d' f' aes' c''> r16 <des' bes'>8 ees'16
-  } \alternative {
-    { <c' aes'>8 <ees' ees''> <ees' ees''> <ees' ees''> | }
-    { r16 aes' c'' ees'' <aes' aes''>8 r8 \bar "||" | }
-  }
+    % to coda
+    r16 aes' c'' ees'' <aes' aes''>8 r8 |
+}
+pianotop = {
+  \tempo 4 = 97
+  \tag #'key \key aes \major
+  \time 2/4
 
-  \pianotopA
-  <ees' c''>16 aes' <ees' bes'>8 <ees' aes'> <aes' aes''> \bar "||" |
+  \partial 4
+  \pianotopbreak
+  \pianotopbreakin
+  \repeat volta 3 {
+    \pianotopA
+    \pianotopB
+  }
+  % coda
+  r16 aes' c'' ees''
+  \pianotopbreak
+  \pianotopbreakout
 }
 
+pianobotbreak = {
+  % r4 |
+  <d f aes b>4 r4 |
+  <f aes b d'>4 r4 |
+  <d f aes b>4 r4 |
+  <f aes b d'>4 r4 |
+  <ees bes des'>4 r4 |
+  r2 |
+}
+pianobotbreakin = {
+  r4 <ees ees,>4 |
+  <f f,>4 <g g,>4 | % usually an <ees ees,>8 here?
+}
+pianobotbreakout = {
+  r4 <ees ees,>4 |
+  <aes aes,>4\staccato <aes, aes,,>4\staccato
+}
 pianobotA = {
     <aes, aes>8 <ees aes c'> <ees aes c'> <a, a> |
     <bes, bes>8 <ees g des'> <ees g des'> <ees, ees> |
@@ -99,20 +135,9 @@ pianobotA = {
     <d f aes b>8 <d f aes b> <d f aes b> <d f aes b> |
     <ees aes c'>8 <ees aes c'> <ees aes c'> <ees aes c'> |
     <fes aes ces'>8 <fes aes ces'> <ees aes c'> <ees aes c'> |
+    <ees aes c'>8 <ees g des'> <aes c'> <a, a> |
 }
-pianobot = {
-  \tag #'key \key aes \major
-  \time 2/4
-  \partial 8 <ees ees,>8 |
-  \repeat volta 2 {
-    \pianobotA
-  }
-  \alternative {
-    { <ees aes c'>8 <ees g des'> <aes c'> <ees, ees> | }
-    { <ees aes c'>8 <ees g des'> <aes c'> <a, a> | }
-  }
-
-  \repeat volta 2 {
+pianobotB = {
     <bes, bes>8 <ees g des'> <ees, ees> <ees g des'> |
     <bes, bes>8 <ees g des'> <ees, ees> <g, g> |
     <aes, aes>8 <ees aes c'> <ees, ees> <ees aes c'> |
@@ -131,15 +156,35 @@ pianobot = {
     <f, f>8 <f, f> <a, a> <a, a> |
     <bes, bes>8 <f bes des'> <f bes des'> <f bes des'> |
     <bes, f bes>8 <bes, f bes> <ees, ees> <g, g> |
-  } \alternative {
-    { <aes, aes>8 <ees aes c'> <ees aes c'> <a, a> | }
-    { <aes, aes>8 <aes c' ees'> <aes c' ees'> <ees, ees> | }
-  }
-  \pianobotA
-  <ees aes c'>8 <ees g des'> <aes c'> r8 | 
+    <aes, aes>8 <aes c' ees'> <aes c' ees'> <ees, ees> |
+}
+pianobot = {
+  \tag #'key \key aes \major
+  \time 2/4
 
+  \partial 4
+  r4 \pianobotbreak
+  \pianobotbreakin
+  \repeat volta 3 {
+    \pianobotA
+    \pianobotB
+  }
+  % coda
+  <aes, aes>8 <aes c' ees'> <aes c' ees'> <ees, ees> |
+  \pianobotbreak
+  \pianobotbreakout
 }
 
+melodybreak = {
+  s4 | s2*6 |
+}
+melodybreakin = {
+  s2*2 |
+}
+melodybreakout = {
+  r4 ees''16 f''8 ees''16 |
+  aes''4 r4 |
+}
 melodyA = {
   r16 aes'( c'' aes' c'') ees''8-\accent c''16( |
   des''16 c'' bes') ees''-\accent ~ ees''8 r  |
@@ -158,21 +203,10 @@ melodyA = {
   aes''8 aes'' aes'' aes''16 aes'' ~  |
 %% 15
   aes''16 ees''( f'' c'') ees'' f''8-\accent r16  |
-  aes'16( bes' ces'') aes'( bes' aes'8)
+  aes'16( bes' ces'') aes'( bes' aes'8) bes'16(
+  c''16 aes' bes' aes' ~ aes'8) r  |
 }
-melody = {
-  \tag #'key \key aes \major
-  \time 2/4
-
-  \partial 8 r8
-  \repeat volta 2 {
-    \melodyA bes'16(
-  }
-  \alternative {
-    { c''16 aes' bes' aes' ~ aes'8 ) r  | }
-    { c''16 aes' bes' aes' ~ aes'8 r  | }
-  }
-  \repeat volta 2 {
+melodyB = {
     r8 ees'' r16 d''8.-\accent  |
     %% 20
     des''8 r16 c''-\accent ~ c''8 bes'  |
@@ -191,15 +225,43 @@ melody = {
     f'8 r16 f' a'8 c''  |
     des''8 c''16 bes' ~ bes'4  |
     c''8 c'' aes'16 bes'8 aes'16 ~  |
-  } \alternative {
-    { aes'4 r  | }
-    { aes'4 r  | }
+    aes'4 r  |
+}
+melody = {
+  \tag #'key \key aes \major
+  \time 2/4
+
+  \partial 4
+  \melodybreak
+  \melodybreakin
+  \repeat volta 3 {
+    \melodyA
+    \melodyB
   }
-  \melodyA  bes'16
-  c''16 aes' bes' aes' ~ aes'8 r  |
+  % coda
+  aes'4
+  \melodybreak
+  \melodybreakout
   \bar "|."
 }
 
+treblebreak = {
+  r4 |
+  r8 <d' f' aes' b'> r <d' f' aes' b'> |
+  r8 <f' aes' b' d''> r <f' aes' b' d''> |
+  r8 <d' f' aes' b'> r <d' f' aes' b'> |
+  r8 <f' aes' b' d''> r <f' aes' b' d''> |
+  r8 <ees' bes' des''> r4 |
+  r2 |
+}
+treblebreakin = {
+  <aes' c'' ees''>4 r4 |
+  r2 |
+}
+treblebreakout = {
+  <aes' c'' ees''>4 r4 |
+  <aes'' c''' ees'''>4 r4 |
+}
 trebleA = {
   r8 < ees' aes' c'' > r < ees' c'' fis' >  |
   r8 < ees' g' des'' > r < des'' g' ees' >  |
@@ -219,21 +281,9 @@ trebleA = {
   %% 15
   r8 < c'' aes' ees' > r < c'' ees' aes' >  |
   r8 < ces'' f' aes' > r < ces'' f' aes' >  |
+  < c'' ees' aes' >8 < des' bes' g' >16 < c' aes' ees' > ~ < aes' c' ees' >8 r  |
 }
-treble = {
-  \tag #'key \key aes \major
-  \time 2/4
-
-  \partial 8 r8
-  \repeat volta 2 {
-    \trebleA
-  }
-  \alternative {
-    { < c'' aes' ees' >8 < des' bes' g' >16 < c' aes' ees' > ~ < aes' ees' c' >8 r  | }
-    { < c'' ees' aes' >8 < des' bes' g' >16 < c' aes' ees' > ~ < aes' c' ees' >8 r  | }
-  }
-
-  \repeat volta 2 {
+trebleB = {
     r8 < ees'' bes' g' > r16 < d'' fis' a' >8.-\accent  |
     %% 20
     < des'' aes' f' >8 r16 < c'' g' ees' >-\accent ~ < ees' g' c'' >8 < des' f' bes' >  |
@@ -252,13 +302,42 @@ treble = {
     < f' ees' a >8 < f' a ees' > r < f' a ees' >  |
     < f' des' bes >8 < f' ees' a > < f' bes des' > < f' bes des' >  |
     r8 < f' d' aes > < f' des' aes > < g' des' bes >  |
-  } \alternative {
-    { < c' ees' aes' >4 r  | }
-    { < c' ees' aes' >4 r  | }
+    % to coda
+    < c' ees' aes' >4 r  |
+}
+treble = {
+  \tag #'key \key aes \major
+  \time 2/4
+
+  \partial 4
+  \treblebreak
+  \treblebreakin
+  \repeat volta 3 {
+    \trebleA
+    \trebleB
   }
-  \trebleA
-  < c'' aes' ees' >8 < des' bes' g' >16 < c' aes' ees' > ~ < aes' ees' c' >8 r  |
+  % coda
+  < c' ees' aes' >4
+  \treblebreak
+  \treblebreakout
   \bar "|."
+}
+bassbreak = {
+  r4 |
+  aes,4 r |
+  f,4 r |
+  d,4 r |
+  f,4 r |
+  ees,4 r |
+  r2 |
+}
+bassbreakin = {
+  r4 ees, |
+  f,4 g, |
+}
+bassbreakout = {
+  r4 ees |
+  aes4\staccato aes,\staccato
 }
 bassA = {
   aes,8 r a, r  |
@@ -279,20 +358,9 @@ bassA = {
   %% 15
   ees 8 r ees, ees  |
   d 8 r d r  |
+  ees8 ees,16 aes, ~ aes,8 < aes aes, >-\accent  |
 }
-bass = {
-  \tag #'key \key aes \major
-  \time 2/4
-  
-  \partial 8 r8
-  \repeat volta 2 {
-    \bassA
-  }
-  \alternative {
-    { ees8 ees,16 aes, ~ aes,8 ees-\accent  | }
-    { ees8 ees,16 aes, ~ aes,8 < aes aes, >-\accent  | }
-  }
-  \repeat volta 2 {
+bassB = {
     bes,8 r ees, r  |
     %% 20
     bes,8 r ees, g,  |
@@ -311,13 +379,23 @@ bass = {
     f,8 r c r  |
     bes,8 r f, f,  |
     bes,8 r ees, r  |
+    aes,4 r |
+}
+bass = {
+  \tag #'key \key aes \major
+  \time 2/4
+  
+  \partial 4
+  \bassbreak
+  \bassbreakin
+  \repeat volta 3 {
+    \bassA
+    \bassB
   }
-  \alternative {
-    { aes,8 aes,-\accent bes,-\accent c-\accent  | }
-    { aes,4 r \bar "|." }
-  }
-  | \bassA |
-  ees8 ees,16 aes, ~ aes,8 r  |
+  % coda
+  aes,4
+  \bassbreak
+  \bassbreakout
 }
 
 \paper {
@@ -596,7 +674,7 @@ bass = {
   \midi {
     \context {
       \Score
-      tempoWholesPerMinute = #(ly:make-moment 110 4)
+      tempoWholesPerMinute = #(ly:make-moment 97 4)
       }
     }
 }
