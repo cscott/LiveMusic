@@ -356,13 +356,13 @@ bassA = {
   bes,8 r ees ees,  |
   aes,8 r a, r  |
   %% 5
-  bes,8 r ees < ees ees' >  |
-  < d' d >4-\accent( < ees' ees >8) < ees' ees >  |
-  < d' d >4-\accent( < ees' ees >)  |
-  < d d' >8-\accent < d' d >-\accent ~ < d' d >-\accent < d' d >  |
-  < ees' ees > 8 < ees ees, >-\accent < f f, >-\accent < g g, >-\accent  |
+  bes,8 r ees < ees \tag #'hi ees' >  |
+  < \tag #'hi d' d >4-\accent( < \tag #'hi ees' ees >8) < \tag #'hi ees' ees >  |
+  < \tag #'hi d' d >4-\accent( < \tag #'hi ees' ees >)  |
+  < d \tag #'hi d' >8-\accent < \tag #'hi d' d >-\accent ~ < \tag #'hi d' d >-\accent < \tag #'hi d' d >  |
+  < \tag #'hi ees' ees > 8 < \tag #'hi ees ees, >-\accent < \tag #'hi f f, >-\accent < \tag #'hi g g, >-\accent  |
   %% 10
-  < aes aes, > 8 r d r  |
+  < \tag #'hi aes aes, > 8 r d r  |
   ees 8 r ees, ees  |
   fes 8 r ees r  |
   ees 8 ees, 16 aes, ~ aes, 8 ees-\accent  |
@@ -370,7 +370,7 @@ bassA = {
   %% 15
   ees 8 r ees, ees  |
   fes8 r ees r  |
-  ees8 ees,16 aes, ~ aes,8 < aes aes, >-\accent  |
+  ees8 ees,16 aes, ~ aes,8 < \tag #'hi aes aes, >-\accent  |
 }
 bassB = {
     bes,8 r ees, r  |
@@ -683,7 +683,7 @@ harmonies = \chordmode
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
       \transpose bes c''
-      \bass
+      \removeWithTag #'hi \bass
     }
   >>
   \header {
@@ -723,7 +723,7 @@ harmonies = \chordmode
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
       \transpose ees c''
-      \bass
+      \removeWithTag #'hi \bass
     }
   >>
   \header {
@@ -732,6 +732,44 @@ harmonies = \chordmode
   }
 }
 
+% cello score (octave-shifted)
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
+    \context Voice = celloA {
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      % 1 octave down
+      \clef bass
+      \transpose c c,, { \melodyflute }
+    }
+%{
+    \context Staff = celloB {
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Alto"
+      \set Staff.shortInstrumentName = "Alt."
+      % 1 octave down
+      \clef bass
+      \transpose c c, { \alto }
+    }
+%}
+    \context Staff = celloC {
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \clef bass 
+      \removeWithTag #'hi \bass
+    }
+  >>
+  \header {
+    instrument = "Cello"
+    breakbefore=##t
+  }
+}
 
 % midi score.
 \score {
