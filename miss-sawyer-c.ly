@@ -222,6 +222,27 @@ bass = \transpose d c \relative c,
     { a2 d4 \bar "|." }
   }
 }
+% more interesting bass line
+basstoo = \transpose c c, {
+  \tag #'key \key c \major
+  \time 4/4
+  \tag #'partial \partial 8*2
+  r4
+  \repeat volta 2 {
+    c2 g, | c2 b,4 a, | g,2 f, | g,2 a,4 b, |
+    c2 g, | c2 g,4 b, | c4 e g b |
+  } \alternative {
+    { c'4 g e d | }
+    { c'4 g c2 | }
+  }
+  \repeat volta 2 {
+    c2 g, | c2 b,4 a, | g,2 d, | g,2 a,4 b, |
+    c2 g, | c2 g,4 b, | c4 e g b |
+  } \alternative {
+    { c'4 g e d | }
+    { c'2 c4 \bar "|." }
+  }
+}
 
 % guitar accompaniment
 guitarA = \transpose d c \relative c
@@ -332,6 +353,12 @@ guitarC = \transpose d c \relative c'
       \new Voice { \guitarB }
       \new Voice { \guitarC }
     >>
+    \new Staff <<
+      \set Staff.instrumentName = "Bass#2"
+      \set Staff.shortInstrumentName="B#2"
+      \clef "bass_8"
+      \basstoo
+    >>
   >>
   \header {
     instrument = "Combined Score"
@@ -421,7 +448,7 @@ guitarC = \transpose d c \relative c'
 \score {
   <<
     \set Score.markFormatter = #format-mark-box-letters
-    \new Staff { \transpose bes c''' \bass }
+    \new Staff { \transpose bes c''' \basstoo }
   >>
   \header {
     instrument = "Clarinet (Bb) Bass Line" % not new page
@@ -472,7 +499,7 @@ guitarC = \transpose d c \relative c'
 \score {
   <<
     \set Score.markFormatter = #format-mark-box-letters
-    \new Staff { \transpose ees c''' \bass }
+    \new Staff { \transpose ees c''' \basstoo }
   >>
   \header {
     instrument = "Saxophone (Eb) Bass Line" % not new page
@@ -507,7 +534,7 @@ guitarC = \transpose d c \relative c'
     \new Staff <<
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
-      \transpose c c' { \clef bass \bass } % 1 octave up
+      \transpose c c' { \clef bass \basstoo } % 1 octave up
     >>
   >>
   \header {
@@ -656,12 +683,14 @@ guitarC = \transpose d c \relative c'
       \new Voice \repeat unfold 3 { \guitarB } >>
     \context Staff=bass <<
       \set Staff.midiInstrument = "acoustic bass"
-      \repeat unfold 3 { \bass }
+      \repeat unfold 3 { \basstoo }
     >>
+%{
     \context Staff=chords <<
       \set Staff.midiInstrument = "pizzicato strings"
       \repeat unfold 3 { \harmonies }
     >>
+%}
   >>
   
   \midi {
