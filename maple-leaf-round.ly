@@ -487,6 +487,86 @@ harmonies = \chordmode
   \harmoniesbreakout
 }
 
+% this part is kinda faked; it's not really chords, it's just bass notes
+% but i'm pretending it's chords to make it print right.
+jessicabreak = \chordmode
+{ \chordProperties
+  s4 |
+  aes4 aes |
+  aes4 aes |
+  ees4 s |
+}
+jessicabreakin = \chordmode
+{ \chordProperties
+  aes4 aes |
+}
+jessicabreakout = \chordmode
+{ \chordProperties
+  aes4 aes |
+}
+jessicaA = \chordmode
+{ \chordProperties
+  aes4 aes | ees4 ees |
+  aes4 aes | ees4 ees |
+  e4 ees | % the e7 could be a d:dim7 (e7==fes7)
+  e4 ees |
+  d2 |
+  ees2 |
+  d2 |
+  ees2 |
+  e4 ees |
+  ees2 |
+  d2 |
+  ees2 |
+  e4 ees |
+  aes2 |
+}  
+jessicaB = \chordmode
+{ \chordProperties
+  bes4 ees4 |
+  bes4 ees4 |
+  aes2 |
+  aes2 |
+  ees2 |
+  ees2 |
+  aes2 |
+  aes2 |
+
+  bes4 ees4 |
+  bes4 ees4 |
+  aes2 |
+  aes2 |
+  f2|
+  bes2|
+  bes2|
+  \mark "To Coda"
+  aes4 aes |
+}
+
+jessica = \chordmode
+{ \chordProperties
+  \set Score.markFormatter = #format-mark-box-letters
+
+  \partial 4
+  \tempo 4 = 97
+  \jessicabreak
+  \jessicabreakin
+  \break
+  \repeat volta 3 {
+    \mark\default
+    \jessicaA
+    \bar "||" \break
+    \mark\default
+    \jessicaB
+  }
+  \break
+  % coda
+  \mark\markup { \musicglyph #"scripts.coda" }
+  aes4
+  \jessicabreak
+  \jessicabreakout
+}
+
 \paper {
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
@@ -621,6 +701,29 @@ harmonies = \chordmode
   \layout { }
   \header {
     instrument = "Guitar (capo'd up 1 fret)"
+    breakbefore=##t
+  }
+}
+
+% jessica's bass score
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \jessica
+    }
+    \new Staff <<
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \new Voice = melody {
+	\small{\melody}
+      }
+    >>
+  >>
+  \layout { }
+  \header {
+    instrument = "Bass (simple)"
     breakbefore=##t
   }
 }
