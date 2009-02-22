@@ -1,6 +1,7 @@
 \version "2.10.10"
 \header {
   title = "The Kitchen Girl (in C)"
+  subtitle = "// A A B B //"
   piece = "Traditional"
   mutopiatitle = "The Kitchen Girl"
   mutopiacomposer = "Traditional"
@@ -118,6 +119,7 @@ harmonies = \transpose d c \chordmode {
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
   ragged-bottom = ##t
+  oddFooterMarkup = \markup { \fill-line { $Id: kitchen-girl-c.ly,v 1.4 2009-02-22 06:00:15 cananian Exp $ } }
 }
 
 % combined score

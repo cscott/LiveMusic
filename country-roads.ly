@@ -3,6 +3,7 @@
 \include "alt-chords.ly"
 \header {
   title = "Take Me Home, Country Roads"
+  subtitle = "Intro A B B A B B A Coda"
   source = "John Denver version, additional arrangement by C. Scott"
   style = "Singing Call"
   maintainer = "C. Scott Ananian"
@@ -613,6 +614,7 @@ wordsB = \lyricmode {
   bookTitleMarkup = \markup {}
   ragged-bottom = ##t
   %annotate-spacing = ##t
+  oddFooterMarkup = \markup { \fill-line { $Id: country-roads.ly,v 1.12 2009-02-22 06:00:15 cananian Exp $ } }
 }
 
 % combined score

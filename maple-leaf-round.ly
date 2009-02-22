@@ -3,6 +3,7 @@
 \include "alt-chords.ly"
 \header {
   title = "Maple Leaf Rag"
+  subtitle = "Intro A B A B A B Coda"
   source = "Joplin, additional arrangement by C. Scott"
   style = "Round Dance (polka/two-step)"
   maintainer = "C. Scott Ananian"
@@ -658,6 +659,7 @@ jessica = \chordmode
   bookTitleMarkup = \markup {}
   ragged-bottom = ##t
   %annotate-spacing = ##t
+  oddFooterMarkup = \markup { \fill-line { $Id: maple-leaf-round.ly,v 1.10 2009-02-22 06:00:15 cananian Exp $ } }
 }
 
 % combined score

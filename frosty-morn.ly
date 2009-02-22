@@ -1,6 +1,7 @@
 \version "2.10.10"
 \header {
   title = "Frosty Morning"
+  subtitle = "// A A B B //"
   piece = "Traditional"
   mutopiatitle = "Frosty Morning"
   mutopiacomposer = "Traditional"
@@ -130,6 +131,7 @@ harmonies = \chordmode {
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
   ragged-bottom = ##t
+  oddFooterMarkup = \markup { \fill-line { $Id: frosty-morn.ly,v 1.7 2009-02-22 06:00:15 cananian Exp $ } }
 }
 
 % combined score

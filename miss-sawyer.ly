@@ -1,6 +1,7 @@
 \version "2.10.10"
 \header {
   title = "Mississippi Sawyer"
+  subtitle = "// A A B B //"
   piece = "Traditional"
 }
 #(set-default-paper-size "letter")
@@ -295,6 +296,7 @@ guitarC = \relative c'
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
   ragged-bottom = ##t
+  oddFooterMarkup = \markup { \fill-line { $Id: miss-sawyer.ly,v 1.18 2009-02-22 06:00:15 cananian Exp $ } }
 }
 
 % combined score
