@@ -257,6 +257,92 @@ melodyflute = {
   \bar "|."
 }
 
+altobreak = {
+  s4 | s2*3 |
+}
+altobreakin = {
+  s2 |
+}
+altobreakout = {
+  r16 c''16 des'' c'' <aes' ees''>8  r8 |
+}
+altoA = {
+  r16 ees'( aes' ees' aes') c''8-\accent aes'16( |
+  bes'16 aes' g') bes'-\accent ~ bes'8 r  |
+  r16 ees'( aes' ees' aes') c''8-\accent aes'16( |
+%% 5
+  bes'16 aes' g') bes'-\accent ~ bes'8 r  |
+  ces''4-\accent( bes'8) bes'  |
+  ces''4-\accent( bes')  |
+  ces''8-\accent ces''-\accent ~ ces''-\accent ces''  |
+  bes'4-\accent ~ bes'-\accent  |
+%% 10
+  d''8 d'' d'' d''16 ees'' ~  |
+  ees''16 c''( c'' aes') c'' des''8-\accent r16  |
+  fes'16( fes' aes') fes'( ees' ees'8) ees' 16(  |
+  aes'16 ees' g' ees' ~ ees'8) r  |
+  d''8 d'' d'' d''16 ees'' ~  |
+%% 15
+  ees''16 c''( c'' aes') c'' des''8-\accent r16  |
+  fes'16( fes' aes') fes'( ees' ees'8) ees' 16(  |
+  aes'16 ees' g' ees' ~ ees'8) r  |
+}
+altoB = {
+    r8 bes' r16 a'8.-\accent  |
+    %% 20
+    aes'8 r16 g'-\accent ~ g'8 f'  |
+    r8 ees' r16 c'8.-\accent  |
+    ees'8 r16 c'-\accent ~ c'8 ees'  |
+    r8 ees' r16 des' 8.-\accent  |
+    ees'8 r16 des'-\accent ~ des'8 des'  |
+    %% 25
+    r8 ees' r16 c'8.-\accent  |
+    ees' 8 r16 c'-\accent ~ c'8 ees'  |
+    r8 bes' r16 a'8.-\accent  |
+    aes'8 r16 g'-\accent ~ g'8 f'  |
+    r8 ees' r16 c'8.-\accent  |
+    %% 30
+    c'8 c' b bes  |
+    a8 r16 c' f'8 a'  |
+    bes'8 aes'16 f' ~ f'4  |
+    aes'8 aes' f'16 g'8 ees'16 ~  |
+    ees'4 r  |
+}
+alto = {
+  \tag #'key \key aes \major
+  \time 2/4
+
+  \partial 4
+  \altobreak
+  \altobreakin
+  \repeat volta 3 {
+    \altoA
+    \altoB
+  }
+  % coda
+  ees'4\repeatTie
+  \altobreak
+  \altobreakout
+  \bar "|."
+}
+altoflute = {
+  \tag #'key \key aes \major
+  \time 2/4
+
+  \partial 4
+  \altobreak
+  \altobreakin
+  \repeat volta 3 {
+    \altoA
+    \transpose c c' { \altoB }
+  }
+  % coda
+  ees'4\repeatTie
+  \altobreak
+  \altobreakout
+  \bar "|."
+}
+
 treblebreak = {
   r4 |
   r8 <d' f' aes' b'>
@@ -585,7 +671,8 @@ jessica = \chordmode
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \context Voice = melody { \small\melody }
+      \set Staff.printPartCombineTexts = ##f
+      \small \partcombine \melody \alto
 %{
       \context Lyrics = firstverse \lyricsto melody \wordsA
       \context Lyrics = secondverse \lyricsto melody \wordsB
@@ -882,12 +969,10 @@ jessica = \chordmode
        \set Staff.midiInstrument = "fiddle"
        r1 { \melody }
      >>
-%{
     \context Staff=alto << 
        \set Staff.midiInstrument = "fiddle"
-       r1 { \alto \altotag }
+       r1 { \alto }
      >>
-%}
     \context Staff=bass <<
       \set Staff.midiInstrument = "acoustic bass"
       r1\ff
