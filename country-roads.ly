@@ -82,7 +82,7 @@ melodypartB = \relative c' { % middle c
   b='4 cis4 b2 ~ |
   b2 b4 cis |
   d=''1 ~ |
-  d4 r4\fermata
+  d4 r4\breathe
 }
 melodycoda = \relative c' { % middle c
   a'='1 ~ |
@@ -94,7 +94,7 @@ melodycoda = \relative c' { % middle c
   b1 ~ |
   b2 cis8( b) a4 |
   a1 ~ |
-  a2 ~ a4\fermata r4 \bar ":|" |
+  a2 ~ a4\accent r4 \bar ":|" |
 }
 
 melody = \transpose a g {
@@ -115,19 +115,105 @@ melody = \transpose a g {
   \melodycoda
 }
 
-alto = \transpose a g \relative c' { % middle c
-  \tag #'key \key a \major
-  \time 2/2
-  r1
+% alto part is written in G (not A, like the melody & other parts)
+altointro = \relative c' { % middle c
+    r2 g'='8( fis) e4 |
+    d='4 d2.~ |
+    d2 d8( d) d4 |
+    c1 ~ |
+    c2 c4 c |
+    \break
+    d1 ~ |
+    d4 r4 r2 |
+}
+altotoA = \relative c' { % middle c
+    r2 b4 b |
+}
+altopartA = \relative c' { % middle c
+    b4. b8 ~ b2 |
+    r2 b4 b8 b ~ |
+    b8 e='4. ~ e2 |
+    r2 d='8 d4. |
+    d='4. d8 ~ d2 |
+    c='4 c c b |
+    b8( d4) d8 ~ d2 |
+    r2 b4 b4 |
+    b4. b8 ~ b2 |
+    b4 e e g |
+    e='1 |
+    d='4 d d d |
+    d4. d8 ~ d2 |
+    c='4 e4 e e8 d ~ |
+    d2
+}
+altochorus = \relative c' {
+    d='4 fis4 |
+    g='1 ~ |
+    g2 g8( fis) e4 |
+    d1 ~ |
+    d2 d4 fis |
+    e1 ~ |
+    e2 g4 b |
+    c=''1 ~ |
+    c2 c4 c |
+    b4 g2. ~ |
+    g2 g8( fis) e4 |
+    d='4 d2.~ |
+    d2 d8( d) d4 |
+    c1 ~ |
+    c2 c4 c |
+    \break
+    d1 ~ |
+    d4 r4 r2 |
+}
+altotoB = \relative c' { % middle c
+    r4 e='4 e e | d2 e4 fis |
+}
+altopartB = \relative c' { % middle c
+  g'='4 g g g |
+  g='4( fis) d4. d8 |
+  g='4. g8 g4 g |
+  g='4 g fis e |
+  d='2 d4. d8 |
+  d2. d4 |
+  e='4 e e e |
+  f4 f f8 f4. |
+  c='4 c c8 c4. |
+  d='4. d8 d d4. |
+  fis='4 g4 fis2 ~ |
+  fis2 fis4 g |
+  fis='1 ~ |
+  fis4 r4\breathe
+}
+altocoda = \relative c' { % middle c
+  d='1 ~ |
+  d4 r4 g8( fis) e4 |
+  d1 ~ |
+  d2 g8( fis) e4 |
+  d1 ~ |
+  d2 g8( fis) e4 |
+  d1 ~ |
+  d2 g8( fis) e4 |
+  g,1 ~ |
+  g2 ~ g4\accent r4 \bar ":|" |
 }
 
-% same as alto part, but some very low notes raised.
-% I assume the clarinet can play E below middle C (but not Eb)
-altoclar = \transpose a g \relative c' { % middle c
-  \tag #'key \key a \major
-  \time 2/2
+alto = {
+  \tag #'key \key g \major
+  \time 2/2 % cut time
 
-  r1
+  \altointro
+  \altotoA
+  \altopartA
+  \altochorus
+  \repeat volta 2 {
+    \altotoB
+    \altopartB
+    \altochorus
+  }
+  \altotoA
+
+  \altocoda
 }
 
 lowb = \relative c { < \tag #'lo b, \tag #'hi b' >4 }
@@ -166,11 +252,11 @@ basstoB = \relative c {
 basspartB = \relative c {
   a=,2 e | a b4 cis | d2 cis4 b | a=,2 gis4 fis |
   e=,2 b' | e, b' | fis=,2 fis | g g | d' cis4 b |
-  a=,2 gis4 fis | e=,2 b' | e, b' | e, b' | e4 r4\fermata
+  a=,2 gis4 fis | e=,2 b' | e, b' | e, b' | e4 r4\breathe
 }
 basscoda = \relative c {
   a=,2 e | a gis4 fis | e=,2 b' | e, fis4 gis | a=,2 e |
-  a=,2 gis4 fis | e=,2 b' | e, e | a e | a ~ a4\fermata r4 |
+  a=,2 gis4 fis | e=,2 b' | e, e | a e | a ~ a4\accent r4 |
 }
 bass = \transpose a g {
   \tag #'key \key a \major
@@ -270,7 +356,7 @@ pianotopcoda = {
   r8 d'8 e' gis' ~ gis'4 <gis' e'>4 |
   r8 d'8 e' gis' ~ gis'4 e'4 |
   r8 a8 cis' e' ~ e'4 <e' cis'>4 |
-  r8 a8 cis' e' ~ \acciaccatura b8 <e' cis'>4\fermata r4 |
+  r8 a8 cis' e' ~ \acciaccatura b8 <e' cis'>4\accent r4 |
 }
 pianotop = <<
   \new Voice = "first" { \voiceOne \melody }
@@ -302,7 +388,7 @@ harmoniesintro = \chordmode { \chordProperties
   d4 d d d |
   d4 d d d |
   a4 a a a |
-  a4 a a a | \break
+  a4 a a a | %\break
 }
 harmoniestoA = \chordmode { \chordProperties
   a4 a a a | 
@@ -541,7 +627,8 @@ wordsB = \lyricmode {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \context Voice = melody { \small\melody }
+      \context Voice = melody { \small \melody }
+      \context Voice = alto { \small \alto }
       \context Lyrics = firstverse \lyricsto melody \wordsA
       \context Lyrics = secondverse \lyricsto melody \wordsB
     >>
@@ -591,7 +678,7 @@ wordsB = \lyricmode {
   }
 }
 %}
-				
+
 % flute score
 \score {
   <<
@@ -620,6 +707,35 @@ wordsB = \lyricmode {
   >>
   \header {
     instrument = "Flute"
+    breakbefore=##t
+  }
+}
+
+% flute + alto score
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
+    \context Voice = fluteA {
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \new Voice = melody {
+	\transpose c c' \melody
+      }
+    }
+    \context Staff = fluteB {
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Alto"
+      \set Staff.shortInstrumentName = "Alt."
+      \transpose c c' \alto
+    }
+    \new Lyrics \lyricsto "melody" { \wordsA }
+  >>
+  \header {
+    instrument = "Flute w/ alto part"
     breakbefore=##t
   }
 }
@@ -680,9 +796,6 @@ wordsB = \lyricmode {
 	\transpose ees c' { \melody }
       }
     }
-    \new Lyrics \lyricsto "melody" { \wordsA }
-    %\new Lyrics \lyricsto "melody" { \wordsB }
-%{
     \context Staff = saxB {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Alto"
@@ -691,7 +804,8 @@ wordsB = \lyricmode {
 	\transpose ees c' { \alto }
       }
     }
-%}
+    \new Lyrics \lyricsto "melody" { \wordsA }
+    %\new Lyrics \lyricsto "melody" { \wordsB }
     \context Staff = saxC {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Bass"
@@ -827,7 +941,10 @@ wordsB = \lyricmode {
       \set Staff.printPartCombineTexts = ##f
       %\small\partcombine {\melody} {\alto}
       \new Voice = melody {
-	\small{\melody}
+	\small \voiceOne \melody
+      }
+      \new Voice = alto {
+	\small \voiceTwo \alto
       }
     >>
     \new Lyrics \lyricsto "melody" { \small\wordsA }
