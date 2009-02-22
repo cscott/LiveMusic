@@ -278,12 +278,12 @@ altoA = {
   bes'4-\accent ~ bes'-\accent  |
 %% 10
   d''8 d'' d'' d''16 ees'' ~  |
-  ees''16 c''( c'' aes') c'' des''8-\accent r16  |
+  ees''16 c''( c'' aes') c'' aes'8-\accent r16  |
   fes'16( fes' aes') fes'( ees' ees'8) ees' 16(  |
   aes'16 ees' g' ees' ~ ees'8) r  |
   d''8 d'' d'' d''16 ees'' ~  |
 %% 15
-  ees''16 c''( c'' aes') c'' des''8-\accent r16  |
+  ees''16 c''( c'' aes') c'' aes'8-\accent r16  |
   fes'16( fes' aes') fes'( ees' ees'8) ees' 16(  |
   aes'16 ees' g' ees' ~ ees'8) r  |
 }
@@ -844,6 +844,32 @@ jessica = \chordmode
   }
 }
 
+% flute+alto score
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
+    \context Voice = fluteA {
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \new Voice = melody { \melodyflute }
+    }
+    \context Staff = fluteB {
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Alto"
+      \set Staff.shortInstrumentName = "Alt."
+      \new Voice = alto { \altoflute }
+    }
+  >>
+  \header {
+    instrument = "Flute w/ alto part"
+    breakbefore=##t
+  }
+}
+
 % clarinet score
 \score {
   <<
@@ -897,17 +923,14 @@ jessica = \chordmode
 	\transpose ees c { \melodyflute }
       }
     }
-%{
-    \new Lyrics \lyricsto "melody" { \words }
     \context Staff = saxB {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
       \new Voice = alto {
-	\transpose ees c' { \alto \transpose c c, \altotag }
+	\transpose ees c { \altoflute }
       }
     }
-%}
     \context Staff = saxC {
       #(set-accidental-style 'modern-cautionary)
       \set Staff.instrumentName = "Bass"
