@@ -459,7 +459,7 @@ bassA = {
   fes8 r ees r  |
   ees8 ees,16 aes, ~ aes,8 < \tag #'hi aes aes, >-\accent  |
 }
-bassB = {
+bassBB = {
     bes,8 r ees, r  |
     %% 20
     bes,8 r ees, g,  |
@@ -478,7 +478,10 @@ bassB = {
     f,8 r c r  |
     bes,8 r f, f,  |
     bes,8 r ees, r  |
-    aes,4 r |
+}
+bassB = {
+  \bassBB
+  aes,4 r |
 }
 bass = {
   \tag #'key \key aes \major
@@ -572,6 +575,7 @@ harmonies = \chordmode
   aes4
   \harmoniesbreak
   \harmoniesbreakout
+  \bar "|."
 }
 
 % this part is kinda faked; it's not really chords, it's just bass notes
@@ -659,7 +663,7 @@ jessica = \chordmode
   bookTitleMarkup = \markup {}
   ragged-bottom = ##t
   %annotate-spacing = ##t
-  oddFooterMarkup = \markup { \fill-line { $Id: maple-leaf-round.ly,v 1.10 2009-02-22 06:00:15 cananian Exp $ } }
+  oddFooterMarkup = \markup { \fill-line { $Id: maple-leaf-round.ly,v 1.11 2009-02-22 06:32:35 cananian Exp $ } }
 }
 
 % combined score
@@ -982,6 +986,55 @@ jessica = \chordmode
   >>
   \header {
     instrument = "Cello"
+    breakbefore=##t
+  }
+}
+
+% cello score (nothing but the bass)
+\score {
+  <<
+%{
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+    }
+%}
+    \context Staff = celloC {
+      #(set-accidental-style 'modern-cautionary)
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \clef bass 
+      \removeWithTag #'hi {
+  \set Score.markFormatter = #format-mark-box-letters
+  \tag #'key \key aes \major
+  \time 2/4
+  
+  \partial 4
+  \tempo 4 = 97
+  \bassbreak
+  \bassbreakin
+  \break
+  \repeat volta 3 {
+    \mark\default
+    \bassA
+    \bar "||" \break
+    \mark\default
+    \bassBB
+    \mark "To Coda"
+    aes,4 r |
+  }
+  \break
+  % coda
+  \mark\markup { \musicglyph #"scripts.coda" }
+  aes,4
+  \bassbreak
+  \bassbreakout
+  \bar "|."
+}
+    }
+  >>
+  \header {
+    instrument = "Cello (only bass)"
     breakbefore=##t
   }
 }
