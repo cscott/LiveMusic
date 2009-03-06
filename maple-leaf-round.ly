@@ -195,7 +195,7 @@ melodyA = {
   aes''8 aes'' aes'' aes''16 aes'' ~  |
   aes''16 ees''( f'' c'') ees'' f''8-\accent r16  |
   aes'16( bes' ces'') aes'( bes' aes'8) bes' 16(  |
-  c''16 aes' bes' aes' ~ aes'8) r  |
+  c''16 aes' bes' aes' ~ aes'8) r\breathe  |
   aes''8 aes'' aes'' aes''16 aes'' ~  |
 %% 15
   aes''16 ees''( f'' c'') ees'' f''8-\accent r16  |
@@ -281,7 +281,7 @@ altoA = {
   d''8 d'' d'' d''16 ees'' ~  |
   ees''16 c''( c'' aes') c'' aes'8-\accent r16  |
   fes'16( fes' aes') fes'( ees' ees'8) ees' 16(  |
-  aes'16 ees' g' ees' ~ ees'8) r  |
+  aes'16 ees' g' ees' ~ ees'8) r \breathe |
   d''8 d'' d'' d''16 ees'' ~  |
 %% 15
   ees''16 c''( c'' aes') c'' aes'8-\accent r16  |
@@ -663,7 +663,7 @@ jessica = \chordmode
   bookTitleMarkup = \markup {}
   ragged-bottom = ##t
   %annotate-spacing = ##t
-  oddFooterMarkup = \markup { \fill-line { $Id: maple-leaf-round.ly,v 1.11 2009-02-22 06:32:35 cananian Exp $ } }
+  oddFooterMarkup = \markup { \fill-line { $Id: maple-leaf-round.ly,v 1.12 2009-03-06 04:28:29 cananian Exp $ } }
 }
 
 % combined score
