@@ -317,7 +317,7 @@ guitarC = \transpose d c \relative c'
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
   ragged-bottom = ##t
-  oddFooterMarkup = \markup { \fill-line { $Id: miss-sawyer-c.ly,v 1.4 2009-02-22 06:00:15 cananian Exp $ } }
+  oddFooterMarkup = \markup { \fill-line { $Id: miss-sawyer-c.ly,v 1.5 2009-03-06 04:39:33 cananian Exp $ } }
 }
 
 % combined score
@@ -430,6 +430,11 @@ guitarC = \transpose d c \relative c'
       \set Staff.shortInstrumentName = "Var."
       \transpose bes c' \mandolin
     >>
+    \new Staff {
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \transpose bes c''' \basstoo
+    }
   >>
   \header {
     instrument = "Clarinet (Bb)"
@@ -443,17 +448,6 @@ guitarC = \transpose d c \relative c'
   >>
   \header {
     instrument = "Clarinet (Bb) Solo" % not new page
-    breakbefore=##t
-  }
-}
-% bass part for clarinet
-\score {
-  <<
-    \set Score.markFormatter = #format-mark-box-letters
-    \new Staff { \transpose bes c''' \basstoo }
-  >>
-  \header {
-    instrument = "Clarinet (Bb) Bass Line" % not new page
     breakbefore=##t
   }
 }
@@ -471,6 +465,7 @@ guitarC = \transpose d c \relative c'
       \set Staff.shortInstrumentName = "Mel."
       \transpose ees c \simple
     >>
+%{
     \new Staff <<
       \set Staff.instrumentName = "Harmony"
       \set Staff.shortInstrumentName = "Har."
@@ -481,6 +476,17 @@ guitarC = \transpose d c \relative c'
       \set Staff.shortInstrumentName = "Var."
       \transpose ees c \mandolin
     >>
+    \new Staff {
+      \set Staff.instrumentName = "Solo"
+      \set Staff.shortInstrumentName = "Sol."
+      \transpose ees c \longvar
+    }
+%}
+    \new Staff {
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \transpose ees c''' \basstoo
+    }
   >>
   \header {
     instrument = "Saxophone (Eb)"
@@ -494,18 +500,7 @@ guitarC = \transpose d c \relative c'
   >>
   \header {
     instrument = "Saxophone (Eb) Solo" % not new page
-    breakbefore=##t
-  }
-}
-% bass part for saxophone
-\score {
-  <<
-    \set Score.markFormatter = #format-mark-box-letters
-    \new Staff { \transpose ees c''' \basstoo }
-  >>
-  \header {
-    instrument = "Saxophone (Eb) Bass Line" % not new page
-    breakbefore=##t
+    breakbefore=##f
   }
 }
 
