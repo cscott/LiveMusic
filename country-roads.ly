@@ -13,7 +13,7 @@
   meter = 240 % ???
 }
 #(set-default-paper-size "letter")
-#(set-global-staff-size 18)
+#(set-global-staff-size 16)
 
 % \transpose a g
 melodyintro = \relative c' { % middle c
@@ -614,7 +614,7 @@ wordsB = \lyricmode {
   bookTitleMarkup = \markup {}
   ragged-bottom = ##t
   %annotate-spacing = ##t
-  oddFooterMarkup = \markup { \fill-line { $Id: country-roads.ly,v 1.12 2009-02-22 06:00:15 cananian Exp $ } }
+  oddFooterMarkup = \markup { \fill-line { $Id: country-roads.ly,v 1.13 2009-03-06 04:43:55 cananian Exp $ } }
 }
 
 % combined score
