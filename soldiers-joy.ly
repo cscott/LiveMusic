@@ -1,4 +1,4 @@
-\version "2.6.3"
+\version "2.12.0"
 \header {
   title = "Soldier's Joy"
   piece = "Traditional"
@@ -216,7 +216,7 @@ pianotop = \relative c'''
   \tag #'key \key d \major
   \time 4/4
   \tag #'partial \partial 8*2
-  #(set-octavation 1)
+  \ottava #1
 
   r4
   \repeat volta 2 {
@@ -267,7 +267,7 @@ pianobot = \relative c,%,
   \tag #'key \key d \major
   \time 4/4
   \tag #'partial \partial 8*2 
-%  #(set-octavation -1)
+%  \ottava #-1
 
   r4
   \repeat volta 2 {
@@ -344,7 +344,7 @@ bass =  \relative c,
 \paper {
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
-  raggedbottom = ##t
+  ragged-bottom = ##t
 }
 
 % combined score
@@ -358,28 +358,28 @@ bass =  \relative c,
       \harmonies
     }
     \new Staff <<
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \set Staff.printPartCombineTexts = ##f
       \partcombine \melody \alternate
     >>
     \new Staff <<
-      \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "aDADE)" } }
-      \set Staff.instr = "Ban."
+      \set Staff.instrumentName = \markup{ \column{ "Banjo" "(tuned" "aDADE)" } }
+      \set Staff.shortInstrumentName = "Ban."
       \banjo
     >>
 %{
     \new TabStaff <<
       \set TabStaff.stringTunings = #bass-tuning
-      \set Staff.instrument = "Bass "
-      \set Staff.instr = "Bas."
+      \set Staff.instrumentName = "Bass "
+      \set Staff.shortInstrumentName = "Bas."
       \bass
     >>
 %}
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
-      \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
-      \set PianoStaff.instr = \markup { "Pia." \hspace #2.0 }
+      \set PianoStaff.instrumentName = \markup { "Piano" \hspace #2.0 }
+      \set PianoStaff.shortInstrumentName = \markup { "Pia." \hspace #2.0 }
       \context Staff = upper << \pianotop >>
       \context Staff = lower << \clef bass \pianobot >>
     >>
@@ -399,13 +399,13 @@ bass =  \relative c,
          \harmonies
     }
     \context Staff = fluteA {
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \melody
     }
     \context Staff = fluteB {
-      \set Staff.instrument = "Alt. Melody"
-      \set Staff.instr = "Alt."
+      \set Staff.instrumentName = "Alt. Melody"
+      \set Staff.shortInstrumentName = "Alt."
       \alternate
     }
   >>
@@ -422,13 +422,13 @@ bass =  \relative c,
          \transpose bes c' \harmonies
     }
     \context Staff = clarA {
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \transpose bes c' \melody
     }
     \context Staff = clarB {
-      \set Staff.instrument = "Alt. Melody"
-      \set Staff.instr = "Alt."
+      \set Staff.instrumentName = "Alt. Melody"
+      \set Staff.shortInstrumentName = "Alt."
       \transpose bes c' \alternate
     }
   >>
@@ -445,18 +445,18 @@ bass =  \relative c,
          \harmonies
     }
     \context Staff = celloA {
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \transpose c c,, << \clef bass \melody >> % 2 octaves down
     }
     \context Staff = celloB {
-      \set Staff.instrument = "Harmony"
-      \set Staff.instr = "Har."
+      \set Staff.instrumentName = "Harmony"
+      \set Staff.shortInstrumentName = "Har."
       \transpose c c,, << \clef bass \alternate >> % 2 octaves down
     }
     \context Staff = celloC {
-      \set Staff.instrument = "Bass"
-      \set Staff.instr = "Bas."
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
       \transpose c c' << \clef bass \bass >> % 1 octave up
     }
   >>
@@ -474,14 +474,14 @@ bass =  \relative c,
     }
 %{
     \context Staff = fluteA {
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \melody
     }
 %}
     \new TabStaff <<
-      \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "aDADE)" } }
-      \set Staff.instr = "Ban."
+      \set Staff.instrumentName = \markup{ \column{ "Banjo" "(tuned" "aDADE)" } }
+      \set Staff.shortInstrumentName = "Ban."
       \set TabStaff.stringTunings = #'(4 2 -3 -10 9)
 % G tuning: 2 -1 -5 -10 7
 % Double-C: 2 0 -5 -12 7
@@ -491,8 +491,8 @@ bass =  \relative c,
     >>
     \new TabStaff <<
       \set TabStaff.stringTunings = #bass-tuning
-      \set Staff.instrument = "Bass "
-      \set Staff.instr = "Bas."
+      \set Staff.instrumentName = "Bass "
+      \set Staff.shortInstrumentName = "Bas."
       \removeWithTag #'key \bass
     >>
   >>
@@ -510,16 +510,16 @@ bass =  \relative c,
          \harmonies
     }
     \new Staff <<
-      \set Staff.instrument = "Melody"
-      \set Staff.instr = "Mel."
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
       \set Staff.printPartCombineTexts = ##f
       %\small\partcombine \melody \alternate
       \melody
     >>
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
-      \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
-      \set PianoStaff.instr = \markup { "Pia." \hspace #2.0 }
+      \set PianoStaff.instrumentName = \markup { "Piano" \hspace #2.0 }
+      \set PianoStaff.shortInstrumentName = \markup { "Pia." \hspace #2.0 }
       \context Staff = upper << \time 4/4 \pianotop >>
       \context Staff = lower << \clef bass \pianobot >>
     >>
@@ -568,7 +568,13 @@ bass =  \relative c,
       \pianobot
     >>
   >>
+  
   \midi {
-    \tempo 2=120
-  }
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 120 2)
+      }
+    }
+
+
 }

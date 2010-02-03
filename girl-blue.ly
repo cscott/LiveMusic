@@ -1,4 +1,4 @@
-\version "2.10.10"
+\version "2.12.0"
 \header {
   title = "The Girl With The Blue Dress On"
   piece = "Traditional"
@@ -160,7 +160,7 @@ guitarB = \relative c'
   \tag #'key \key g \major
   \time 2/4
   \tag #'partial \partial 8
-  s8 \arpeggioUp
+  s8 \arpeggioArrowUp
   \repeat volta 2 {
     s8 <g d' g>\arpeggio s8 <a d fis>\arpeggio |
     s8 <g d' g>\arpeggio s8 <g d' g>\arpeggio |
@@ -193,7 +193,7 @@ guitarC = \relative c'
   \tag #'key \key g \major
   \time 2/4
   \tag #'partial \partial 8
-  s8 \arpeggioUp
+  s8 \arpeggioArrowUp
   \repeat volta 2 {
     \repeat unfold 7 { e8\rest s8 e8\rest s8 | }
   } \alternative {

@@ -1,4 +1,4 @@
-\version "2.10.10"
+\version "2.12.0"
 \header {
   title = "Mississippi Sawyer"
   subtitle = "// A A B B //"
@@ -248,7 +248,7 @@ guitarA = \relative c
 guitarB = \relative c
 {
   \tag #'partial \partial 8*2
-  s4 \arpeggioUp
+  s4 \arpeggioArrowUp
   \repeat volta 2 {
     s4 <a' d fis>\arpeggio s4 <a d fis>\arpeggio |
     s4 <a d fis>\arpeggio s4 <a d fis>\arpeggio |
@@ -277,7 +277,7 @@ guitarB = \relative c
 guitarC = \relative c'
 {
   \tag #'partial \partial 8*2
-  s4 \arpeggioUp
+  s4 \arpeggioArrowUp
   \repeat volta 2 {
     \repeat unfold 7 { e4\rest s4 e4\rest s4 | }
   } \alternative {

@@ -1,4 +1,4 @@
-\version "2.6.3"
+\version "2.12.0"
 \header {
   title = "The Devil Went Down To Georgia"
   meter = 125
@@ -309,16 +309,16 @@ bass = \relative c,
 % drum intro
   r1 |
 % intro
-  \octave d,
+  \octaveCheck d,
   d2\3 a\4 | d2\3 d4\3 cis | c2 g | c2 g4 c |
   d2\3 c | bes a | g a | d4\3 a4. c4. |
 % opener
   \repeat unfold 3 {
-  \octave d,
+  \octaveCheck d,
   d2\3 a\4 | d4\3 a2\4 c4 | d2\3 a\4 | d4\3 f2\3 e4\3 |
   }
   d2\3 a\4 | d4\3 a2\4 c4 | d2\3 a\4 | bes4 b c cis |
-  \octave d,
+  \octaveCheck d,
   d2\3 a\4 | d2\3 a4\4 d\3 |
   c2 g | c2 c |
   g'2 d | g g |
@@ -331,13 +331,13 @@ bass = \relative c,
   \repeat unfold 2 {
 % figure
     \repeat volta 2 {
-      \octave d,,
+      \octaveCheck d,,
       \repeat unfold 2 { d'2\3 a\4 | d2\3 a4\4 d\3 | c2 g | c2 c4 cis | }
-      \octave d,
+      \octaveCheck d,
       d2\3 a\4 | d2\3 a4\4 d\3 | c2 g | c2 c2 |
       a'2 e | a e | a g | f e |
 
-      \octave d,
+      \octaveCheck d,
       d2\3 a\4 | d2\3 a\4 | d2\3 a\4 | d2\3 d4\3 cis |
       c2 g | c2 g | c2 g | c2 c4 cis |
       d2\3 a\4 | d2\3 a\4 | d2\3 a\4 | d2\3 d4\3 cis |
@@ -348,19 +348,19 @@ bass = \relative c,
     }
 % break/closer
     \repeat unfold 3 {
-      \octave d,
+      \octaveCheck d,
       d2\3 a\4 | d4\3 a2\4 c4 | d2\3 a\4 | d4\3 f2\3 e4\3 |
     }
     d2\3 a\4 | d4\3 a2\4 c4 | d2\3 a\4 | bes4 b c cis |
     
-    \octave d,
+    \octaveCheck d,
     d2\3 a\4 | d2\3 a\4 | d2\3 a\4 | d2\3 d4\3 cis |
     c2 g | c2 g | c2 g | c2 c4 cis |
     d2\3 a\4 | d2\3 a\4 | d2\3 a\4 | d2\3 d4\3 cis |
     c2 g | c2 g | c2 g | c4 a b c |
   }
 %outro
-  \octave d,
+  \octaveCheck d,
   d2\3 a\4 | d2\3 d\3 | c2 g | c2 g4 c |
   d2\3 c | bes a |
   g a | d4.\3 a4. c4 |
@@ -370,7 +370,7 @@ bass = \relative c,
 \paper {
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
-  raggedbottom = ##t
+  ragged-bottom = ##t
 }
 
 % combined score
@@ -382,43 +382,43 @@ bass = \relative c,
       \harmonies
     }
     \context Voice = melody {
-      \set Staff.instrument = "Voice"
-      \set Staff.instr = "Voc"
+      \set Staff.instrumentName = "Voice"
+      \set Staff.shortInstrumentName = "Voc"
       \melody
     }
     \lyricsto melody \new Lyrics {
       \opener \figureA \middle \figureB \closer \tagg
     }
     \context Staff = fiddle {
-      \set Staff.instrument = "Fiddle"
-      \set Staff.instr = "Fid"
+      \set Staff.instrumentName = "Fiddle"
+      \set Staff.shortInstrumentName = "Fid"
       \fiddle
     }
     \context Staff = clarinet {
-      \set Staff.instrument = "Clarinet"
-      \set Staff.instr = "Cla"
+      \set Staff.instrumentName = "Clarinet"
+      \set Staff.shortInstrumentName = "Cla"
       \transpose bes c' << \fiddle >>
     }
     \context Staff = celloA {
-      \set Staff.instrument = "Cello 1"
-      \set Staff.instr = "Cel1"
+      \set Staff.instrumentName = "Cello 1"
+      \set Staff.shortInstrumentName = "Cel1"
       \transpose c c, << \clef bass \fiddle >> % 1 octave down
     }
     \context Staff = celloB {
-      \set Staff.instrument = "Cello 2"
-      \set Staff.instr = "Cel2"
+      \set Staff.instrumentName = "Cello 2"
+      \set Staff.shortInstrumentName = "Cel2"
       \transpose c c' << \clef bass \bass >> % 1 octave up
     }
     \new TabStaff <<
-      \set Staff.instrument = "Bass "
+      \set Staff.instrumentName = "Bass "
       \set TabStaff.stringTunings = #bass-tuning
       \bass
     >>
     \context Staff = claps {
-      \set Staff.instrument = "Drums"
+      \set Staff.instrumentName = "Drums"
       \claps
     }
-    \override Score.RemoveEmptyVerticalGroup #'remove-first = ##t
+    \override Score.VerticalAxisGroup #'remove-first = ##t
   >>
   \layout {
     \context {
@@ -441,21 +441,21 @@ bass = \relative c,
       \harmonies
     }
     \context Voice = melody {
-      \set Staff.instrument = "Voice"
-      \set Staff.instr = "Voc"
+      \set Staff.instrumentName = "Voice"
+      \set Staff.shortInstrumentName = "Voc"
       \melody
     }
     \lyricsto melody \new Lyrics {
       \opener \figureA \middle \figureB \closer \tagg
     }
     \context Staff = celloA {
-      \set Staff.instrument = "Cello 1"
-      \set Staff.instr = "Cel.1"
+      \set Staff.instrumentName = "Cello 1"
+      \set Staff.shortInstrumentName = "Cel.1"
       \transpose c c, << \clef bass \fiddle >> % 1 octave down
     }
     \context Staff = celloB {
-      \set Staff.instrument = "Cello 2"
-      \set Staff.instr = "Cel.2"
+      \set Staff.instrumentName = "Cello 2"
+      \set Staff.shortInstrumentName = "Cel.2"
       \transpose c c' << \clef bass \bass >> % 1 octave up
     }
   >>
@@ -474,16 +474,16 @@ bass = \relative c,
       \harmonies
     }
     \context Voice = melody {
-      \set Staff.instrument = "Voice"
-      \set Staff.instr = "Voc"
+      \set Staff.instrumentName = "Voice"
+      \set Staff.shortInstrumentName = "Voc"
       \melody
     }
     \lyricsto melody \new Lyrics {
       \opener \figureA \middle \figureB \closer \tagg
     }
     \context Staff = fluteA {
-      \set Staff.instrument = "Flute"
-      \set Staff.instr = "Flu."
+      \set Staff.instrumentName = "Flute"
+      \set Staff.shortInstrumentName = "Flu."
       \fiddle
     }
   >>
@@ -502,16 +502,16 @@ bass = \relative c,
       \transpose bes c' << \harmonies >>
     }
     \context Voice = melody {
-      \set Staff.instrument = "Voice"
-      \set Staff.instr = "Voc"
+      \set Staff.instrumentName = "Voice"
+      \set Staff.shortInstrumentName = "Voc"
       \transpose bes c' << \melody >>
     }
     \lyricsto melody \new Lyrics {
       \opener \figureA \middle \figureB \closer \tagg
     }
     \context Staff = clarinet {
-      \set Staff.instrument = "Clarinet"
-      \set Staff.instr = "Cla"
+      \set Staff.instrumentName = "Clarinet"
+      \set Staff.shortInstrumentName = "Cla"
       \transpose bes c' << \fiddle >>
     }
   >>
@@ -530,8 +530,8 @@ bass = \relative c,
       \harmonies
     }
     \context Voice = melody {
-      \set Staff.instrument = "Voice"
-      \set Staff.instr = "Voc"
+      \set Staff.instrumentName = "Voice"
+      \set Staff.shortInstrumentName = "Voc"
       \melody
     }
     \lyricsto melody \new Lyrics {
@@ -539,8 +539,8 @@ bass = \relative c,
     }
     \new TabStaff <<
       \set TabStaff.stringTunings = #bass-tuning
-      \set Staff.instrument = "Bass "
-      \set Staff.instr = "Bas."
+      \set Staff.instrumentName = "Bass "
+      \set Staff.shortInstrumentName = "Bas."
       \bass
     >>
   >>
@@ -561,7 +561,13 @@ bass = \relative c,
 %    \context Staff=banjo << r4\banjo >>
     \context Staff=bass << r4\bass >>
   >>
+  
   \midi {
-    \tempo 2=125
-  }
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 125 2)
+      }
+    }
+
+
 }

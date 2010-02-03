@@ -1,4 +1,4 @@
-\version "2.10.10"
+\version "2.12.0"
 \header {
   title = "Cripple Creek"
   piece = "Traditional"
@@ -262,7 +262,7 @@ guitarB = \relative c'
 {
   \time 4/4
   \tag #'partial \partial 8*2
-  s4 \arpeggioUp
+  s4 \arpeggioArrowUp
   \repeat volta 2 {
     s4 \gchord s4 \gchord |
     s4 \cchord s4 \gchord |
@@ -294,7 +294,7 @@ guitarC = \relative c'
 {
   \time 4/4
   \tag #'partial \partial 8*2
-  s4 \arpeggioUp
+  s4 \arpeggioArrowUp
   \repeat volta 2 {
     \repeat unfold 3 { c4\rest s4 c4\rest s4 | }
   } \alternative {

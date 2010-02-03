@@ -1,4 +1,4 @@
-\version "2.6.3"
+\version "2.12.0"
 \header {
   title = "Last Chance"
   piece = "Traditional"
@@ -17,7 +17,7 @@
 #(set-default-paper-size "letter")
 
 banjo = \relative c {
-  \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "fDFCD," "capo'd 2)" } }
+  \set Staff.instrumentName = \markup{ \column{ "Banjo" "(tuned" "fDFCD," "capo'd 2)" } }
   \set Staff.midiInstrument = "banjo"
   
   \repeat volta 2 {
@@ -74,7 +74,7 @@ harmonies = \chordmode {
 
 bass = \transpose c c,,
 {
-  \set Staff.instrument = "Bass "
+  \set Staff.instrumentName = "Bass "
   \set Staff.midiInstrument = "acoustic bass"
 %  \key g \major
 
@@ -120,7 +120,7 @@ bass = \transpose c c,,
     >>
 %    \new PianoStaff <<
 %      #(set-accidental-style 'piano-cautionary)
-%      \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
+%      \set PianoStaff.instrumentName = \markup { "Piano" \hspace #2.0 }
 %     \context Staff = upper << \time 4/4 \pianotop >>
 %     \context Staff = lower << \clef bass \pianobot >>
 %   >>
@@ -137,7 +137,13 @@ bass = \transpose c c,,
 %    \context Staff=upper << r4\pianotop >>
 %    \context Staff=lower << r4\pianobot >>
   >>
+  
   \midi {
-    \tempo 2=120
-  }
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 120 2)
+      }
+    }
+
+
 }

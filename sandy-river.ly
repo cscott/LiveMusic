@@ -1,4 +1,4 @@
-\version "2.6.3"
+\version "2.12.0"
 \header {
   title = "Sandy River Belle"
   piece = "Traditional"
@@ -18,7 +18,7 @@
 
 banjo = \relative c'
 {
-  \set Staff.instrument = \markup{ \column{ "Banjo" "(tuned" "gDGBD)" } }
+  \set Staff.instrumentName = \markup{ \column{ "Banjo" "(tuned" "gDGBD)" } }
   \set Staff.midiInstrument = "banjo"
   \key g \major
 
@@ -93,7 +93,7 @@ harmonies = \chordmode {
 pianotop = \relative c'''
 {
   \key g \major
-  #(set-octavation 1)
+  \ottava #1
 
   \repeat volta 2 {
     r4 g' b g
@@ -131,7 +131,7 @@ pianotop = \relative c'''
 pianobot = \relative c,,
 {
   \key g \major
-  #(set-octavation -1)
+  \ottava #-1
 
   \repeat volta 2 {
    g'2 g' g, g' g, g'
@@ -158,7 +158,7 @@ pianobot = \relative c,,
 
 bass = \transpose c c,,
 {
-  \set Staff.instrument = "Bass "
+  \set Staff.instrumentName = "Bass "
   \set Staff.midiInstrument = "acoustic bass"
 %  \key g \major
 
@@ -217,7 +217,7 @@ bass = \transpose c c,,
    >>
    \context PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
-      \set PianoStaff.instrument = \markup { "Piano" \hspace #2.0 }
+      \set PianoStaff.instrumentName = \markup { "Piano" \hspace #2.0 }
      \context Staff = upper << \time 4/4 \pianotop >>
      \context Staff = lower << \clef bass \pianobot >>
    >>
@@ -236,7 +236,13 @@ bass = \transpose c c,,
     \context Staff=banjo << r4\banjo >>
     \context Staff=bass << r4\bass >>
   >>
+  
   \midi {
-    \tempo 2=129
-  }
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 129 2)
+      }
+    }
+
+
 }

@@ -1,4 +1,4 @@
-\version "2.10.10"
+\version "2.12.0"
 \header {
   title = "Saturday Night"
   piece = "Traditional"
@@ -252,7 +252,7 @@ guitarB = \relative c'
   \tag #'key \key c \major
   \time 2/4
   \tag #'partial \partial 8
-  s8 \arpeggioUp
+  s8 \arpeggioArrowUp
   \repeat volta 2 {
     s8 <g c e>\arpeggio s8 <g c e>\arpeggio |
     s8 <g c e>\arpeggio s8 <g c e>\arpeggio |
@@ -283,7 +283,7 @@ guitarC = \relative c'
   \tag #'key \key c \major
   \time 2/4
   \tag #'partial \partial 8
-  s8 \arpeggioUp
+  s8 \arpeggioArrowUp
   \repeat volta 2 {
     \repeat unfold 7 { d8\rest s8 d8\rest s8 | }
   } \alternative {

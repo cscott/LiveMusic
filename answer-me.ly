@@ -1,5 +1,5 @@
 % -*- coding: utf-8; -*-
-\version "2.10.10"
+\version "2.12.0"
 \include "alt-chords.ly"
 \header {
   title = "Answer Me, My Love"
@@ -152,15 +152,15 @@ words = \lyricmode {
 }
 
 bassA = \relative ees {
-  \octave ees
+  \octaveCheck ees
   ees,4 g aes | bes4 d f | aes,4 ees' ces | bes4 g ees |
-  \octave aes,
+  \octaveCheck aes,
   aes4 ees' f | ees bes aes | f bes aes |
 }
 bassB = \relative c {
-  \octave ees
+  \octaveCheck ees
   ees,4 g aes | bes d f | aes, ees' c | bes g ees |
-  \octave g,
+  \octaveCheck g,
   g4 bes d |
 }
 
@@ -168,31 +168,31 @@ bass = \relative g, { % g below c below middle c
   \tag #'key \key ees \major
   \time 3/4
 
-  \octave g,
+  \octaveCheck g,
   g4 bes d | f, c' ees | f a, c | bes d aes' |
 
   \repeat volta 2 {
-    \bassA | \octave g   g,4 bes ees, |
-    \bassA | \octave ees, ees4 g ees' |
+    \bassA | \octaveCheck g   g,4 bes ees, |
+    \bassA | \octaveCheck ees, ees4 g ees' |
 
-    \octave g
+    \octaveCheck g
     g4 d bes | ees bes f | g bes ees | g, bes d |
-    \octave g
+    \octaveCheck g
     g4 d bes | ees bes ges | f a c | bes d aes' | 
 
     \bassA
   }
   \alternative {
-    { \octave g
+    { \octaveCheck g
       g,4 bes ees |
       \bassB
-      \octave f
+      \octaveCheck f
       f,4 aes c | ees, g bes | f aes bes |
       \bassB
-      \octave f,
+      \octaveCheck f,
       f4 a ees' | f a, c | bes d aes' |
     }
-    { \octave ees
+    { \octaveCheck ees
       ees,4 g' ees }
   }
 }

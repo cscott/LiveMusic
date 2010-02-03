@@ -1,4 +1,4 @@
-\version "2.10.10"
+\version "2.12.0"
 \header {
   title = "Sandy River Belle"
   piece = "Traditional"
@@ -207,7 +207,7 @@ pianotop = \relative c'''
 {
   \tag #'key \key g \major
   \time 4/4
-  #(set-octavation 1)
+  \ottava #1
 
   \repeat volta 2 {
     r4 g' b g
@@ -247,7 +247,7 @@ pianobot = \relative c,,
 {
   \tag #'key \key g \major
   \time 4/4
-  #(set-octavation -1)
+  \ottava #-1
 
   \repeat volta 2 {
    g'2 d' g, d' g, d'
