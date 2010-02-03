@@ -24,7 +24,7 @@ melody = \relative c' {
   \time 4/4
 
   c='4 ees g ees | f2 ees4 d | g2 f2 | c2. r4 |
-  ees='4 g bes bes | c2 bes4 aes | g1 | a2 b2 \bar "||" |
+  ees='4 g bes bes | c2 bes4 aes | g1 | a2 b2 \bar "||" | \break
 
   \repeat volta 2 {
   d=''4 c g2 | r4 ees4 d c=' | g'4 f aes2 ~ | aes4 r4 bes aes |
@@ -35,18 +35,60 @@ melody = \relative c' {
     { c,1 ~ | c4 r4 r2 | \bar "|." }
   }
 }
-
-
-\score {
-  \new PianoStaff = "Melody" <<
-    \set PianoStaff.instrumentName = #"Piano  "
-    \new Staff = "melody" <<
-      \new Voice \melody
-      \new Voice \linebreaks
-    >>
-    %\new Staff = "lower" \lower
-  >>
-  \layout { }
-  \midi { }
+harmony = \chordmode {
+  c2:m c:m | f2:m f:m | g2:7 g:7 | c2:m c:m |
+  ees2 ees | f2:m bes:7 | ees2 ees | d2:7 d:7 |
+  \repeat volta 2 {
+    c2:m c:m |  c2:m c:m | f2:m f:m | f2:m f:m |
+    c2:m c:m | d2:m7 g:7 |
+  }
+  \alternative {
+    { c2:m c:m | d2:7 d:7 | }
+    { c2:m c:m | c2:m s2 | }
+  }
 }
 
+
+% combined score
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmony
+    }
+    \context Voice = melody {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      %\set Staff.voltaSpannerDuration = #(ly:make-moment 3 4)
+      \melody
+    }
+    %\new Lyrics \lyricsto "melody" { \words }
+  >>
+  \layout { }
+  \header {
+    instrument = "Combined Score"
+  }
+}
+
+% midi score.
+\score {
+  \unfoldRepeats
+  \context PianoStaff <<
+    \context Staff=melody <<
+       \set Staff.midiInstrument = "fiddle"
+       r1 \melody
+     >>
+    \context Staff=chords <<
+      \set Staff.midiInstrument = "pizzicato strings"
+      r1\pp
+      \harmony
+    >>
+  >>
+
+  \midi {
+%    \context {
+%      \Score
+%      tempoWholesPerMinute = #(ly:make-moment 80 4)
+%      }
+    }
+}
