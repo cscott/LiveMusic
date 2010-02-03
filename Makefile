@@ -2,9 +2,9 @@
 SONGS=cripple-creek2 miss-sawyer kitchen-girl frosty-morn answer-me rocky-top\
 	non-dimenticar one-toke girl-blue saturday-night sandy-river2 \
 	june-apple country-roads maple-leaf-round \
-	miss-sawyer-c kitchen-girl-c frosty-morn-f
+	miss-sawyer-c kitchen-girl-c frosty-morn-f last-chance
 ### not yet updated
-#SONGS+=soldiers-joy last-chance devil-went-down
+#SONGS+=soldiers-joy devil-went-down
 LAME=toolame
 all: $(foreach f,$(SONGS),$(f).mp3)
 
