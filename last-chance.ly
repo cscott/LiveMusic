@@ -56,19 +56,19 @@ harmonies = \chordmode {
    g4 g g g
    g4 g g g
    c4 c c c
-   g4 g g g
+   g4 g g g % XXX this is Em
   }
 
 % Part 2
   \repeat volta 2 {
   \mark\default
-   g4 g g g
+   g4 g g g  % XXX: replace G here with Gm or Gdim/Edim
    a4:m a:m a:m a:m
    g4 g g g
    e4:m e:m e:m e:m
    g4 g g g
-   a4:m a:m a:m a:m
-   g4 g g g
+   a4:m a:m a:m a:m  % XXX this may be Am/B
+   g4 g g g          % this is probably Em
   }
 }
 
