@@ -144,7 +144,7 @@ words = \lyricmode {
   Wish that I was up on Rock -- y Top
   back in the Ten -- nes -- see hills.
   Ain't no smog -- gy smoke on Rock -- y Top
-  Ain't no tel -- le -- phone bills.
+  Ain't no te -- le -- phone bills.
   % chorus
   Rock -- y Top __ you'll al -- ways be
   home sweet home __ to me.
