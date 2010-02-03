@@ -18,10 +18,10 @@ linebreaks = {
   %  s1 \noBreak s1 \noBreak s1 \noBreak s1 \break
   %}
 }
-melody = \relative c' {
+
+melodyC = \relative c' {
   \clef "treble"
   \key c \minor
-  \time 4/4
 
   c='4 ees g ees | f2 ees4 d | g2 f2 | c2. r4 |
   ees='4 g bes bes | c2 bes4 aes | g1 | a2 b2 \bar "||" | \break
@@ -32,10 +32,12 @@ melody = \relative c' {
   }
   \alternative {
     { c1 | a'2 b2 | }
-    { c,1 ~ | c4 r4 r2 | \bar "|." }
+    { c,1 ~ | c4 r4 r2 | }
   }
 }
-harmony = \chordmode {
+melody = { \time 4/4 \melodyC \bar "||" \break \transpose c d \melodyC \bar "|." }
+
+harmonyC = \chordmode {
   c2:m c:m | f2:m f:m | g2:7 g:7 | c2:m c:m |
   ees2 ees | f2:m bes:7 | ees2 ees | d2:7 d:7 |
   \repeat volta 2 {
@@ -47,7 +49,14 @@ harmony = \chordmode {
     { c2:m c:m | c2:m s2 | }
   }
 }
+harmony = { \harmonyC \transpose c d \harmonyC }
 
+
+\paper {
+  scoreTitleMarkup = \bookTitleMarkup
+  bookTitleMarkup = \markup {}
+  ragged-bottom = ##t
+}
 
 % combined score
 \score {
@@ -70,6 +79,46 @@ harmony = \chordmode {
   }
 }
 
+% clarinet score
+\score {
+  <<
+    \context Staff = clarinetA {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \transpose bes c' \melody
+    }
+    %\context Staff = clarinetB {
+    %  \set Staff.instrumentName = "Bass"
+    %  \set Staff.shortInstrumentName = "Bas."
+    %  \transpose bes c'' \bass
+    %}
+  >>
+  \header {
+    instrument = "Clarinet (Bb)"
+    breakbefore=##t
+  }
+}
+
+% saxophone score
+\score {
+  <<
+    \context Staff = saxA {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \transpose ees c' \melody
+    }
+    %\context Staff = saxB {
+    %  \set Staff.instrumentName = "Bass"
+    %  \set Staff.shortInstrumentName = "Bas."
+    %  \transpose ees c'' \bass
+    %}
+  >>
+  \header {
+    instrument = "Saxophone (Eb)"
+    breakbefore=##t
+  }
+}
+
 % midi score.
 \score {
   \unfoldRepeats
@@ -86,9 +135,9 @@ harmony = \chordmode {
   >>
 
   \midi {
-%    \context {
-%      \Score
-%      tempoWholesPerMinute = #(ly:make-moment 80 4)
-%      }
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 124 4)
+      }
     }
 }
