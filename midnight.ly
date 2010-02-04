@@ -119,6 +119,21 @@ harmony = { \harmonyC \transpose c d \harmonyC }
   }
 }
 
+% flute score
+\score {
+  <<
+    \context Staff = fluteA {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \transpose c c' \melody
+    }
+  >>
+  \header {
+    instrument = "Flute"
+    breakbefore=##t
+  }
+}
+
 % midi score.
 \score {
   \unfoldRepeats
