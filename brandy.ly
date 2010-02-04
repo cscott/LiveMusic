@@ -33,7 +33,8 @@ melody = \transpose e g \relative c' {
   \time 4/4
   \key e \major
 
-  r1 | r1 | r1 | r2 r4 e8 fis |
+  r1 | r1 | r2 r4 \override NoteHead #'style = #'cross e4 |
+  e4 e8 e4. \revert NoteHead #'style e8 fis |
   \repeat volta 2 {
     % verse
     gis='2 r4 fis8 e |
@@ -41,16 +42,16 @@ melody = \transpose e g \relative c' {
     fis='2 r8 b,8 cis e |
     fis='8 gis4 e8 ~ e4 e8 fis |
 
-    gis='4 gis r4 fis8 e |
+    gis='8 gis4 ~ gis8 r4 fis8 e |
     fis='8 gis4 e8 ~ e4 r8 e |
     fis='8 gis4 e8 ~ e e4 e8 ~ |
-    e='4 r8 e8 gis gis b4 |
+    e='4 r4 r4 gis8 b8 |
 
     % chorus
     b='4 cis r8 b8 gis b ~ |
     b='8 cis4. ~ cis4 b8 cis8 |
     e=''4 cis ~ cis8 b cis cis ~ |
-    cis=''2. b8( gis) |
+    cis=''2. b8 gis |
 
     b='4. gis8 b4 b8 cis ~ |
     cis=''8 b4 gis8 ~ gis fis4. |
@@ -58,9 +59,13 @@ melody = \transpose e g \relative c' {
   }
   \alternative {
     { r2 r4 e='8 fis | }
-    { r1 | }
+    { r2 r4 e='8 gis | }
   }
-  r1
+
+  b='4. gis8 b4 b8 cis ~ |
+  cis=''8 b4 gis8 ~ gis fis4. |
+  fis='4.( e8 ~ e2) |
+  r1 | r1\fermata | \bar "|."
 }
 harmony = \transpose e g \chordmode {
   \chordProperties
@@ -82,7 +87,23 @@ harmony = \transpose e g \chordmode {
     { a4. a4/b a4./b | }
     { a4. a4/b a4./b | }
   }
+
+  e4 e e e |
+  b4:7 b:7 b:7 b:7 |
+  a4. e4. e4 |
+  a4. a4/b a4./b |
   e1 |
+}
+
+words = \lyricmode {
+Sides face, grand square. There's a
+port on a west -- ern bay. __ and it
+serves a hun -- dred ships a day; __ Lone -- ly
+sail -- ors pass the time a -- way __ and
+talk a -- bout __ their "homes. Allemande and weave." They say
+Bran -- dy, you're a fine __ girl, __ what a good wife __ you would be; __
+Yeah, your eyes could steal a sail -- or from __ the sea. __ There's a
+Yeah, your eyes could steal a sail -- or from __ the sea. __
 }
 
 upper = \transpose e g \relative c' {
@@ -122,6 +143,12 @@ upper = \transpose e g \relative c' {
     { <cis e a>4. <cis e a b>8~ <cis e a b>8 <cis e a b>4. | }
     { <cis e a>4. <cis e a b>8~ <cis e a b>8 <cis e a b>4. | }
   }
+
+  <e gis b>4. gis8 <e gis b>4 b'8 <dis, a' cis>8~ |
+  <dis a' cis>8 <dis a' b>4 <b dis gis>8~ <b dis gis>8 <a dis fis>4. |
+  <a cis fis>4. <gis b e>8~ <gis b e>2 |
+  <cis e a>4. <cis e a b>8~ <cis e a b>8 <cis e a b>4. |
+  <e gis b>1\fermata |
 }
 
 lower = \transpose e g \relative c, {
@@ -163,6 +190,12 @@ lower = \transpose e g \relative c, {
     { a8 a8 a8 b8~ b2 | }
     { a8 a8 a8 b8~ b2 | }
   }
+
+  <e e'>8 <e e'>4 b'8 <e, e'>2 |
+  b'4. b8 b4. b8 |
+  a8 a8 a8 e8~ e8 e8 e4 |
+  a8 a8 a8 b8~ b2 |
+  <e e,>1\fermata |
 }
 
 \paper {
@@ -183,7 +216,7 @@ lower = \transpose e g \relative c, {
       \set Staff.shortInstrumentName = "Mel."
       \melody
     }
-    %\new Lyrics \lyricsto "melody" { \words }
+    \new Lyrics \lyricsto "melody" { \words }
     \new PianoStaff <<
       #(set-accidental-style 'piano-cautionary)
       \set PianoStaff.instrumentName = \markup { "Piano" \hspace #2.0 }
@@ -202,11 +235,13 @@ lower = \transpose e g \relative c, {
 % clarinet score
 \score {
   <<
-    \context Staff = clarinetA {
+    \context Staff = clarinetA <<
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \transpose bes c' \melody
-    }
+      \context Voice = melody { \transpose bes c' \melody }
+      \context Voice \linebreaks
+    >>
+    \new Lyrics \lyricsto "melody" { \words }
     %\context Staff = clarinetB {
     %  \set Staff.instrumentName = "Bass"
     %  \set Staff.shortInstrumentName = "Bas."
@@ -222,11 +257,13 @@ lower = \transpose e g \relative c, {
 % saxophone score
 \score {
   <<
-    \context Staff = saxA {
+    \context Staff = saxA <<
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \transpose ees c' \melody
-    }
+      \context Voice = melody \transpose ees c \melody
+      \context Voice \linebreaks
+    >>
+    \new Lyrics \lyricsto "melody" { \words }
     %\context Staff = saxB {
     %  \set Staff.instrumentName = "Bass"
     %  \set Staff.shortInstrumentName = "Bas."
