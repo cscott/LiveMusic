@@ -17,6 +17,13 @@
 #(set-default-paper-size "letter")
 %#(set-global-staff-size 18)
 
+\paper {
+  scoreTitleMarkup = \bookTitleMarkup
+  bookTitleMarkup = \markup {}
+  ragged-bottom = ##t
+  oddFooterMarkup = \markup { \fill-line { 2010-02-04 } }
+}
+
 melodya = \relative c'' {
   \tag #'key \key c \major
   \time 4/4
@@ -152,12 +159,6 @@ harmonies = \chordmode {
   \set chordChanges = ##f
   g2. \set chordChanges = ##t
   %\set Score.repeatCommands = #'((volta #f))
-}
-
-\paper {
-  scoreTitleMarkup = \bookTitleMarkup
-  bookTitleMarkup = \markup {}
-  ragged-bottom = ##t
 }
 
 % combined score

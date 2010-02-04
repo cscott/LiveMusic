@@ -12,6 +12,13 @@
 }
 #(set-default-paper-size "letter")
 
+\paper {
+  scoreTitleMarkup = \bookTitleMarkup
+  bookTitleMarkup = \markup {}
+  ragged-bottom = ##t
+  oddFooterMarkup = \markup { \fill-line { 2010-02-04 } }
+}
+
 % melody in bill's sheet music.  the range is a bit much
 % for flute.
 melody = \relative c'' {
@@ -299,12 +306,6 @@ guitarC = \relative c'
 }
 
 bass = \transpose c c, { \removeWithTag #'g \guitarA }
-
-\paper {
-  scoreTitleMarkup = \bookTitleMarkup
-  bookTitleMarkup = \markup {}
-  ragged-bottom = ##t
-}
 
 % combined score
 \score {

@@ -5,8 +5,17 @@
 %  subtitle = "Left Alley Band Singing Call Version"
 %  instrument = "piano"
   composer = "Words and Music by Elliot Lurie"
-  lastupdated = "2010/Feb/2"}
+  lastupdated = "2010/Feb/4"
+}
 #(set-default-paper-size "letter")
+
+\paper {
+  scoreTitleMarkup = \bookTitleMarkup
+  bookTitleMarkup = \markup {}
+  ragged-bottom = ##t
+  oddFooterMarkup = \markup { \fill-line { 2010-02-04 } }
+}
+
 linebreaks = {
   \time 4/4
   \tempo "Moderate singing call" 4 = 124
@@ -196,12 +205,6 @@ lower = \transpose e g \relative c, {
   a8 a8 a8 e8~ e8 e8 e4 |
   a8 a8 a8 b8~ b2 |
   <e e,>1\fermata |
-}
-
-\paper {
-  scoreTitleMarkup = \bookTitleMarkup
-  bookTitleMarkup = \markup {}
-  ragged-bottom = ##t
 }
 
 % combined score

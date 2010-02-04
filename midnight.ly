@@ -3,8 +3,17 @@
   title = "Midnight in Moscow"
   subtitle = "Left Alley Band Singing Call Version"
   composer = "Russian Folk Tune"
-  lastupdated = "2010/Feb/3"}
+  lastupdated = "2010/Feb/4"
+}
 #(set-default-paper-size "letter")
+
+\paper {
+  scoreTitleMarkup = \bookTitleMarkup
+  bookTitleMarkup = \markup {}
+  ragged-bottom = ##t
+  oddFooterMarkup = \markup { \fill-line { 2010-02-04 } }
+}
+
 linebreaks = {
   \time 4/4
   \tempo "Two step" 4 = 124
@@ -51,12 +60,6 @@ harmonyC = \chordmode {
 }
 harmony = { \harmonyC \transpose c d \harmonyC }
 
-
-\paper {
-  scoreTitleMarkup = \bookTitleMarkup
-  bookTitleMarkup = \markup {}
-  ragged-bottom = ##t
-}
 
 % combined score
 \score {

@@ -17,6 +17,13 @@
 #(set-default-paper-size "letter")
 %#(set-global-staff-size 18)
 
+\paper {
+  scoreTitleMarkup = \bookTitleMarkup
+  bookTitleMarkup = \markup {}
+  ragged-bottom = ##t
+  oddFooterMarkup = \markup { \fill-line { 2010-02-04 } }
+}
+
 melody = \relative c''' {
   \tag #'key \key g \major
   \time 4/4
@@ -269,12 +276,6 @@ pianobot = \relative c,,
    { g,2 d' c g }
    { g2 d' c g }
   }
-}
-
-\paper {
-  scoreTitleMarkup = \bookTitleMarkup
-  bookTitleMarkup = \markup {}
-  ragged-bottom = ##t
 }
 
 % combined score
