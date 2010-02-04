@@ -24,7 +24,7 @@ melodyC = \relative c' {
   \key c \minor
 
   c='4 ees g ees | f2 ees4 d | g2 f2 | c2. r4 |
-  ees='4 g bes bes | c2 bes4 aes | g1 | a2 b2 \bar "||" | \break
+  ees='4 g bes bes | c2 bes4 aes | g1 | a2 b2 | \break
 
   \repeat volta 2 {
   d=''4 c g2 | r4 ees4 d c=' | g'4 f aes2 ~ | aes4 r4 bes aes |
