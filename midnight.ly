@@ -1,7 +1,7 @@
 \version "2.12.2"
 \header {
   title = "Midnight in Moscow"
-  subtitle = "Phase II Two-Step"
+  subtitle = "Phase II Two-Step (AAABC)"
   composer = "Russian Folk Tune"
   lastupdated = "2010/Feb/4"
 }
@@ -46,9 +46,13 @@ melodyC = \relative c' {
   }
 }
 melody = {
+  \set Score.markFormatter = #format-mark-box-letters
  \time 4/4
+  \mark \default % A part
  \melodyC \bar "||" \break
+  \mark \default % B part
  \transpose c d \melodyC \bar "||" \break
+  \mark \default % C part
  \transpose c f \melodyC \bar "|." }
 
 harmonyC = \chordmode {
@@ -63,7 +67,16 @@ harmonyC = \chordmode {
     { c2:m c:m | c2:m s2 | }
   }
 }
-harmony = { \harmonyC \transpose c d \harmonyC \transpose c f \harmonyC }
+harmony = {
+  \set Score.markFormatter = #format-mark-box-letters
+  \time 4/4
+  %\mark \default % A part
+  \harmonyC
+  %\mark \default % B part
+  \transpose c d \harmonyC
+  %\mark \default % C part
+  \transpose c f \harmonyC
+}
 
 
 % combined score
@@ -130,10 +143,10 @@ harmony = { \harmonyC \transpose c d \harmonyC \transpose c f \harmonyC }
 % flute score
 \score {
   <<
-    \context ChordNames {
-         \set chordChanges = ##t
-         \harmony
-    }
+    %\context ChordNames {
+    %     \set chordChanges = ##t
+    %     \harmony
+    %}
     \context Staff = fluteA {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
