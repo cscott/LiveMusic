@@ -45,21 +45,25 @@ melodyC = \relative c' {
     { c,1 ~ | c4 r4 r2 | }
   }
 }
-melody = { \time 4/4 \melodyC \bar "||" \break \transpose c d \melodyC \bar "|." }
+melody = {
+ \time 4/4
+ \melodyC \bar "||" \break
+ \transpose c d \melodyC \bar "||" \break
+ \transpose c f \melodyC \bar "|." }
 
 harmonyC = \chordmode {
   c2:m c:m | f2:m f:m | g2:7 g:7 | c2:m c:m |
-  ees2 ees | f2:m bes:7 | ees2 ees | d2:7 d:7 |
+  ees2 ees | f2:m bes:7 | ees2 ees | d2:m7 g:7 |
   \repeat volta 2 {
     c2:m c:m |  c2:m c:m | f2:m f:m | f2:m f:m |
     c2:m c:m | d2:m7 g:7 |
   }
   \alternative {
-    { c2:m c:m | d2:7 d:7 | }
+    { c2:m c:m | d2:m7 d:m7 | }
     { c2:m c:m | c2:m s2 | }
   }
 }
-harmony = { \harmonyC \transpose c d \harmonyC }
+harmony = { \harmonyC \transpose c d \harmonyC \transpose c f \harmonyC }
 
 
 % combined score
