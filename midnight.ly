@@ -1,7 +1,7 @@
 \version "2.12.2"
 \header {
   title = "Midnight in Moscow"
-  subtitle = "Left Alley Band Singing Call Version"
+  subtitle = "Phase II Two-Step"
   composer = "Russian Folk Tune"
   lastupdated = "2010/Feb/4"
 }
@@ -18,14 +18,15 @@ linebreaks = {
   \time 4/4
   \tempo "Two step" 4 = 124
 
-  %% \partial 4
-  %% s4 |
-
   s1*8 \break
 
-  %\repeat unfold 2 {
-  %  s1 \noBreak s1 \noBreak s1 \noBreak s1 \break
-  %}
+  \repeat volta 2 {
+    s1*6 \break
+  }
+  \alternative {
+    { s1*2 }
+    { s1*2 \break }
+  }
 }
 
 melodyC = \relative c' {
@@ -125,11 +126,20 @@ harmony = { \harmonyC \transpose c d \harmonyC }
 % flute score
 \score {
   <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmony
+    }
     \context Staff = fluteA {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \transpose c c' \melody
     }
+    %\context Staff = bass {
+    %  \set Staff.instrumentName = "Bass"
+    %  \set Staff.shortInstrumentName = "Bas."
+    %  \clef bass \linebreaks
+    %}
   >>
   \header {
     instrument = "Flute"
