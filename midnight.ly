@@ -18,7 +18,7 @@ linebreaks = {
   \time 4/4
   \tempo "Two step" 4 = 165
 
-  \repeat unfold 3 {
+  \repeat unfold 2 {
   s1*8 \break
 
   \repeat volta 2 {
@@ -31,21 +31,32 @@ linebreaks = {
 }
 }
 
-melodyC = \relative c' {
+melodyCtagged = \relative c' {
   \key c \minor
 
   c='4 ees g ees | f2 ees4 d | g2 f2 | c2. r4 |
   ees='4 g bes bes | c2 bes4 aes | g1 | a2 b2 | \break
 
   \repeat volta 2 {
-  d=''4 c g2 | r4 ees4 d c=' | g'4 f aes2 ~ | aes4 r4 bes aes |
-  g='2 f4 ees | g2 f2 |
+    d=''4 c g2 | r4 ees4 d c=' | g'4 f aes2 ~ | aes4 r4 bes aes |
+    g='2 f4 ees | \tag #'notfinal { g2 f2 | }
   }
   \alternative {
-    { c1 | a'2 b2 | }
-    { c,1 ~ | c4 r4 r2 | }
+    { \tag #'final { g2 f2 | }
+      c1 | a'2 b2 |
+      \tag #'final { \break } }
+    { \tag #'final { g4 aes a b | c1 ~ | c1 ~ | c1 ~ | c2 ~ c4-. r | }
+      \tag #'notfinal { c,1 ~ | c4 r4 r2 | }
+    }
   }
 }
+melodyC = {
+  \keepWithTag #'notfinal \melodyCtagged \break
+}
+melodyFinal = {
+  \keepWithTag #'final \melodyCtagged \break
+}
+
 melody = {
   \set Score.markFormatter = #format-mark-box-letters
   %\clef "treble"
@@ -53,87 +64,76 @@ melody = {
   \tempo "Two step" 4 = 165
 
   \mark \default % A part
-  \melodyC \bar "||" \break
+  \melodyC \bar ":|" \break
   \mark \default % B part
   \transpose c d \melodyC \bar "||" \break
   \mark \default % C part
-  \transpose c f \melodyC \bar "|."
+  \transpose c f \melodyFinal \bar "|."
 }
 
-bassC = \relative c, {
+bassCtagged = \relative c, {
   \key c \minor
-  c=,4 r g' r | f r g r | ees r d r | c r8 c bes4 d |
-  ees=,4 r bes' r | aes r bes, r | ees r8 g bes4 g | f4 r g r |
+  c=,4 r g' r |
+  f r g r |
+  ees r d r |
+  c r8 c \tag #'nocello {bes4}
+         \tag #'cello \tag #'walk {d4} d4 |
+
+  ees=,4 r bes' r |
+  aes r \tag #'nocello {bes,}
+        \tag #'cello \tag #'walk {bes'} r |
+  ees, r8 g bes4 g |
+  f4 r g r |
 
   \repeat volta 2 {
     c,=,4 r g' r | c, r r2 | f4 r c r | f r ees aes |
-    g=, r c g | f r g f |
+    g=, r c g | \tag #'nofinal { f=, r g f | }
   }
   \alternative {
-    { c=,4 r bes r | a r g r | }
-    { c=,4 r g' r | c, r g' r | }
+    { \tag #'final { f=, r g f | }
+      \tag #'nocello \tag #'walk { c=,4 r bes r | a r g r | }
+      \tag #'cello { c=,4 r g' r | d r g r | } }
+    { \tag #'final { f=, r g f | }
+      c=,4 r g' r | c, r g' r |
+      \tag #'final { c,=,4 r g' f | ees d c r | }
+    }
   }
 }
+
+bassC = \removeWithTag #'cello \bassCtagged
 % alternate without the drop down scale
-bassCnowalkdown = \relative c, {
-  \key c \minor
-  c=,4 r g' r | f r g r | ees r d r | c r8 c bes4 d |
-  ees=,4 r bes' r | aes r bes, r | ees r8 g bes4 g | f4 r g r |
-
-  \repeat volta 2 {
-    c,=,4 r g' r | c, r r2 | f4 r c r | f r ees aes |
-    g=, r c g | f r g f |
-  }
-  \alternative {
-    { c=,4 r g' r | d r g r | }
-    { c,=,4 r g' r | c, r g' r | }
-  }
-}
-
+bassCnowalkdown = \removeWithTag #'walk \bassCtagged
 % alternate for when c, is the lowest note available
-bassCcello = \relative c, {
-  \key c \minor
-  c=,4 r g' r | f r g r | ees r d r | c r8 c d4 d |
-  ees=,4 r bes' r | aes r bes r | ees, r8 g bes4 g | f4 r g r |
-
-  \repeat volta 2 {
-    c,=,4 r g' r | c, r r2 | f4 r c r | f r ees aes |
-    g=, r c g | f r g f |
-  }
-  \alternative {
-    { c=,4 r g' r | d r g r | }
-    { c,=,4 r g' r | c, r g' r | }
-  }
-}
+bassCcello = \removeWithTag #'nocello \bassCtagged
 
 bass = {
   %\clef "bass"
   \time 4/4
 
-  \bassC \bar "||" \break
-  \transpose c d \bassC \bar "||" \break
-  \transpose c f \bassC \bar "|."
+  {\removeWithTag #'final \bassC} \bar ":|" \break
+  \transpose c d {\removeWithTag #'final \bassC} \bar "||" \break
+  \transpose c f {\removeWithTag #'nofinal \bassC} \bar "|."
 }
 basscello = {
   \time 4/4
 
-  \bassCcello \bar "||" \break
-  \transpose c d \bassCnowalkdown \bar "||" \break
-  \transpose c f \bassC \bar "|."
+  {\removeWithTag #'final \bassCcello} \bar ":|" \break
+  \transpose c d {\removeWithTag #'final \bassCnowalkdown} \bar "||" \break
+  \transpose c f {\removeWithTag #'nofinal \bassC} \bar "|."
 }
 basssax = {
   \time 4/4
 
-  s1*8 \repeat volta 2 { s1*6 } \alternative { s1*2 } { s1*2 }
-  \transpose c d \bassCcello \bar "||" \break
-  \transpose c f \bassCnowalkdown \bar "|."
+  s1*8 \repeat volta 2 { s1*6 } \alternative { s1*2 } { s1*2 } \bar ":|" \break
+  \transpose c d {\removeWithTag #'final \bassCcello} \bar "||" \break
+  \transpose c f {\removeWithTag #'nofinal \bassCnowalkdown} \bar "|."
 }
 bassclarinet = {
   \time 4/4
 
-  \transpose c c' \bassC \bar "||" \break
-  \transpose c d \bassCcello \bar "||" \break
-  \transpose c f \bassCnowalkdown \bar "|."
+  \transpose c c' {\removeWithTag #'final \bassC} \bar ":|" \break
+  \transpose c d  {\removeWithTag #'final \bassCcello} \bar "||" \break
+  \transpose c f  {\removeWithTag #'nofinal \bassCnowalkdown} \bar "|."
 }
 
 harmonyC = \chordmode {
@@ -141,22 +141,26 @@ harmonyC = \chordmode {
   ees2 ees | f2:m bes:7 | ees2 ees | d2:m7 g:7 |
   \repeat volta 2 {
     c2:m c:m |  c2:m c:m | f2:m f:m | f2:m f:m |
-    c2:m c:m | d2:m7 g:7 |
+    c2:m c:m | \tag #'nofinal { d2:m7 g:7 | }
   }
   \alternative {
-    { c2:m c:m | d2:m7 d:m7 | }
-    { c2:m c:m | c2:m s2 | }
+    { \tag #'final { d2:m7 g:7 | }
+      c2:m c:m | d2:m7 d:m7 | }
+    { \tag #'final { d2:m7 g:7 | }
+      c2:m c:m | c2:m s2 |
+      \tag #'final { c2:m c2:m | c2:m c4:m r | }
+    }
   }
 }
 harmony = {
   \set Score.markFormatter = #format-mark-box-letters
   \time 4/4
   %\mark \default % A part
-  \harmonyC
+  \removeWithTag #'final \harmonyC
   %\mark \default % B part
-  \transpose c d \harmonyC
+  \transpose c d \removeWithTag #'final \harmonyC
   %\mark \default % C part
-  \transpose c f \harmonyC
+  \transpose c f \removeWithTag #'nofinal \harmonyC
 }
 
 
