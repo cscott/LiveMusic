@@ -16,7 +16,7 @@
 
 linebreaks = {
   \time 4/4
-  \tempo "Two step" 4 = 124
+  \tempo "Two step" 4 = 165
 
   s1*8 \break
 
@@ -30,7 +30,6 @@ linebreaks = {
 }
 
 melodyC = \relative c' {
-  \clef "treble"
   \key c \minor
 
   c='4 ees g ees | f2 ees4 d | g2 f2 | c2. r4 |
@@ -47,13 +46,40 @@ melodyC = \relative c' {
 }
 melody = {
   \set Score.markFormatter = #format-mark-box-letters
- \time 4/4
+  \clef "treble"
+  \time 4/4
+
   \mark \default % A part
- \melodyC \bar "||" \break
+  \melodyC \bar "||" \break
   \mark \default % B part
- \transpose c d \melodyC \bar "||" \break
+  \transpose c d \melodyC \bar "||" \break
   \mark \default % C part
- \transpose c f \melodyC \bar "|." }
+  \transpose c f \melodyC \bar "|."
+}
+
+bassC = \relative c, {
+  \key c \minor
+  c=,4 r g' r | f r g r | ees r d r | c r8 c bes4 d |
+  ees=,4 r bes' r | aes r bes, r | ees r8 g bes4 g | f4 r g r |
+
+  \repeat volta 2 {
+    c,=,4 r g' r | c, r r2 | f4 r c r | f r ees aes |
+    g=, r c g | f r g f |
+  }
+  \alternative {
+    { c=,4 r bes r | a r g r | }
+    { c=,4 r g' r | c, r g' r | }
+  }
+}
+
+bass = {
+  %\clef "bass"
+  \time 4/4
+
+  \bassC \bar "||" \break
+  \transpose c d \bassC \bar "||" \break
+  \transpose c f \bassC \bar "|."
+}
 
 harmonyC = \chordmode {
   c2:m c:m | f2:m f:m | g2:7 g:7 | c2:m c:m |
@@ -86,13 +112,18 @@ harmony = {
          \set chordChanges = ##t
          \harmony
     }
-    \context Voice = melody {
+    \context Staff = melody {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       %\set Staff.voltaSpannerDuration = #(ly:make-moment 3 4)
       \melody
     }
     %\new Lyrics \lyricsto "melody" { \words }
+    \context Staff = bass {
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \clef bass \bass
+    }
   >>
   \layout { }
   \header {
@@ -152,11 +183,11 @@ harmony = {
       \set Staff.shortInstrumentName = "Mel."
       \transpose c c' \melody
     }
-    %\context Staff = bass {
-    %  \set Staff.instrumentName = "Bass"
-    %  \set Staff.shortInstrumentName = "Bas."
-    %  \clef bass \linebreaks
-    %}
+    \context Staff = bass {
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \transpose c, c' \bass
+    }
   >>
   \header {
     instrument = "Flute"
@@ -172,17 +203,22 @@ harmony = {
        \set Staff.midiInstrument = "fiddle"
        r1 \melody
      >>
-    \context Staff=chords <<
-      \set Staff.midiInstrument = "pizzicato strings"
-      r1\pp
-      \harmony
+    %\context Staff=chords <<
+    %  \set Staff.midiInstrument = "pizzicato strings"
+    %  r1\pp
+    %  \harmony
+    %>>
+    \context Staff=bass <<
+      \set Staff.midiInstrument = "acoustic bass"
+      r1
+      \transpose c c' \bass
     >>
   >>
 
   \midi {
     \context {
       \Score
-      tempoWholesPerMinute = #(ly:make-moment 124 4)
+      tempoWholesPerMinute = #(ly:make-moment 165 4)
       }
     }
 }
