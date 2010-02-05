@@ -18,6 +18,7 @@ linebreaks = {
   \time 4/4
   \tempo "Two step" 4 = 165
 
+  \repeat unfold 3 {
   s1*8 \break
 
   \repeat volta 2 {
@@ -27,6 +28,7 @@ linebreaks = {
     { s1*2 }
     { s1*2 \break }
   }
+}
 }
 
 melodyC = \relative c' {
@@ -46,8 +48,9 @@ melodyC = \relative c' {
 }
 melody = {
   \set Score.markFormatter = #format-mark-box-letters
-  \clef "treble"
+  %\clef "treble"
   \time 4/4
+  \tempo "Two step" 4 = 165
 
   \mark \default % A part
   \melodyC \bar "||" \break
@@ -71,6 +74,37 @@ bassC = \relative c, {
     { c=,4 r g' r | c, r g' r | }
   }
 }
+% alternate without the drop down scale
+bassCnowalkdown = \relative c, {
+  \key c \minor
+  c=,4 r g' r | f r g r | ees r d r | c r8 c bes4 d |
+  ees=,4 r bes' r | aes r bes, r | ees r8 g bes4 g | f4 r g r |
+
+  \repeat volta 2 {
+    c,=,4 r g' r | c, r r2 | f4 r c r | f r ees aes |
+    g=, r c g | f r g f |
+  }
+  \alternative {
+    { c=,4 r g' r | d r g r | }
+    { c,=,4 r g' r | c, r g' r | }
+  }
+}
+
+% alternate for when c, is the lowest note available
+bassCcello = \relative c, {
+  \key c \minor
+  c=,4 r g' r | f r g r | ees r d r | c r8 c d4 d |
+  ees=,4 r bes' r | aes r bes r | ees, r8 g bes4 g | f4 r g r |
+
+  \repeat volta 2 {
+    c,=,4 r g' r | c, r r2 | f4 r c r | f r ees aes |
+    g=, r c g | f r g f |
+  }
+  \alternative {
+    { c=,4 r g' r | d r g r | }
+    { c,=,4 r g' r | c, r g' r | }
+  }
+}
 
 bass = {
   %\clef "bass"
@@ -79,6 +113,27 @@ bass = {
   \bassC \bar "||" \break
   \transpose c d \bassC \bar "||" \break
   \transpose c f \bassC \bar "|."
+}
+basscello = {
+  \time 4/4
+
+  \bassCcello \bar "||" \break
+  \transpose c d \bassCnowalkdown \bar "||" \break
+  \transpose c f \bassC \bar "|."
+}
+basssax = {
+  \time 4/4
+
+  s1*8 \repeat volta 2 { s1*6 } \alternative { s1*2 } { s1*2 }
+  \transpose c d \bassCcello \bar "||" \break
+  \transpose c f \bassCnowalkdown \bar "|."
+}
+bassclarinet = {
+  \time 4/4
+
+  \transpose c c' \bassC \bar "||" \break
+  \transpose c d \bassCcello \bar "||" \break
+  \transpose c f \bassCnowalkdown \bar "|."
 }
 
 harmonyC = \chordmode {
@@ -116,7 +171,7 @@ harmony = {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       %\set Staff.voltaSpannerDuration = #(ly:make-moment 3 4)
-      \melody
+      \clef "treble" \melody
     }
     %\new Lyrics \lyricsto "melody" { \words }
     \context Staff = bass {
@@ -137,13 +192,13 @@ harmony = {
     \context Staff = clarinetA {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \transpose bes c' \melody
+      \clef "treble" \transpose bes c' \melody
     }
-    %\context Staff = clarinetB {
-    %  \set Staff.instrumentName = "Bass"
-    %  \set Staff.shortInstrumentName = "Bas."
-    %  \transpose bes c'' \bass
-    %}
+    \context Staff = clarinetB {
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \transpose bes c'' \bassclarinet
+    }
   >>
   \header {
     instrument = "Clarinet (Bb)"
@@ -157,13 +212,13 @@ harmony = {
     \context Staff = saxA {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \transpose ees c' \melody
+      \clef "treble" \transpose ees c' \melody
     }
-    %\context Staff = saxB {
-    %  \set Staff.instrumentName = "Bass"
-    %  \set Staff.shortInstrumentName = "Bas."
-    %  \transpose ees c'' \bass
-    %}
+    \context Staff = saxB {
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \transpose ees c'' \basssax
+    }
   >>
   \header {
     instrument = "Saxophone (Eb)"
@@ -181,16 +236,48 @@ harmony = {
     \context Staff = fluteA {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \transpose c c' \melody
+      \clef "treble" \transpose c c' \melody
     }
     \context Staff = bass {
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
-      \transpose c, c' \bass
+      \clef "treble" \transpose c, c' \basscello
     }
   >>
   \header {
     instrument = "Flute"
+    breakbefore=##t
+  }
+}
+
+% cello score (octave-shifted)
+\score {
+  <<
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmony
+    }
+    \context Staff = celloA {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \clef "bass" \transpose c c, \melody  % 1 octave down
+    }
+    %\new Lyrics \lyricsto "celloA" { \words }
+%{
+    \context Staff = celloB {
+      \set Staff.instrumentName = "Harmony"
+      \set Staff.shortInstrumentName = "Har."
+      \transpose c c,, << \clef bass \alternate >> % 2 octaves down
+    }
+%}
+    \context Staff = celloC {
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \clef bass \basscello
+    }
+  >>
+  \header {
+    instrument = "Cello"
     breakbefore=##t
   }
 }
