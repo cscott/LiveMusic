@@ -18,7 +18,14 @@ all: $(foreach f,$(SONGS),$(f).mp3)
 %.mp3: %.wav
 	$(LAME) $< $@
 
-upload: $(foreach f,$(SONGS),$(f).mp3 $(f).ly $(f).pdf) non-dimenticar-rg.mp3
-	rsync --chmod=a+r -avz $^ cscott.net:public_html/LiveMusic/
+#upload: $(foreach f,$(SONGS),upload-$(f) )
+
+# Tweak 'uploaded' line to record timestamp when uploading.
+# for timestamp tried: git log --pretty="format:%aD" -1 $*.ly
+# but it's not any more stable that this.
+upload-%: %.ly
+	sed -i~ -e '/^ *oddFooterMarkup/c\  oddFooterMarkup = \\markup { \\fill-line { $(shell date "+Uploaded %Y-%m-%d %H:%M") } }' $^
+	$(MAKE) $*.mp3 $*.pdf
+	rsync --chmod=a+r -avz $*.ly $*.mp3 $*.pdf cscott.net:public_html/LiveMusic/
 
 answer-me.ps answer-me.pdf: alt-chords.ly
