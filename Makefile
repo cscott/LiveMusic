@@ -3,7 +3,7 @@ SONGS=cripple-creek2 miss-sawyer kitchen-girl frosty-morn answer-me rocky-top\
 	non-dimenticar one-toke girl-blue saturday-night sandy-river2 \
 	june-apple country-roads maple-leaf-round \
 	miss-sawyer-c kitchen-girl-c frosty-morn-f last-chance \
-	brandy midnight
+	brandy midnight red-haired-boy
 ### not yet updated
 #SONGS+=soldiers-joy devil-went-down
 LAME=toolame
