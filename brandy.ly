@@ -203,7 +203,7 @@ lower = \transpose e g \relative c, {
   <e e'>8 <e e'>4 b'8 <e, e'>2 |
   b'4. b8 b4. b8 |
   a8 a8 a8 e8~ e8 e8 e4 |
-  a8 a8 a8 b8~ b2 |
+  a,8 a8 a8 b8~ b2 |
   <e e,>1\fermata |
 }
 
