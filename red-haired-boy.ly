@@ -22,58 +22,163 @@
   oddFooterMarkup = \markup { \fill-line { 2010-02-04 } }
 }
 
-melody = \relative a' {
+linebreaks = {
+  \time 2/4
+  \partial 8
+  s8 |
+  \repeat volta 2 {
+    s2 \noBreak | s2 \noBreak | s2 \noBreak | s2 \break |
+    s2 \noBreak | s2 \noBreak | s2 \noBreak |
+  }
+  \alternative {
+    { s2 \noBreak | }
+    { s2 \break | }
+  }
+
+  \repeat volta 2 {
+    s2 \noBreak | s2 \noBreak | s2 \noBreak | s2 \break |
+    s2 \noBreak | s2 \noBreak | s2 \noBreak |
+  }
+  \alternative {
+    { s2 \noBreak | }
+    { s4 s8 }
+  }
+}
+
+melody = \transpose a g \relative a' {
   \set Score.markFormatter = #format-mark-box-letters
   \time 2/4
   \tempo 4=120
 
   \key a \major
 
-  \mark\default % A part
-
   \partial 8
-  a8 |
-  e='16 a a gis a b cis d |
-  e=''16 fis e cis d8 cis16 d |
-  e=''16 d cis b a b cis a |
-  b='16 g e fis g8 fis |
+  a='8 |
+  \mark\default % A part
+  \repeat volta 2 {
+    e='16 a a gis a b cis d |
+    e=''16 fis e cis d8 cis16 d |
+    e=''16 d cis b a b cis a |
+    b='16 g e fis g8 fis |
 
-  e='16 a a gis a b cis d |
-  e=''16 fis e cis d8 cis16 d |
-  e=''16 a a b a gis e d |
-  cis=''8 a a
-
-  % XXX repeat
+    e='16 a a gis a b cis d |
+    e=''16 fis e cis d8 cis16 d |
+    e=''16[ a a b] a gis e d |
+  }
+  \alternative {
+    { cis=''8[ a a] a8 | }
+    { cis=''8[ a a] e'=''16 fis | }
+  }
 
   \mark\default % B part
-  e'=''16 fis |
-  g=''16 g fis g e8 fis16 g |
-  a=''16 g fis e d8 cis16 d |
-  e=''16 d cis b a b cis a |
-  b='16 g e fis g8 fis |
-  e='16 a a gis a b cis d |
-  e=''16 fis e cis d8 cis16 d |
-  e=''16 a a b a gis e d |
-  cis=''8 a a
+  \repeat volta 2 {
+    g=''16 g fis g e8 fis16 g |
+    a=''16 g fis e d8 cis16 d |
+    e=''16 d cis b a b cis a |
+    b='16 g e fis g8 fis |
+
+    e='16 a a gis a b cis d |
+    e=''16 fis e cis d8 cis16 d |
+    e=''16[ a a b] a gis e d |
+  }
+  \alternative {
+    { cis=''8[ a a] e'=''16 fis | }
+    { cis=''8[ a a] }
+  }
   \bar "|."
 }
 
-alternate = \relative a' {
-}
-bass = \relative c, {
+alto = \transpose a g \relative a {
+  \time 2/4
+  \tempo 4=120
+
+  \key a \major
+
+  \partial 8
+  a=8 |
+  \mark\default % A part
+  \repeat volta 2 {
+    cis='8 cis cis16 e a b |
+    cis=''16 d cis a fis4 |
+    cis='8 e cis a' |
+    g='8 e e d |
+
+    cis='8 cis16 b cis16 e a b |
+    cis=''16 d cis a fis8 a |
+    d=''8. d16 b8 gis16 fis |
+  }
+  \alternative {
+    { e='8[ cis cis] a | }
+    { e'='8[ cis cis] gis'16 a | }
+  }
+
+  \mark\default % B part
+  \repeat volta 2 {
+    b='16 b a b g8 a16 b |
+    fis='8 a16 g fis8 e16 fis |
+    e='4 cis8 e |
+    g='8 e e d |
+
+    cis='8 cis16 b cis16 e a b |
+    cis=''8 cis16 a fis8 a |
+    d=''8. d16 b8 gis16 fis |
+  }
+  \alternative {
+    { e='8[ cis cis] gis'16 a | }
+    { e='8[ cis cis] }
+  }
+  \bar "|."
 }
 
-harmonies = \chordmode {
+bass = \transpose a g \relative c, {
+  \time 2/4
+  \tempo 4=120
+
+  \key a \major
+
+  \partial 8
+  r8 |
+  \repeat volta 2 {
+    a=,,4 e' | a, d | e a, | e b' | a e' | a, d | e d |
+  }
+  \alternative {
+    { a=,,4 e' }
+    { a,=,,4 e' }
+  }
+
+  \repeat volta 2 {
+    e,=,,4 b' | e, d | e a | e b' | a=,, e' | a, d | e e, |
+  }
+  \alternative {
+    { a=,,4 e' }
+    { a,=,,4 a8 }
+  }
+  \bar "|."
+}
+
+harmonies = \transpose a g \chordmode {
   \set Score.markFormatter = #format-mark-box-letters
   \time 2/4
 
   \partial 8
   r8 |
-  a4 a | a d | a a | e:m e:m | a a | a d | e:7 e:7 | a a8
+  \repeat volta 2 {
+    a4 a | a d | a a | e:m e:m | a a | a d | e:7 e:7 |
+  }
+  \alternative {
+    { a4 a }
+    { \set chordChanges = ##f a4
+      \set chordChanges = ##t a }
+  }
 
-  r8 |
-  e4:m e:m | e:m d | a a | e:m e:m | a a | a d | e:7 e:7 | a a8
-
+  \repeat volta 2 {
+    e4:m e:m | e:m d | a a | e:m e:m | a a | a d | e:7 e:7 |
+  }
+  \alternative {
+    { a4 a }
+    { \set chordChanges = ##f a4
+      \set chordChanges = ##t a8 }
+  }
   \bar "|."
 }
 
@@ -82,13 +187,13 @@ harmonies = \chordmode {
   <<
     \context ChordNames {
          \set chordChanges = ##t
-         \harmonies
+         << \harmonies \linebreaks >>
     }
     \new Staff <<
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       \set Staff.printPartCombineTexts = ##f
-      \partcombine \melody \alternate
+      \partcombine \melody \alto
     >>
     \new Staff <<
       \clef bass
@@ -111,12 +216,12 @@ harmonies = \chordmode {
     \context Staff = fluteA {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \melody
+      \transpose c c' \melody
     }
     \context Staff = fluteB {
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
-      \alternate
+      \transpose c c' \alto
     }
   >>
   \header {
@@ -131,12 +236,12 @@ harmonies = \chordmode {
     \context Staff = clarinetA {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \transpose bes c { \melody }
+      \transpose bes c' { \melody }
     }
     \context Staff = clarinetB {
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
-      \transpose bes c { \alternate }
+      \transpose bes c' { \alto }
 
     }
   >>
@@ -152,12 +257,12 @@ harmonies = \chordmode {
     \context Staff = saxophoneA {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \transpose ees c { \melody }
+      \transpose ees c' { \melody }
     }
     \context Staff = saxophoneB {
       \set Staff.instrumentName = "Alto"
       \set Staff.shortInstrumentName = "Alt."
-      \transpose ees c { \alternate }
+      \transpose ees c' { \alto }
     }
     \context Staff = saxophoneC {
       \set Staff.instrumentName = "Bass"
@@ -181,12 +286,12 @@ harmonies = \chordmode {
     \context Staff = celloA {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \transpose c c,, << \clef bass \melody >> % 2 octaves down
+      \transpose c c, << \clef bass \melody >> % 2 octaves down
     }
     \context Staff = celloB {
       \set Staff.instrumentName = "Harmony"
       \set Staff.shortInstrumentName = "Har."
-      \transpose c c,, << \clef bass \alternate >> % 2 octaves down
+      \transpose c c, << \clef bass \alto >> % 2 octaves down
     }
     \context Staff = celloC {
       \set Staff.instrumentName = "Bass"
@@ -209,9 +314,9 @@ harmonies = \chordmode {
        \set Staff.midiInstrument = "fiddle"
        r1\pp \melody
      >>
-    \context Staff=alternate <<
+    \context Staff=alto <<
        \set Staff.midiInstrument = "fiddle"
-       r1\pp \alternate
+       r1\pp \alto
      >>
     \context Staff=bass <<
       \set Staff.midiInstrument = "acoustic bass"
