@@ -11,7 +11,7 @@
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
   ragged-bottom = ##t
-  oddFooterMarkup = \markup { \fill-line { Uploaded 2010-02-05 20:08 } }
+  oddFooterMarkup = \markup { \fill-line { Uploaded 2010-02-05 22:04 } }
 }
 
 linebreaks = {
