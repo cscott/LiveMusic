@@ -130,6 +130,49 @@ alto = \transpose a g \relative a {
   \bar "|."
 }
 
+melodyB = \transpose a g \relative a' {
+  \set Score.markFormatter = #format-mark-box-letters
+  \time 2/4
+  \tempo 4=120
+
+  \key a \major
+
+  \partial 8
+  a='16 fis |
+  \mark\default % A part
+  \repeat volta 2 {
+    e='8 a a16 b cis d |
+    e=''16 fis e cis d8 cis16( d) |
+    e=''16 d cis b a b cis a |
+    b='16 g e fis g8. fis16 |
+
+    e='8 a a16 b cis d |
+    e=''16 fis e cis d8 cis16 d |
+    e=''8 a16( gis) a fis e d |
+  }
+  \alternative {
+    { cis=''8[ a a8.] fis16 | }
+    { cis'=''8[ a a] e'=''16 fis | }
+  }
+
+  \mark\default % B part
+  \repeat volta 2 {
+    g=''16 fis e fis g fis e fis |
+    g=''16 fis e cis d8 cis16( d) |
+    e=''16 d cis b a b cis a |
+    b='16 a e fis g8. fis16 |
+
+    e='8 a a16 b cis d |
+    e=''16 fis e cis d8 cis16( d) |
+    e=''8 a16( gis) a fis e d |
+  }
+  \alternative {
+    { cis=''8[ a a] e'=''16 fis | }
+    { cis=''8[ a a] }
+  }
+  \bar "|."
+}
+
 bass = \transpose a g \relative c, {
   \time 2/4
   \tempo 4=120
@@ -189,6 +232,12 @@ harmonies = \transpose a g \chordmode {
          \set chordChanges = ##t
          << \harmonies \linebreaks >>
     }
+    \new Staff <<
+      \set Staff.instrumentName = "Melody 2"
+      \set Staff.shortInstrumentName = "Mel.2"
+      \set Staff.printPartCombineTexts = ##f
+      \melodyB
+    >>
     \new Staff <<
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
