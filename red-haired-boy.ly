@@ -19,7 +19,7 @@
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
   ragged-bottom = ##t
-  oddFooterMarkup = \markup { \fill-line { Uploaded 2010-02-06 03:30 } }
+  oddFooterMarkup = \markup { \fill-line { Uploaded 2010-02-06 11:12 } }
 }
 
 linebreaks = {
@@ -59,7 +59,7 @@ melody = \transpose a g \relative a' {
     e='8 a a16 b cis d |
     e=''16 fis e cis d8 cis16( d) |
     e=''16 d cis b a b cis a |
-    b='16 a e fis g8. fis16 |
+    b='16 g e fis g8. fis16 |
 
     e='8[ a] a16 b cis d |
     e=''16 fis e cis d8 cis16 d |
@@ -75,7 +75,7 @@ melody = \transpose a g \relative a' {
     g=''16 fis e fis g fis e fis |
     g=''16 fis e cis d8 cis16( d) |
     e=''16 d cis b a b cis a |
-    b='16 a e fis g8. fis16 |
+    b='16 g e fis g8. fis16 |
 
     e='8[ a] a16 b cis d |
     e=''16 fis e cis d8 cis16 d |
