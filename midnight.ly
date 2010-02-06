@@ -11,7 +11,7 @@
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
   ragged-bottom = ##t
-  oddFooterMarkup = \markup { \fill-line { Uploaded 2010-02-05 18:41 } }
+  oddFooterMarkup = \markup { \fill-line { Uploaded 2010-02-05 20:08 } }
 }
 
 linebreaks = {
@@ -74,7 +74,7 @@ melody = {
 altoCtagged = \relative c' {
   \key c \minor
 
-  g=4 c=' ees c | c2 aes4 g | ees'2 d2 | g,2. r4 |
+  g=4 c=' ees c | c2 c4 b | ees2 d2 | g,2. r4 |
   bes=4 ees g g | aes2 g4 f | ees1 | f2 g2 | \break
 
   \repeat volta 2 {
@@ -85,8 +85,8 @@ altoCtagged = \relative c' {
     { \tag #'final { d2 b2 | }
       c='1 | f2 g2 |
       \tag #'final { \break } }
-    { \tag #'final { d4 f g g | g1 ~ | g1 ~ | g1 ~ | g2 ~ g4-. r | }
-      \tag #'notfinal { c,1 ~ | c4 r4 r2 | }
+    { \tag #'final { d4 f f g | ees2 d | c1 ~ | c1 ~ | c2 ~ c4-. r | }
+      \tag #'notfinal { c='1 ~ | c4 r4 r2 | }
     }
   }
 }
@@ -216,9 +216,8 @@ harmony = {
       \set Staff.shortInstrumentName = "Mel."
       %\set Staff.voltaSpannerDuration = #(ly:make-moment 3 4)
       \clef "treble"
-      \with { printPartCombineTexts = ##f } {
-	\new Voice = melody { \partcombine \melody \alto }
-      }
+      \set printPartCombineTexts = ##f
+      \new Voice = melody { \partcombine \melody \alto }
     >>
     %\new Lyrics \lyricsto "melody" { \words }
     \context Staff = bass {
@@ -345,6 +344,10 @@ harmony = {
     \context Staff=melody <<
        \set Staff.midiInstrument = "fiddle"
        r1 \melody
+     >>
+    \context Staff=melody <<
+       \set Staff.midiInstrument = "fiddle"
+       r1 \alto
      >>
     %\context Staff=chords <<
     %  \set Staff.midiInstrument = "pizzicato strings"
