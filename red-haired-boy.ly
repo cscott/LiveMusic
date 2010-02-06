@@ -53,33 +53,33 @@ melody = \transpose a g \relative a' {
   \key a \major
 
   \partial 8
-  a='8 |
+  a='16 fis |
   \mark\default % A part
   \repeat volta 2 {
-    e='16 a a gis a b cis d |
-    e=''16 fis e cis d8 cis16 d |
+    e='8 a a16 b cis d |
+    e=''16 fis e cis d8 cis16( d) |
     e=''16 d cis b a b cis a |
-    b='16 g e fis g8 fis |
+    b='16 a e fis g8. fis16 |
 
-    e='16 a a gis a b cis d |
+    e='8[ a] a16 b cis d |
     e=''16 fis e cis d8 cis16 d |
-    e=''16[ a a b] a gis e d |
+    e=''8 a16( gis) a fis e d |
   }
   \alternative {
-    { cis=''8[ a a] a8 | }
+    { cis=''8[ a a8.] a16 | }
     { cis=''8[ a a] e'=''16 fis | }
   }
 
   \mark\default % B part
   \repeat volta 2 {
-    g=''16 g fis g e8 fis16 g |
-    a=''16 g fis e d8 cis16 d |
+    g=''16 fis e fis g fis e fis |
+    g=''16 fis e cis d8 cis16( d) |
     e=''16 d cis b a b cis a |
-    b='16 g e fis g8 fis |
+    b='16 a e fis g8. fis16 |
 
-    e='16 a a gis a b cis d |
+    e='8[ a] a16 b cis d |
     e=''16 fis e cis d8 cis16 d |
-    e=''16[ a a b] a gis e d |
+    e=''8 a16( gis) a fis e d |
   }
   \alternative {
     { cis=''8[ a a] e'=''16 fis | }
@@ -101,23 +101,23 @@ alto = \transpose a g \relative a {
     cis='8 cis cis16 e a b |
     cis=''16 d cis a fis4 |
     cis='8 e cis a' |
-    g='8 e e d |
+    g='8 e e8. d16 |
 
     cis='8 cis16 b cis16 e a b |
     cis=''16 d cis a fis8 a |
     d=''8. d16 b8 gis16 fis |
   }
   \alternative {
-    { e='8[ cis cis] a | }
+    { e='8[ cis cis8.] a16 | }
     { e'='8[ cis cis] gis'16 a | }
   }
 
   \mark\default % B part
   \repeat volta 2 {
-    b='16 b a b g8 a16 b |
-    fis='8 a16 g fis8 e16 fis |
+    b='16 a g a b a g a |
+    b='8 a16 g fis8 e16 fis |
     e='4 cis8 e |
-    g='8 e e d |
+    g='8 e e8. d16 |
 
     cis='8 cis16 b cis16 e a b |
     cis=''8 cis16 a fis8 a |
@@ -130,6 +130,7 @@ alto = \transpose a g \relative a {
   \bar "|."
 }
 
+% Alternate melody; for reference only (not printed).
 melodyB = \transpose a g \relative a' {
   \set Score.markFormatter = #format-mark-box-letters
   \time 2/4
@@ -232,12 +233,12 @@ harmonies = \transpose a g \chordmode {
          \set chordChanges = ##t
          << \harmonies \linebreaks >>
     }
-    \new Staff <<
-      \set Staff.instrumentName = "Melody 2"
-      \set Staff.shortInstrumentName = "Mel.2"
-      \set Staff.printPartCombineTexts = ##f
-      \melodyB
-    >>
+    %\new Staff <<
+    %  \set Staff.instrumentName = "Melody 2"
+    %  \set Staff.shortInstrumentName = "Mel.2"
+    %  \set Staff.printPartCombineTexts = ##f
+    %  \melodyB
+    %>>
     \new Staff <<
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
