@@ -71,6 +71,46 @@ melody = {
   \transpose c f \melodyFinal \bar "|."
 }
 
+altoCtagged = \relative c' {
+  \key c \minor
+
+  g=4 c=' ees c | c2 aes4 g | ees'2 d2 | g,2. r4 |
+  bes=4 ees g g | aes2 g4 f | ees1 | f2 g2 | \break
+
+  \repeat volta 2 {
+    g='4 g ees2 | r4 c4 g g= | c='4 aes f'2 ~ | f4 r4 f f |
+    ees='2 c4 c | \tag #'notfinal { d2 b2 | }
+  }
+  \alternative {
+    { \tag #'final { d2 b2 | }
+      c='1 | f2 g2 |
+      \tag #'final { \break } }
+    { \tag #'final { d4 f g g | g1 ~ | g1 ~ | g1 ~ | g2 ~ g4-. r | }
+      \tag #'notfinal { c,1 ~ | c4 r4 r2 | }
+    }
+  }
+}
+altoC = {
+  \keepWithTag #'notfinal \altoCtagged \break
+}
+altoFinal = {
+  \keepWithTag #'final \altoCtagged \break
+}
+
+alto = {
+  \set Score.markFormatter = #format-mark-box-letters
+  %\clef "treble"
+  \time 4/4
+  \tempo "Two step" 4 = 165
+
+  \mark \default % A part
+  \altoC \bar ":|" \break
+  \mark \default % B part
+  \transpose c d \altoC \bar "||" \break
+  \mark \default % C part
+  \transpose c f \altoFinal \bar "|."
+}
+
 bassCtagged = \relative c, {
   \key c \minor
   c=,4 r g' r |
@@ -171,12 +211,15 @@ harmony = {
          \set chordChanges = ##t
          \harmony
     }
-    \context Staff = melody {
+    \context Staff = melody <<
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
       %\set Staff.voltaSpannerDuration = #(ly:make-moment 3 4)
-      \clef "treble" \melody
-    }
+      \clef "treble"
+      \with { printPartCombineTexts = ##f } {
+	\new Voice = melody { \partcombine \melody \alto }
+      }
+    >>
     %\new Lyrics \lyricsto "melody" { \words }
     \context Staff = bass {
       \set Staff.instrumentName = "Bass"
@@ -196,7 +239,10 @@ harmony = {
     \context Staff = clarinetA {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \clef "treble" \transpose bes c' \melody
+      \clef "treble" \transpose bes c' <<
+	\new Voice = melody { \voiceOne \melody }
+	\new Voice = alto { \small \voiceTwo \alto }
+      >>
     }
     \context Staff = clarinetB {
       \set Staff.instrumentName = "Bass"
@@ -216,7 +262,10 @@ harmony = {
     \context Staff = saxA {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \clef "treble" \transpose ees c' \melody
+      \clef "treble" \transpose ees c' <<
+	\new Voice = melody { \voiceOne \melody }
+	\new Voice = alto { \small \voiceTwo \alto }
+      >>
     }
     \context Staff = saxB {
       \set Staff.instrumentName = "Bass"
@@ -240,7 +289,10 @@ harmony = {
     \context Staff = fluteA {
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \clef "treble" \transpose c c' \melody
+      \clef "treble" \transpose c c' <<
+	\new Voice = melody { \voiceOne \melody }
+	\new Voice = alto { \small \voiceTwo \alto }
+      >>
     }
     \context Staff = bass {
       \set Staff.instrumentName = "Bass"
