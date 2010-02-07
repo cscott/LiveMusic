@@ -13,7 +13,7 @@
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
   ragged-bottom = ##t
-  oddFooterMarkup = \markup { \fill-line { Uploaded 2010-02-05 22:03 } }
+  oddFooterMarkup = \markup { \fill-line { Uploaded 2010-02-07 12:32 } }
 }
 
 linebreaks = {
@@ -37,8 +37,9 @@ linebreaks = {
     { s1 \break }
   }
 }
+
 melody = \transpose e g \relative c' {
-  \clef "treble"
+  %\clef "treble"
   \time 4/4
   \key e \major
 
@@ -76,6 +77,54 @@ melody = \transpose e g \relative c' {
   fis='4.( e8 ~ e2) |
   r1 | r1\fermata | \bar "|."
 }
+
+bass = \transpose e g \relative c, {
+  %\clef "bass"
+  \key e \major
+  \time 4/4
+
+  <e>8 <e>4 b'8 <e,>2 |
+  b'4. b8 b2 |
+  a8 a8 a8 <e>8~ <e>8 b'8 e,4 |
+  a8 a8 a8 b8~ b8 b8 \bar "||" b,4
+
+  %% \partial 4
+  %% b4 |
+
+  \repeat volta 2 {
+    %% Verse
+    e8 e4 e8 gis4 r4 |
+    a8 b4 cis8~ cis2 |
+    fis,8 fis4 fis8 a2 |
+    d8 d4 a8~ a2 |
+
+    e4. e8 gis4 r4 |
+    a8 b4 cis8~ cis2 |
+    fis,4. b8~ b8 b4 e,8 ~ |
+    e4 r4 r2 |
+
+    %% Chorus
+    cis'4. cis8 cis2 |
+    a4. a8 a2 |
+    cis4. cis8 cis2 |
+    a8 a4 e8 a2 |
+
+    <e>8 <e>4 b'8 <e,>2 |
+    b'4. b8 b4. b8 |
+    a8 a8 a8 e8~ e8 e8 e4 |
+  }
+  \alternative {
+    { a8 a8 a8 b8~ b2 | }
+    { a8 a8 a8 b8~ b2 | }
+  }
+
+  <e>8 <e>4 b'8 <e,>2 |
+  b'4. b8 b4. b8 |
+  a8 a8 a8 e8~ e8 e8 e4 |
+  a,8 a8 a8 b8~ b2 |
+  <e,>1\fermata |
+}
+
 harmony = \transpose e g \chordmode {
   \chordProperties
   e4 e e e | b4:7 b:7 b:7 b:7 | a4. e4. e4 | a4. a4./b a4/b |
@@ -266,15 +315,51 @@ lower = \transpose e g \relative c, {
       \context Voice = melody \transpose ees c \melody
       \context Voice \linebreaks
     >>
-    \new Lyrics \lyricsto "melody" { \words }
-    %\context Staff = saxB {
-    %  \set Staff.instrumentName = "Bass"
-    %  \set Staff.shortInstrumentName = "Bas."
-    %  \transpose ees c'' \bass
-    %}
+    %\new Lyrics \lyricsto "melody" { \words }
+    \context Staff = saxB {
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \transpose ees c'' \bass
+    }
   >>
   \header {
     instrument = "Saxophone (Eb)"
+    breakbefore=##t
+  }
+}
+
+% cello score (octave-shifted)
+\score {
+  <<
+%{
+    \context ChordNames {
+         \set chordChanges = ##t
+         \harmony
+    }
+%}
+    \context Staff = celloA {
+      \set Staff.instrumentName = "Melody"
+      \set Staff.shortInstrumentName = "Mel."
+      \context Voice = melody {
+	\clef "bass" \transpose c c, \melody  % 1 octave down
+      }
+    }
+    %\new Lyrics \lyricsto "melody" { \words }
+%{
+    \context Staff = celloB {
+      \set Staff.instrumentName = "Harmony"
+      \set Staff.shortInstrumentName = "Har."
+      \transpose c c,, << \clef bass \alternate >> % 2 octaves down
+    }
+%}
+    \context Staff = celloC {
+      \set Staff.instrumentName = "Bass"
+      \set Staff.shortInstrumentName = "Bas."
+      \clef bass \bass
+    }
+  >>
+  \header {
+    instrument = "Cello"
     breakbefore=##t
   }
 }
