@@ -13,7 +13,7 @@
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
   ragged-bottom = ##t
-  oddFooterMarkup = \markup { \fill-line { Uploaded 2010-02-07 12:32 } }
+  oddFooterMarkup = \markup { \fill-line { Uploaded 2010-02-13 15:48 } }
 }
 
 linebreaks = {
@@ -312,7 +312,7 @@ lower = \transpose e g \relative c, {
     \context Staff = saxA <<
       \set Staff.instrumentName = "Melody"
       \set Staff.shortInstrumentName = "Mel."
-      \context Voice = melody \transpose ees c \melody
+      \context Voice = melody \transpose ees c' \melody
       \context Voice \linebreaks
     >>
     %\new Lyrics \lyricsto "melody" { \words }
