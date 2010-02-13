@@ -19,7 +19,7 @@
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
   ragged-bottom = ##t
-  oddFooterMarkup = \markup { \fill-line { Uploaded 2010-02-06 11:12 } }
+  oddFooterMarkup = \markup { \fill-line { Uploaded 2010-02-13 15:38 } }
 }
 
 linebreaks = {
@@ -174,7 +174,7 @@ melodyB = \transpose a g \relative a' {
   \bar "|."
 }
 
-bass = \transpose a g \relative c, {
+bassTagged = \transpose a g \relative c, {
   \time 2/4
   \tempo 4=120
 
@@ -191,7 +191,7 @@ bass = \transpose a g \relative c, {
   }
 
   \repeat volta 2 {
-    e,=,,4 b' | e, d | e a | e b' | a=,, e' | a, d | e e, |
+    e,=,,4 b' | e, \tag #'sax d' \tag #'nosax d, | e a | e b' | a=,, e' | a, d | e e, |
   }
   \alternative {
     { a=,,4 e' }
@@ -199,6 +199,8 @@ bass = \transpose a g \relative c, {
   }
   \bar "|."
 }
+bass = \removeWithTag #'sax \bassTagged
+basssax = \removeWithTag #'nosax \bassTagged
 
 harmonies = \transpose a g \chordmode {
   \set Score.markFormatter = #format-mark-box-letters
@@ -317,7 +319,7 @@ harmonies = \transpose a g \chordmode {
     \context Staff = saxophoneC {
       \set Staff.instrumentName = "Bass"
       \set Staff.shortInstrumentName = "Bas."
-      \transpose ees c''' \bass
+      \transpose ees c''' \basssax
     }
   >>
   \header {
