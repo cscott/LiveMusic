@@ -16,7 +16,7 @@
   scoreTitleMarkup = \bookTitleMarkup
   bookTitleMarkup = \markup {}
   ragged-bottom = ##t
-  oddFooterMarkup = \markup { \fill-line { 2010-02-04 } }
+  oddFooterMarkup = \markup { \fill-line { Uploaded 2010-02-13 15:40 } }
 }
 
 % melody in bill's sheet music.  the range is a bit much
@@ -428,7 +428,7 @@ bass = \transpose c c, { \removeWithTag #'g \guitarA }
     \new Staff <<
       \set Staff.instrumentName = "Harmony"
       \set Staff.shortInstrumentName = "Har."
-      \transpose c c,, { \clef bass \alternate } % 2 octaves down
+      \transpose c c, { \clef bass \alternate } % 1 octaves down
     >>
     \new Staff <<
       \set Staff.instrumentName = "Bass"
