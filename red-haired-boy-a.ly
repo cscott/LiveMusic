@@ -1,6 +1,6 @@
 \version "2.12.0"
 \header {
-  title = "Red-Haired Boy (in G)"
+  title = "Red-Haired Boy (in A)"
   piece = "Traditional"
   mutopiatitle = "Red-Haired Boy"
   mutopiacomposer = "Traditional"
@@ -45,7 +45,7 @@ linebreaks = {
   }
 }
 
-melody = \transpose a g \relative a' {
+melody = \relative a' {
   \set Score.markFormatter = #format-mark-box-letters
   \time 2/4
   \tempo 4=120
@@ -88,7 +88,7 @@ melody = \transpose a g \relative a' {
   \bar "|."
 }
 
-alto = \transpose a g \relative a {
+alto = \relative a {
   \time 2/4
   \tempo 4=120
 
@@ -131,7 +131,7 @@ alto = \transpose a g \relative a {
 }
 
 % Alternate melody; for reference only (not printed).
-melodyB = \transpose a g \relative a' {
+melodyB = \relative a' {
   \set Score.markFormatter = #format-mark-box-letters
   \time 2/4
   \tempo 4=120
@@ -174,7 +174,7 @@ melodyB = \transpose a g \relative a' {
   \bar "|."
 }
 
-bassTagged = \transpose a g \relative c, {
+bassTagged = \relative c, {
   \time 2/4
   \tempo 4=120
 
@@ -202,7 +202,7 @@ bassTagged = \transpose a g \relative c, {
 bass = \removeWithTag #'sax \bassTagged
 basssax = \removeWithTag #'nosax \bassTagged
 
-harmonies = \transpose a g \chordmode {
+harmonies = \chordmode {
   \set Score.markFormatter = #format-mark-box-letters
   \time 2/4
 
