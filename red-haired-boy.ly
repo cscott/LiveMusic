@@ -50,7 +50,7 @@ melody = \transpose a g \relative a' {
   \time 2/4
   \tempo 4=120
 
-  \key a \major
+  \key d \major
 
   \partial 8
   a='16 fis |
@@ -92,7 +92,7 @@ alto = \transpose a g \relative a {
   \time 2/4
   \tempo 4=120
 
-  \key a \major
+  \key d \major
 
   \partial 8
   a=8 |
@@ -136,7 +136,7 @@ melodyB = \transpose a g \relative a' {
   \time 2/4
   \tempo 4=120
 
-  \key a \major
+  \key d \major
 
   \partial 8
   a='16 fis |
@@ -178,7 +178,7 @@ bassTagged = \transpose a g \relative c, {
   \time 2/4
   \tempo 4=120
 
-  \key a \major
+  \key d \major
 
   \partial 8
   r8 |
